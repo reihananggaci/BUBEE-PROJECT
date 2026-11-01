@@ -3,1036 +3,1122 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulasi & Animasi Lengkap Reviewer Aplikasi Bubee (25 Fitur)</title>
-  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <title>Bubee • Grosir & Retail Botol Minum Kekinian</title>
+  <link rel="icon" href="./images/logo-bubee.png">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bubee: {
+              50: '#EEF4FF',
+              100: '#D8E6FF',
+              600: '#1D4ED8',
+              800: '#0B2A6B',
+              900: '#0A357A'
+            }
+          },
+          boxShadow: {
+            card: '0 8px 24px rgba(15,23,42,.08)',
+            elevated: '0 20px 40px -15px rgba(11,42,107,0.15)'
+          }
+        }
+      }
+    };
+  </script>
   <style>
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(29, 78, 216, 0.4); }
-      50% { box-shadow: 0 0 25px rgba(56, 189, 248, 0.8); }
+    :root {
+      --bubee-900: #0A357A;
+      --bubee-600: #1D4ED8;
+      --line: #e8edf5;
     }
-    @keyframes cursorClick {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.85); }
-      100% { transform: scale(1); }
+    * { -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(1200px 400px at 50% -120px, #dbe7ff 0%, #eef2f7 55%, #eef2f7 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #0f172a;
     }
-    .virtual-cursor {
-      transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-      pointer-events: none;
-      z-index: 999;
+    .whdr {
+      background: linear-gradient(120deg, #07193F 0%, #0B2A6B 45%, #1D4ED8 100%);
+      box-shadow: 0 4px 20px rgba(10,53,122,.35);
     }
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
+    .webnav a {
+      font-size: 13px;
+      font-weight: 800;
+      color: #dbe7ff;
+      text-decoration: none;
+      padding: 8px 16px;
       border-radius: 9999px;
+      transition: all 0.2s;
     }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
+    .webnav a:hover {
+      background: rgba(255,255,255,.16);
+      color: #fff;
+    }
+    .webnav a.active {
+      background: #fff;
+      color: #0B2A6B;
+      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+    .price-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(90deg, #0B2A6B, #1D4ED8);
+      border-radius: 14px;
+      transition: filter 0.2s, transform 0.15s;
+    }
+    .price-btn:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
     }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-3 md:p-6 antialiased font-sans">
+<body class="flex flex-col min-h-screen">
 
-  <!-- Header Atas: Branding & Navigasi Reviewer -->
-  <header class="max-w-7xl mx-auto mb-5 border-b border-slate-800 pb-4">
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-2.5">
-          <span class="text-3xl">🐝</span>
-          <div>
-            <h1 class="text-lg md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-              Walkthrough & Review Animasi Interaktif Bubee
-              <span class="text-xs bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                25 FITUR LENGKAP
-              </span>
-            </h1>
-            <p class="text-slate-400 text-xs md:text-sm mt-0.5">
-              Simulasi hands-on pengalaman reviewer menguji setiap fitur secara detail (Reguler, Reseller, dan Admin) tanpa mengubah project.
-            </p>
-          </div>
-        </div>
+  <!-- TOP BAR & ROLE SWITCHER QUICK BAR -->
+  <div class="bg-slate-950 text-white text-[11px] px-4 py-2 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-bold text-slate-300">Aplikasi Bubee Live Server</span>
+        <span class="text-slate-500">•</span>
+        <span class="text-slate-400">Pusat Grosir & Dropship Tumbler No. 1</span>
       </div>
-
-      <!-- Kontrol Putar Animasi & Status -->
-      <div class="flex flex-wrap items-center gap-2">
-        <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-1 gap-1">
-          <button id="btn-toggle-play" onclick="togglePlay()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 font-extrabold text-xs text-white shadow transition active:scale-95">
-            <span id="play-icon">⏸️</span> <span id="play-text">Jeda Animasi</span>
-          </button>
-          <button onclick="prevStep()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300" title="Langkah Sebelumnya">⏮️</button>
-          <button onclick="nextStep()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300" title="Langkah Selanjutnya">⏭️</button>
-        </div>
-
-        <!-- Pilihan Kecepatan -->
-        <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl px-2 py-1 text-xs gap-1.5">
-          <span class="text-slate-400 text-[11px] font-bold">Kecepatan:</span>
-          <button onclick="setSpeed(1)" id="spd-1" class="px-2 py-0.5 rounded font-mono font-bold bg-blue-600 text-white">1x</button>
-          <button onclick="setSpeed(1.5)" id="spd-15" class="px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-300">1.5x</button>
-          <button onclick="setSpeed(2)" id="spd-2" class="px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-300">2x</button>
-        </div>
+      
+      <!-- Cepat Ganti Peran (Reguler / Reseller / Admin) -->
+      <div class="flex items-center gap-1.5 font-bold">
+        <span class="text-slate-400 text-[10px] uppercase tracking-wider mr-1">Mode Akun:</span>
+        <button onclick="setRole('guest')" id="btn-role-guest" class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] shadow">🔒 Tamu</button>
+        <button onclick="setRole('reguler')" id="btn-role-reguler" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white text-[10px]">🙋 Reguler</button>
+        <button onclick="setRole('reseller')" id="btn-role-reseller" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white text-[10px]">🏪 Reseller</button>
+        <button onclick="setRole('admin')" id="btn-role-admin" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white text-[10px]">👑 Admin</button>
       </div>
     </div>
+  </div>
 
-    <!-- Filter Role Tabs (Semua / Reguler / Reseller / Admin) -->
-    <div class="mt-4 flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800/60">
-      <div class="flex flex-wrap gap-1.5 text-xs font-bold">
-        <button onclick="filterCategory('all')" id="tab-all" class="tab-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white shadow">
-          ⭐ SEMUA FITUR (25)
-        </button>
-        <button onclick="filterCategory('reguler')" id="tab-reguler" class="tab-btn px-3 py-1.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800">
-          🙋 REGULER (10 Fitur)
-        </button>
-        <button onclick="filterCategory('reseller')" id="tab-reseller" class="tab-btn px-3 py-1.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800">
-          🏪 RESELLER (6 Fitur)
-        </button>
-        <button onclick="filterCategory('admin')" id="tab-admin" class="tab-btn px-3 py-1.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800">
-          👑 ADMIN (9 Fitur)
-        </button>
+  <!-- MAIN HEADER / NAVBAR BUBEE -->
+  <header class="whdr sticky top-0 z-40 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Name -->
+      <a href="javascript:showPage('home')" class="flex items-center gap-2.5 group">
+        <img src="./images/logo-bubee.png" alt="Bubee" class="w-10 h-10 rounded-xl bg-white p-0.5 shadow-md group-hover:scale-105 transition" onerror="this.onerror=null; this.src='https://placehold.co/80x80/0A357A/FFF?text=BUBEE';">
+        <div>
+          <span class="font-black text-lg md:text-xl tracking-wider text-white">BUBEE</span>
+          <span class="hidden sm:inline-block text-[10px] text-amber-300 font-extrabold ml-1.5 px-2 py-0.5 rounded bg-white/10 uppercase tracking-widest">DRINKWARE</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-1 webnav">
+        <a href="javascript:showPage('home')" id="nav-home" class="active">Beranda</a>
+        <a href="javascript:showPage('katalog')" id="nav-katalog">Katalog Produk</a>
+        <a href="javascript:showPage('cart')" id="nav-cart" class="relative">
+          Keranjang
+          <span id="badge-cart-count" class="ml-1 px-1.5 py-0.2 bg-amber-400 text-slate-950 rounded-full text-[10px] font-black">0</span>
+        </a>
+        <a href="javascript:showPage('orders')" id="nav-orders">Pesanan Saya</a>
+        <a href="javascript:showPage('reseller-etalase')" id="nav-reseller" class="hidden text-amber-300 font-extrabold">★ Etalase Reseller</a>
+        <a href="javascript:showPage('admin')" id="nav-admin" class="hidden text-red-300 font-extrabold">👑 Panel Admin</a>
+      </nav>
+
+      <!-- User Profile / Login Action -->
+      <div class="flex items-center gap-2">
+        <div id="user-profile-box" class="flex items-center gap-2">
+          <!-- Dynamic User Info diisi JS -->
+        </div>
       </div>
 
-      <!-- Quick Search Feature -->
-      <div class="relative w-full sm:w-64">
-        <input type="text" id="feature-search" oninput="onSearchFeature(this.value)" placeholder="Cari fitur (misal: KTP, dropship, resi)..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500">
-      </div>
-    </div>
-
-    <!-- Step Pills Bar Horizontal -->
-    <div id="step-pills-container" class="mt-3 flex gap-1.5 overflow-x-auto pb-2 text-[11px] font-semibold">
-      <!-- Diisi otomatis oleh JavaScript -->
     </div>
   </header>
 
-  <!-- Layout Utama: HP Mockup di Kiri + Reviewer Evaluation & Voiceover di Kanan -->
-  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-    
-    <!-- KOLOM KIRI: Mockup Smartphone Android (5 Kolom di Layar Lebar) -->
-    <div class="lg:col-span-5 flex flex-col items-center">
-      <div class="w-[330px] sm:w-[350px] h-[670px] bg-slate-900 rounded-[3rem] p-3 shadow-2xl border-4 border-slate-800 relative overflow-hidden flex flex-col" style="box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px rgba(37, 99, 235, 0.25);">
-        
-        <!-- Notch / Camera & Speaker HP -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-36 h-5 bg-slate-950 rounded-b-2xl z-50 flex items-center justify-center gap-2">
-          <div class="w-10 h-1 bg-slate-800 rounded-full"></div>
-          <div class="w-2.5 h-2.5 bg-slate-900 rounded-full border border-slate-800"></div>
+  <!-- DYNAMIC RESELLER BANNER (JIKA LOGIN RESELLER) -->
+  <div id="banner-reseller" class="hidden bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 text-slate-950 px-4 py-2.5 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 font-bold">
+        <span class="text-base">🎉</span>
+        <span><b>Harga Reseller Aktif!</b> Nikmati harga modal khusus mitra <b>mulai dari 1 pcs</b> (tanpa minimal belanja).</span>
+      </div>
+      <button onclick="showPage('reseller-etalase')" class="px-3 py-1 bg-slate-950 text-amber-300 rounded-lg font-black text-[11px] shadow hover:bg-slate-900">
+        Buka Etalase Modal & Cuan →
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- ======================================================== -->
+    <!-- HALAMAN 1: BERANDA & KATALOG PRODUK -->
+    <!-- ======================================================== -->
+    <section id="page-home" class="space-y-6">
+      
+      <!-- HERO BANNER BUBEE -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#07193F] via-[#0B2A6B] to-[#1D4ED8] text-white p-6 md:p-10 shadow-elevated">
+        <div class="relative z-10 max-w-2xl space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-extrabold border border-white/10 backdrop-blur-sm">
+            <span>✨ Koleksi Terbaru 2026</span>
+          </div>
+          <h1 class="text-2xl md:text-4xl font-black tracking-tight leading-tight">
+            Pusat Grosir & Retail Botol Minum, Tumbler Kekinian Kualitas Terbaik
+          </h1>
+          <p class="text-blue-100 text-xs md:text-sm leading-relaxed">
+            Tersedia ratusan model tumbler stainless steel SUS 304, botol anak karakter, dan vacuum flask. Dukungan dropship otomatis tanpa minimal belanja.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-2.5">
+            <button onclick="filterCategory('all')" class="px-5 py-2.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl text-xs shadow-lg transition">
+              Jelajahi Produk Sekarang 🛒
+            </button>
+            <button onclick="openLoginModal()" class="px-5 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-extrabold rounded-xl text-xs transition">
+              Masuk / Ganti Akun 🔑
+            </button>
+          </div>
+        </div>
+        <div class="absolute -right-10 -bottom-10 opacity-20 text-[200px] pointer-events-none select-none">
+          🍶
+        </div>
+      </div>
+
+      <!-- FILTER KATEGORI & PENCARIAN -->
+      <div class="bg-white rounded-2xl p-4 shadow-card border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 text-xs font-bold">
+          <button onclick="filterCategory('all')" id="cat-all" class="cat-pill px-4 py-2 rounded-xl bg-blue-600 text-white shadow">Semua</button>
+          <button onclick="filterCategory('tumbler')" id="cat-tumbler" class="cat-pill px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">🍶 Tumbler</button>
+          <button onclick="filterCategory('anak')" id="cat-anak" class="cat-pill px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">🍼 Botol Anak</button>
+          <button onclick="filterCategory('mug')" id="cat-mug" class="cat-pill px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">☕ Coffee Mug</button>
         </div>
 
-        <!-- Virtual Cursor Animasi -->
-        <div id="cursor" class="virtual-cursor absolute w-8 h-8 pointer-events-none drop-shadow-2xl" style="top: 250px; left: 160px;">
-          <svg viewBox="0 0 24 24" fill="none" class="w-full h-full text-amber-300 drop-shadow">
-            <path d="M5.5 3.2L18.5 12L12 13.5L15 20.5L12 21.8L9 14.8L5.5 18V3.2Z" fill="#F59E0B" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
+        <div class="w-full md:w-72">
+          <input type="text" id="search-input" oninput="searchProducts(this.value)" placeholder="Cari nama botol / kode..." class="w-full px-4 py-2 text-xs border border-slate-200 rounded-xl focus:border-blue-600 focus:outline-none">
+        </div>
+      </div>
+
+      <!-- GRID PRODUK -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
+            <span>Daftar Produk Unggulan</span>
+            <span id="product-count-label" class="text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full font-bold">6 Produk</span>
+          </h2>
+          <div class="text-xs text-slate-500">
+            Status: <span id="label-role-status" class="font-bold text-blue-700">Tamu (Harga Terkunci)</span>
+          </div>
         </div>
 
-        <!-- Layar Dalam HP -->
-        <div class="w-full h-full bg-slate-50 rounded-[2.3rem] overflow-hidden flex flex-col relative text-slate-800 select-none">
+        <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <!-- Diisi otomatis oleh JavaScript -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- HALAMAN 2: KERANJANG BELANJA (CART) -->
+    <!-- ======================================================== -->
+    <section id="page-cart" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-black text-slate-900">Keranjang Belanja 🛒</h2>
+        <button onclick="showPage('home')" class="text-xs font-bold text-blue-600 hover:underline">← Lanjut Belanja</button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div id="cart-items-container" class="lg:col-span-8 space-y-3">
+          <!-- Item Keranjang diisi JS -->
+        </div>
+
+        <!-- Ringkasan Checkout Box -->
+        <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-4">
+          <h3 class="text-sm font-black text-slate-900 border-b border-slate-100 pb-2">Ringkasan Belanja</h3>
           
-          <!-- Topbar Simulasi HP -->
-          <div id="sim-topbar" class="px-4 pt-6 pb-2.5 text-white flex items-center justify-between transition-colors duration-300" style="background: linear-gradient(135deg, #071739, #0D2B66);">
-            <div class="flex items-center gap-2">
-              <div class="w-6 h-6 rounded-lg bg-white p-0.5 shadow flex items-center justify-center text-xs">🐝</div>
-              <div id="sim-topbar-title" class="font-extrabold text-xs tracking-wider">BUBEE STORE</div>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between text-slate-500">
+              <span>Total Item</span>
+              <span id="cart-summary-items" class="font-bold text-slate-800">0 pcs</span>
             </div>
-            <div id="sim-badge-role" class="text-[9px] font-black px-2 py-0.5 rounded-full bg-white/20 uppercase tracking-wider">
-              MEMUAT...
+            <div class="flex justify-between text-slate-500">
+              <span>Subtotal Produk</span>
+              <span id="cart-summary-subtotal" class="font-bold text-slate-800">Rp 0</span>
+            </div>
+            <div class="flex justify-between text-slate-500">
+              <span>Estimasi Berat</span>
+              <span id="cart-summary-weight" class="font-bold text-slate-800">0 gram</span>
+            </div>
+            <div class="border-t border-slate-100 pt-2 flex justify-between font-black text-slate-900 text-sm">
+              <span>Total Harga</span>
+              <span id="cart-summary-total" class="text-blue-700 font-extrabold text-base">Rp 0</span>
             </div>
           </div>
 
-          <!-- Konten Layar HP Dinamis -->
-          <div id="sim-content" class="flex-1 overflow-y-auto relative">
-            <!-- Konten diinjeksi via JavaScript -->
-          </div>
-
-          <!-- Bottom Nav HP -->
-          <div id="sim-bottomnav" class="bg-white/95 border-t border-slate-200 px-4 py-2 flex items-center justify-around text-[10px] font-bold text-slate-500">
-            <div class="flex flex-col items-center text-blue-600"><span>🏠</span><span>Home</span></div>
-            <div class="flex flex-col items-center"><span>🛍️</span><span>Produk</span></div>
-            <div class="flex flex-col items-center"><span>🛒</span><span>Keranjang</span></div>
-            <div class="flex flex-col items-center"><span>👤</span><span>Akun</span></div>
-          </div>
-
+          <button onclick="showPage('checkout')" id="btn-to-checkout" class="w-full py-3 bg-gradient-to-r from-blue-900 to-blue-600 text-white font-black text-xs rounded-xl shadow hover:filter hover:brightness-110 transition flex items-center justify-center gap-2">
+            <span>LANJUT KE CHECKOUT</span> <span>→</span>
+          </button>
         </div>
       </div>
-      
-      <!-- Indikator Layar di Bawah HP -->
-      <div class="mt-3 text-center text-xs text-slate-400 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-        <span>Layar Simulasi Aktif • Android Capacitor View</span>
-      </div>
-    </div>
+    </section>
 
-    <!-- KOLOM KANAN: Reviewer Hands-on & Detail Evaluasi Fitur (7 Kolom) -->
-    <div class="lg:col-span-7 space-y-4">
-      
-      <!-- Kartu Reviewer Voiceover / Commentary -->
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 md:p-6 shadow-2xl relative overflow-hidden">
+    <!-- ======================================================== -->
+    <!-- HALAMAN 3: CHECKOUT & ONGKIR -->
+    <!-- ======================================================== -->
+    <section id="page-checkout" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-black text-slate-900">Checkout Pengiriman 🚚</h2>
+        <button onclick="showPage('cart')" class="text-xs font-bold text-blue-600 hover:underline">← Kembali ke Keranjang</button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Header Reviewer -->
-        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3 mb-4">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-xl shadow-lg">
-              🎙️
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="text-xs font-black text-amber-400 uppercase tracking-wider">REVIEWER HANDS-ON</span>
-                <span id="card-role-badge" class="px-2 py-0.5 rounded text-[10px] font-extrabold bg-blue-600 text-white">
-                  REGULER
-                </span>
+        <div class="lg:col-span-8 space-y-4">
+          <!-- Alamat Tujuan -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-3">
+            <h3 class="text-xs font-black text-slate-900 flex items-center gap-2">
+              <span>📍 ALAMAT PENGIRIMAN</span>
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div>
+                <label class="font-bold text-slate-600">Nama Penerima:</label>
+                <input type="text" id="chk-nama" value="Budi Santoso" class="w-full p-2 border border-slate-200 rounded-xl mt-1 text-slate-800 font-semibold">
               </div>
-              <h2 id="card-feature-title" class="text-base md:text-lg font-black text-white mt-0.5">
-                1. Splash Screen & Brand Identity Bubee
-              </h2>
+              <div>
+                <label class="font-bold text-slate-600">Nomor WhatsApp / HP:</label>
+                <input type="text" id="chk-hp" value="0812-3456-7890" class="w-full p-2 border border-slate-200 rounded-xl mt-1 text-slate-800 font-semibold">
+              </div>
+              <div class="sm:col-span-2">
+                <label class="font-bold text-slate-600">Alamat Lengkap (Jalan, RT/RW, Kelurahan, Kecamatan):</label>
+                <textarea id="chk-alamat" class="w-full p-2 border border-slate-200 rounded-xl mt-1 text-slate-800 font-semibold" rows="2">Jl. Melati No. 45, RT 03/RW 05, Duren Sawit, Jakarta Timur, DKI Jakarta</textarea>
+              </div>
             </div>
           </div>
 
-          <div class="flex items-center gap-2 bg-slate-950/60 px-3 py-1.5 rounded-xl border border-slate-800">
-            <span class="text-xs text-slate-400">Timer:</span>
-            <span id="countdown" class="font-mono font-bold text-amber-400 text-xs">5s</span>
+          <!-- Pilihan Kurir & Ekspedisi -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-3">
+            <h3 class="text-xs font-black text-slate-900">🚚 PILIH EKSPEDISI / KURIR:</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              <label class="border-2 border-blue-600 bg-blue-50/50 p-3 rounded-xl cursor-pointer flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-black text-blue-900 text-xs">J&T Express</span>
+                  <input type="radio" name="kurir" checked onchange="setKurir(18000)" class="accent-blue-600">
+                </div>
+                <div class="text-xs font-extrabold text-blue-700 mt-2">Rp 18.000</div>
+                <div class="text-[10px] text-slate-500">Estimasi 1-2 hari</div>
+              </label>
+
+              <label class="border border-slate-200 bg-slate-50 p-3 rounded-xl cursor-pointer flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-700 text-xs">JNE Reguler</span>
+                  <input type="radio" name="kurir" onchange="setKurir(20000)" class="accent-blue-600">
+                </div>
+                <div class="text-xs font-bold text-slate-700 mt-2">Rp 20.000</div>
+                <div class="text-[10px] text-slate-500">Estimasi 2-3 hari</div>
+              </label>
+
+              <label class="border border-slate-200 bg-slate-50 p-3 rounded-xl cursor-pointer flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-slate-700 text-xs">SiCepat HALU</span>
+                  <input type="radio" name="kurir" onchange="setKurir(17000)" class="accent-blue-600">
+                </div>
+                <div class="text-xs font-bold text-slate-700 mt-2">Rp 17.000</div>
+                <div class="text-[10px] text-slate-500">Estimasi 2-4 hari</div>
+              </label>
+            </div>
           </div>
+
+          <!-- Opsi Dropship Reseller -->
+          <div class="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-4 border border-amber-300 space-y-2">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="chk-dropship" class="w-4 h-4 rounded accent-amber-500">
+              <span class="text-xs font-black text-amber-950">Kirim Sebagai Dropshipper (Nama Toko Kustom)</span>
+            </label>
+            <div id="box-dropship-fields" class="space-y-2 pt-2 text-xs">
+              <input type="text" placeholder="Nama Toko Pengirim (misal: Toko Botol Berkah)" class="w-full p-2 border border-amber-300 bg-white rounded-lg font-bold text-slate-800">
+              <input type="text" placeholder="No. WhatsApp Pengirim" class="w-full p-2 border border-amber-300 bg-white rounded-lg font-bold text-slate-800">
+            </div>
+          </div>
+
         </div>
 
-        <!-- Komentar Reviewer (Speech Bubble Style) -->
-        <div class="bg-blue-950/30 border border-blue-900/40 rounded-2xl p-4 text-slate-200 text-xs md:text-sm leading-relaxed space-y-2">
-          <div class="flex items-center gap-2 text-blue-400 font-extrabold text-[11px] uppercase tracking-wide">
-            <span>🗣️ Ulasan Langsung Reviewer:</span>
-          </div>
-          <p id="card-reviewer-voice" class="italic text-slate-200">
-            <!-- Reviewer Voiceover diinjeksi via JS -->
-          </p>
-        </div>
+        <!-- Kolom Ringkasan Tagihan & Buat Pesanan -->
+        <div class="lg:col-span-4 bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-4">
+          <h3 class="text-sm font-black text-slate-900 border-b border-slate-100 pb-2">Rincian Pembayaran</h3>
 
-        <!-- Analisis Nilai Bisnis & Insight Teknis -->
-        <div class="mt-4 bg-slate-950/50 rounded-2xl p-4 border border-slate-800/80 space-y-2">
-          <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs">
-            <span>💡</span> <span>Mengapa Fitur Ini Bagus untuk Bisnis Anda:</span>
+          <div class="space-y-2 text-xs">
+            <div class="flex justify-between text-slate-500">
+              <span>Total Harga Produk</span>
+              <span id="chk-total-produk" class="font-bold text-slate-800">Rp 0</span>
+            </div>
+            <div class="flex justify-between text-slate-500">
+              <span>Tarif Ongkos Kirim</span>
+              <span id="chk-ongkir" class="font-bold text-slate-800">Rp 18.000</span>
+            </div>
+            <div class="border-t border-slate-100 pt-2 flex justify-between font-black text-slate-900 text-sm">
+              <span>Total Tagihan</span>
+              <span id="chk-grand-total" class="text-blue-700 font-extrabold text-base">Rp 0</span>
+            </div>
           </div>
-          <p id="card-reviewer-insight" class="text-slate-300 text-xs leading-relaxed">
-            <!-- Insight diinjeksi via JS -->
-          </p>
-        </div>
 
-        <!-- Metadata & Skor Pengujian -->
-        <div class="mt-4 pt-3 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-          <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800/80">
-            <div class="text-[10px] text-slate-400 font-bold">Skor Pengujian:</div>
-            <div id="card-score" class="font-bold text-amber-400 text-xs mt-0.5">⭐⭐⭐⭐⭐ 5.0 / 5.0</div>
-          </div>
-          <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800/80">
-            <div class="text-[10px] text-slate-400 font-bold">File Template Acuan:</div>
-            <div id="card-file" class="font-mono text-cyan-400 text-[11px] truncate mt-0.5">splash.blade.php</div>
-          </div>
-          <div class="bg-slate-950 px-3 py-2 rounded-xl border border-slate-800/80">
-            <div class="text-[10px] text-slate-400 font-bold">Rute Sistem:</div>
-            <div id="card-route" class="font-mono text-purple-400 text-[11px] truncate mt-0.5">/splash</div>
-          </div>
+          <button onclick="buatPesanan()" class="w-full py-3 bg-gradient-to-r from-blue-900 to-blue-600 text-white font-black text-xs rounded-xl shadow-lg hover:filter hover:brightness-110 transition">
+            BUAT PESANAN SEKARANG ⚡
+          </button>
         </div>
 
       </div>
+    </section>
 
-      <!-- Ringkasan Keseluruhan Aplikasi Bubee -->
-      <div class="bg-gradient-to-r from-slate-900 to-blue-950/40 border border-slate-800 rounded-3xl p-5 text-xs text-slate-300 space-y-2.5">
-        <div class="font-black text-sm text-white flex items-center gap-2">
-          <span>🏆</span> <span>Rangkuman Ekosistem Aplikasi Bubee</span>
-        </div>
-        <p class="leading-relaxed text-slate-400">
-          Aplikasi Bubee berhasil menggabungkan 3 arsitektur bisnis dalam 1 platform terpadu:
-          <b class="text-blue-300">Retail Konsumen</b> dengan kalkulasi ongkir kurir real-time, 
-          <b class="text-amber-300">Mitra Reseller & Dropship</b> bebas minimal belanja mulai dari 1 pcs dengan harga modal terproteksi, serta 
-          <b class="text-red-300">Command Center Admin</b> berstandar enterprise yang mencakup stock opname fisik hingga ekspor laporan keuangan ke Excel.
-        </p>
+    <!-- ======================================================== -->
+    <!-- HALAMAN 4: PESANAN SAYA & TRACKING RESI -->
+    <!-- ======================================================== -->
+    <section id="page-orders" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-black text-slate-900">Pesanan Saya 📦</h2>
+        <button onclick="showPage('home')" class="text-xs font-bold text-blue-600 hover:underline">← Belanja Lagi</button>
       </div>
 
-    </div>
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+          <div>
+            <span class="text-xs text-slate-400 font-bold">Nomor Pesanan:</span>
+            <div class="text-sm font-black text-slate-900 font-mono">#ORD-88231</div>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-blue-100 text-blue-800">
+            🚚 SEDANG DIKIRIM (J&T EXPRESS)
+          </span>
+        </div>
+
+        <!-- Stepper Visual Status Pengiriman -->
+        <div class="space-y-3 py-2 text-xs">
+          <div class="flex items-center gap-3 text-emerald-600 font-bold">
+            <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center font-black">✓</span>
+            <span>Pembayaran Berhasil Dikonfirmasi Admin</span>
+          </div>
+          <div class="flex items-center gap-3 text-emerald-600 font-bold">
+            <span class="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center font-black">✓</span>
+            <span>Paket Telah Dikemas Rapi dengan Bubble Wrap di Gudang Bubee</span>
+          </div>
+          <div class="flex items-center gap-3 text-blue-700 font-black bg-blue-50 p-3 rounded-xl border border-blue-200">
+            <span class="text-lg">🚚</span>
+            <div>
+              <div>Paket Sedang Diantar Kurir J&T Express Menuju Alamat Anda</div>
+              <div class="text-[11px] font-mono text-blue-600 mt-0.5">Nomor Resi Pelacakan: <b>JT8829103</b></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-100 flex flex-wrap gap-2">
+          <button onclick="alert('Terima kasih! Pesanan telah selesai. Ulasan bintang 5 Anda sangat berarti bagi kami.')" class="px-4 py-2 bg-emerald-600 text-white font-extrabold text-xs rounded-xl shadow">
+            ✓ Konfirmasi Terima Barang
+          </button>
+          <button onclick="alert('Mengunduh Invoice PDF resmi Bubee #ORD-88231...')" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl border border-slate-200">
+            📄 Unduh Invoice Resmi
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- HALAMAN 5: ETALASE KHUSUS RESELLER -->
+    <!-- ======================================================== -->
+    <section id="page-reseller-etalase" class="hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-black text-slate-900">Etalase Modal Mitra Reseller 🏷️</h2>
+          <p class="text-xs text-slate-500">Perbandingan harga modal vs harga retail untuk menghitung margin keuntungan.</p>
+        </div>
+        <button onclick="showPage('home')" class="text-xs font-bold text-blue-600 hover:underline">← Ke Beranda</button>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-card border border-slate-100 overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-700 font-black uppercase text-[10px]">
+              <tr>
+                <th class="p-3">Produk</th>
+                <th class="p-3">Harga Modal Reseller</th>
+                <th class="p-3">Harga Retail Konsumen</th>
+                <th class="p-3">Margin Cuan (Laba Bersih)</th>
+                <th class="p-3 text-center">Aksi Beli</th>
+              </tr>
+            </thead>
+            <tbody id="reseller-table-body" class="divide-y divide-slate-100">
+              <!-- Diisi via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- HALAMAN 6: ADMIN COMMAND CENTER -->
+    <!-- ======================================================== -->
+    <section id="page-admin" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-black text-slate-900">👑 Admin Command Center</h2>
+          <p class="text-xs text-slate-500">Pusat kendali pesanan, verifikasi pembayaran, stok gudang, dan mitra.</p>
+        </div>
+        <button onclick="showPage('home')" class="text-xs font-bold text-blue-600 hover:underline">← Kembali ke Toko</button>
+      </div>
+
+      <!-- KPI METRICS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-gradient-to-r from-blue-900 to-indigo-900 text-white rounded-2xl p-4 shadow">
+          <div class="text-[11px] text-blue-200 font-bold">TOTAL OMSET BULAN INI</div>
+          <div class="text-xl font-black mt-1">Rp 48.750.000</div>
+          <div class="text-[10px] text-emerald-300 mt-1">▲ +18.4% dari bulan lalu</div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-amber-200 shadow-sm">
+          <div class="text-[11px] text-amber-800 font-bold">PERLU VERIFIKASI STRUK</div>
+          <div class="text-xl font-black text-amber-600 mt-1">3 Pesanan</div>
+          <div class="text-[10px] text-slate-500 mt-1">Transfer Bank BCA/Mandiri</div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-blue-200 shadow-sm">
+          <div class="text-[11px] text-blue-800 font-bold">SIAP DIKEMAS GUDANG</div>
+          <div class="text-xl font-black text-blue-700 mt-1">12 Paket</div>
+          <div class="text-[10px] text-slate-500 mt-1">Antrean packing hari ini</div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm">
+          <div class="text-[11px] text-slate-600 font-bold">TOTAL MITRA RESELLER</div>
+          <div class="text-xl font-black text-slate-900 mt-1">86 Mitra</div>
+          <div class="text-[10px] text-emerald-600 font-bold mt-1">✓ Terverifikasi KTP</div>
+        </div>
+      </div>
+
+      <!-- DAFTAR PESANAN MASUK -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-card space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+          <h3 class="text-sm font-black text-slate-900">Verifikasi Bukti Transfer Masuk</h3>
+          <span class="text-xs text-slate-400">Real-time update</span>
+        </div>
+
+        <div class="space-y-2">
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div>
+              <span class="font-black text-slate-900">#ORD-88231</span> • Budi Santoso (Bank BCA)
+              <div class="text-slate-500 text-[11px] mt-0.5">Tagihan: <b>Rp 147.000</b> • 1 unit HQ-001 (Pink Lilac)</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="alert('Struk Terverifikasi! Status pesanan diupdate ke: DIPROSES GUDANG.')" class="px-3 py-1.5 bg-emerald-600 text-white font-extrabold rounded-lg text-xs shadow">
+                ✓ Setujui Pembayaran
+              </button>
+              <button onclick="alert('Input nomor resi pengiriman J&T Express...')" class="px-3 py-1.5 bg-blue-600 text-white font-bold rounded-lg text-xs shadow">
+                Input Resi Kurir
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
+  <!-- MODAL LOGIN DENGAN 1-KLIK AKUN DEMO -->
+  <div id="modal-login" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <h3 class="text-base font-black text-slate-900">Masuk ke Bubee 🐝</h3>
+          <p class="text-xs text-slate-500">Pilih akun pengujian instan atau login normal</p>
+        </div>
+        <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">✕</button>
+      </div>
+
+      <!-- 1-KLIK AKUN DEMO CEPAT -->
+      <div class="p-3 bg-blue-50 rounded-2xl border border-blue-200 space-y-2">
+        <div class="text-xs font-black text-blue-900 flex items-center justify-between">
+          <span>⚡ 1-KLIK AKUN DEMO INSTAN:</span>
+          <span class="text-[10px] bg-blue-200 text-blue-800 px-2 py-0.5 rounded font-bold">Auto-Switch</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs font-bold">
+          <button onclick="quickLogin('admin')" class="p-2.5 rounded-xl bg-white border border-blue-300 text-blue-900 hover:bg-blue-600 hover:text-white transition shadow-sm">
+            👑 Admin
+          </button>
+          <button onclick="quickLogin('reseller')" class="p-2.5 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 transition shadow-sm font-black">
+            🏪 Reseller
+          </button>
+          <button onclick="quickLogin('reguler')" class="p-2.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm">
+            🙋 Reguler
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center text-xs text-slate-400">
+        Klik salah satu tombol peran di atas untuk langsung menguji sistem dalam peran tersebut.
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFIKASI -->
+  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-950 text-white px-5 py-3 rounded-2xl shadow-2xl border border-slate-800 text-xs font-bold flex items-center gap-2">
+    <span id="toast-icon">✓</span>
+    <span id="toast-text">Berhasil!</span>
+  </div>
+
+  <!-- FOOTER RESMI -->
+  <footer class="bg-white border-t border-slate-200 mt-12 py-8 text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <img src="./images/logo-bubee.png" class="w-6 h-6 rounded" onerror="this.style.display='none'">
+        <span class="font-extrabold text-slate-800">BUBEE DRINKWARE</span>
+        <span>• Hak Cipta &copy; 2026 PT Bubee Indonesia Jaya.</span>
+      </div>
+      <div class="flex gap-4">
+        <span>Reseller Bebas Min. Belanja Mulai 1 Pcs</span>
+        <span>•</span>
+        <span>Integrasi J&T Express & JNE</span>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    const steps = [
+    const productsData = [
   {
     "id": 1,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "1. Splash Screen & Brand Identity Bubee",
-    "fileRef": "resources/views/splash.blade.php",
-    "routeRef": "/splash",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Sangat Menarik)",
-    "reviewerVoice": "Halo semuanya! Di sini saya akan mereview dan menguji seluruh fitur aplikasi Bubee secara mendalam. Pertama kali membuka aplikasi, kita disambut oleh Splash Screen yang sangat elegan dengan logo lebah emas dan aksen biru royal. Transisi masuknya halus dan langsung membangun identitas brand premium.",
-    "reviewerInsight": "First impression sangat krusial di e-commerce. Splash screen ini memperkuat kepercayaan pelanggan sejak detik pertama bahwa Bubee adalah platform resmi produk tumbler & botol minum berkualitas tinggi.",
-    "cursorPos": {
-      "top": 380,
-      "left": 160
-    },
-    "topbar": {
-      "title": "BUBEE STORE",
-      "role": "MEMUAT APLIKASI...",
-      "bg": "linear-gradient(135deg, #071739, #0D2B66)"
-    },
-    "screenHtml": "\n      <div class=\"h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-[#071739] via-[#0B2A6B] to-[#040C1E] text-white\">\n        <div class=\"w-24 h-24 rounded-3xl bg-gradient-to-tr from-amber-400 to-yellow-200 p-1 shadow-2xl flex items-center justify-center mb-5 animate-bounce\">\n          <div class=\"w-full h-full bg-[#071739] rounded-[22px] flex items-center justify-center text-4xl shadow-inner\">\n            🐝\n          </div>\n        </div>\n        <div class=\"font-black text-2xl tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-amber-200\">\n          BUBEE\n        </div>\n        <div class=\"text-[11px] text-blue-200 font-medium tracking-wide mt-1\">\n          Modern Drinkware & Lifestyle Bottle\n        </div>\n        <div class=\"mt-8 flex items-center gap-2\">\n          <div class=\"w-2 h-2 rounded-full bg-amber-400 animate-ping\"></div>\n          <span class=\"text-[10px] text-amber-200 font-mono tracking-wider\">Menyiapkan katalog produk...</span>\n        </div>\n        <div class=\"w-44 bg-white/10 rounded-full h-1.5 mt-4 overflow-hidden\">\n          <div class=\"bg-gradient-to-r from-amber-400 to-yellow-200 h-full w-3/4 rounded-full transition-all duration-700\"></div>\n        </div>\n      </div>\n    "
+    "code": "HQ-001",
+    "name": "HQ-001 Botol Chicutom Sedotan 650ml",
+    "category": "tumbler",
+    "categoryLabel": "Tumbler",
+    "desc": "Botol minum anak & dewasa model sedotan food grade SUS 304, tahan panas/dingin 12 jam, anti-bocor dengan pengunci ganda.",
+    "image": "./storage/produk/HQ-001.jpg",
+    "hargaRetail": 129000,
+    "hargaReseller": 99000,
+    "stok": 15,
+    "badge": "● Stok Tersedia",
+    "badgeColor": "bg-emerald-500",
+    "variants": [
+      {
+        "name": "🌸 Pink Lilac",
+        "stok": 15
+      },
+      {
+        "name": "🌊 Ocean Blue",
+        "stok": 28
+      },
+      {
+        "name": "🍃 Toska Mint",
+        "stok": 12
+      },
+      {
+        "name": "🖤 Hitam Matte",
+        "stok": 8
+      }
+    ]
   },
   {
     "id": 2,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "2. Mode Tamu & Perlindungan Harga (Price Lock)",
-    "fileRef": "resources/views/home.blade.php",
-    "routeRef": "/",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Fitur Proteksi Bisnis)",
-    "reviewerVoice": "Sekarang kita masuk ke beranda sebagai Pengunjung Umum (tamu). Perhatikan katalog produk tumbler ini: foto botol, nama produk, dan badge stok tampil jelas. Namun harga nominal sengaja digembok dan dialihkan dengan tombol '🔒 Login untuk lihat harga'. Ini keputusan desain yang sangat cerdas!",
-    "reviewerInsight": "Price Lock mencegah perang harga di internet dan mencegah pembeli eceran luar mengintip harga modal. Calon pembeli dipancing untuk membuat akun sehingga toko memperoleh database calon customer.",
-    "cursorPos": {
-      "top": 340,
-      "left": 165
-    },
-    "topbar": {
-      "title": "BUBEE STORE",
-      "role": "TAMU (GUEST)",
-      "bg": "linear-gradient(135deg, #0B2A6B, #1D4ED8)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <!-- Banner Selamat Datang Tamu -->\n        <div class=\"bg-gradient-to-r from-blue-700 to-indigo-600 rounded-2xl p-3 text-white shadow-md\">\n          <div class=\"text-xs font-black\">🎉 Selamat Datang di Bubee!</div>\n          <div class=\"text-[10px] text-blue-100 mt-0.5\">Daftar sekarang untuk membuka katalog harga grosir & eceran resmi.</div>\n        </div>\n\n        <!-- Filter Kategori -->\n        <div class=\"flex gap-1.5 overflow-x-auto pb-1 text-[10px] font-bold\">\n          <span class=\"px-2.5 py-1 bg-blue-600 text-white rounded-full\">Semua</span>\n          <span class=\"px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-full\">Tumbler</span>\n          <span class=\"px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-full\">Botol Anak</span>\n          <span class=\"px-2.5 py-1 bg-white border border-slate-200 text-slate-700 rounded-full\">Mug</span>\n        </div>\n\n        <!-- Kartu Produk Mode Tamu -->\n        <div class=\"border border-slate-200 bg-white rounded-2xl p-2.5 shadow-sm space-y-2\">\n          <div class=\"w-full h-32 bg-gradient-to-b from-blue-50 to-slate-100 rounded-xl flex items-center justify-center text-5xl relative\">\n            🍶\n            <span class=\"absolute top-2 right-2 text-[9px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full shadow\">● Stok Tersedia</span>\n            <span class=\"absolute top-2 left-2 text-[9px] font-bold bg-amber-500 text-white px-2 py-0.5 rounded-full shadow\">BEST SELLER</span>\n          </div>\n          <div class=\"font-extrabold text-xs text-slate-900 leading-tight\">HQ-001 Botol Chicutom Sedotan 650ml</div>\n          <div class=\"text-[10px] text-slate-500\">Material Stainless SUS 304 Food Grade • Tahan 12 Jam Panas/Dingin</div>\n          <div class=\"pt-1\">\n            <button class=\"w-full py-2.5 rounded-xl text-white font-extrabold text-[11px] flex items-center justify-center gap-1.5 shadow ring-2 ring-blue-500/30\" style=\"background: linear-gradient(90deg, #0A2566, #1D4ED8)\">\n              🔒 Login untuk lihat harga\n            </button>\n          </div>\n        </div>\n      </div>\n    "
+    "code": "HQ-002",
+    "name": "HQ-002 Tumbler Sport Adventure 800ml",
+    "category": "tumbler",
+    "categoryLabel": "Tumbler",
+    "desc": "Tumbler kapasitas besar cocok untuk olahraga, gym, dan travelling. Double wall vacuum insulation.",
+    "image": "./storage/produk/HQ-002.jpg",
+    "hargaRetail": 145000,
+    "hargaReseller": 110000,
+    "stok": 24,
+    "badge": "BEST SELLER",
+    "badgeColor": "bg-amber-500",
+    "variants": [
+      {
+        "name": "🖤 Matte Black",
+        "stok": 14
+      },
+      {
+        "name": "🔘 Silver Steel",
+        "stok": 10
+      }
+    ]
   },
   {
     "id": 3,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "3. Autentikasi 1-Klik Demo & Registrasi Akun",
-    "fileRef": "resources/views/auth-login.blade.php",
-    "routeRef": "/login",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Cepat & User-Friendly)",
-    "reviewerVoice": "Saya klik 'Login untuk lihat harga'. Di layar login ini, pengembang menyediakan fitur 1-Klik Auto Fill untuk 3 peran: Admin, Reseller, dan Reguler. Saya klik tombol '🙋 Reguler' dan dalam satu detik email user@bubee.id langsung terisi tanpa repot mengetik manual!",
-    "reviewerInsight": "Fitur demo 1-klik sangat mempercepat proses presentasi dan review sistem. Untuk pengguna asli, tersedia form registrasi dengan nomor WhatsApp dan email resmi.",
-    "cursorPos": {
-      "top": 215,
-      "left": 245
-    },
-    "topbar": {
-      "title": "MASUK AKUN",
-      "role": "AUTENTIKASI",
-      "bg": "linear-gradient(135deg, #0A1C40, #17387A)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <div class=\"bg-white rounded-2xl p-3.5 shadow-md border border-slate-100 space-y-3\">\n          <div>\n            <div class=\"text-sm font-black text-slate-900\">Selamat Datang Kembali 👋</div>\n            <div class=\"text-[10px] text-slate-500\">Pilih mode pengujian instan atau masuk akun Anda</div>\n          </div>\n\n          <!-- Tab 1-Klik Akun Demo -->\n          <div class=\"p-2.5 bg-blue-50 border border-blue-200 rounded-xl space-y-1.5\">\n            <div class=\"text-[10px] font-bold text-blue-900 flex items-center justify-between\">\n              <span>⚡ 1-Klik Akun Demo Instan:</span>\n              <span class=\"text-[9px] bg-blue-200 text-blue-800 px-1.5 py-0.5 rounded\">Auto Fill</span>\n            </div>\n            <div class=\"grid grid-cols-3 gap-1.5 text-center\">\n              <button class=\"bg-white border border-blue-300 text-blue-900 rounded-lg p-1.5 text-[10px] font-bold shadow-sm\">👑 Admin</button>\n              <button class=\"bg-white border border-blue-300 text-blue-900 rounded-lg p-1.5 text-[10px] font-bold shadow-sm\">🏪 Reseller</button>\n              <button class=\"bg-blue-600 text-white rounded-lg p-1.5 text-[10px] font-bold shadow-sm ring-2 ring-amber-400\">🙋 Reguler</button>\n            </div>\n          </div>\n\n          <div class=\"space-y-2\">\n            <div>\n              <label class=\"text-[10px] font-bold text-slate-600\">Alamat Email / Nomor HP</label>\n              <input type=\"text\" value=\"user@bubee.id\" class=\"w-full text-xs p-2 border border-blue-300 bg-blue-50/40 rounded-lg font-mono text-slate-800 mt-0.5\" readonly>\n            </div>\n            <div>\n              <label class=\"text-[10px] font-bold text-slate-600\">Password</label>\n              <input type=\"password\" value=\"••••••••\" class=\"w-full text-xs p-2 border border-slate-300 rounded-lg font-mono text-slate-800 mt-0.5\" readonly>\n            </div>\n            <button class=\"w-full py-2.5 bg-gradient-to-r from-blue-900 to-blue-600 text-white text-xs font-black rounded-xl shadow-md mt-2 flex items-center justify-center gap-1.5\">\n              <span>MASUK SEKARANG</span> <span>⚡</span>\n            </button>\n          </div>\n        </div>\n      </div>\n    "
+    "code": "HQ-004",
+    "name": "HQ-004 Botol Anak Karakter Dino 500ml",
+    "category": "anak",
+    "categoryLabel": "Botol Anak",
+    "desc": "Botol minum anak dengan tali selempang lucu, sedotan silikon empuk lembut untuk gusi anak.",
+    "image": "./storage/produk/HQ-004.jpg",
+    "hargaRetail": 115000,
+    "hargaReseller": 85000,
+    "stok": 9,
+    "badge": "SISA MENIPIS",
+    "badgeColor": "bg-red-500",
+    "variants": [
+      {
+        "name": "🦖 Hijau Dino",
+        "stok": 5
+      },
+      {
+        "name": "🦁 Kuning Lion",
+        "stok": 4
+      }
+    ]
   },
   {
     "id": 4,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "4. Akses Penuh Katalog & Harga Eceran Resmi",
-    "fileRef": "resources/views/home.blade.php",
-    "routeRef": "/",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Transparan & Jelas)",
-    "reviewerVoice": "Hebat! Begitu kita masuk sebagai User Reguler, seluruh gembok harga langsung terbuka. Sekarang kita bisa melihat harga retail resmi produk: Rp 129.000 RETAIL. Di bagian atas layar juga muncul nama profil kita dan keranjang belanja aktif.",
-    "reviewerInsight": "Aplikasi memberikan transisi status pengguna yang sangat mulus. Pelanggan reguler mendapatkan pengalaman belanja eceran yang transparan tanpa kebingungan.",
-    "cursorPos": {
-      "top": 310,
-      "left": 165
-    },
-    "topbar": {
-      "title": "BUBEE STORE",
-      "role": "USER REGULER",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <!-- Banner User Reguler -->\n        <div class=\"bg-gradient-to-r from-blue-900 via-blue-800 to-blue-600 rounded-2xl p-3 text-white shadow flex items-center justify-between\">\n          <div>\n            <div class=\"text-xs font-black\">Halo, Budi Santoso 👋</div>\n            <div class=\"text-[10px] text-blue-200\">Katalog eceran resmi terbuka penuh</div>\n          </div>\n          <span class=\"text-xs bg-amber-400 text-slate-950 font-black px-2 py-0.5 rounded-full\">USER REGULER</span>\n        </div>\n\n        <!-- Kartu Produk dengan Harga Retail Terbuka -->\n        <div class=\"border border-slate-200 bg-white rounded-2xl p-2.5 shadow-sm space-y-2\">\n          <div class=\"w-full h-32 bg-gradient-to-b from-blue-50 to-slate-100 rounded-xl flex items-center justify-center text-5xl relative\">\n            🍶\n            <span class=\"absolute top-2 right-2 text-[9px] font-bold bg-emerald-500 text-white px-2 py-0.5 rounded-full\">● Sisa 15</span>\n          </div>\n          <div class=\"font-bold text-xs text-slate-900\">HQ-001 Botol Chicutom Sedotan 650ml</div>\n          <div class=\"flex items-baseline gap-2\">\n            <span class=\"text-base font-black text-blue-700\">Rp 129.000</span>\n            <span class=\"text-[9px] font-bold text-slate-400 uppercase bg-slate-100 px-1.5 py-0.5 rounded\">RETAIL</span>\n          </div>\n          <div class=\"pt-1\">\n            <button class=\"w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow flex items-center justify-center gap-1.5\">\n              <span>Beli Sekarang / Pilih Varian</span> <span>→</span>\n            </button>\n          </div>\n        </div>\n      </div>\n    "
+    "code": "HQ-006",
+    "name": "HQ-006 Coffee Mug Vacuum Insulated 450ml",
+    "category": "mug",
+    "categoryLabel": "Mug",
+    "desc": "Cangkir kopi kantor dengan tutup flip lock anti-tumpah, pas di cup holder mobil.",
+    "image": "./storage/produk/HQ-006.jpg",
+    "hargaRetail": 99000,
+    "hargaReseller": 75000,
+    "stok": 30,
+    "badge": "BARU",
+    "badgeColor": "bg-blue-500",
+    "variants": [
+      {
+        "name": "☕ Espresso Black",
+        "stok": 18
+      },
+      {
+        "name": "🥛 Milk Cream",
+        "stok": 12
+      }
+    ]
   },
   {
     "id": 5,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "5. Detail Produk, Multi-Varian & Stok Dinamis",
-    "fileRef": "resources/views/product-detail.blade.php",
-    "routeRef": "/produk/1",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Cepat & Responsif)",
-    "reviewerVoice": "Sekarang saya buka halaman detail tumbler ini. Bagian varian warna sangat interaktif! Ada opsi warna Pink, Ocean Blue, Toska, dan Hitam. Ketika saya klik warna 'Pink Lilac', indikator stok langsung menampilkan 'Dipilih: Pink Lilac • Sisa 15'. Input kuantiti juga pintar, tidak bisa melebihi stok yang ada di gudang.",
-    "reviewerInsight": "Sinkronisasi varian dan kuota stok secara real-time di sisi client mencegah keluhan overselling (barang terjual padahal stok gudang habis).",
-    "cursorPos": {
-      "top": 310,
-      "left": 110
-    },
-    "topbar": {
-      "title": "DETAIL PRODUK",
-      "role": "PILIH VARIAN",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <div class=\"w-full h-36 bg-gradient-to-b from-pink-50 to-slate-100 rounded-2xl flex items-center justify-center text-6xl relative border border-slate-200\">\n          🍶\n          <span class=\"absolute bottom-2 left-2 text-[9px] font-bold bg-black/60 text-white px-2 py-0.5 rounded-full backdrop-blur-sm\">4 Varian Warna</span>\n        </div>\n\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2.5\">\n          <div>\n            <div class=\"font-extrabold text-xs text-slate-900\">HQ-001 Botol Chicutom Sedotan</div>\n            <div class=\"text-base font-black text-blue-600 mt-0.5\">Rp 129.000 <span class=\"text-[10px] text-slate-400 font-normal\">/ unit</span></div>\n          </div>\n\n          <!-- Pilihan Varian Warna -->\n          <div class=\"space-y-1\">\n            <div class=\"text-[10px] font-bold text-slate-600 flex justify-between\">\n              <span>Pilih Warna:</span>\n              <span class=\"text-blue-600 font-extrabold\">Pink Lilac (Sisa 15)</span>\n            </div>\n            <div class=\"grid grid-cols-4 gap-1.5 pt-1\">\n              <button class=\"py-1.5 px-2 rounded-xl text-[10px] font-extrabold bg-pink-100 border-2 border-pink-500 text-pink-700 shadow-sm text-center\">🌸 Pink</button>\n              <button class=\"py-1.5 px-2 rounded-xl text-[10px] font-bold bg-slate-50 border border-slate-200 text-slate-600 text-center\">🌊 Biru</button>\n              <button class=\"py-1.5 px-2 rounded-xl text-[10px] font-bold bg-slate-50 border border-slate-200 text-slate-600 text-center\">🍃 Toska</button>\n              <button class=\"py-1.5 px-2 rounded-xl text-[10px] font-bold bg-slate-50 border border-slate-200 text-slate-600 text-center\">🖤 Hitam</button>\n            </div>\n          </div>\n\n          <!-- Counter Qty & Add to Cart -->\n          <div class=\"flex items-center gap-2 pt-2 border-t border-slate-100\">\n            <div class=\"flex items-center border border-slate-300 rounded-xl overflow-hidden bg-slate-50\">\n              <button class=\"px-2.5 py-1 text-slate-600 font-bold\">-</button>\n              <span class=\"px-3 py-1 font-black text-xs text-slate-800\">1</span>\n              <button class=\"px-2.5 py-1 text-slate-600 font-bold\">+</button>\n            </div>\n            <button class=\"flex-1 py-2 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-extrabold text-xs rounded-xl shadow\">\n              + KERANJANG\n            </button>\n          </div>\n        </div>\n      </div>\n    "
+    "code": "HQ-012",
+    "name": "HQ-012 Thermos Flask LED Temperature 500ml",
+    "category": "tumbler",
+    "categoryLabel": "Tumbler",
+    "desc": "Tumbler pintar dengan layar sentuh display temperatur suhu air digital di tutup botol.",
+    "image": "./storage/produk/HQ-012.jpg",
+    "hargaRetail": 139000,
+    "hargaReseller": 105000,
+    "stok": 18,
+    "badge": "● Stok Tersedia",
+    "badgeColor": "bg-emerald-500",
+    "variants": [
+      {
+        "name": "🔴 Merah Ruby",
+        "stok": 8
+      },
+      {
+        "name": "🔵 Biru Safir",
+        "stok": 10
+      }
+    ]
   },
   {
     "id": 6,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "6. Keranjang Belanja Pintar (Smart Cart)",
-    "fileRef": "resources/views/cart.blade.php",
-    "routeRef": "/keranjang",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Praktis & Akurat)",
-    "reviewerVoice": "Sekarang kita berada di menu Keranjang Belanja. Barang yang kita pilih tadi langsung masuk ke list belanja lengkap dengan varian 'Pink Lilac', harga satuan Rp 129.000, dan kuantiti. Subtotal langsung terkalkulasi otomatis secara akurat tanpa perlu refresh halaman.",
-    "reviewerInsight": "Smart Cart memudahkan konsumen untuk memeriksa kembali barang belanjaan sebelum checkout, meminimalkan salah pesan varian warna.",
-    "cursorPos": {
-      "top": 410,
-      "left": 165
-    },
-    "topbar": {
-      "title": "KERANJANG (1 ITEM)",
-      "role": "CHECKOUT",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <!-- Item Keranjang -->\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm flex items-center gap-3\">\n          <div class=\"w-16 h-16 bg-pink-50 rounded-xl flex items-center justify-center text-3xl border border-pink-200\">\n            🍶\n          </div>\n          <div class=\"flex-1\">\n            <div class=\"font-extrabold text-xs text-slate-900 leading-tight\">HQ-001 Botol Chicutom</div>\n            <div class=\"text-[10px] text-slate-500 mt-0.5\">Varian: <b class=\"text-pink-600\">Pink Lilac</b> • 650ml</div>\n            <div class=\"text-xs font-black text-blue-700 mt-1\">Rp 129.000</div>\n          </div>\n          <div class=\"flex items-center border border-slate-300 rounded-lg bg-slate-50\">\n            <button class=\"px-2 py-0.5 text-xs font-bold text-slate-500\">-</button>\n            <span class=\"px-2 text-xs font-bold text-slate-800\">1</span>\n            <button class=\"px-2 py-0.5 text-xs font-bold text-slate-500\">+</button>\n          </div>\n        </div>\n\n        <!-- Ringkasan Subtotal -->\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-1.5 text-xs\">\n          <div class=\"flex justify-between text-slate-500\">\n            <span>Subtotal Produk</span>\n            <span class=\"font-bold text-slate-800\">Rp 129.000</span>\n          </div>\n          <div class=\"flex justify-between text-slate-500\">\n            <span>Estimasi Berat</span>\n            <span class=\"font-bold text-slate-800\">450 gram</span>\n          </div>\n          <div class=\"border-t border-slate-100 pt-1.5 flex justify-between font-black text-slate-900\">\n            <span>Total Belanja</span>\n            <span class=\"text-blue-700 font-extrabold\">Rp 129.000</span>\n          </div>\n        </div>\n\n        <button class=\"w-full py-2.5 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-extrabold text-xs rounded-xl shadow-md flex items-center justify-center gap-2\">\n          <span>LANJUT KE CHECKOUT</span> <span>→</span>\n        </button>\n      </div>\n    "
-  },
-  {
-    "id": 7,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "7. Checkout, Kurir Ekspedisi & Ongkir Otomatis",
-    "fileRef": "resources/views/checkout.blade.php",
-    "routeRef": "/checkout",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Kalkulasi Lengkap)",
-    "reviewerVoice": "Lanjut ke proses Checkout. Di sini kita menentukan alamat pengiriman (Provinsi DKI Jakarta, Kota Jakarta Timur). Sistem otomatis memanggil API tarif ekspedisi J&T Express (Rp 18.000). Total tagihan (Barang + Ongkir) langsung dijumlahkan secara transparan sebesar Rp 147.000.",
-    "reviewerInsight": "Integrasi perhitungan ongkos kirim otomatis berdasarkan berat gram dan kota tujuan menghilangkan ketidakpastian biaya kirim bagi pelanggan.",
-    "cursorPos": {
-      "top": 430,
-      "left": 165
-    },
-    "topbar": {
-      "title": "CHECKOUT PENGIRIMAN",
-      "role": "PENGIRIMAN",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <!-- Alamat Kirim -->\n        <div class=\"bg-white rounded-2xl p-2.5 border border-slate-200 shadow-sm space-y-1\">\n          <div class=\"text-[10px] font-black text-slate-700 flex items-center gap-1\">📍 ALAMAT PENGIRIMAN</div>\n          <div class=\"text-xs font-bold text-slate-900\">Budi Santoso (0812-3456-7890)</div>\n          <div class=\"text-[10px] text-slate-500\">Jl. Melati No. 45, RT 03/05, Duren Sawit, Jakarta Timur, DKI Jakarta</div>\n        </div>\n\n        <!-- Pilihan Kurir -->\n        <div class=\"bg-white rounded-2xl p-2.5 border border-slate-200 shadow-sm space-y-1.5\">\n          <div class=\"text-[10px] font-black text-slate-700\">🚚 PILIH EKSPEDISI</div>\n          <div class=\"grid grid-cols-2 gap-1.5\">\n            <div class=\"p-2 rounded-xl border-2 border-blue-600 bg-blue-50/50 flex flex-col justify-between\">\n              <span class=\"text-[10px] font-black text-blue-900\">J&T Express</span>\n              <span class=\"text-[10px] font-extrabold text-blue-700\">Rp 18.000 (Reguler 1-2 hari)</span>\n            </div>\n            <div class=\"p-2 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between\">\n              <span class=\"text-[10px] font-bold text-slate-600\">JNE OKE</span>\n              <span class=\"text-[10px] font-bold text-slate-500\">Rp 20.000 (2-3 hari)</span>\n            </div>\n          </div>\n        </div>\n\n        <!-- Rincian Total -->\n        <div class=\"bg-white rounded-2xl p-2.5 border border-slate-200 shadow-sm space-y-1 text-[11px]\">\n          <div class=\"flex justify-between text-slate-500\"><span>Subtotal Produk</span><span>Rp 129.000</span></div>\n          <div class=\"flex justify-between text-slate-500\"><span>Ongkos Kirim (450g)</span><span>Rp 18.000</span></div>\n          <div class=\"border-t border-slate-100 pt-1 flex justify-between font-black text-slate-900 text-xs\">\n            <span>Total Pembayaran</span>\n            <span class=\"text-blue-700 font-extrabold\">Rp 147.000</span>\n          </div>\n        </div>\n\n        <button class=\"w-full py-2.5 bg-gradient-to-r from-blue-900 to-blue-600 text-white font-black text-xs rounded-xl shadow-md\">\n          BUAT PESANAN SEKARANG ⚡\n        </button>\n      </div>\n    "
-  },
-  {
-    "id": 8,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "8. Instruksi Pembayaran & Upload Bukti Transfer",
-    "fileRef": "resources/views/bayar.blade.php",
-    "routeRef": "/bayar/{order}",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Aman & Fleksibel)",
-    "reviewerVoice": "Pesanan berhasil dibuat dengan kode unik #ORD-88231! Di layar pembayaran ini, pembeli diberikan nomor rekening BCA resmi milik Bubee dan tombol upload foto bukti struk transfer. Sistem juga menyediakan opsi simulasi pembayaran Midtrans instan.",
-    "reviewerInsight": "Memberikan dua jalur pembayaran (transfer manual berverifikasi struk dan gateway otomatis) memastikan semua segmen pembeli dapat bertransaksi dengan nyaman.",
-    "cursorPos": {
-      "top": 380,
-      "left": 165
-    },
-    "topbar": {
-      "title": "PEMBAYARAN",
-      "role": "MENUNGGU BAYAR",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <div class=\"bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl p-3 text-white text-center shadow\">\n          <div class=\"text-[10px] font-bold uppercase tracking-wider\">Menunggu Pembayaran</div>\n          <div class=\"text-lg font-black mt-0.5\">Rp 147.000</div>\n          <div class=\"text-[10px] text-amber-100\">Kode Pesanan: <b class=\"font-mono\">#ORD-88231</b></div>\n        </div>\n\n        <!-- Info Rekening -->\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"text-[10px] font-black text-slate-700\">TRANSFER KE REKENING RESMI BUBEE:</div>\n          <div class=\"p-2 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between\">\n            <div>\n              <div class=\"text-xs font-black text-blue-900\">BANK BCA</div>\n              <div class=\"text-xs font-mono font-bold text-slate-800\">8820-1928-334</div>\n              <div class=\"text-[10px] text-slate-500\">a.n. PT BUBEE INDONESIA JAYA</div>\n            </div>\n            <button class=\"px-2 py-1 bg-blue-100 text-blue-800 text-[10px] font-bold rounded-lg\">Salin</button>\n          </div>\n        </div>\n\n        <!-- Upload Bukti -->\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"text-[10px] font-black text-slate-700\">UNGGAH BUKTI STRUK TRANSFER:</div>\n          <div class=\"border-2 border-dashed border-blue-300 rounded-xl p-3 text-center bg-blue-50/30\">\n            <span class=\"text-xl\">📸</span>\n            <div class=\"text-[10px] font-bold text-blue-700 mt-1\">Pilih Foto Struk / Screenshot M-Banking</div>\n          </div>\n          <button class=\"w-full py-2 bg-blue-600 text-white font-extrabold text-xs rounded-xl shadow\">\n            KIRIM BUKTI PEMBAYARAN 🚀\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 9,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "9. Pelacakan Pesanan Real-Time & Cetak Invoice",
-    "fileRef": "resources/views/pesanan-detail.blade.php",
-    "routeRef": "/pesanan/{order}",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Transparan & Rapi)",
-    "reviewerVoice": "Sekarang kita pantau status pesanan kita di menu 'Pesanan Saya'. Luar biasa! Ada visualisasi tahapan order dari: Menunggu Bayar ➔ Terverifikasi ➔ Dikemas Gudang ➔ Dikirim J&T. Nomor resi ekspedisi (JT8829103) tercantum jelas beserta tombol cetak invoice resmi.",
-    "reviewerInsight": "Timeline pelacakan pesanan yang jelas menekan pertanyaan 'Kapan pesanan saya dikirim?' ke customer service secara signifikan.",
-    "cursorPos": {
-      "top": 320,
-      "left": 165
-    },
-    "topbar": {
-      "title": "STATUS PESANAN",
-      "role": "DALAM PENGIRIMAN",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-3\">\n          <div class=\"flex items-center justify-between border-b border-slate-100 pb-2\">\n            <div>\n              <span class=\"text-[10px] font-bold text-slate-400\">ID Pesanan</span>\n              <div class=\"text-xs font-black text-slate-900\">#ORD-88231</div>\n            </div>\n            <span class=\"px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-blue-100 text-blue-800\">🚚 SEDANG DIKIRIM</span>\n          </div>\n\n          <!-- Stepper Status -->\n          <div class=\"space-y-2 text-[10px]\">\n            <div class=\"flex items-center gap-2 text-emerald-600 font-bold\">\n              <span>✓</span> <span>Pembayaran Terverifikasi Admin</span>\n            </div>\n            <div class=\"flex items-center gap-2 text-emerald-600 font-bold\">\n              <span>✓</span> <span>Paket Selesai Dikemas di Gudang Pusat</span>\n            </div>\n            <div class=\"flex items-center gap-2 text-blue-700 font-extrabold bg-blue-50 p-1.5 rounded-lg border border-blue-200\">\n              <span>🚚</span> <span>Kurir J&T Mengantar (Resi: <b>JT8829103</b>)</span>\n            </div>\n          </div>\n\n          <!-- Tombol Aksi -->\n          <div class=\"pt-2 flex gap-2\">\n            <button class=\"flex-1 py-2 bg-emerald-600 text-white font-extrabold text-[11px] rounded-xl shadow\">\n              ✓ Konfirmasi Selesai\n            </button>\n            <button class=\"px-3 py-2 bg-slate-100 text-slate-700 font-bold text-[11px] rounded-xl border border-slate-200\">\n              📄 Invoice\n            </button>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 10,
-    "role": "reguler",
-    "roleName": "REGULER",
-    "categoryLabel": "Pengguna Reguler",
-    "badgeColor": "bg-blue-600 text-white",
-    "title": "10. Ulasan Kepuasan Produk & Pengajuan Retur",
-    "fileRef": "resources/views/retur-form.blade.php",
-    "routeRef": "/pesanan/{order}/retur",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Purnajual Terpercaya)",
-    "reviewerVoice": "Setelah paket sampai di tangan pembeli, ada dua fitur purnajual penting: pembeli bisa memberi ulasan bintang 5 dengan foto barang asli untuk reputasi toko, ATAU jika botol pecah di jalan, ada tombol resmi 'Ajukan Retur' dengan mengunggah foto komplain.",
-    "reviewerInsight": "Garansi retur yang jelas dan sistem review berbasis foto terbukti menaikkan konversi belanja online karena pembeli merasa uang mereka terlindungi.",
-    "cursorPos": {
-      "top": 310,
-      "left": 165
-    },
-    "topbar": {
-      "title": "LAYANAN PURNAJUAL",
-      "role": "GARANSI & REVIEW",
-      "bg": "linear-gradient(135deg, #0A2566, #1E40AF)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <!-- Kotak Beri Ulasan -->\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"text-xs font-black text-slate-900\">⭐ Berikan Ulasan Produk:</div>\n          <div class=\"flex gap-1 text-amber-400 text-lg\">\n            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>\n          </div>\n          <textarea class=\"w-full text-[10px] p-2 border border-slate-200 rounded-lg text-slate-700\" rows=\"2\" readonly>Tumbler tebal, tahan dingin es seharian, packing buble wrap sangat tebal!</textarea>\n          <button class=\"w-full py-1.5 bg-amber-500 text-slate-950 font-black text-[10px] rounded-lg shadow\">\n            KIRIM TESTIMONI BINTANG 5\n          </button>\n        </div>\n\n        <!-- Menu Ajukan Retur -->\n        <div class=\"bg-red-50 rounded-2xl p-3 border border-red-200 space-y-1.5\">\n          <div class=\"text-xs font-black text-red-900 flex items-center gap-1\">\n            <span>🛡️</span> <span>Kendala Paket / Barang Cacat?</span>\n          </div>\n          <p class=\"text-[10px] text-red-700 leading-tight\">\n            Jika barang rusak dalam pengiriman, unggah video unboxing & foto paket untuk klaim retur ganti unit baru.\n          </p>\n          <button class=\"w-full py-1.5 bg-red-600 text-white font-black text-[10px] rounded-lg shadow\">\n            AJUKAN KLAIM RETUR RESMI\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 11,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "11. Upgrade Kemitraan Reseller (Verifikasi KTP)",
-    "fileRef": "resources/views/pengaturan.blade.php",
-    "routeRef": "/akun/upgrade-reseller",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Penyaringan Ketat)",
-    "reviewerVoice": "Sekarang kita beralih ke peran MITRA RESELLER! Untuk menjadi reseller resmi Bubee, calon mitra wajib mengisi formulir kemitraan, mencantumkan nama toko/usaha, nomor WhatsApp aktif, dan mengunggah foto kartu identitas (KTP). Ini menyaring mitra bisnis yang serius.",
-    "reviewerInsight": "Penyaringan dengan upload KTP melindungi integritas harga grosir agar tidak disalahgunakan oleh pembeli eceran iseng.",
-    "cursorPos": {
-      "top": 320,
-      "left": 165
-    },
-    "topbar": {
-      "title": "UPGRADE RESELLER",
-      "role": "PENDAFTARAN MITRA",
-      "bg": "linear-gradient(135deg, #1E1B4B, #4338CA)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-300 rounded-2xl p-3 text-slate-950 shadow\">\n          <div class=\"text-xs font-black\">💼 Gabung Menjadi Mitra Reseller</div>\n          <div class=\"text-[10px] font-semibold mt-0.5\">Dapatkan harga modal grosir & materi promosi harian.</div>\n        </div>\n\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2 text-[10px]\">\n          <div>\n            <label class=\"font-bold text-slate-700\">Nama Usaha / Toko Online Anda:</label>\n            <input type=\"text\" value=\"Mitra Tumbler Berkah\" class=\"w-full p-1.5 border border-slate-300 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n          </div>\n          <div>\n            <label class=\"font-bold text-slate-700\">Nomor WhatsApp Bisnis:</label>\n            <input type=\"text\" value=\"0821-9988-7766\" class=\"w-full p-1.5 border border-slate-300 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n          </div>\n          <div>\n            <label class=\"font-bold text-slate-700\">Unggah Foto Kartu Identitas (KTP):</label>\n            <div class=\"border-2 border-dashed border-amber-400 bg-amber-50/50 rounded-xl p-2.5 text-center mt-0.5\">\n              <span class=\"text-base\">🪪</span>\n              <div class=\"font-bold text-amber-900 text-[10px]\">ktp_reseller_budi.jpg (Terpilih)</div>\n            </div>\n          </div>\n          <button class=\"w-full py-2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs rounded-xl shadow mt-1\">\n            KIRIM PERMOHONAN RESELLER 🚀\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 12,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "12. Login Akun Reseller & Status Approved",
-    "fileRef": "resources/views/home.blade.php",
-    "routeRef": "/",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Eksklusif & Bernilai)",
-    "reviewerVoice": "Setelah disetujui Admin, saya login dengan akun Reseller (reseller@bubee.id). Lihat tampilannya! Banner sambutan langsung berubah menjadi warna emas dengan teks: '🎉 Harga reseller aktif! Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja)'. Sangat memuaskan!",
-    "reviewerInsight": "Pengakuan status kemitraan dengan visual warna emas memberikan rasa bangga dan memotivasi reseller untuk segera mulai berjualan.",
-    "cursorPos": {
-      "top": 220,
-      "left": 165
-    },
-    "topbar": {
-      "title": "BUBEE STORE",
-      "role": "MITRA RESELLER ★",
-      "bg": "linear-gradient(135deg, #78350F, #D97706)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <!-- Banner Emas Reseller -->\n        <div class=\"bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-400 rounded-2xl p-3 text-slate-950 shadow-md\">\n          <div class=\"flex items-center justify-between\">\n            <span class=\"text-xs font-black\">🎉 HARGA RESELLER AKTIF!</span>\n            <span class=\"text-[9px] bg-slate-950 text-amber-300 font-extrabold px-2 py-0.5 rounded-full\">APPROVED</span>\n          </div>\n          <div class=\"text-[10px] font-semibold mt-1 leading-snug\">\n            Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja).\n          </div>\n        </div>\n\n        <!-- Menu Pintas Khusus Reseller -->\n        <div class=\"grid grid-cols-2 gap-2 text-center text-[10px] font-extrabold\">\n          <div class=\"p-2.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 shadow-sm flex items-center justify-center gap-1.5\">\n            <span>🏷️</span> <span>Etalase Modal Cuan</span>\n          </div>\n          <div class=\"p-2.5 rounded-xl bg-blue-50 border border-blue-300 text-blue-950 shadow-sm flex items-center justify-center gap-1.5\">\n            <span>📦</span> <span>Order Dropship</span>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 13,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "13. Etalase Khusus Reseller & Analisis Margin Laba",
-    "fileRef": "resources/views/reseller-etalase.blade.php",
-    "routeRef": "/reseller/etalase",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Fitur Favorit Pedagang)",
-    "reviewerVoice": "Ini dia fitur yang paling disukai para pedagang: 'Etalase Khusus Reseller'! Di sini sistem menampilkan perbandingan harga: Harga Modal Mitra Rp 99.000 vs Harga Jual Retail Rp 129.000. Kolom margin profit menghitung keuntungan bersih: Rp 30.000 per botol (+23% Margin Cuan).",
-    "reviewerInsight": "Menampilkan kalkulasi margin keuntungan secara transparan membantu mitra menghitung potensi laba harian sebelum mulai berpromosi.",
-    "cursorPos": {
-      "top": 320,
-      "left": 165
-    },
-    "topbar": {
-      "title": "ETALASE MODAL MITRA",
-      "role": "MARGIN CUAN",
-      "bg": "linear-gradient(135deg, #78350F, #D97706)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-amber-200 shadow-sm space-y-2\">\n          <div class=\"flex items-center gap-2\">\n            <span class=\"text-2xl\">🍶</span>\n            <div>\n              <div class=\"font-extrabold text-xs text-slate-900 leading-tight\">HQ-001 Botol Chicutom 650ml</div>\n              <div class=\"text-[10px] text-slate-500\">Kategori: Tumbler Anak Food Grade</div>\n            </div>\n          </div>\n\n          <!-- Perbandingan Harga Modal vs Jual -->\n          <div class=\"grid grid-cols-2 gap-1.5 p-2 bg-slate-50 rounded-xl text-center\">\n            <div class=\"border-r border-slate-200 pr-1\">\n              <div class=\"text-[9px] font-bold text-slate-500 uppercase\">Harga Modal Mitra</div>\n              <div class=\"text-xs font-black text-emerald-700\">Rp 99.000</div>\n              <div class=\"text-[8px] text-emerald-600 font-bold\">Mulai 1 pcs</div>\n            </div>\n            <div>\n              <div class=\"text-[9px] font-bold text-slate-500 uppercase\">Harga Retail Konsumen</div>\n              <div class=\"text-xs font-black text-slate-800 line-through\">Rp 129.000</div>\n              <div class=\"text-[8px] text-slate-500\">Harga Pasaran</div>\n            </div>\n          </div>\n\n          <!-- Highlight Margin Cuan -->\n          <div class=\"p-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white flex items-center justify-between\">\n            <span class=\"text-[10px] font-black\">💰 POTENSI LABA BERSIH:</span>\n            <span class=\"text-xs font-extrabold\">Rp 30.000 / pcs (+23%)</span>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 14,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "14. Belanja Reseller Mulai 1 Pcs (Bebas Min. Belanja)",
-    "fileRef": "resources/views/product-detail.blade.php",
-    "routeRef": "/produk/1",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Sangat Ramah Mitra)",
-    "reviewerVoice": "Sekarang kita tes belanja tumbler ini. Perhatikan kotaknya: 'Khusus Mitra Reseller Rp 99.000 (Mulai 1 pcs / Tanpa Min. Belanja)'. Saya coba beli hanya 1 unit, dan harganya tetap Rp 99.000! Tidak ada paksaan beli 1 lusin atau 1 karton. Ini Opsi 1 yang luar biasa ramah untuk pemula!",
-    "reviewerInsight": "Menghapus batas minimal belanja bagi reseller terverifikasi membuka pasar yang sangat luas bagi ibu rumah tangga dan mahasiswa yang ingin dropship tanpa modal besar.",
-    "cursorPos": {
-      "top": 380,
-      "left": 165
-    },
-    "topbar": {
-      "title": "DETAIL PRODUK",
-      "role": "HARGA MITRA AKTIF",
-      "bg": "linear-gradient(135deg, #78350F, #D97706)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-3\">\n        <div class=\"w-full h-32 bg-pink-50 rounded-2xl flex items-center justify-center text-5xl relative border border-pink-200\">\n          🍶\n          <span class=\"absolute top-2 right-2 text-[9px] font-bold bg-amber-500 text-slate-950 px-2 py-0.5 rounded-full shadow\">HEMAT Rp 30.000</span>\n        </div>\n\n        <div class=\"bg-white rounded-2xl p-3 border border-amber-300 shadow-sm space-y-2\">\n          <div class=\"font-extrabold text-xs text-slate-900\">HQ-001 Botol Chicutom Sedotan</div>\n\n          <!-- Label Khusus Reseller 1 Pcs -->\n          <div class=\"p-2 rounded-xl bg-amber-50 border border-amber-200\">\n            <div class=\"text-[9px] font-extrabold text-amber-900 uppercase\">Khusus Mitra Reseller:</div>\n            <div class=\"text-base font-black text-emerald-700\">\n              Rp 99.000 <span class=\"text-[10px] font-bold text-amber-800\">(Mulai 1 pcs / Bebas Min. Belanja)</span>\n            </div>\n          </div>\n\n          <div class=\"flex items-center gap-2 pt-1\">\n            <div class=\"text-[10px] font-bold text-slate-600\">Qty Beli: <b class=\"text-blue-700\">1 unit</b></div>\n            <button class=\"flex-1 py-2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs rounded-xl shadow\">\n              BELI HARGA MODAL (1 PCS) 🛒\n            </button>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 15,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "15. Fitur Dropship Otomatis di Layar Checkout",
-    "fileRef": "resources/views/checkout.blade.php",
-    "routeRef": "/checkout",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Fitur Kunci Bisnis)",
-    "reviewerVoice": "Saat checkout pesanan konsumen, reseller cukup mencentang opsi 'Kirim Sebagai Dropshipper'. Masukkan nama toko 'Toko Tumbler Cantik' dan nomor HP reseller. Di resi pengiriman J&T yang dicetak oleh gudang, nama pengirimnya adalah toko reseller, BUKAN Bubee!",
-    "reviewerInsight": "Fitur white-label dropship menjaga kerahasiaan rantai pasok sehingga konsumen akhir tetap loyal membeli dari mitra reseller.",
-    "cursorPos": {
-      "top": 290,
-      "left": 165
-    },
-    "topbar": {
-      "title": "CHECKOUT DROPSHIP",
-      "role": "WHITE LABEL",
-      "bg": "linear-gradient(135deg, #78350F, #D97706)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <!-- Kotak Opsi Dropship -->\n        <div class=\"bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-3 border-2 border-amber-400 shadow-sm space-y-2\">\n          <div class=\"flex items-center gap-2\">\n            <input type=\"checkbox\" checked class=\"w-4 h-4 rounded text-amber-600 accent-amber-500\">\n            <span class=\"text-xs font-black text-amber-950\">Kirim Sebagai Dropshipper</span>\n          </div>\n\n          <div class=\"space-y-1.5 text-[10px]\">\n            <div>\n              <label class=\"font-bold text-slate-700\">Nama Toko Pengirim (Label Paket):</label>\n              <input type=\"text\" value=\"Toko Tumbler Cantik\" class=\"w-full p-1.5 border border-amber-300 rounded-lg font-bold text-slate-800 bg-white\" readonly>\n            </div>\n            <div>\n              <label class=\"font-bold text-slate-700\">No. WhatsApp Pengirim:</label>\n              <input type=\"text\" value=\"0812-9988-1234\" class=\"w-full p-1.5 border border-amber-300 rounded-lg font-bold text-slate-800 bg-white\" readonly>\n            </div>\n          </div>\n          <div class=\"text-[9px] text-amber-800 font-semibold\">\n            ✓ Nama Bubee tidak akan muncul pada label paket maupun struk kurir.\n          </div>\n        </div>\n\n        <button class=\"w-full py-2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs rounded-xl shadow\">\n          PROSES PESANAN DROPSHIP ⚡\n        </button>\n      </div>\n    "
-  },
-  {
-    "id": 16,
-    "role": "reseller",
-    "roleName": "RESELLER",
-    "categoryLabel": "Mitra Reseller",
-    "badgeColor": "bg-amber-500 text-slate-950",
-    "title": "16. Dasbor Analitik Tabungan Modal Reseller",
-    "fileRef": "resources/views/reseller-dashboard.blade.php",
-    "routeRef": "/reseller",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Motivatif & Informatif)",
-    "reviewerVoice": "Di menu Reseller Dashboard, mitra dapat melihat metrik performa mereka. Ada kartu 'Total Modal Berhasil Dihemat': Rp 1.450.000 dari 24 transaksi dropship! Mitra juga bisa mengunduh katalog foto promosi harian untuk diposting ke status WhatsApp dan TikTok.",
-    "reviewerInsight": "Menghadirkan angka penghematan modal memicu kepuasan psikologis bagi reseller sehingga mereka semakin bersemangat meningkatkan omset.",
-    "cursorPos": {
-      "top": 320,
-      "left": 165
-    },
-    "topbar": {
-      "title": "DASHBOARD MITRA",
-      "role": "PERFORMA BISNIS",
-      "bg": "linear-gradient(135deg, #78350F, #D97706)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <!-- Kartu Total Hemat -->\n        <div class=\"bg-gradient-to-r from-emerald-700 to-teal-600 rounded-2xl p-3 text-white shadow\">\n          <div class=\"text-[10px] font-bold text-emerald-200\">TOTAL MODAL DIHEMAT BULAN INI:</div>\n          <div class=\"text-xl font-black mt-0.5\">Rp 1.450.000</div>\n          <div class=\"text-[9px] text-emerald-100 mt-1\">Akumulasi dari 24 pesanan dropship selesai.</div>\n        </div>\n\n        <!-- Statistik Cepat -->\n        <div class=\"grid grid-cols-2 gap-2 text-center\">\n          <div class=\"bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm\">\n            <div class=\"text-base font-black text-blue-700\">24 Unit</div>\n            <div class=\"text-[9px] font-bold text-slate-500\">Terjual ke Konsumen</div>\n          </div>\n          <div class=\"bg-white rounded-xl p-2.5 border border-slate-200 shadow-sm\">\n            <div class=\"text-base font-black text-amber-600\">Level 2</div>\n            <div class=\"text-[9px] font-bold text-slate-500\">Tier Kemitraan Aktif</div>\n          </div>\n        </div>\n\n        <button class=\"w-full py-2 bg-slate-900 text-white font-extrabold text-[11px] rounded-xl flex items-center justify-center gap-1.5 shadow\">\n          <span>📥 Unduh Materi Promosi Harian</span>\n        </button>\n      </div>\n    "
-  },
-  {
-    "id": 17,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "17. Executive Dashboard & Real-Time KPI Gudang",
-    "fileRef": "resources/views/admin/dashboard.blade.php",
-    "routeRef": "/admin",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Lengkap & Terpusat)",
-    "reviewerVoice": "Sekarang kita masuk ke tahta tertinggi: ADMIN COMMAND CENTER! Dasbor ini langsung menyajikan KPI vital: Total Omset Bulan Ini Rp 48.750.000, 3 Pesanan Menunggu Verifikasi Struk, dan Peringatan Stok Menipis. Semuanya terintegrasi dalam satu layar monitoring.",
-    "reviewerInsight": "Pusat komando yang informatif memungkinkan pemilik toko mengambil keputusan operasional gudang secara cepat tanpa membuka banyak spreadsheet.",
-    "cursorPos": {
-      "top": 240,
-      "left": 165
-    },
-    "topbar": {
-      "title": "ADMIN DASHBOARD",
-      "role": "COMMAND CENTER 👑",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <!-- Kartu Omset -->\n        <div class=\"bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-2xl p-3 text-white shadow-md\">\n          <div class=\"flex justify-between items-center text-[10px] text-blue-300 font-bold\">\n            <span>TOTAL OMSET OKTOBER</span>\n            <span class=\"bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded\">+18.4%</span>\n          </div>\n          <div class=\"text-xl font-black mt-1\">Rp 48.750.000</div>\n          <div class=\"text-[9px] text-slate-400 mt-0.5\">342 Transaksi Selesai</div>\n        </div>\n\n        <!-- 3 Kartu Aksi Cepat -->\n        <div class=\"grid grid-cols-3 gap-1.5 text-center\">\n          <div class=\"bg-amber-50 border border-amber-300 rounded-xl p-2 shadow-sm\">\n            <div class=\"text-sm font-black text-amber-700\">3</div>\n            <div class=\"text-[8px] font-bold text-amber-900\">Perlu Verifikasi</div>\n          </div>\n          <div class=\"bg-blue-50 border border-blue-300 rounded-xl p-2 shadow-sm\">\n            <div class=\"text-sm font-black text-blue-700\">12</div>\n            <div class=\"text-[8px] font-bold text-blue-900\">Siap Dikemas</div>\n          </div>\n          <div class=\"bg-red-50 border border-red-300 rounded-xl p-2 shadow-sm\">\n            <div class=\"text-sm font-black text-red-700\">2</div>\n            <div class=\"text-[8px] font-bold text-red-900\">Stok Kritis</div>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 18,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "18. Verifikasi Pembayaran & Tinjauan Bukti Transfer",
-    "fileRef": "resources/views/admin/verifikasi.blade.php",
-    "routeRef": "/admin/verifikasi",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Cepat & Anti-Fraud)",
-    "reviewerVoice": "Di modul verifikasi pembayaran, admin dapat melihat foto struk bukti transfer yang diunggah pelanggan. Admin memeriksa nominal Rp 147.000 dan nama pengirim, lalu cukup klik tombol hijau '✓ Setujui Pembayaran'. Pesanan seketika berpindah ke antrean kemas gudang!",
-    "reviewerInsight": "Pemeriksaan visual bukti transfer melindungi toko dari penipuan bukti palsu sebelum barang fisik dikeluarkan dari gudang.",
-    "cursorPos": {
-      "top": 380,
-      "left": 120
-    },
-    "topbar": {
-      "title": "VERIFIKASI STRUK",
-      "role": "3 MENUNGGU",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"flex justify-between items-center text-xs\">\n            <span class=\"font-black text-slate-900\">#ORD-88231</span>\n            <span class=\"font-mono font-bold text-blue-700\">Rp 147.000</span>\n          </div>\n          <div class=\"text-[10px] text-slate-500\">Pembeli: Budi Santoso (Bank BCA)</div>\n\n          <!-- Preview Struk Transfer -->\n          <div class=\"w-full h-24 bg-slate-100 rounded-xl border border-slate-300 flex items-center justify-center text-center p-2\">\n            <div>\n              <span class=\"text-xl\">🧾</span>\n              <div class=\"text-[9px] font-mono font-bold text-slate-700\">BCA Mobile - Sukses Transfer</div>\n              <div class=\"text-[8px] text-slate-500\">Ref: 202611019921 • Rp 147.000</div>\n            </div>\n          </div>\n\n          <!-- Tombol Aksi Admin -->\n          <div class=\"grid grid-cols-2 gap-2 pt-1\">\n            <button class=\"py-2 bg-emerald-600 text-white font-black text-[10px] rounded-xl shadow\">\n              ✓ Setujui Pembayaran\n            </button>\n            <button class=\"py-2 bg-red-100 text-red-700 font-bold text-[10px] rounded-xl border border-red-200\">\n              ✕ Tolak Struk\n            </button>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 19,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "19. Manajemen Pesanan, Input Resi & Dokumen Cetak",
-    "fileRef": "resources/views/admin/orders.blade.php",
-    "routeRef": "/admin/order",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Operasional Rapi)",
-    "reviewerVoice": "Di modul pesanan, staf packing gudang memasukkan nomor resi ekspedisi (JT8829103) dan menekan tombol cetak: Label Pengiriman dengan barcode, Surat Jalan Gudang untuk staf sortir, serta Struk Kasir.",
-    "reviewerInsight": "Fitur cetak terintegrasi (Label Resi, Surat Jalan, Invoice) memangkas waktu pengemasan barang hingga 60% per paket.",
-    "cursorPos": {
-      "top": 350,
-      "left": 165
-    },
-    "topbar": {
-      "title": "KELOLA PESANAN",
-      "role": "OPERASIONAL",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"flex justify-between items-center text-xs\">\n            <span class=\"font-extrabold text-slate-900\">Pesanan Siap Kirim</span>\n            <span class=\"text-[9px] bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded-full\">J&T Express</span>\n          </div>\n\n          <div>\n            <label class=\"text-[10px] font-bold text-slate-700\">Input Nomor Resi Kurir:</label>\n            <input type=\"text\" value=\"JT8829103\" class=\"w-full p-2 border border-blue-400 bg-blue-50/50 rounded-xl font-mono text-xs font-bold text-blue-900 mt-0.5\" readonly>\n          </div>\n\n          <!-- Dokumen Cetak -->\n          <div class=\"grid grid-cols-3 gap-1.5 pt-1 text-center text-[9px] font-bold\">\n            <button class=\"p-2 bg-slate-100 border border-slate-300 rounded-lg\">🏷️ Label Resi</button>\n            <button class=\"p-2 bg-slate-100 border border-slate-300 rounded-lg\">📦 Surat Jalan</button>\n            <button class=\"p-2 bg-slate-100 border border-slate-300 rounded-lg\">📄 Struk Kasir</button>\n          </div>\n\n          <button class=\"w-full py-2 bg-blue-600 text-white font-extrabold text-xs rounded-xl shadow\">\n            UPDATE STATUS: DIKIRIM 🚚\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 20,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "20. Persetujuan Reseller (Validasi Dokumen KTP)",
-    "fileRef": "resources/views/admin/resellers.blade.php",
-    "routeRef": "/admin/reseller",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Keamanan Terjamin)",
-    "reviewerVoice": "Admin memiliki kewenangan penuh menyetujui pendaftar reseller. Di layar ini, admin dapat memeriksa foto berkas KTP pendaftar, memvalidasi nomor WhatsApp, lalu menekan tombol 'Approve Reseller'. Seketika akun pemohon langsung memiliki akses harga modal!",
-    "reviewerInsight": "Otoritas persetujuan manual memberi rasa aman bagi pemilik toko bahwa hanya mitra tepercaya yang bisa menikmati diskon grosir.",
-    "cursorPos": {
-      "top": 380,
-      "left": 110
-    },
-    "topbar": {
-      "title": "APPROVAL RESELLER",
-      "role": "VERIFIKASI KTP",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"flex justify-between items-center text-xs\">\n            <span class=\"font-black text-slate-900\">Budi Santoso</span>\n            <span class=\"text-[9px] bg-amber-100 text-amber-800 font-extrabold px-2 py-0.5 rounded-full\">MENUNGGU REVIEW</span>\n          </div>\n          <div class=\"text-[10px] text-slate-600\">Usaha: <b>Toko Tumbler Cantik</b> • WA: 0812-9988-1234</div>\n\n          <!-- Pratinjau Dokumen KTP -->\n          <div class=\"w-full h-24 bg-slate-100 rounded-xl border border-slate-300 flex items-center justify-center p-2 text-center\">\n            <div>\n              <span class=\"text-xl\">🪪</span>\n              <div class=\"text-[9px] font-bold text-slate-800\">REPUBLIK INDONESIA - KTP ELEKTRONIK</div>\n              <div class=\"text-[8px] text-slate-500 font-mono\">NIK: 317502**********</div>\n            </div>\n          </div>\n\n          <div class=\"grid grid-cols-2 gap-2 pt-1\">\n            <button class=\"py-2 bg-emerald-600 text-white font-black text-[10px] rounded-xl shadow\">\n              ✓ Approve Reseller\n            </button>\n            <button class=\"py-2 bg-slate-100 text-slate-700 font-bold text-[10px] rounded-xl border border-slate-300\">\n              ✕ Tolak Permohonan\n            </button>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 21,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "21. Katalog Produk, Multi-Varian & Tier Harga",
-    "fileRef": "resources/views/admin/products.blade.php",
-    "routeRef": "/admin/produk",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Fleksibel & Terstruktur)",
-    "reviewerVoice": "Di modul produk, admin mengatur dua lapis harga sekaligus: Harga Retail (Rp 129.000) dan Harga Khusus Reseller (Rp 99.000). Admin juga bisa menambah varian warna baru, mengatur foto produk, dan memperbarui kuota stok.",
-    "reviewerInsight": "Pemisahan pengaturan harga retail dan harga reseller dalam 1 form mempermudah owner menetapkan margin laba tanpa rumus rumit.",
-    "cursorPos": {
-      "top": 380,
-      "left": 165
-    },
-    "topbar": {
-      "title": "KELOLA PRODUK",
-      "role": "KATALOG & VARIAN",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5 text-[10px]\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"font-black text-xs text-slate-900\">Setting Harga & Varian Produk:</div>\n          <div>\n            <label class=\"font-bold text-slate-700\">Nama Produk Tumbler:</label>\n            <input type=\"text\" value=\"HQ-001 Botol Chicutom 650ml\" class=\"w-full p-1.5 border border-slate-300 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n          </div>\n\n          <div class=\"grid grid-cols-2 gap-2\">\n            <div>\n              <label class=\"font-bold text-blue-700\">Harga Retail Eceran:</label>\n              <input type=\"text\" value=\"Rp 129.000\" class=\"w-full p-1.5 border border-blue-300 bg-blue-50/50 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n            </div>\n            <div>\n              <label class=\"font-bold text-amber-700\">Harga Modal Reseller:</label>\n              <input type=\"text\" value=\"Rp 99.000\" class=\"w-full p-1.5 border border-amber-300 bg-amber-50/50 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n            </div>\n          </div>\n\n          <div class=\"p-2 bg-slate-50 border border-slate-200 rounded-xl space-y-1\">\n            <div class=\"font-bold text-slate-700\">Stok Varian:</div>\n            <div class=\"flex justify-between text-[9px] text-slate-600\">\n              <span>🌸 Pink: 15 pcs</span>\n              <span>🌊 Biru: 28 pcs</span>\n              <span>🍃 Toska: 12 pcs</span>\n            </div>\n          </div>\n\n          <button class=\"w-full py-2 bg-blue-600 text-white font-extrabold text-xs rounded-xl shadow\">\n            SIMPAN PERUBAHAN PRODUK 💾\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 22,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "22. Penerimaan Barang Pabrik, Mutasi & Stock Opname",
-    "fileRef": "resources/views/admin/opname.blade.php",
-    "routeRef": "/admin/opname",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Standar Enterprise)",
-    "reviewerVoice": "Ini fitur kelas berat: Gudang Bubee dilengkapi modul Penerimaan Barang Pabrik dan Stock Opname Fisik. Staf gudang bisa mencatat kontainer botol yang baru datang, melakukan opname penghitungan fisik, dan sistem langsung merekonsiliasi selisih stok.",
-    "reviewerInsight": "Stock opname digital mencegah kebocoran barang dan kehilangan stok di gudang penyimpanan.",
-    "cursorPos": {
-      "top": 360,
-      "left": 165
-    },
-    "topbar": {
-      "title": "STOCK OPNAME",
-      "role": "GUDANG LOGISTIK",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"flex justify-between items-center text-xs\">\n            <span class=\"font-black text-slate-900\">Audit Fisik Gudang</span>\n            <span class=\"text-[9px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full\">MATCH 100%</span>\n          </div>\n\n          <div class=\"p-2 bg-slate-50 rounded-xl space-y-1 text-[10px]\">\n            <div class=\"flex justify-between text-slate-600\"><span>Stok di Sistem:</span><span class=\"font-mono font-bold\">150 unit</span></div>\n            <div class=\"flex justify-between text-slate-600\"><span>Hasil Hitung Fisik:</span><span class=\"font-mono font-bold text-emerald-600\">150 unit</span></div>\n            <div class=\"flex justify-between border-t border-slate-200 pt-1 font-bold text-slate-800\">\n              <span>Status Rekonsiliasi:</span>\n              <span class=\"text-emerald-700\">Sesuai (Tanpa Selisih)</span>\n            </div>\n          </div>\n\n          <button class=\"w-full py-2 bg-slate-900 text-white font-extrabold text-[11px] rounded-xl shadow\">\n            SAHKAN HASIL OPNAME FISIK ✓\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 23,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "23. Penyelesaian Retur & Klaim Komplain Konsumen",
-    "fileRef": "resources/views/admin/returs.blade.php",
-    "routeRef": "/admin/retur",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Resolusi Cepat)",
-    "reviewerVoice": "Jika ada konsumen yang mengajukan komplain barang rusak, tiket masuk ke layar ini. Admin memeriksa foto bukti tumbler cacat dan bisa memilih solusi: 'Kirim Ganti Unit Baru' atau 'Refund Dana'. Semua terekam rapi.",
-    "reviewerInsight": "Manajemen retur yang transparan mempertahankan loyalitas pelanggan sekalipun terjadi kendala kurir di jalan.",
-    "cursorPos": {
-      "top": 380,
-      "left": 110
-    },
-    "topbar": {
-      "title": "KLAIM RETUR",
-      "role": "1 TIKET KOMPLAIN",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"flex justify-between items-center text-xs\">\n            <span class=\"font-black text-slate-900\">#RET-0042</span>\n            <span class=\"text-[9px] bg-red-100 text-red-700 font-bold px-2 py-0.5 rounded-full\">KACA PECAH</span>\n          </div>\n          <div class=\"text-[10px] text-slate-500\">Order: #ORD-88192 • Pembeli: Siti Aminah</div>\n\n          <!-- Foto Bukti Rusak -->\n          <div class=\"w-full h-20 bg-red-50 rounded-xl border border-red-200 flex items-center justify-center text-center p-2\">\n            <div>\n              <span class=\"text-lg\">📦💥</span>\n              <div class=\"text-[9px] font-bold text-red-900\">Foto Bukti Kotak Penyok & Sedotan Retak</div>\n            </div>\n          </div>\n\n          <div class=\"grid grid-cols-2 gap-2 pt-1\">\n            <button class=\"py-2 bg-blue-600 text-white font-extrabold text-[10px] rounded-xl shadow\">\n              Kirim Botol Baru 🔄\n            </button>\n            <button class=\"py-2 bg-emerald-600 text-white font-extrabold text-[10px] rounded-xl shadow\">\n              Refund Dana 💰\n            </button>\n          </div>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 24,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "24. Manajemen Kupon Voucher & Diskon Event",
-    "fileRef": "resources/views/admin/vouchers.blade.php",
-    "routeRef": "/admin/voucher",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Mendorong Penjualan)",
-    "reviewerVoice": "Untuk mendongkrak penjualan saat tanggal kembar atau gajian, admin bisa menerbitkan voucher diskon baru, misalnya kode 'BUBEECUAN' (Potongan Rp 15.000) dengan kuota pemakaian dan masa berlaku.",
-    "reviewerInsight": "Voucher diskon berkala merupakan stimulus promosi yang sangat efektif untuk memicu repeat order dari pelanggan lama.",
-    "cursorPos": {
-      "top": 380,
-      "left": 165
-    },
-    "topbar": {
-      "title": "VOUCHER DISKON",
-      "role": "PROMOSI EVENT",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5 text-[10px]\">\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-2\">\n          <div class=\"font-black text-xs text-slate-900\">Terbitkan Kupon Promo Baru:</div>\n          <div>\n            <label class=\"font-bold text-slate-700\">Kode Voucher Unik:</label>\n            <input type=\"text\" value=\"BUBEECUAN15K\" class=\"w-full p-1.5 border border-purple-300 bg-purple-50/50 rounded-lg font-mono font-bold text-purple-900 mt-0.5 uppercase\" readonly>\n          </div>\n\n          <div class=\"grid grid-cols-2 gap-2\">\n            <div>\n              <label class=\"font-bold text-slate-700\">Potongan Harga:</label>\n              <input type=\"text\" value=\"Rp 15.000\" class=\"w-full p-1.5 border border-slate-300 rounded-lg font-bold text-emerald-700 mt-0.5\" readonly>\n            </div>\n            <div>\n              <label class=\"font-bold text-slate-700\">Kuota Kupon:</label>\n              <input type=\"text\" value=\"100 Pengguna\" class=\"w-full p-1.5 border border-slate-300 rounded-lg font-bold text-slate-800 mt-0.5\" readonly>\n            </div>\n          </div>\n\n          <button class=\"w-full py-2 bg-gradient-to-r from-purple-700 to-indigo-600 text-white font-extrabold text-xs rounded-xl shadow mt-1\">\n            AKTIFKAN VOUCHER PROMO 🎉\n          </button>\n        </div>\n      </div>\n    "
-  },
-  {
-    "id": 25,
-    "role": "admin",
-    "roleName": "ADMIN",
-    "categoryLabel": "Admin Command Center",
-    "badgeColor": "bg-red-600 text-white",
-    "title": "25. Laporan Keuangan, Rekapitulasi Laba & Ekspor Excel",
-    "fileRef": "resources/views/admin/laporan.blade.php",
-    "routeRef": "/admin/laporan",
-    "score": "⭐⭐⭐⭐⭐ 5.0 / 5.0 (Kesimpulan Reviewer: 10/10)",
-    "reviewerVoice": "Dan inilah puncak penutup review kita: Laporan Keuangan Toko! Sistem menghitung Omset Kotor Rp 48.750.000, dikurangi HPP modal botol dan ongkir, menghasilkan Estimasi Laba Bersih Rp 12.350.000. Data bisa langsung diunduh ke Excel (.xlsx) dengan satu klik! Kesimpulan saya: Aplikasi Bubee ini sangat lengkap, siap tempur, dan memenuhi standar bisnis modern!",
-    "reviewerInsight": "Otomatisasi pembukuan laba bersih dan ekspor Excel menghemat waktu akuntansi owner serta memudahkan pelaporan pajak berkala.",
-    "cursorPos": {
-      "top": 380,
-      "left": 165
-    },
-    "topbar": {
-      "title": "LAPORAN KEUANGAN",
-      "role": "REKAP AKUNTANSI",
-      "bg": "linear-gradient(135deg, #18181B, #3F3F46)"
-    },
-    "screenHtml": "\n      <div class=\"p-3 space-y-2.5\">\n        <div class=\"bg-gradient-to-r from-emerald-800 via-teal-800 to-slate-900 rounded-2xl p-3 text-white shadow-md space-y-1\">\n          <div class=\"text-[10px] font-bold text-emerald-300\">ESTIMASI LABA BERSIH (OKTOBER):</div>\n          <div class=\"text-xl font-black\">Rp 12.350.000</div>\n          <div class=\"text-[9px] text-slate-300\">Margin Profit Toko: 25.3% Bersih</div>\n        </div>\n\n        <div class=\"bg-white rounded-2xl p-3 border border-slate-200 shadow-sm space-y-1.5 text-[10px]\">\n          <div class=\"flex justify-between text-slate-600\"><span>Total Omset Penjualan:</span><span class=\"font-bold\">Rp 48.750.000</span></div>\n          <div class=\"flex justify-between text-slate-600\"><span>HPP (Harga Modal Pabrik):</span><span class=\"font-bold text-red-600\">- Rp 33.400.000</span></div>\n          <div class=\"flex justify-between text-slate-600\"><span>Biaya Packing & Operasional:</span><span class=\"font-bold text-red-600\">- Rp 3.000.000</span></div>\n          <div class=\"border-t border-slate-200 pt-1.5 flex justify-between font-extrabold text-emerald-700 text-xs\">\n            <span>Laba Bersih Siap Tarik:</span>\n            <span>Rp 12.350.000</span>\n          </div>\n        </div>\n\n        <!-- Tombol Ekspor -->\n        <div class=\"grid grid-cols-2 gap-2 pt-1\">\n          <button class=\"py-2 bg-emerald-700 text-white font-black text-[10px] rounded-xl shadow flex items-center justify-center gap-1\">\n            <span>📊 Ekspor Excel (.xlsx)</span>\n          </button>\n          <button class=\"py-2 bg-slate-800 text-white font-black text-[10px] rounded-xl shadow flex items-center justify-center gap-1\">\n            <span>🖨️ Cetak PDF Laporan</span>\n          </button>\n        </div>\n      </div>\n    "
+    "code": "HQ-014",
+    "name": "HQ-014 Botol Motivasi Time Marker 1 Liter",
+    "category": "tumbler",
+    "categoryLabel": "Tumbler",
+    "desc": "Botol minum penanda waktu 1000ml BPA Free dengan pegangan ergonomis dan sedotan.",
+    "image": "./storage/produk/HQ-014.jpg",
+    "hargaRetail": 89000,
+    "hargaReseller": 65000,
+    "stok": 42,
+    "badge": "BEST SELLER",
+    "badgeColor": "bg-amber-500",
+    "variants": [
+      {
+        "name": "🌈 Gradasi Ungu-Biru",
+        "stok": 22
+      },
+      {
+        "name": "🌅 Gradasi Pink-Kuning",
+        "stok": 20
+      }
+    ]
   }
 ];
+    let currentRole = 'guest'; // 'guest', 'reguler', 'reseller', 'admin'
+    let cart = [];
+    let selectedKurirOngkir = 18000;
 
-    let currentStepIndex = 0;
-    let isPlaying = true;
-    let intervalTimer = null;
-    let countdownSec = 5;
-    let playbackSpeed = 1;
-    let activeFilter = 'all';
-
-    // Render Pills Navigasi
-    function renderStepPills() {
-      const container = document.getElementById('step-pills-container');
-      container.innerHTML = '';
-
-      steps.forEach((st, idx) => {
-        const isCurrent = idx === currentStepIndex;
-        let isVisible = true;
-        if (activeFilter !== 'all' && st.role !== activeFilter) {
-          isVisible = false;
-        }
-
-        const btn = document.createElement('button');
-        btn.onclick = () => jumpToStep(idx);
-        btn.id = 'pill-step-' + idx;
-        btn.className = `px-3 py-1.5 rounded-xl whitespace-nowrap transition-all ${
-          isVisible ? 'inline-flex items-center gap-1.5' : 'hidden'
-        } ${
-          isCurrent 
-            ? 'bg-blue-600 text-white font-black shadow-lg scale-105' 
-            : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800'
-        }`;
-
-        let roleIcon = '🙋';
-        if (st.role === 'reseller') roleIcon = '🏪';
-        if (st.role === 'admin') roleIcon = '👑';
-
-        btn.innerHTML = `<span>${roleIcon}</span> <span>Fitur ${st.id}</span>`;
-        container.appendChild(btn);
-      });
+    function showToast(text, icon = '✓') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-text').innerText = text;
+      document.getElementById('toast-icon').innerText = icon;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
     }
 
-    function updateView() {
-      const step = steps[currentStepIndex];
-
-      // Update HP Topbar
-      document.getElementById('sim-topbar-title').innerText = step.topbar.title;
-      document.getElementById('sim-badge-role').innerText = step.topbar.role;
-      document.getElementById('sim-topbar').style.background = step.topbar.bg;
-
-      // Update Layar HP
-      const simContent = document.getElementById('sim-content');
-      simContent.innerHTML = step.screenHtml;
-
-      // Update Cursor Position with smooth gliding
-      const cursor = document.getElementById('cursor');
-      if (cursor && step.cursorPos) {
-        cursor.style.top = step.cursorPos.top + 'px';
-        cursor.style.left = step.cursorPos.left + 'px';
-        cursor.style.animation = 'cursorClick 0.4s ease 0.6s';
-      }
-
-      // Update Reviewer Card
-      document.getElementById('card-feature-title').innerText = step.title;
-      document.getElementById('card-reviewer-voice').innerText = '"' + step.reviewerVoice + '"';
-      document.getElementById('card-reviewer-insight').innerText = step.reviewerInsight;
-      document.getElementById('card-score').innerText = step.score;
-      document.getElementById('card-file').innerText = step.fileRef;
-      document.getElementById('card-route').innerText = step.routeRef;
-
-      // Role badge
-      const roleBadge = document.getElementById('card-role-badge');
-      roleBadge.innerText = step.roleName;
-      roleBadge.className = 'px-2 py-0.5 rounded text-[10px] font-extrabold ' + step.badgeColor;
-
-      // Highlight active pill
-      renderStepPills();
-      const activePill = document.getElementById('pill-step-' + currentStepIndex);
-      if (activePill) {
-        activePill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-
-      // Reset timer
-      countdownSec = Math.round(5 / playbackSpeed);
-      document.getElementById('countdown').innerText = countdownSec + 's';
-    }
-
-    function nextStep() {
-      if (activeFilter === 'all') {
-        currentStepIndex = (currentStepIndex + 1) % steps.length;
-      } else {
-        // Find next step matching filter
-        let nextIdx = (currentStepIndex + 1) % steps.length;
-        while (steps[nextIdx].role !== activeFilter) {
-          nextIdx = (nextIdx + 1) % steps.length;
-        }
-        currentStepIndex = nextIdx;
-      }
-      updateView();
-    }
-
-    function prevStep() {
-      if (activeFilter === 'all') {
-        currentStepIndex = (currentStepIndex - 1 + steps.length) % steps.length;
-      } else {
-        // Find prev step matching filter
-        let prevIdx = (currentStepIndex - 1 + steps.length) % steps.length;
-        while (steps[prevIdx].role !== activeFilter) {
-          prevIdx = (prevIdx - 1 + steps.length) % steps.length;
-        }
-        currentStepIndex = prevIdx;
-      }
-      updateView();
-    }
-
-    function jumpToStep(idx) {
-      currentStepIndex = idx;
-      updateView();
-    }
-
-    function togglePlay() {
-      isPlaying = !isPlaying;
-      const playIcon = document.getElementById('play-icon');
-      const playText = document.getElementById('play-text');
-      const btn = document.getElementById('btn-toggle-play');
-
-      if (isPlaying) {
-        playIcon.innerText = '⏸️';
-        playText.innerText = 'Jeda Animasi';
-        btn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 font-extrabold text-xs text-white shadow transition active:scale-95';
-      } else {
-        playIcon.innerText = '▶️';
-        playText.innerText = 'Lanjutkan Putar';
-        btn.className = 'flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-extrabold text-xs text-white shadow transition active:scale-95';
-      }
-    }
-
-    function setSpeed(speed) {
-      playbackSpeed = speed;
-      ['spd-1', 'spd-15', 'spd-2'].forEach(id => {
-        document.getElementById(id).className = 'px-2 py-0.5 rounded font-mono font-bold bg-slate-800 text-slate-300';
-      });
-      if (speed === 1) document.getElementById('spd-1').className = 'px-2 py-0.5 rounded font-mono font-bold bg-blue-600 text-white';
-      if (speed === 1.5) document.getElementById('spd-15').className = 'px-2 py-0.5 rounded font-mono font-bold bg-blue-600 text-white';
-      if (speed === 2) document.getElementById('spd-2').className = 'px-2 py-0.5 rounded font-mono font-bold bg-blue-600 text-white';
+    function setRole(role) {
+      currentRole = role;
       
-      countdownSec = Math.round(5 / playbackSpeed);
-      document.getElementById('countdown').innerText = countdownSec + 's';
+      // Update quick bar buttons
+      ['guest', 'reguler', 'reseller', 'admin'].forEach(r => {
+        const btn = document.getElementById('btn-role-' + r);
+        if (r === role) {
+          btn.className = 'px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] shadow font-black';
+        } else {
+          btn.className = 'px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white text-[10px]';
+        }
+      });
+
+      // Update Nav
+      const navReseller = document.getElementById('nav-reseller');
+      const navAdmin = document.getElementById('nav-admin');
+      const bannerReseller = document.getElementById('banner-reseller');
+
+      if (role === 'reseller') {
+        navReseller.classList.remove('hidden');
+        bannerReseller.classList.remove('hidden');
+      } else {
+        navReseller.classList.add('hidden');
+        bannerReseller.classList.add('hidden');
+      }
+
+      if (role === 'admin') {
+        navAdmin.classList.remove('hidden');
+      } else {
+        navAdmin.classList.add('hidden');
+      }
+
+      // Update User Profile Box
+      const profileBox = document.getElementById('user-profile-box');
+      if (role === 'guest') {
+        profileBox.innerHTML = `
+          <button onclick="openLoginModal()" class="px-4 py-2 rounded-xl bg-white text-blue-900 font-black text-xs shadow hover:bg-blue-50 transition">
+            Masuk / Daftar 🔑
+          </button>
+        `;
+        document.getElementById('label-role-status').innerText = 'Tamu (Harga Terkunci)';
+        document.getElementById('label-role-status').className = 'font-bold text-slate-500';
+      } else if (role === 'reguler') {
+        profileBox.innerHTML = `
+          <span class="text-xs font-bold text-white hidden sm:inline">Budi (Reguler)</span>
+          <button onclick="setRole('guest')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20">
+            Keluar
+          </button>
+        `;
+        document.getElementById('label-role-status').innerText = 'User Reguler (Harga Retail Aktif)';
+        document.getElementById('label-role-status').className = 'font-bold text-blue-600';
+      } else if (role === 'reseller') {
+        profileBox.innerHTML = `
+          <span class="text-xs font-black text-amber-300 hidden sm:inline">Mitra Reseller ★</span>
+          <button onclick="setRole('guest')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20">
+            Keluar
+          </button>
+        `;
+        document.getElementById('label-role-status').innerText = 'Mitra Reseller (Harga Modal Bebas Min. Belanja)';
+        document.getElementById('label-role-status').className = 'font-bold text-amber-600';
+      } else if (role === 'admin') {
+        profileBox.innerHTML = `
+          <span class="text-xs font-black text-red-300 hidden sm:inline">👑 Administrator</span>
+          <button onclick="setRole('guest')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20">
+            Keluar
+          </button>
+        `;
+        document.getElementById('label-role-status').innerText = 'Admin Gudang (Akses Penuh)';
+        document.getElementById('label-role-status').className = 'font-bold text-red-600';
+      }
+
+      renderProducts(productsData);
+      renderResellerTable();
+    }
+
+    function renderProducts(list) {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-2xl p-3 border border-slate-200 shadow-sm hover:shadow-card transition-all flex flex-col justify-between';
+
+        let priceHtml = '';
+        if (currentRole === 'guest') {
+          priceHtml = `
+            <button onclick="openLoginModal()" class="price-btn shadow">
+              <span>🔒 Login untuk lihat harga</span>
+            </button>
+          `;
+        } else if (currentRole === 'reseller') {
+          priceHtml = `
+            <div class="space-y-1 mb-2">
+              <div class="text-[10px] font-extrabold text-amber-900 bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5 inline-block">
+                Khusus Mitra • Mulai 1 pcs
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="text-sm font-black text-emerald-700">Rp ${p.hargaReseller.toLocaleString('id-ID')}</span>
+                <span class="text-[10px] text-slate-400 line-through">Rp ${p.hargaRetail.toLocaleString('id-ID')}</span>
+              </div>
+            </div>
+            <button onclick="addToCart(${p.id})" class="w-full py-2 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs rounded-xl shadow hover:filter hover:brightness-105 transition">
+              + Beli Harga Modal 🛒
+            </button>
+          `;
+        } else {
+          // Reguler / Admin
+          priceHtml = `
+            <div class="mb-2">
+              <div class="text-xs font-black text-blue-700">Rp ${p.hargaRetail.toLocaleString('id-ID')} <span class="text-[9px] text-slate-400 font-bold uppercase">RETAIL</span></div>
+            </div>
+            <button onclick="addToCart(${p.id})" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs rounded-xl shadow transition">
+              + Ke Keranjang 🛒
+            </button>
+          `;
+        }
+
+        card.innerHTML = `
+          <div>
+            <div class="relative w-full h-40 bg-slate-50 rounded-xl overflow-hidden mb-2.5 flex items-center justify-center">
+              <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/300x300/e2e8f0/0f172a?text=Tumbler';">
+              <span class="absolute top-2 right-2 text-[9px] font-bold text-white px-2 py-0.5 rounded-full shadow ${p.badgeColor}">${p.badge}</span>
+            </div>
+            <div class="text-[10px] font-extrabold text-blue-600 uppercase tracking-wider">${p.categoryLabel}</div>
+            <h3 class="font-bold text-xs text-slate-900 leading-snug mt-0.5 line-clamp-2">${p.name}</h3>
+            <p class="text-[11px] text-slate-500 mt-1 line-clamp-2">${p.desc}</p>
+          </div>
+          <div class="pt-3 border-t border-slate-100 mt-2">
+            ${priceHtml}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      document.getElementById('product-count-label').innerText = list.length + ' Produk';
+    }
+
+    function renderResellerTable() {
+      const tbody = document.getElementById('reseller-table-body');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      productsData.forEach(p => {
+        const margin = p.hargaRetail - p.hargaReseller;
+        const percent = Math.round((margin / p.hargaRetail) * 100);
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+        tr.innerHTML = `
+          <td class="p-3">
+            <div class="font-bold text-slate-900">${p.name}</div>
+            <div class="text-[10px] text-slate-400">Kode: ${p.code}</div>
+          </td>
+          <td class="p-3">
+            <span class="font-black text-emerald-700">Rp ${p.hargaReseller.toLocaleString('id-ID')}</span>
+            <div class="text-[9px] text-emerald-600 font-bold">Mulai 1 pcs</div>
+          </td>
+          <td class="p-3">
+            <span class="font-bold text-slate-700">Rp ${p.hargaRetail.toLocaleString('id-ID')}</span>
+          </td>
+          <td class="p-3">
+            <span class="font-extrabold text-blue-700">+Rp ${margin.toLocaleString('id-ID')}</span>
+            <span class="text-[9px] bg-blue-100 text-blue-800 px-1.5 py-0.2 rounded font-bold ml-1">+${percent}%</span>
+          </td>
+          <td class="p-3 text-center">
+            <button onclick="addToCart(${p.id})" class="px-3 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-lg text-xs shadow">
+              Order Modal 🛒
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function addToCart(productId) {
+      if (currentRole === 'guest') {
+        openLoginModal();
+        return;
+      }
+
+      const p = productsData.find(item => item.id === productId);
+      if (!p) return;
+
+      const price = currentRole === 'reseller' ? p.hargaReseller : p.hargaRetail;
+      const exist = cart.find(c => c.id === productId);
+      if (exist) {
+        exist.qty++;
+      } else {
+        cart.push({
+          id: p.id,
+          name: p.name,
+          image: p.image,
+          price: price,
+          qty: 1,
+          variant: p.variants[0].name
+        });
+      }
+
+      updateCartUI();
+      showToast(p.name + ' ditambahkan ke keranjang!');
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('badge-cart-count').innerText = count;
+
+      const container = document.getElementById('cart-items-container');
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white rounded-2xl p-8 border border-slate-200 text-center space-y-3">
+            <span class="text-4xl">🛒</span>
+            <div class="font-bold text-slate-700 text-sm">Keranjang Anda Masih Kosong</div>
+            <button onclick="showPage('home')" class="px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl shadow">
+              Pilih Botol & Tumbler Sekarang
+            </button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = '';
+        cart.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = 'bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex items-center justify-between gap-3';
+          div.innerHTML = `
+            <div class="flex items-center gap-3">
+              <img src="${item.image}" class="w-14 h-14 object-cover rounded-xl border border-slate-100" onerror="this.onerror=null; this.src='https://placehold.co/100x100/e2e8f0/0f172a?text=Tumbler';">
+              <div>
+                <h4 class="font-extrabold text-xs text-slate-900 leading-tight">${item.name}</h4>
+                <div class="text-[10px] text-slate-500 mt-0.5">Varian: ${item.variant}</div>
+                <div class="text-xs font-black text-blue-700 mt-1">Rp ${item.price.toLocaleString('id-ID')}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex items-center border border-slate-200 rounded-lg bg-slate-50">
+                <button onclick="changeQty(${index}, -1)" class="px-2 py-0.5 text-xs font-bold text-slate-600">-</button>
+                <span class="px-2 text-xs font-bold text-slate-800">${item.qty}</span>
+                <button onclick="changeQty(${index}, 1)" class="px-2 py-0.5 text-xs font-bold text-slate-600">+</button>
+              </div>
+              <button onclick="removeItem(${index})" class="text-red-500 hover:text-red-700 p-1 text-sm font-bold">🗑️</button>
+            </div>
+          `;
+          container.appendChild(div);
+        });
+      }
+
+      // Hitung Subtotal
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      const totalWeight = count * 450;
+
+      document.getElementById('cart-summary-items').innerText = count + ' pcs';
+      document.getElementById('cart-summary-subtotal').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+      document.getElementById('cart-summary-weight').innerText = totalWeight + ' gram';
+      document.getElementById('cart-summary-total').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+
+      // Update Checkout Summary
+      document.getElementById('chk-total-produk').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+      document.getElementById('chk-grand-total').innerText = 'Rp ' + (subtotal + selectedKurirOngkir).toLocaleString('id-ID');
+    }
+
+    function changeQty(index, delta) {
+      if (!cart[index]) return;
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+        cart.splice(index, 1);
+      }
+      updateCartUI();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function setKurir(ongkir) {
+      selectedKurirOngkir = ongkir;
+      document.getElementById('chk-ongkir').innerText = 'Rp ' + ongkir.toLocaleString('id-ID');
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      document.getElementById('chk-grand-total').innerText = 'Rp ' + (subtotal + selectedKurirOngkir).toLocaleString('id-ID');
+    }
+
+    function buatPesanan() {
+      if (cart.length === 0) {
+        alert('Keranjang belanja kosong! Silakan pilih produk terlebih dahulu.');
+        showPage('home');
+        return;
+      }
+      cart = [];
+      updateCartUI();
+      alert('Pesanan #ORD-88231 Berhasil Dibuat! Silakan transfer ke rekening BCA Bubee: 8820-1928-334.');
+      showPage('orders');
+    }
+
+    function showPage(pageId) {
+      const pages = ['home', 'cart', 'checkout', 'orders', 'reseller-etalase', 'admin'];
+      pages.forEach(p => {
+        const el = document.getElementById('page-' + p);
+        if (el) el.classList.add('hidden');
+      });
+
+      const target = document.getElementById('page-' + pageId === 'page-katalog' ? 'page-home' : 'page-' + pageId);
+      if (target) target.classList.remove('hidden');
+
+      // Update active nav class
+      ['home', 'katalog', 'cart', 'orders', 'reseller', 'admin'].forEach(nav => {
+        const nEl = document.getElementById('nav-' + nav);
+        if (nEl) {
+          if (nav === pageId || (nav === 'katalog' && pageId === 'home')) {
+            nEl.className = 'active';
+          } else {
+            nEl.className = '';
+          }
+        }
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function filterCategory(cat) {
-      activeFilter = cat;
-      ['tab-all', 'tab-reguler', 'tab-reseller', 'tab-admin'].forEach(id => {
-        document.getElementById(id).className = 'tab-btn px-3 py-1.5 rounded-xl bg-slate-900 text-slate-300 border border-slate-800 hover:bg-slate-800';
+      ['all', 'tumbler', 'anak', 'mug'].forEach(c => {
+        const btn = document.getElementById('cat-' + c);
+        if (btn) {
+          if (c === cat) {
+            btn.className = 'cat-pill px-4 py-2 rounded-xl bg-blue-600 text-white shadow font-bold';
+          } else {
+            btn.className = 'cat-pill px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold';
+          }
+        }
       });
-      if (cat === 'all') document.getElementById('tab-all').className = 'tab-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white shadow';
-      if (cat === 'reguler') document.getElementById('tab-reguler').className = 'tab-btn px-3 py-1.5 rounded-xl bg-blue-600 text-white shadow';
-      if (cat === 'reseller') document.getElementById('tab-reseller').className = 'tab-btn px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 shadow';
-      if (cat === 'admin') document.getElementById('tab-admin').className = 'tab-btn px-3 py-1.5 rounded-xl bg-red-600 text-white shadow';
 
-      // Find first matching step
-      if (cat !== 'all') {
-        const firstIdx = steps.findIndex(s => s.role === cat);
-        if (firstIdx !== -1) currentStepIndex = firstIdx;
-      }
-      updateView();
-    }
-
-    function onSearchFeature(query) {
-      if (!query || query.trim() === '') return;
-      const q = query.toLowerCase();
-      const foundIdx = steps.findIndex(s => 
-        s.title.toLowerCase().includes(q) || 
-        s.reviewerVoice.toLowerCase().includes(q) ||
-        s.reviewerInsight.toLowerCase().includes(q) ||
-        s.routeRef.toLowerCase().includes(q)
-      );
-      if (foundIdx !== -1) {
-        jumpToStep(foundIdx);
-      }
-    }
-
-    // Keyboard Shortcuts
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextStep();
-      if (e.key === 'ArrowLeft') prevStep();
-      if (e.key === ' ') {
-        e.preventDefault();
-        togglePlay();
-      }
-    });
-
-    // Auto Play Interval
-    setInterval(() => {
-      if (!isPlaying) return;
-      countdownSec--;
-      if (countdownSec <= 0) {
-        nextStep();
+      if (cat === 'all') {
+        renderProducts(productsData);
       } else {
-        document.getElementById('countdown').innerText = countdownSec + 's';
+        const filtered = productsData.filter(p => p.category === cat);
+        renderProducts(filtered);
       }
-    }, 1000);
+    }
 
-    // Initial render
-    renderStepPills();
-    updateView();
+    function searchProducts(query) {
+      if (!query || query.trim() === '') {
+        renderProducts(productsData);
+        return;
+      }
+      const q = query.toLowerCase();
+      const filtered = productsData.filter(p => 
+        p.name.toLowerCase().includes(q) || 
+        p.code.toLowerCase().includes(q) ||
+        p.desc.toLowerCase().includes(q)
+      );
+      renderProducts(filtered);
+    }
+
+    function openLoginModal() {
+      document.getElementById('modal-login').classList.remove('hidden');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('modal-login').classList.add('hidden');
+    }
+
+    function quickLogin(role) {
+      closeLoginModal();
+      setRole(role);
+      showToast('Berhasil masuk sebagai: ' + role.toUpperCase());
+    }
+
+    // Init App
+    setRole('guest');
+    updateCartUI();
   </script>
 </body>
 </html>
