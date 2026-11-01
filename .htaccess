@@ -1,0 +1,19 @@
+# Bubee: kunci file sensitif dari akses web langsung (XAMPP docroot = htdocs).
+# Tanpa ini, http://host/projek%20wp3/.env bisa diunduh siapa pun.
+Options -Indexes
+
+# Blok file environment & rahasia
+<FilesMatch "^\.env(\..*)?$">
+    Require all denied
+</FilesMatch>
+
+# Blok metadata repo & tooling
+<FilesMatch "^(\.git.*|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|artisan|vite\.config\.js|capacitor\.config\.json)$">
+    Require all denied
+</FilesMatch>
+RedirectMatch 403 /\.git(/|$)
+
+# Blok log & database lokal
+<FilesMatch "\.(log|sqlite|sql)$">
+    Require all denied
+</FilesMatch>

@@ -1,0 +1,155 @@
+<?php
+
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BantuanController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\MidtransController;
+use App\Http\Controllers\PenerimaanController;
+use App\Http\Controllers\ResellerController;
+use App\Http\Controllers\ReturController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\WilayahController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/splash', [HomeController::class, 'splash']);
+Route::get('/tampilan/{mode}', function (string $mode) {
+    if (in_array($mode, ['web', 'hp'], true)) {
+        session(['tampilan' => $mode]);
+    }
+
+    return back()->with('ok', 'Tampilan: '.($mode === 'web' ? '🖥️ Web' : '📱 HP'));
+})->name('tampilan');
+Route::get('/', [HomeController::class, 'index']);
+Route::get('/produk/{product}', [HomeController::class, 'show']);
+Route::post('/midtrans/notify', [MidtransController::class, 'notify'])->middleware('throttle:60,1');
+Route::get('/bantuan', [BantuanController::class, 'index']);
+Route::get('/faq', [BantuanController::class, 'json']);
+Route::get('/wilayah/provinsi', [WilayahController::class, 'provinsi']);
+Route::get('/wilayah/kota', [WilayahController::class, 'kota']);
+
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:10,1');
+Route::get('/register', [AuthController::class, 'registerForm']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:10,1');
+Route::get('/verifikasi-otp', [AuthController::class, 'verifyForm']);
+Route::post('/verifikasi-otp', [AuthController::class, 'verify'])->middleware('throttle:10,1');
+Route::post('/verifikasi-otp/kirim-ulang', [AuthController::class, 'resend'])->middleware('throttle:5,1');
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/akun', [AuthController::class, 'akun']);
+    Route::put('/akun', [AuthController::class, 'akunUpdate']);
+    Route::get('/akun/pengaturan', [AuthController::class, 'pengaturan']);
+    Route::post('/akun/upgrade-reseller', [AuthController::class, 'upgradeReseller']);
+    Route::post('/akun/password', [AuthController::class, 'gantiPassword']);
+    Route::delete('/akun', [AuthController::class, 'hapusAkun']);
+    Route::get('/keranjang', [CartController::class, 'index']);
+    Route::post('/keranjang/{product}', [CartController::class, 'add']);
+    Route::put('/keranjang-item/{cart}', [CartController::class, 'update']);
+    Route::delete('/keranjang-item/{cart}', [CartController::class, 'destroy']);
+    Route::get('/checkout', [CheckoutController::class, 'form']);
+    Route::post('/checkout', [CheckoutController::class, 'store']);
+    Route::get('/bayar/{order}', [CheckoutController::class, 'bayar']);
+    Route::post('/bayar/{order}/simulasi', [CheckoutController::class, 'simulasiBayar']);
+    Route::post('/bayar/{order}/bukti', [CheckoutController::class, 'uploadBukti']);
+    Route::get('/pesanan', [CheckoutController::class, 'pesananSaya']);
+    Route::get('/pesanan/{order}', [CheckoutController::class, 'detail']);
+    Route::post('/pesanan/{order}/batal', [CheckoutController::class, 'batal']);
+    Route::post('/pesanan/{order}/selesai', [CheckoutController::class, 'selesai']);
+    Route::get('/pesanan/{order}/invoice', [InvoiceController::class, 'user']);
+    Route::get('/retur', [ReturController::class, 'saya']);
+    Route::get('/retur/{retur}', [ReturController::class, 'detail']);
+    Route::get('/pesanan/{order}/retur', [ReturController::class, 'form']);
+    Route::post('/pesanan/{order}/retur', [ReturController::class, 'store']);
+    Route::post('/produk/{product}/ulasan', [ReviewController::class, 'store']);
+
+    Route::prefix('reseller')->middleware('reseller')->group(function () {
+        Route::get('/', [ResellerController::class, 'dashboard']);
+        Route::get('/etalase', [ResellerController::class, 'etalase']);
+        Route::get('/hemat', [ResellerController::class, 'hemat']);
+    });
+
+    Route::prefix('admin')->middleware('admin')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/produk', [AdminController::class, 'products']);
+        Route::post('/produk', [AdminController::class, 'productStore']);
+        Route::post('/produk/arsip-massal', [AdminController::class, 'productArsipMassal']);
+        Route::put('/produk/{product}', [AdminController::class, 'productUpdate']);
+        Route::delete('/produk/{product}', [AdminController::class, 'productDestroy']);
+        Route::post('/produk/{product}/duplikat', [AdminController::class, 'productDuplicate']);
+        Route::post('/produk/{product}/varian', [AdminController::class, 'variantStore']);
+        Route::put('/varian/{variant}', [AdminController::class, 'variantUpdate']);
+        Route::delete('/varian/{variant}', [AdminController::class, 'variantDestroy']);
+        Route::post('/produk/{product}/tier', [AdminController::class, 'tierStore']);
+        Route::delete('/tier/{tier}', [AdminController::class, 'tierDestroy']);
+        Route::get('/order', [AdminController::class, 'orders']);
+        Route::post('/order/bersihkan-kedaluwarsa', [AdminController::class, 'orderBersihkanKedaluwarsa']);
+        Route::get('/order/export', [AdminController::class, 'exportOrders']);
+        Route::get('/order/{order}', [AdminController::class, 'orderDetail']);
+        Route::put('/order/{order}', [AdminController::class, 'orderUpdate']);
+        Route::get('/order/{order}/invoice', [InvoiceController::class, 'admin']);
+        Route::get('/order/{order}/label', [AdminController::class, 'label']);
+        Route::get('/order/{order}/surat-jalan', [AdminController::class, 'suratJalan']);
+        Route::get('/order/{order}/struk', [AdminController::class, 'struk']);
+        Route::get('/rekap', [AdminController::class, 'rekap']);
+        Route::get('/reseller', [AdminController::class, 'resellers']);
+        Route::get('/ktp/{user}', [AdminController::class, 'ktpFile']);
+        Route::post('/reseller/{user}/approve', [AdminController::class, 'resellerApprove']);
+        Route::post('/reseller/{user}/reject', [AdminController::class, 'resellerReject']);
+        Route::post('/reseller/{user}/review-ulang', [AdminController::class, 'resellerReviewUlang']);
+        Route::get('/laporan', [AdminController::class, 'laporan']);
+        Route::get('/laporan/export', [AdminController::class, 'exportLaporan']);
+        // Fitur khusus admin
+        Route::get('/verifikasi', [AdminController::class, 'verifikasi']);
+        Route::post('/verifikasi/{order}/setuju', [AdminController::class, 'verifikasiSetuju']);
+        Route::post('/verifikasi/{order}/tolak', [AdminController::class, 'verifikasiTolak']);
+        Route::get('/users', [AdminController::class, 'users']);
+        Route::put('/users/{user}/role', [AdminController::class, 'userRole']);
+        Route::post('/users/{user}/reset', [AdminController::class, 'userReset']);
+        Route::delete('/users/{user}', [AdminController::class, 'userDestroy']);
+        Route::get('/mutasi', [AdminController::class, 'mutasi']);
+        Route::get('/stok-keluar', [AdminController::class, 'stokKeluarForm']);
+        Route::post('/stok-keluar', [AdminController::class, 'stokKeluarStore']);
+        Route::get('/aktivitas', [AdminController::class, 'aktivitas']);
+        Route::get('/aktivitas/export', [AdminController::class, 'exportAktivitas']);
+        Route::post('/aktivitas/prune', [AdminController::class, 'pruneAktivitas']);
+        Route::get('/opname', [AdminController::class, 'opname']);
+        Route::get('/penerimaan', [PenerimaanController::class, 'index']);
+        Route::get('/penerimaan/baru', [PenerimaanController::class, 'create']);
+        Route::post('/penerimaan', [PenerimaanController::class, 'store']);
+        Route::get('/penerimaan/{penerimaan}', [PenerimaanController::class, 'show']);
+        Route::post('/penerimaan/{penerimaan}/verifikasi', [PenerimaanController::class, 'verify']);
+        Route::delete('/penerimaan/{penerimaan}', [PenerimaanController::class, 'destroy']);
+        Route::post('/opname', [AdminController::class, 'opnameStore']);
+        Route::post('/opname/mulai', [AdminController::class, 'opnameMulai']);
+        Route::get('/opname/{sesi}', [AdminController::class, 'opnameHitung']);
+        Route::post('/opname/{sesi}/hitung', [AdminController::class, 'opnameHitungSimpan']);
+        Route::get('/opname/{sesi}/review', [AdminController::class, 'opnameReview']);
+        Route::post('/opname/{sesi}/sahkan', [AdminController::class, 'opnameSahkan']);
+        Route::post('/opname/{sesi}/batal', [AdminController::class, 'opnameBatal']);
+        Route::post('/rekonsiliasi', [AdminController::class, 'rekonsiliasi']);
+        Route::get('/pengaturan', [AdminController::class, 'settings']);
+        Route::put('/pengaturan', [AdminController::class, 'settingsUpdate']);
+        Route::get('/notifikasi', [AdminController::class, 'notifikasi']);
+        Route::post('/notifikasi/{log}/resend', [AdminController::class, 'notifikasiResend']);
+        Route::get('/integrasi', [AdminController::class, 'integrasi']);
+        Route::post('/integrasi/tes-wa', [AdminController::class, 'integrasiTestWa']);
+        Route::get('/voucher', [AdminController::class, 'vouchers']);
+        Route::post('/voucher', [AdminController::class, 'voucherStore']);
+        Route::put('/voucher/{voucher}', [AdminController::class, 'voucherUpdate']);
+        Route::delete('/voucher/{voucher}', [AdminController::class, 'voucherDestroy']);
+        Route::get('/retur', [ReturController::class, 'index']);
+        Route::get('/retur/{retur}', [ReturController::class, 'detail']);
+        Route::put('/retur/{retur}', [ReturController::class, 'update']);
+        Route::get('/ulasan', [ReviewController::class, 'index']);
+        Route::delete('/ulasan/{review}', [ReviewController::class, 'destroy']);
+        Route::get('/faq', [AdminController::class, 'faqs']);
+        Route::post('/faq', [AdminController::class, 'faqStore']);
+        Route::put('/faq/{faq}', [AdminController::class, 'faqUpdate']);
+        Route::delete('/faq/{faq}', [AdminController::class, 'faqDestroy']);
+    });
+});
