@@ -30,8 +30,8 @@ class PriceService
             }
         }
 
-        // Fallback kolom lama (produk tanpa tier)
-        if ($level === 'reseller' && $qty >= (int) $product->min_reseller) {
+        // Reseller approved berhak mendapat harga reseller mulai dari 1 pcs (tanpa minimal belanja)
+        if ($level === 'reseller') {
             return ['harga' => (int) $product->harga_reseller, 'tipe' => 'reseller'];
         }
 
@@ -48,13 +48,9 @@ class PriceService
         return (int) ($min ?? $product->harga_reseller);
     }
 
-    /** MOQ agar dapat harga reseller (tier terkecil). */
+    /** MOQ agar dapat harga reseller (reseller resmi mulai dari 1 pcs). */
     public static function minReseller(Product $product): int
     {
-        $min = $product->relationLoaded('prices')
-            ? $product->prices->where('level', 'reseller')->min('min_qty')
-            : $product->prices()->where('level', 'reseller')->min('min_qty');
-
-        return (int) ($min ?? $product->min_reseller);
+        return 1;
     }
 }

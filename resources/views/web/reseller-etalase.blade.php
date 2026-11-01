@@ -15,7 +15,7 @@
 <thead><tr class="text-left text-[11px] text-slate-400"><th class="px-4 py-2">Barang</th><th class="px-4 py-2">Stok</th><th class="px-4 py-2 text-right">Modal</th><th class="px-4 py-2 text-right">Jual Saran</th><th class="px-4 py-2 text-right">Margin</th><th class="px-4 py-2">Aksi</th></tr></thead>
 <tbody>
 @foreach($products as $p)<tr class="border-t border-slate-100">
-<td class="px-4 py-2"><div class="flex items-center gap-2">@if($p->foto)<img src="/storage/{{ $p->foto }}" class="w-10 h-10 rounded-xl object-cover" alt="">@endif<b>{{ $p->nama }}</b> <span class="text-[11px] text-slate-400">{{ $p->kategori }} • min {{ $p->min_reseller }} pcs</span></div></td>
+<td class="px-4 py-2"><div class="flex items-center gap-2">@if($p->foto)<img src="/storage/{{ $p->foto }}" class="w-10 h-10 rounded-xl object-cover" alt="">@endif<b>{{ $p->nama }}</b> <span class="text-[11px] text-slate-400">{{ $p->kategori }} • Mulai 1 pcs</span></div></td>
 <td class="px-4 py-2 text-xs">{{ $p->stok }}</td>
 <td class="px-4 py-2 text-right font-extrabold text-cyan-800">Rp {{ number_format($p->harga_reseller) }}</td>
 <td class="px-4 py-2 text-right text-xs text-slate-400 line-through">Rp {{ number_format($p->harga_enduser) }}</td>
@@ -34,7 +34,7 @@
 @if($p->foto)<img src="/storage/{{ $p->foto }}" class="w-16 h-16 rounded-2xl object-cover flex-none" alt=""> @else <div class="w-16 h-16 rounded-2xl flex-none flex items-center justify-center text-3xl" style="background:linear-gradient(180deg,#D8E6FF,#fff)">👕</div>@endif
 <div class="flex-1 min-w-0 text-sm">
 <div class="font-bold leading-tight">{{ $p->nama }}</div>
-<div class="text-[11px] text-slate-500">{{ $p->kategori }} • stok {{ $p->stok }} • min {{ $p->min_reseller }} pcs</div>
+<div class="text-[11px] text-slate-500">{{ $p->kategori }} • stok {{ $p->stok }} • Mulai 1 pcs</div>
 <div class="mt-1 flex items-center gap-2 flex-wrap">
 <span class="font-extrabold text-cyan-800 text-base">Rp {{ number_format($p->harga_reseller) }}</span>
 <span class="text-[11px] text-slate-400 line-through">Rp {{ number_format($p->harga_enduser) }}</span>

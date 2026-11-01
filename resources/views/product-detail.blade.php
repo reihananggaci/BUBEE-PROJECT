@@ -28,7 +28,7 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 @endphp
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100">
     <div>Harga: <b class="text-lg text-blue-900">Rp {{ number_format($hargaDetail) }}</b> <span class="text-[11px] font-bold {{ $isRslrDetail ? 'text-emerald-600' : 'text-slate-400' }}">{{ $isRslrDetail ? 'GROSIR' : 'RETAIL' }}</span></div>
-    <div class="text-[11px] text-slate-500">Normal Rp {{ number_format($product->harga_enduser) }} • Reseller mulai Rp {{ number_format(\App\Services\PriceService::resellerTermurah($product)) }} (min {{ \App\Services\PriceService::minReseller($product) }} pcs)</div>
+    <div class="text-[11px] text-slate-500">Normal Rp {{ number_format($product->harga_enduser) }} • Khusus Mitra Reseller Rp {{ number_format(\App\Services\PriceService::resellerTermurah($product)) }} (Mulai 1 pcs / Tanpa Min. Belanja)</div>
 </div>
 @else
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100 flex items-center justify-between gap-3">

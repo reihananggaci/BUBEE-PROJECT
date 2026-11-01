@@ -48,7 +48,7 @@
 <div class="rounded-2xl p-3 mt-3 text-xs bg-amber-50 border border-amber-200 text-amber-800">⏳ Menunggu approval admin. Cek status di <a href="/akun" class="font-bold underline">Akun</a>.</div>
 @endif
 @if(auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved')
-<div class="rounded-2xl p-3 mt-3 text-xs font-bold text-white" style="background:linear-gradient(90deg,#059669,#00E5FF)">🎉 Harga reseller aktif! Beli di atas min. pcs per produk.</div>
+<div class="rounded-2xl p-3 mt-3 text-xs font-bold text-white" style="background:linear-gradient(90deg,#059669,#00E5FF)">🎉 Harga reseller aktif! Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja).</div>
 @endif
 
 {{-- GRID 4-5 kolom desktop --}}
@@ -65,7 +65,7 @@
 </a>
 <div class="p-3 flex flex-col flex-1">
 <a href="/produk/{{ $p->id }}" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">{{ $p->nama }} @if($p->created_at && $p->created_at->gte(now()->subDays(7)))<span class="text-[9px] font-extrabold bg-cyan-400 text-slate-900 px-1.5 py-0.5 rounded-full align-middle">BARU</span>@endif</a>
-<div class="text-[10px] mt-0.5 text-slate-500">@if($p->reviews_count>0)<span class="text-amber-500 font-bold">★ {{ number_format($p->reviews_avg_rating,1) }}</span> • @endif{{ $p->kategori }} • min {{ $p->min_reseller }} pcs</div>
+<div class="text-[10px] mt-0.5 text-slate-500">@if($p->reviews_count>0)<span class="text-amber-500 font-bold">★ {{ number_format($p->reviews_avg_rating,1) }}</span> • @endif{{ $p->kategori }} • Tanpa min. order</div>
 <div style="margin-top:auto">
 @if(auth()->check())
 @php
@@ -73,7 +73,7 @@
 @endphp
 <div class="price-slot">
     <div class="font-extrabold text-blue-900">Rp {{ number_format($harga) }} <span class="text-[10px] font-bold {{ $isRslrM?'text-emerald-600':'text-slate-400' }}">{{ $isRslrM?'GROSIR':'RETAIL' }}</span></div>
-    @if(! $isRslrM)<div class="text-[10px] text-emerald-600 font-bold">Grosir Rp {{ number_format($p->harga_reseller) }} • min {{ $p->min_reseller }} pcs</div>@endif
+    @if(! $isRslrM)<div class="text-[10px] text-emerald-600 font-bold">Harga Reseller Rp {{ number_format($p->harga_reseller) }} (Mulai 1 pcs)</div>@endif
 </div>
 <a href="/produk/{{ $p->id }}" class="lihat-btn block text-center text-[13px] font-extrabold py-2 rounded-2xl text-white" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Lihat</a>
 @else

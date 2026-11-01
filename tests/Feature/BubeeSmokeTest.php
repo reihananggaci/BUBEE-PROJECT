@@ -436,7 +436,7 @@ class BubeeSmokeTest extends TestCase
         $res = User::create(['name' => 'R', 'email' => 'r@t.id', 'password' => 'x', 'role' => 'reseller', 'status_reseller' => 'approved']);
         $pend = User::create(['name' => 'P', 'email' => 'p@t.id', 'password' => 'x', 'role' => 'reseller', 'status_reseller' => 'pending']);
         $this->assertEquals(['harga' => 100000, 'tipe' => 'enduser'], PriceService::untuk($product, $end, 10));
-        $this->assertEquals(['harga' => 100000, 'tipe' => 'enduser'], PriceService::untuk($product, $res, 1));
+        $this->assertEquals(['harga' => 80000, 'tipe' => 'reseller'], PriceService::untuk($product, $res, 1));
         $this->assertEquals(['harga' => 80000, 'tipe' => 'reseller'], PriceService::untuk($product, $res, 2));
         $this->assertEquals(['harga' => 100000, 'tipe' => 'enduser'], PriceService::untuk($product, $pend, 10));
         $this->assertEquals(['harga' => 100000, 'tipe' => 'enduser'], PriceService::untuk($product, null, 10));
@@ -500,7 +500,7 @@ class BubeeSmokeTest extends TestCase
         ProductPrice::where('product_id', $product->id)->delete();
         $this->assertEquals(['harga' => 80000, 'tipe' => 'reseller'], PriceService::untuk($product->fresh(), $res, 2));
         $this->assertEquals(80000, PriceService::resellerTermurah($product->fresh()));
-        $this->assertEquals(2, PriceService::minReseller($product->fresh()));
+        $this->assertEquals(1, PriceService::minReseller($product->fresh()));
     }
 
     public function test_berat_tagih_volumetrik(): void
