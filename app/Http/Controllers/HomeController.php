@@ -55,7 +55,8 @@ class HomeController extends Controller
             36 => 35,
             37 => 35,
             45 => 44,
-            47 => 46,
+            46 => 44,
+            47 => 44,
             62 => 61,
         ];
         if (isset($mergedMap[$product->id])) {

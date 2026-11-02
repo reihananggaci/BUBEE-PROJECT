@@ -77,6 +77,24 @@ class MultiCapacityProductTest extends TestCase
         $resp = $this->get('/produk/62');
         $resp->assertStatus(301);
         $resp->assertRedirect('/produk/61');
+
+        $p44 = Product::forceCreate([
+            'id' => 44,
+            'nama' => 'Ribbed Vacuum',
+            'berat_gram' => 280,
+            'stok' => 20,
+            'is_active' => true,
+        ]);
+        $old46 = Product::forceCreate([
+            'id' => 46,
+            'nama' => 'Mini Ribbed Bottle',
+            'berat_gram' => 280,
+            'stok' => 0,
+            'is_active' => false,
+        ]);
+        $resp46 = $this->get('/produk/46');
+        $resp46->assertStatus(301);
+        $resp46->assertRedirect('/produk/44');
     }
 
     public function test_product_detail_renders_capacity_buttons_and_switching(): void
