@@ -38,6 +38,11 @@ Route::post('/register', [AuthController::class, 'register'])->middleware('throt
 Route::get('/verifikasi-otp', [AuthController::class, 'verifyForm']);
 Route::post('/verifikasi-otp', [AuthController::class, 'verify'])->middleware('throttle:10,1');
 Route::post('/verifikasi-otp/kirim-ulang', [AuthController::class, 'resend'])->middleware('throttle:5,1');
+Route::get('/lupa-password', [AuthController::class, 'lupaPasswordForm']);
+Route::post('/lupa-password', [AuthController::class, 'lupaPasswordKirim'])->middleware('throttle:10,1');
+Route::get('/lupa-password/verifikasi', [AuthController::class, 'lupaPasswordVerifikasiForm']);
+Route::post('/lupa-password/verifikasi', [AuthController::class, 'lupaPasswordReset'])->middleware('throttle:10,1');
+Route::post('/lupa-password/kirim-ulang', [AuthController::class, 'lupaPasswordKirimUlang'])->middleware('throttle:5,1');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);

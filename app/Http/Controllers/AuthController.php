@@ -232,6 +232,116 @@ class AuthController extends Controller
         return $awal.str_repeat('•', max(1, strlen($nama) - 2)).'@'.$domain;
     }
 
+    public function lupaPasswordForm()
+    {
+        if (Auth::check()) {
+            return redirect('/akun');
+        }
+
+        return web_view('auth-lupa-password');
+    }
+
+    public function lupaPasswordKirim(Request $r)
+    {
+        $r->validate(['email' => 'required|email']);
+        if ($r->filled('website')) {
+            return back()->withErrors(['email' => 'Permintaan gagal.'])->withInput();
+        }
+
+        $email = strtolower(trim((string) $r->email));
+        $user = User::where('email', $email)->first();
+
+        if (! $user) {
+            return back()->withErrors(['email' => 'Email ini belum terdaftar di akun Bubee.'])->withInput();
+        }
+
+        $tunggu = OtpService::bolehKirimUlang($email, $r->ip());
+        if ($tunggu > 0) {
+            return back()->withErrors(['email' => "Tunggu $tunggu detik sebelum meminta kode baru."])->withInput();
+        }
+
+        $terkirim = OtpService::kirim($user, $r->ip());
+        $r->session()->put('reset_password_email', $user->email);
+        ActivityLog::catat('lupa_password_req', $user->email, 'IP '.$r->ip());
+
+        if (! $terkirim) {
+            return redirect('/lupa-password/verifikasi')->withErrors(['kode' => 'Email gagal terkirim (SMTP belum disetting). Hubungi admin jika butuh bantuan.']);
+        }
+
+        return redirect('/lupa-password/verifikasi')->with('ok', 'Kode verifikasi 6 digit telah dikirim ke '.self::maskEmail($user->email).' (berlaku 10 menit).');
+    }
+
+    public function lupaPasswordVerifikasiForm(Request $r)
+    {
+        $email = $r->session()->get('reset_password_email');
+        if (! $email || ! User::where('email', $email)->exists()) {
+            return redirect('/lupa-password')->withErrors(['email' => 'Masukkan email Anda terlebih dahulu.']);
+        }
+
+        return web_view('auth-lupa-password-reset', [
+            'email' => $email,
+            'mask' => self::maskEmail($email),
+        ]);
+    }
+
+    public function lupaPasswordReset(Request $r)
+    {
+        $email = $r->session()->get('reset_password_email');
+        if (! $email) {
+            return redirect('/lupa-password')->withErrors(['email' => 'Sesi reset password habis. Silakan ulangi.']);
+        }
+
+        $r->validate([
+            'kode' => 'required|digits:6',
+            'password' => 'required|min:8|confirmed',
+        ], [
+            'password.confirmed' => 'Konfirmasi password baru tidak cocok.',
+            'password.min' => 'Password minimal 8 karakter.',
+            'kode.digits' => 'Kode OTP harus 6 digit angka.',
+        ]);
+
+        $hasil = OtpService::cek($email, $r->kode);
+        if (! $hasil['ok']) {
+            if (str_contains($hasil['pesan'], 'hangus')) {
+                ActivityLog::catat('lupa_password_gagal', $email, $hasil['pesan']);
+            }
+
+            return back()->withErrors(['kode' => $hasil['pesan']])->withInput();
+        }
+
+        $user = User::where('email', $email)->firstOrFail();
+        $user->update([
+            'password' => Hash::make($r->password),
+            'email_verified_at' => $user->email_verified_at ?? now(),
+        ]);
+
+        ActivityLog::catat('lupa_password_sukses', $email, 'Password berhasil diperbarui');
+        $r->session()->forget('reset_password_email');
+
+        return redirect('/login')->with('ok', '🎉 Password berhasil diperbarui! Silakan login dengan password baru Anda.');
+    }
+
+    public function lupaPasswordKirimUlang(Request $r)
+    {
+        $email = $r->session()->get('reset_password_email');
+        if (! $email) {
+            return redirect('/lupa-password')->withErrors(['email' => 'Sesi reset password habis. Silakan ulangi.']);
+        }
+
+        $tunggu = OtpService::bolehKirimUlang($email, $r->ip());
+        if ($tunggu > 0) {
+            return back()->withErrors(['kode' => "Tunggu $tunggu detik sebelum minta kode baru."]);
+        }
+
+        $user = User::where('email', $email)->firstOrFail();
+        $terkirim = OtpService::kirim($user, $r->ip());
+        if (! $terkirim) {
+            return back()->withErrors(['kode' => 'Email gagal terkirim (SMTP belum disetting). Hubungi admin via WA.']);
+        }
+
+        return back()->with('ok', 'Kode verifikasi baru dikirim ke '.self::maskEmail($email).'.');
+    }
+
     public function akun()
     {
         $user = Auth::user();

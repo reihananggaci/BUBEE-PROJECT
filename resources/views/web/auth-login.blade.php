@@ -22,6 +22,9 @@
 <form method="POST" action="/login" class="space-y-2">@csrf
 <input name="email" type="email" placeholder="Email" class="w-full rounded-2xl px-4 py-3 text-sm text-slate-900 border border-blue-100" required>
 <input name="password" type="password" placeholder="Password" class="w-full rounded-2xl px-4 py-3 text-sm text-slate-900 border border-blue-100" required>
+<div class="flex justify-end pr-1">
+<a href="/lupa-password" class="text-xs text-blue-600 hover:text-blue-800 font-bold hover:underline">Lupa password?</a>
+</div>
 <input type="text" name="website" value="" style="display:none!important" tabindex="-1" autocomplete="off" aria-hidden="true">
 @php
 $tsAktif = \App\Services\Turnstile::aktif();
