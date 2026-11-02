@@ -371,17 +371,69 @@ class AdminController extends Controller
             'sampai' => 'nullable|date|before_or_equal:today',
             'tab' => 'nullable|in:periode,harian',
             'tanggal' => 'nullable|date|before_or_equal:today',
+            'periode' => 'nullable|in:harian,mingguan,bulanan,kustom',
+            'minggu' => 'nullable|date|before_or_equal:today',
+            'bulan' => 'nullable|string',
         ]);
-        $sampai = $r->get('sampai', now()->toDateString());
-        $dari = $r->get('dari', now()->subDays(29)->toDateString());
-        if ($dari > $sampai) {
-            [$dari, $sampai] = [$sampai, $dari];
+
+        $periode = $r->get('periode');
+        if (! $periode) {
+            if ($r->get('tab') === 'harian') {
+                $periode = 'harian';
+            } elseif ($r->filled('dari') && $r->filled('sampai')) {
+                $periode = 'kustom';
+            } else {
+                $periode = 'bulanan';
+            }
         }
-        // Batasi 62 hari agar ringan
-        if (now()->parse($dari)->diffInDays(now()->parse($sampai)) > 61) {
-            $dari = now()->parse($sampai)->subDays(61)->toDateString();
+
+        $today = now()->toDateString();
+        $tanggal = $r->get('tanggal', $today);
+        if ($tanggal > $today) {
+            $tanggal = $today;
         }
+
+        $minggu = $r->get('minggu', $today);
+        if ($minggu > $today) {
+            $minggu = $today;
+        }
+
+        $bulan = $r->get('bulan', now()->format('Y-m'));
+        if (! preg_match('/^\d{4}-\d{2}$/', (string) $bulan)) {
+            $bulan = now()->format('Y-m');
+        }
+
+        $labelPeriode = '';
         $lunas = ['diproses', 'dikirim', 'selesai'];
+
+        if ($periode === 'harian') {
+            $dari = $tanggal;
+            $sampai = $tanggal;
+            $labelPeriode = 'Harian: '.\Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y');
+        } elseif ($periode === 'mingguan') {
+            $ref = \Carbon\Carbon::parse($minggu);
+            $dari = $ref->copy()->startOfWeek()->toDateString();
+            $sampai = $ref->copy()->endOfWeek()->toDateString();
+            $labelPeriode = 'Mingguan: '.\Carbon\Carbon::parse($dari)->translatedFormat('d M').' - '.\Carbon\Carbon::parse($sampai)->translatedFormat('d M Y');
+        } elseif ($periode === 'bulanan') {
+            $ref = \Carbon\Carbon::parse($bulan.'-01');
+            $dari = $ref->copy()->startOfMonth()->toDateString();
+            $sampai = $ref->copy()->endOfMonth()->toDateString();
+            $labelPeriode = 'Bulanan: '.\Carbon\Carbon::parse($bulan.'-01')->translatedFormat('F Y');
+        } else {
+            // kustom
+            $sampai = $r->get('sampai', $today);
+            $dari = $r->get('dari', now()->subDays(29)->toDateString());
+            if ($dari > $sampai) {
+                [$dari, $sampai] = [$sampai, $dari];
+            }
+            // Batasi 62 hari agar ringan
+            if (now()->parse($dari)->diffInDays(now()->parse($sampai)) > 61) {
+                $dari = now()->parse($sampai)->subDays(61)->toDateString();
+            }
+            $labelPeriode = 'Periode: '.$dari.' s/d '.$sampai;
+        }
+
         $dalam = fn ($q) => $q->whereDate('orders.created_at', '>=', $dari)->whereDate('orders.created_at', '<=', $sampai);
 
         $base = (clone $dalam)(Order::query());
@@ -420,14 +472,19 @@ class AdminController extends Controller
             ->where(fn ($q) => $dalam($q))->whereIn('orders.status', $lunas)
             ->groupBy('tgl')->pluck('pcs', 'tgl');
         $jmlHari = (clone $base)->selectRaw('DATE(created_at) tgl, COUNT(*) jml')->groupBy('tgl')->pluck('jml', 'tgl');
+
         $harian = [];
         $d = now()->parse($dari);
         $s = now()->parse($sampai);
         while ($d->lte($s)) {
             $key = $d->toDateString();
             $harian[] = [
-                'tgl' => $d->format('d M'), 'order' => (int) ($jmlHari[$key] ?? 0),
-                'pcs' => (int) ($pcsHari[$key] ?? 0), 'omzet' => (int) ($perHari[$key] ?? 0),
+                'tgl' => $d->format('d M'),
+                'hari' => $d->translatedFormat('l'),
+                'full_date' => $key,
+                'order' => (int) ($jmlHari[$key] ?? 0),
+                'pcs' => (int) ($pcsHari[$key] ?? 0),
+                'omzet' => (int) ($perHari[$key] ?? 0),
             ];
             $d->addDay();
         }
@@ -435,24 +492,34 @@ class AdminController extends Controller
 
         $mutasi = StockMutation::with('product', 'variant')->latest()->take(10)->get();
         $generatedAt = now();
-        $tab = $r->get('tab', 'periode');
-        $rek = null;
-        $rekOrders = collect();
-        if ($tab === 'harian') {
-            $tgl = $r->get('tanggal', now()->toDateString());
-            $rekOrders = Order::with('items.product')->whereDate('created_at', $tgl)->latest()->get();
-            $bayarH = $rekOrders->whereIn('status', ['diproses', 'dikirim', 'selesai']);
-            $rek = [
-                'tanggal' => $tgl,
-                'jml_order' => $rekOrders->count(),
-                'omzet' => $bayarH->sum('total_bayar'),
-                'pcs' => OrderItem::whereHas('order', fn ($q) => $q->whereDate('created_at', $tgl))->sum('qty'),
-                'per_kurir' => $rekOrders->groupBy('kurir')->map(fn ($g) => ['jml' => $g->count(), 'total' => $g->whereIn('status', ['diproses', 'dikirim', 'selesai'])->sum('total_bayar')]),
-                'per_status' => $rekOrders->groupBy('status')->map->count(),
-            ];
+        $tab = ($periode === 'harian' || $r->get('tab') === 'harian') ? 'harian' : 'periode';
+
+        // Rekap orders list
+        $rekOrdersQuery = Order::with('items.product', 'user')
+            ->whereDate('created_at', '>=', $dari)
+            ->whereDate('created_at', '<=', $sampai)
+            ->latest();
+        if ($periode === 'harian') {
+            $rekOrders = $rekOrdersQuery->get();
+        } else {
+            $rekOrders = $rekOrdersQuery->take(50)->get();
         }
 
-        return web_view('admin-laporan', compact('dari', 'sampai', 'ringkas', 'perStatus', 'perKurir', 'terlaris', 'topPembeli', 'topVoucher', 'harian', 'maxOmzet', 'mutasi', 'generatedAt', 'tab', 'rek', 'rekOrders'));
+        $bayarH = $rekOrders->whereIn('status', $lunas);
+        $rek = [
+            'tanggal' => $tanggal,
+            'jml_order' => $ringkas['jml_order'],
+            'omzet' => $ringkas['omzet'],
+            'pcs' => $ringkas['pcs'],
+            'per_kurir' => $rekOrders->groupBy('kurir')->map(fn ($g) => ['jml' => $g->count(), 'total' => $g->whereIn('status', $lunas)->sum('total_bayar')]),
+            'per_status' => $rekOrders->groupBy('status')->map->count(),
+        ];
+
+        return web_view('admin-laporan', compact(
+            'periode', 'tanggal', 'minggu', 'bulan', 'dari', 'sampai', 'labelPeriode',
+            'ringkas', 'perStatus', 'perKurir', 'terlaris', 'topPembeli', 'topVoucher',
+            'harian', 'maxOmzet', 'mutasi', 'generatedAt', 'tab', 'rek', 'rekOrders'
+        ));
     }
 
     public function resellers(Request $r)
@@ -1066,11 +1133,39 @@ class AdminController extends Controller
         $r->validate([
             'dari' => 'nullable|date|before_or_equal:today',
             'sampai' => 'nullable|date|before_or_equal:today',
+            'periode' => 'nullable|in:harian,mingguan,bulanan,kustom',
+            'tanggal' => 'nullable|date|before_or_equal:today',
+            'minggu' => 'nullable|date|before_or_equal:today',
+            'bulan' => 'nullable|string',
         ]);
-        $sampai = $r->get('sampai', now()->toDateString());
-        $dari = $r->get('dari', now()->subDays(29)->toDateString());
-        if ($dari > $sampai) {
-            [$dari, $sampai] = [$sampai, $dari];
+        $today = now()->toDateString();
+        $periode = $r->get('periode');
+
+        if ($periode === 'harian') {
+            $tgl = $r->get('tanggal', $today);
+            if ($tgl > $today) {
+                $tgl = $today;
+            }
+            $dari = $tgl;
+            $sampai = $tgl;
+        } elseif ($periode === 'mingguan') {
+            $ref = \Carbon\Carbon::parse($r->get('minggu', $today));
+            $dari = $ref->copy()->startOfWeek()->toDateString();
+            $sampai = $ref->copy()->endOfWeek()->toDateString();
+        } elseif ($periode === 'bulanan') {
+            $b = $r->get('bulan', now()->format('Y-m'));
+            if (! preg_match('/^\d{4}-\d{2}$/', (string) $b)) {
+                $b = now()->format('Y-m');
+            }
+            $ref = \Carbon\Carbon::parse($b.'-01');
+            $dari = $ref->copy()->startOfMonth()->toDateString();
+            $sampai = $ref->copy()->endOfMonth()->toDateString();
+        } else {
+            $sampai = $r->get('sampai', $today);
+            $dari = $r->get('dari', now()->subDays(29)->toDateString());
+            if ($dari > $sampai) {
+                [$dari, $sampai] = [$sampai, $dari];
+            }
         }
         $lunas = ['diproses', 'dikirim', 'selesai'];
         $rows = [];
@@ -1089,7 +1184,7 @@ class AdminController extends Controller
             $n++;
         }
 
-        return $this->csvDownload('laporan-harian-bubee-'.date('Ymd').'.csv', ['Tanggal', 'Order', 'Pcs', 'Omzet'], $rows);
+        return $this->csvDownload('laporan-bubee-'.$dari.'-sd-'.$sampai.'.csv', ['Tanggal', 'Order', 'Pcs', 'Omzet'], $rows);
     }
 
     // ===== KHUSUS ADMIN: Log Aktivitas =====
