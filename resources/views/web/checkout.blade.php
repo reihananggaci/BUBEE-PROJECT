@@ -67,7 +67,7 @@ kota.onchange=()=>{kotaNama.value=kota.options[kota.selectedIndex]?.text||'';};
 </form>
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card p-5 text-sm lg:order-2 lg:sticky lg:top-20 self-start">
 <b>🧾 Ringkasan ({{ $carts->count() }} item)</b>
-@foreach($carts as $c)<div class="flex justify-between py-1 border-b border-blue-50"><span>{{ $c->product->nama }} <b class="text-blue-700">({{ $c->variant?->label() }})</b> ×{{ $c->qty }}</span><b>Rp {{ number_format($c->product->hargaUntuk(auth()->user())*$c->qty) }}</b></div>@endforeach
+@foreach($carts as $c)<div class="flex justify-between py-1 border-b border-blue-50"><span>{{ $c->product->nama }} <b class="text-blue-700">({{ $c->variant?->label() }})</b> ×{{ $c->qty }}</span><b>Rp {{ number_format(($c->variant ? $c->variant->hargaUntuk(auth()->user()) : $c->product->hargaUntuk(auth()->user()))*$c->qty) }}</b></div>@endforeach
 <div class="text-[11px] text-slate-500 mt-2">Ongkir & diskon dihitung saat order dibuat. Pastikan alamat & kota sudah benar.</div>
 </div>
 </div>

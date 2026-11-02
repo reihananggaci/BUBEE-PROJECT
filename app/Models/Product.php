@@ -11,13 +11,47 @@ class Product extends Model
 
     protected $fillable = ['nama', 'deskripsi', 'kategori', 'foto', 'berat_gram', 'panjang_cm', 'lebar_cm', 'tinggi_cm', 'stok', 'harga_enduser', 'harga_reseller', 'min_reseller', 'is_active'];
 
-    public function hargaUntuk($user): int
+    public function hargaUntuk($user, $variant = null): int
     {
+        if ($variant && $variant instanceof ProductVariant) {
+            return $variant->hargaUntuk($user);
+        }
         if ($user && ($user->role ?? '') === 'reseller' && ($user->status_reseller ?? '') === 'approved') {
             return (int) $this->harga_reseller;
         }
 
         return (int) $this->harga_enduser;
+    }
+
+    public function daftarUkuran(): array
+    {
+        return $this->variants
+            ->pluck('ukuran')
+            ->filter(fn ($u) => ! empty($u) && $u !== 'All Size')
+            ->unique()
+            ->sortBy(function ($u) {
+                preg_match('/(\d+)/', $u, $m);
+                return isset($m[1]) ? (int) $m[1] : 0;
+            })
+            ->values()
+            ->all();
+    }
+
+    public function hargaRentang($user = null): string
+    {
+        $variantsWithPrice = $this->variants->filter(fn ($v) => ! empty($v->attributes['harga_enduser']));
+        if ($variantsWithPrice->isEmpty()) {
+            return 'Rp '.number_format($this->hargaUntuk($user));
+        }
+
+        $min = $variantsWithPrice->min(fn ($v) => $v->hargaUntuk($user));
+        $max = $variantsWithPrice->max(fn ($v) => $v->hargaUntuk($user));
+
+        if ($min === $max) {
+            return 'Rp '.number_format($min);
+        }
+
+        return 'Rp '.number_format($min).' - Rp '.number_format($max);
     }
 
     public function statusStok(): string

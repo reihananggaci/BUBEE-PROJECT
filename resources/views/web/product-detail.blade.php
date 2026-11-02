@@ -71,13 +71,15 @@ $shareText = auth()->check()
 $share = 'https://wa.me/?text=' . urlencode($shareText);
 @endphp
 <a href="{{ $share }}" target="_blank" class="block text-center bg-emerald-50 text-emerald-700 font-bold py-2.5 rounded-2xl text-sm" style="text-decoration:none">📤 Bagikan ke WA</a>
-@if(auth()->check())
 @php
-    $isRslrDetail = auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved';
+    $isRslrDetail = auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved';
     $hargaDetail = $product->hargaUntuk(auth()->user());
+    $daftarUkuran = $product->daftarUkuran();
+    $hasUkuran = count($daftarUkuran) > 1;
 @endphp
+@if(auth()->check())
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100">
-    <div>Harga: <b class="text-lg text-blue-900">Rp {{ number_format($hargaDetail) }}</b> <span class="text-[11px] font-bold {{ $isRslrDetail ? 'text-emerald-600' : 'text-slate-400' }}">{{ $isRslrDetail ? 'GROSIR' : 'RETAIL' }}</span></div>
+    <div>Harga: <b class="text-lg text-blue-900" id="harga-detail-val">Rp {{ number_format($hargaDetail) }}</b> <span class="text-[11px] font-bold {{ $isRslrDetail ? 'text-emerald-600' : 'text-slate-400' }}">{{ $isRslrDetail ? 'GROSIR' : 'RETAIL' }}</span></div>
     @if($isRslrDetail)
     <div class="text-[11px] text-emerald-700 font-medium mt-0.5">Harga khusus mitra reseller (Mulai 1 pcs / Tanpa Min. Belanja)</div>
     @endif
@@ -91,15 +93,35 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
     <a href="/login" class="px-4 py-2 rounded-xl text-xs font-extrabold text-white shrink-0" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Login →</a>
 </div>
 @endif
+
+@if($hasUkuran)
+<div class="mt-3 mb-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+    <div class="flex items-center justify-between mb-2">
+        <label class="text-xs font-extrabold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+            <span>📏 Pilih Kapasitas / Ukuran:</span>
+        </label>
+        <span id="label-ukuran-aktif" class="text-xs font-black text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full"></span>
+    </div>
+    <div class="flex flex-wrap gap-2" id="wadah-pilih-ukuran">
+        @foreach($daftarUkuran as $iUk => $uk)
+        <button type="button" data-ukuran="{{ $uk }}" class="btn-ukuran px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all flex items-center gap-1.5 cursor-pointer {{ $iUk === 0 ? 'border-blue-600 bg-blue-600 text-white shadow-sm' : 'border-slate-200 bg-white text-slate-700 hover:border-blue-300' }}">
+            <span>{{ $uk }}</span>
+        </button>
+        @endforeach
+    </div>
+</div>
+@endif
+
 @if(auth()->check())
 @php($varianTerpilih = $product->variants->first(fn($v) => $v->stok > 0)?->id)
 <form id="form-keranjang" method="POST" action="/keranjang/{{ $product->id }}" class="mt-3 space-y-2">@csrf
-<label class="text-sm font-bold">Pilih varian</label>
-<div class="grid grid-cols-2 gap-1.5">
+<label class="text-sm font-bold text-slate-800">{{ $hasUkuran ? 'Pilih Warna' : 'Pilih Varian' }}</label>
+<div class="grid grid-cols-2 gap-1.5" id="wadah-varian-kartu">
 @foreach($product->variants as $v)
-<label data-stok="{{ $v->stok }}" data-label="{{ $v->label() }}" class="border-2 rounded-2xl px-3 py-2 text-center text-sm cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 {{ $v->stok<=0?'opacity-40':'' }}">
+@php($hargaVarian = $product->hargaUntuk(auth()->user(), $v))
+<label data-stok="{{ $v->stok }}" data-label="{{ $v->label() }}" data-ukuran="{{ $v->ukuran }}" data-harga="{{ $hargaVarian }}" class="kartu-varian border-2 rounded-2xl px-3 py-2 text-center text-sm cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 {{ $v->stok<=0?'opacity-40':'' }}">
 <input type="radio" name="variant_id" value="{{ $v->id }}" class="sr-only" {{ $varianTerpilih === $v->id ? 'checked' : '' }} {{ $v->stok<=0?'disabled':'' }}>
-<div class="font-bold">{{ $v->label() }}</div>
+<div class="font-bold">{{ $hasUkuran ? $v->warna : $v->label() }}</div>
 <div class="text-[11px] {{ $v->stok<=0?'text-red-500':'text-slate-500' }}">{{ $v->stok<=0?'Habis':'Sisa '.$v->stok }}</div>
 </label>
 @endforeach
@@ -117,32 +139,102 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
     var info = document.getElementById('varian-info');
     var qty = form.querySelector('input[name="qty"]');
     var tombol = document.getElementById('tombol-keranjang');
+    var hargaEl = document.getElementById('harga-detail-val');
+    var labelUkuranAktif = document.getElementById('label-ukuran-aktif');
+    var tombolUkuran = document.querySelectorAll('.btn-ukuran');
+    var kartuVarian = form.querySelectorAll('.kartu-varian');
+
+    function formatRupiah(num) {
+        return 'Rp ' + Number(num).toLocaleString('id-ID');
+    }
+
+    function switchUkuran(ukuran) {
+        if (labelUkuranAktif) {
+            labelUkuranAktif.textContent = ukuran;
+        }
+        tombolUkuran.forEach(function(btn){
+            if (btn.dataset.ukuran === ukuran) {
+                btn.className = 'btn-ukuran px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all flex items-center gap-1.5 cursor-pointer border-blue-600 bg-blue-600 text-white shadow-sm';
+            } else {
+                btn.className = 'btn-ukuran px-3.5 py-2 rounded-xl text-xs font-bold border-2 transition-all flex items-center gap-1.5 cursor-pointer border-slate-200 bg-white text-slate-700 hover:border-blue-300';
+            }
+        });
+
+        var visibleFirstAvailable = null;
+        var currentlyCheckedStillVisible = false;
+
+        kartuVarian.forEach(function(k){
+            var match = !ukuran || k.dataset.ukuran === ukuran;
+            var radio = k.querySelector('input[name="variant_id"]');
+            if (match) {
+                k.classList.remove('hidden');
+                if (radio.checked) {
+                    currentlyCheckedStillVisible = true;
+                }
+                var stok = parseInt(k.dataset.stok, 10) || 0;
+                if (!visibleFirstAvailable && stok > 0) {
+                    visibleFirstAvailable = radio;
+                }
+            } else {
+                k.classList.add('hidden');
+                radio.checked = false;
+            }
+        });
+
+        if (!currentlyCheckedStillVisible) {
+            if (visibleFirstAvailable) {
+                visibleFirstAvailable.checked = true;
+            } else {
+                var firstVisible = form.querySelector('.kartu-varian:not(.hidden) input[name="variant_id"]');
+                if (firstVisible) firstVisible.checked = true;
+            }
+        }
+
+        sync();
+    }
+
+    tombolUkuran.forEach(function(btn){
+        btn.addEventListener('click', function(){
+            switchUkuran(btn.dataset.ukuran);
+        });
+    });
+
     function sync(){
         var pilih = form.querySelector('input[name="variant_id"]:checked');
-        if (!pilih) {
+        if (!pilih || pilih.closest('.kartu-varian')?.classList.contains('hidden')) {
             tombol.disabled = true;
             tombol.textContent = 'PILIH VARIAN';
             info.textContent = 'Silakan pilih varian yang tersedia.';
             return;
         }
-        var kartu = pilih.closest('label');
+        var kartu = pilih.closest('.kartu-varian');
         var stok = parseInt(kartu.dataset.stok, 10) || 0;
         qty.max = Math.max(1, stok);
         if (parseInt(qty.value, 10) > stok) qty.value = Math.max(1, stok);
         info.textContent = 'Dipilih: ' + kartu.dataset.label + ' • sisa ' + stok;
         tombol.disabled = stok <= 0;
         tombol.textContent = stok <= 0 ? 'STOK HABIS' : '+ KERANJANG';
+
+        if (hargaEl && kartu.dataset.harga) {
+            hargaEl.textContent = formatRupiah(kartu.dataset.harga);
+        }
     }
+
     form.querySelectorAll('input[name="variant_id"]').forEach(function(r){ r.addEventListener('change', sync); });
     qty.addEventListener('change', sync);
     form.addEventListener('submit', function(e){
         var pilih = form.querySelector('input[name="variant_id"]:checked');
-        if (!pilih || (parseInt(pilih.closest('label')?.dataset?.stok, 10) || 0) <= 0) {
+        if (!pilih || (parseInt(pilih.closest('.kartu-varian')?.dataset?.stok, 10) || 0) <= 0) {
             e.preventDefault();
             alert('Pilih varian yang masih tersedia.');
         }
     });
-    sync();
+
+    if (tombolUkuran.length > 0) {
+        switchUkuran(tombolUkuran[0].dataset.ukuran);
+    } else {
+        sync();
+    }
 })();
 </script>
 @else<a href="/login" class="block text-center mt-3 text-white font-bold py-3 rounded-2xl" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Login untuk Lihat Harga & Order →</a>@endif

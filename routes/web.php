@@ -24,7 +24,7 @@ Route::get('/tampilan/{mode}', function (string $mode) {
     return back()->with('ok', 'Tampilan: '.($mode === 'web' ? '🖥️ Web' : '📱 HP'));
 })->name('tampilan');
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/produk/{product}', [HomeController::class, 'show']);
+Route::get('/produk/{product}', [HomeController::class, 'show'])->withTrashed();
 Route::post('/midtrans/notify', [MidtransController::class, 'notify'])->middleware('throttle:60,1');
 Route::get('/bantuan', [BantuanController::class, 'index']);
 Route::get('/faq', [BantuanController::class, 'json']);

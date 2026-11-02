@@ -72,13 +72,14 @@ class CheckoutController extends Controller
                 if ($variant->stok < $c->qty) {
                     throw new \Exception('Stok '.$c->product->nama.' ('.$variant->label().') kurang (sisa '.$variant->stok.')');
                 }
-                $ph = PriceService::untuk($c->product, $user, $c->qty);
+                $ph = PriceService::untuk($c->product, $user, $c->qty, $variant);
                 $harga = $ph['harga'];
                 $tipe = $ph['tipe'];
                 $totalProduk += $harga * $c->qty;
-                $berat += $c->product->berat_gram * $c->qty;
+                $beratItem = $variant->beratGram();
+                $berat += $beratItem * $c->qty;
                 $dimensiItems[] = [
-                    'berat_gram' => $c->product->berat_gram, 'qty' => $c->qty,
+                    'berat_gram' => $beratItem, 'qty' => $c->qty,
                     'p' => $c->product->panjang_cm, 'l' => $c->product->lebar_cm, 't' => $c->product->tinggi_cm,
                 ];
                 $c->harga_temp = $harga;

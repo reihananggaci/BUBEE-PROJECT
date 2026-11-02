@@ -5,7 +5,7 @@
 <h1 class="font-extrabold text-lg">Checkout</h1>
 <div class="progress-line my-2"><div style="width:75%"></div></div>
 <div class="glass rounded-3xl shadow-card p-4 text-sm">
-@foreach($carts as $c)<div class="flex justify-between py-1 border-b border-blue-50"><span>{{ $c->product->nama }} <b class="text-blue-700">({{ $c->variant?->label() }})</b> ×{{ $c->qty }}</span><b>Rp {{ number_format($c->product->hargaUntuk(auth()->user())*$c->qty) }}</b></div>@endforeach
+@foreach($carts as $c)<div class="flex justify-between py-1 border-b border-blue-50"><span>{{ $c->product->nama }} <b class="text-blue-700">({{ $c->variant?->label() }})</b> ×{{ $c->qty }}</span><b>Rp {{ number_format(($c->variant ? $c->variant->hargaUntuk(auth()->user()) : $c->product->hargaUntuk(auth()->user()))*$c->qty) }}</b></div>@endforeach
 </div>
 <form method="POST" action="/checkout" class="glass rounded-3xl shadow-card p-4 mt-2 space-y-2 text-sm">@csrf
 <b>📍 Penerima</b>

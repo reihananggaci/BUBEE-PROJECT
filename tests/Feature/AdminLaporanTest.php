@@ -100,3 +100,4 @@ class AdminLaporanTest extends TestCase
         $this->actingAs($admin)->get('/admin/laporan/export?periode=bulanan')->assertOk()->assertHeader('content-type', 'text/csv; charset=UTF-8');
     }
 }
+

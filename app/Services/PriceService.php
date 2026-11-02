@@ -14,11 +14,17 @@ class PriceService
      *
      * @return array{harga:int, tipe:string} tipe = reseller|enduser
      */
-    public static function untuk(Product $product, $user, int $qty): array
+    public static function untuk(Product $product, $user, int $qty, ?\App\Models\ProductVariant $variant = null): array
     {
         $isReseller = $user && ($user->role ?? '') === 'reseller'
             && ($user->status_reseller ?? '') === 'approved';
         $level = $isReseller ? 'reseller' : 'user';
+
+        if ($variant && ! empty($variant->attributes['harga_enduser'])) {
+            $basePrice = $isReseller ? $variant->hargaReseller() : $variant->hargaEnduser();
+
+            return ['harga' => $basePrice, 'tipe' => $level === 'reseller' ? 'reseller' : 'enduser'];
+        }
 
         $tiers = $product->relationLoaded('prices')
             ? $product->prices->where('level', $level)->sortByDesc('min_qty')
@@ -32,10 +38,10 @@ class PriceService
 
         // Reseller approved berhak mendapat harga reseller mulai dari 1 pcs (tanpa minimal belanja)
         if ($level === 'reseller') {
-            return ['harga' => (int) $product->harga_reseller, 'tipe' => 'reseller'];
+            return ['harga' => (int) ($variant ? $variant->hargaReseller() : $product->harga_reseller), 'tipe' => 'reseller'];
         }
 
-        return ['harga' => (int) $product->harga_enduser, 'tipe' => 'enduser'];
+        return ['harga' => (int) ($variant ? $variant->hargaEnduser() : $product->harga_enduser), 'tipe' => 'enduser'];
     }
 
     /** Harga reseller termurah (untuk label "mulai dari"). */

@@ -10,7 +10,7 @@
 <div class="grid gap-4 mt-3 lg:grid-cols-3 lg:items-start">
 <div class="lg:col-span-2 space-y-2">
 @foreach($carts as $c)
-@php $h=$c->product->hargaUntuk(auth()->user()); $total+=$h*$c->qty; $berat+=$c->product->berat_gram*$c->qty; @endphp
+@php $h=$c->variant ? $c->variant->hargaUntuk(auth()->user()) : $c->product->hargaUntuk(auth()->user()); $total+=$h*$c->qty; $berat+=($c->variant ? $c->variant->beratGram() : $c->product->berat_gram)*$c->qty; @endphp
 <div class="bg-white rounded-3xl shadow-card p-3 flex gap-3 items-center">
 <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl flex-none overflow-hidden" style="background:linear-gradient(180deg,#D8E6FF,#fff)">@if($c->product->foto)<img src="/storage/{{ $c->product->foto }}" alt="{{ $c->product->nama }}" class="w-full h-full object-cover">@else👕@endif</div>
 <div class="flex-1 text-sm min-w-0"><div class="font-bold">{{ $c->product->nama }}</div>

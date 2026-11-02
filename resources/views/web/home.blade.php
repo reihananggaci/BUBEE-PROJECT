@@ -69,7 +69,7 @@
 <div style="margin-top:auto">
 @if(auth()->check())
 <div class="price-slot">
-    <div class="font-extrabold text-blue-900">Rp {{ number_format($harga) }} <span class="text-[10px] font-bold {{ $isRslr?'text-emerald-600':'text-slate-400' }}">{{ $isRslr?'GROSIR':'RETAIL' }}</span></div>
+    <div class="font-extrabold text-blue-900">{{ $p->hargaRentang(auth()->user()) }} <span class="text-[10px] font-bold {{ $isRslr?'text-emerald-600':'text-slate-400' }}">{{ $isRslr?'GROSIR':'RETAIL' }}</span></div>
 </div>
 <a href="/produk/{{ $p->id }}" class="lihat-btn block text-center text-[13px] font-extrabold py-2 rounded-2xl text-white" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Lihat</a>
 @else

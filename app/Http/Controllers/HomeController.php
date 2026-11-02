@@ -22,7 +22,7 @@ class HomeController extends Controller
         $kategori = $r->get('kategori', 'semua');
         $sort = $r->get('sort', 'stok'); // stok, murah, mahal
         $daftarKategori = Product::where('is_active', true)->whereNotNull('kategori')->where('kategori', '!=', '')->distinct()->pluck('kategori');
-        $products = Product::where('is_active', true)->withAvg('reviews', 'rating')->withCount('reviews')
+        $products = Product::where('is_active', true)->with('variants')->withAvg('reviews', 'rating')->withCount('reviews')
             ->when($q, fn ($x) => $x->where('nama', 'like', "%$q%"))
             ->when($kategori !== 'semua', fn ($x) => $x->where('kategori', $kategori));
         $products = match ($sort) {
@@ -49,6 +49,19 @@ class HomeController extends Controller
 
     public function show(Product $product)
     {
+        $mergedMap = [
+            29 => 28,
+            30 => 28,
+            36 => 35,
+            37 => 35,
+            45 => 44,
+            47 => 46,
+            62 => 61,
+        ];
+        if (isset($mergedMap[$product->id])) {
+            return redirect('/produk/'.$mergedMap[$product->id], 301);
+        }
+
         if (! $product->is_active && ! (auth()->check() && auth()->user()->role === 'admin')) {
             abort(404);
         }

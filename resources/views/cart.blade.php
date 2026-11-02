@@ -6,7 +6,7 @@
 @if($carts->isEmpty())<div class="glass rounded-[2rem] p-8 text-center text-sm mt-2 shadow-card"><div class="hexbee mx-auto">🐝</div><div class="mt-2 font-bold">Sarang masih kosong.</div>Yuk isi dengan barang favoritmu!<br><a href="/" class="font-bold text-blue-700">Jelajahi katalog →</a></div>@else
 @php $total=0; $berat=0; @endphp
 @foreach($carts as $c)
-@php $h=$c->product->hargaUntuk(auth()->user()); $total+=$h*$c->qty; $berat+=$c->product->berat_gram*$c->qty; @endphp
+@php $h=$c->variant ? $c->variant->hargaUntuk(auth()->user()) : $c->product->hargaUntuk(auth()->user()); $total+=$h*$c->qty; $berat+=($c->variant ? $c->variant->beratGram() : $c->product->berat_gram)*$c->qty; @endphp
 <div class="glass rounded-3xl shadow-card p-3 mb-2 flex gap-3 items-center">
 <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl overflow-hidden" style="background:linear-gradient(180deg,#D8E6FF,#fff)">@if($c->product->foto)<img src="/storage/{{ $c->product->foto }}" alt="{{ $c->product->nama }}" class="w-full h-full object-cover">@else👕@endif</div>
 <div class="flex-1 text-sm"><div class="font-bold">{{ $c->product->nama }}</div>
