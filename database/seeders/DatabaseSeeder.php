@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         // Arsipkan katalog lama (riwayat order tetap utuh, tidak dihapus fisik).
         Product::where('is_active', true)
             ->whereNotLike('nama', 'HQ-%')
+            ->whereNotLike('nama', 'TYESO%')
             ->update(['is_active' => false]);
 
         // Katalog Drive (Chicutom & co) — foto: storage/app/public/produk/HQ-xxx.jpg
@@ -69,5 +70,7 @@ class DatabaseSeeder extends Seeder
             }
             $p->syncStok();
         }
+
+        $this->call(TyesoProductSeeder::class);
     }
 }
