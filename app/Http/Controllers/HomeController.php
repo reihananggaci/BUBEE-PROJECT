@@ -52,7 +52,7 @@ class HomeController extends Controller
         if (! $product->is_active && ! (auth()->check() && auth()->user()->role === 'admin')) {
             abort(404);
         }
-        $product->load(['variants' => fn ($q) => $q->orderByDesc('stok')->orderBy('ukuran')]);
+        $product->load(['images', 'variants' => fn ($q) => $q->orderByDesc('stok')->orderBy('ukuran')]);
         $ulasan = $product->reviews()->with('user')->latest()->take(10)->get();
         $rata = round((float) $product->reviews()->avg('rating'), 1);
         $jml = $product->reviews()->count();

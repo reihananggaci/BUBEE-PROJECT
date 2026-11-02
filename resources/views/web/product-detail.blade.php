@@ -5,10 +5,55 @@
 {{-- Galeri + panel sticky desktop --}}
 <div class="grid gap-4 mt-2 lg:grid-cols-2 lg:items-start">
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden">
-<div class="h-72 flex items-center justify-center text-8xl relative overflow-hidden" style="background:linear-gradient(180deg,#0B2A6B,#1D4ED8)">
-@if($product->foto)<img src="/storage/{{ $product->foto }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ $product->nama }}">@else<span class="relative">👕</span>@endif
-<span class="absolute bottom-3 text-[11px] font-bold bg-black/40 text-white px-3 py-1 rounded-full">📦 Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr</span>
+@php
+    $galleryImages = $product->semuaFoto();
+    $totalFoto = count($galleryImages);
+@endphp
+{{-- Galeri Foto Desktop --}}
+<div class="relative overflow-hidden bg-slate-900 group" id="gallery-container-web">
+    <div id="carousel-track-web" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-none w-full h-80 sm:h-96 touch-pan-x select-none" style="scroll-behavior: smooth;">
+        @forelse($galleryImages as $idx => $img)
+            <div class="shrink-0 w-full h-full snap-center relative flex items-center justify-center bg-slate-950/20 overflow-hidden" data-index="{{ $idx }}">
+                <img src="/storage/{{ $img }}" alt="{{ $product->nama }} - Foto {{ $idx + 1 }}" class="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-300" loading="{{ $idx === 0 ? 'eager' : 'lazy' }}" onclick="openGalleryModalWeb('/storage/{{ $img }}')">
+            </div>
+        @empty
+            <div class="shrink-0 w-full h-full flex items-center justify-center text-8xl" style="background:linear-gradient(180deg,#0B2A6B,#1D4ED8)">
+                <span class="relative">👕</span>
+            </div>
+        @endforelse
+    </div>
+
+    {{-- Stok Badge --}}
+    <span class="absolute bottom-3 left-3 text-[11px] font-bold bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full z-10 pointer-events-none">
+        📦 Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr
+    </span>
+
+    @if($totalFoto > 1)
+        {{-- Counter Badge (e.g. 1 / 5) --}}
+        <span id="carousel-counter-web" class="absolute bottom-3 right-3 text-[11px] font-extrabold bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-full z-10 pointer-events-none">
+            📷 1 / {{ $totalFoto }}
+        </span>
+
+        {{-- Nav Buttons --}}
+        <button type="button" onclick="scrollCarouselWeb(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center text-xl font-bold backdrop-blur-sm transition z-10 shadow cursor-pointer" aria-label="Foto Sebelumnya">
+            ‹
+        </button>
+        <button type="button" onclick="scrollCarouselWeb(1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/40 hover:bg-black/75 text-white flex items-center justify-center text-xl font-bold backdrop-blur-sm transition z-10 shadow cursor-pointer" aria-label="Foto Selanjutnya">
+            ›
+        </button>
+    @endif
 </div>
+
+@if($totalFoto > 1)
+{{-- Thumbnails bar Desktop --}}
+<div class="flex gap-2.5 p-3 overflow-x-auto bg-slate-50 border-b border-slate-100 scrollbar-none" id="carousel-thumbnails-web">
+    @foreach($galleryImages as $idx => $img)
+        <button type="button" onclick="goCarouselWebTo({{ $idx }})" class="thumb-item-web shrink-0 w-16 h-16 rounded-2xl overflow-hidden border-2 transition duration-200 cursor-pointer {{ $idx === 0 ? 'border-blue-600 ring-2 ring-blue-300 scale-105' : 'border-transparent opacity-60 hover:opacity-100' }}" data-idx="{{ $idx }}" aria-label="Pilih foto {{ $idx + 1 }}">
+            <img src="/storage/{{ $img }}" class="w-full h-full object-cover">
+        </button>
+    @endforeach
+</div>
+@endif
 <div class="p-5">
 <h1 class="font-extrabold text-xl">{{ $product->nama }}</h1>
 <div class="flex items-center gap-2 mt-1 text-sm">
@@ -135,4 +180,76 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 </div>
 </div>
 </div>
+{{-- Lightbox Modal Web --}}
+<div id="gallery-lightbox-web" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4 transition-opacity duration-300" onclick="closeGalleryModalWeb()">
+    <button type="button" onclick="closeGalleryModalWeb()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 text-white font-extrabold flex items-center justify-center text-lg hover:bg-white/40 transition cursor-pointer">✕</button>
+    <img id="lightbox-img-web" src="" alt="Full preview" class="max-w-full max-h-[88vh] rounded-2xl object-contain shadow-2xl" onclick="event.stopPropagation()">
+</div>
+
+<script>
+(function(){
+    var track = document.getElementById('carousel-track-web');
+    if (!track) return;
+    var counter = document.getElementById('carousel-counter-web');
+    var thumbs = document.querySelectorAll('#carousel-thumbnails-web .thumb-item-web');
+    var total = {{ $totalFoto }};
+
+    function updateState(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= total) idx = total - 1;
+        if (counter) counter.textContent = '📷 ' + (idx + 1) + ' / ' + total;
+        thumbs.forEach(function(btn, i) {
+            if (i === idx) {
+                btn.classList.add('border-blue-600', 'ring-2', 'ring-blue-300', 'scale-105');
+                btn.classList.remove('border-transparent', 'opacity-60');
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                btn.classList.remove('border-blue-600', 'ring-2', 'ring-blue-300', 'scale-105');
+                btn.classList.add('border-transparent', 'opacity-60');
+            }
+        });
+    }
+
+    window.scrollCarouselWeb = function(dir) {
+        var w = track.clientWidth;
+        track.scrollBy({ left: dir * w, behavior: 'smooth' });
+    };
+
+    window.goCarouselWebTo = function(idx) {
+        var w = track.clientWidth;
+        track.scrollTo({ left: idx * w, behavior: 'smooth' });
+        updateState(idx);
+    };
+
+    var scrollTimeout;
+    track.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            var w = track.clientWidth;
+            if (w > 0) {
+                var idx = Math.round(track.scrollLeft / w);
+                updateState(idx);
+            }
+        }, 50);
+    }, { passive: true });
+
+    window.openGalleryModalWeb = function(src) {
+        var modal = document.getElementById('gallery-lightbox-web');
+        var img = document.getElementById('lightbox-img-web');
+        if (!modal || !img) return;
+        img.src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeGalleryModalWeb = function() {
+        var modal = document.getElementById('gallery-lightbox-web');
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    };
+})();
+</script>
 @endsection

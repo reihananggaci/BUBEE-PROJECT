@@ -72,5 +72,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call(TyesoProductSeeder::class);
+        $this->call(ProductGallerySeeder::class);
     }
 }

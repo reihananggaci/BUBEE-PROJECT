@@ -3,10 +3,55 @@
 @section('back', '/')
 @section('content')
 <div class="glass rounded-[2rem] shadow-card overflow-hidden">
-<div class="h-52 flex items-center justify-center text-8xl relative overflow-hidden" style="background:linear-gradient(180deg,#0B2A6B,#1D4ED8)">
-@if($product->foto)<img src="/storage/{{ $product->foto }}" alt="{{ $product->nama }}" class="absolute inset-0 w-full h-full object-cover">@else<span class="floaty relative">👕</span>@endif
-<span class="absolute bottom-3 text-[11px] font-bold bg-black/40 text-white px-3 py-1 rounded-full">📦 Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr</span>
+@php
+    $galleryImages = $product->semuaFoto();
+    $totalFoto = count($galleryImages);
+@endphp
+{{-- Galeri Foto / Carousel Slider --}}
+<div class="relative overflow-hidden bg-slate-900 group" id="gallery-container">
+    <div id="carousel-track" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-none w-full h-64 sm:h-72 touch-pan-x select-none" style="scroll-behavior: smooth;">
+        @forelse($galleryImages as $idx => $img)
+            <div class="shrink-0 w-full h-full snap-center relative flex items-center justify-center bg-slate-950/20 overflow-hidden" data-index="{{ $idx }}">
+                <img src="/storage/{{ $img }}" alt="{{ $product->nama }} - Foto {{ $idx + 1 }}" class="w-full h-full object-cover cursor-pointer" loading="{{ $idx === 0 ? 'eager' : 'lazy' }}" onclick="openGalleryModal('/storage/{{ $img }}')">
+            </div>
+        @empty
+            <div class="shrink-0 w-full h-full flex items-center justify-center text-8xl" style="background:linear-gradient(180deg,#0B2A6B,#1D4ED8)">
+                <span class="floaty relative">👕</span>
+            </div>
+        @endforelse
+    </div>
+
+    {{-- Stok Badge --}}
+    <span class="absolute bottom-3 left-3 text-[11px] font-bold bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full z-10 pointer-events-none">
+        📦 Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr
+    </span>
+
+    @if($totalFoto > 1)
+        {{-- Counter Badge (e.g. 1 / 5) --}}
+        <span id="carousel-counter" class="absolute bottom-3 right-3 text-[11px] font-extrabold bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-full z-10 pointer-events-none">
+            📷 1 / {{ $totalFoto }}
+        </span>
+
+        {{-- Nav Buttons --}}
+        <button type="button" onclick="scrollCarousel(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center text-lg font-bold backdrop-blur-sm transition z-10 shadow" aria-label="Foto Sebelumnya">
+            ‹
+        </button>
+        <button type="button" onclick="scrollCarousel(1)" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 text-white flex items-center justify-center text-lg font-bold backdrop-blur-sm transition z-10 shadow" aria-label="Foto Selanjutnya">
+            ›
+        </button>
+    @endif
 </div>
+
+@if($totalFoto > 1)
+{{-- Thumbnails bar --}}
+<div class="flex gap-2 p-2.5 px-3 overflow-x-auto bg-slate-50 border-b border-slate-100 scrollbar-none" id="carousel-thumbnails">
+    @foreach($galleryImages as $idx => $img)
+        <button type="button" onclick="goCarouselTo({{ $idx }})" class="thumb-item shrink-0 w-12 h-12 rounded-xl overflow-hidden border-2 transition duration-200 {{ $idx === 0 ? 'border-blue-600 ring-2 ring-blue-300 scale-105' : 'border-transparent opacity-60 hover:opacity-100' }}" data-idx="{{ $idx }}" aria-label="Pilih foto {{ $idx + 1 }}">
+            <img src="/storage/{{ $img }}" class="w-full h-full object-cover">
+        </button>
+    @endforeach
+</div>
+@endif
 <div class="p-4">
 <h1 class="font-extrabold">{{ $product->nama }}</h1>
 <div class="flex items-center gap-2 mt-1 text-sm">
@@ -128,4 +173,76 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 @foreach($lainnya as $l)<a href="/produk/{{ $l->id }}" class="glass rounded-3xl p-3 shadow-card card-hover flex flex-col h-full"><div class="text-3xl text-center">@if($l->foto)<img src="/storage/{{ $l->foto }}" alt="{{ $l->nama }}" class="w-full h-20 rounded-2xl object-cover">@else👕@endif</div><div class="text-[12px] font-bold mt-1">{{ $l->nama }}</div>@if(auth()->check())<div class="text-[12px] text-blue-800 font-extrabold" style="margin-top:auto">Rp {{ number_format($l->hargaUntuk(auth()->user())) }}</div>@else<div style="margin-top:auto"><span class="price-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>Login untuk lihat harga</span></div>@endif</a>@endforeach
 </div>
 </div>
+{{-- Lightbox Modal --}}
+<div id="gallery-lightbox" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4 transition-opacity duration-300" onclick="closeGalleryModal()">
+    <button type="button" onclick="closeGalleryModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 text-white font-extrabold flex items-center justify-center text-lg hover:bg-white/40 transition">✕</button>
+    <img id="lightbox-img" src="" alt="Full preview" class="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl" onclick="event.stopPropagation()">
+</div>
+
+<script>
+(function(){
+    var track = document.getElementById('carousel-track');
+    if (!track) return;
+    var counter = document.getElementById('carousel-counter');
+    var thumbs = document.querySelectorAll('#carousel-thumbnails .thumb-item');
+    var total = {{ $totalFoto }};
+
+    function updateState(idx) {
+        if (idx < 0) idx = 0;
+        if (idx >= total) idx = total - 1;
+        if (counter) counter.textContent = '📷 ' + (idx + 1) + ' / ' + total;
+        thumbs.forEach(function(btn, i) {
+            if (i === idx) {
+                btn.classList.add('border-blue-600', 'ring-2', 'ring-blue-300', 'scale-105');
+                btn.classList.remove('border-transparent', 'opacity-60');
+                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            } else {
+                btn.classList.remove('border-blue-600', 'ring-2', 'ring-blue-300', 'scale-105');
+                btn.classList.add('border-transparent', 'opacity-60');
+            }
+        });
+    }
+
+    window.scrollCarousel = function(dir) {
+        var w = track.clientWidth;
+        track.scrollBy({ left: dir * w, behavior: 'smooth' });
+    };
+
+    window.goCarouselTo = function(idx) {
+        var w = track.clientWidth;
+        track.scrollTo({ left: idx * w, behavior: 'smooth' });
+        updateState(idx);
+    };
+
+    var scrollTimeout;
+    track.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(function() {
+            var w = track.clientWidth;
+            if (w > 0) {
+                var idx = Math.round(track.scrollLeft / w);
+                updateState(idx);
+            }
+        }, 50);
+    }, { passive: true });
+
+    window.openGalleryModal = function(src) {
+        var modal = document.getElementById('gallery-lightbox');
+        var img = document.getElementById('lightbox-img');
+        if (!modal || !img) return;
+        img.src = src;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    };
+
+    window.closeGalleryModal = function() {
+        var modal = document.getElementById('gallery-lightbox');
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    };
+})();
+</script>
 @endsection

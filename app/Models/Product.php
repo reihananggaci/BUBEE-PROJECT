@@ -37,6 +37,29 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('urutan');
+    }
+
+    public function semuaFoto(): array
+    {
+        $list = [];
+        if ($this->foto) {
+            $list[] = $this->foto;
+        }
+
+        // Ambil relasi images yang sudah dimuat atau query
+        $extraImages = $this->relationLoaded('images') ? $this->images : $this->images()->get();
+        foreach ($extraImages as $img) {
+            if ($img->foto && ! in_array($img->foto, $list)) {
+                $list[] = $img->foto;
+            }
+        }
+
+        return $list;
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);
