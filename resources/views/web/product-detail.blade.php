@@ -33,13 +33,15 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 @endphp
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100">
     <div>Harga: <b class="text-lg text-blue-900">Rp {{ number_format($hargaDetail) }}</b> <span class="text-[11px] font-bold {{ $isRslrDetail ? 'text-emerald-600' : 'text-slate-400' }}">{{ $isRslrDetail ? 'GROSIR' : 'RETAIL' }}</span></div>
-    <div class="text-[11px] text-slate-500">Harga Retail Rp {{ number_format($product->harga_enduser) }} • Khusus Mitra Reseller Rp {{ number_format(\App\Services\PriceService::resellerTermurah($product)) }} (Mulai 1 pcs / Tanpa Min. Belanja)</div>
+    @if($isRslrDetail)
+    <div class="text-[11px] text-emerald-700 font-medium mt-0.5">Harga khusus mitra reseller (Mulai 1 pcs / Tanpa Min. Belanja)</div>
+    @endif
 </div>
 @else
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100 flex items-center justify-between gap-3">
     <div>
         <div class="font-extrabold text-blue-900 flex items-center gap-1.5"><svg class="w-4 h-4 text-blue-700 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Harga Terkunci 🔒</div>
-        <div class="text-[11px] text-slate-500">Login untuk melihat harga retail & harga grosir reseller</div>
+        <div class="text-[11px] text-slate-500">Login untuk lihat harga</div>
     </div>
     <a href="/login" class="px-4 py-2 rounded-xl text-xs font-extrabold text-white shrink-0" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Login →</a>
 </div>

@@ -58,7 +58,7 @@
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:{{ min($loop->index*50,400) }}ms">
 <a href="/produk/{{ $p->id }}" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
 @if($p->foto)<img src="/storage/{{ $p->foto }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ $p->nama }}">@else<span class="relative">👕</span>@endif
-@if($disk>0)<span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-{{ $disk }}% RSLR</span>@endif
+@if($isRslr && $disk>0)<span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-{{ $disk }}% RSLR</span>@endif
 @if($st==='habis')<span class="absolute top-2 right-2 text-[10px] font-bold bg-slate-900 text-white px-2 py-0.5 rounded-full">HABIS</span>
 @elseif($st==='menipis')<span class="absolute top-2 right-2 text-[10px] font-bold bg-amber-400 px-2 py-0.5 rounded-full chip-live">SISA {{ $p->stok }}</span>
 @else<span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● {{ $p->stok }}</span>@endif
@@ -68,12 +68,8 @@
 <div class="text-[10px] mt-0.5 text-slate-500">@if($p->reviews_count>0)<span class="text-amber-500 font-bold">★ {{ number_format($p->reviews_avg_rating,1) }}</span> • @endif{{ $p->kategori }} • Tanpa min. order</div>
 <div style="margin-top:auto">
 @if(auth()->check())
-@php
-    $isRslrM = auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved';
-@endphp
 <div class="price-slot">
-    <div class="font-extrabold text-blue-900">Rp {{ number_format($harga) }} <span class="text-[10px] font-bold {{ $isRslrM?'text-emerald-600':'text-slate-400' }}">{{ $isRslrM?'GROSIR':'RETAIL' }}</span></div>
-    @if(! $isRslrM)<div class="text-[10px] text-emerald-600 font-bold">Harga Reseller Rp {{ number_format($p->harga_reseller) }} (Mulai 1 pcs)</div>@endif
+    <div class="font-extrabold text-blue-900">Rp {{ number_format($harga) }} <span class="text-[10px] font-bold {{ $isRslr?'text-emerald-600':'text-slate-400' }}">{{ $isRslr?'GROSIR':'RETAIL' }}</span></div>
 </div>
 <a href="/produk/{{ $p->id }}" class="lihat-btn block text-center text-[13px] font-extrabold py-2 rounded-2xl text-white" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Lihat</a>
 @else
