@@ -39,6 +39,11 @@ class ProductGallerySeeder extends Seeder
                 continue;
             }
 
+            if ($item['urutan'] === 1 && $product->foto !== $item['foto']) {
+                $product->foto = $item['foto'];
+                $product->save();
+            }
+
             ProductImage::updateOrCreate(
                 [
                     'product_id' => $product->id,
