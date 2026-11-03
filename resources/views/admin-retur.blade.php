@@ -19,4 +19,7 @@
 </div>
 @endforeach
 @if($returs->isEmpty())<div class="glass rounded-3xl p-6 text-center text-sm">Belum ada pengajuan retur. 🎉</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-3">{{ $returs->links() }}</div>
 @endsection

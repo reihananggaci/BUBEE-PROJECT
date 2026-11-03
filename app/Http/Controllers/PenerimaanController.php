@@ -16,7 +16,7 @@ class PenerimaanController extends Controller
 {
     public function index()
     {
-        $list = Penerimaan::with('user')->withCount('items')->latest()->take(20)->get();
+        $list = Penerimaan::with('user')->withCount('items')->latest()->paginate(15)->withQueryString();
 
         return web_view('admin-penerimaan', compact('list'));
     }

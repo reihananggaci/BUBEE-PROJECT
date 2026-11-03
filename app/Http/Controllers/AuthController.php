@@ -103,6 +103,9 @@ class AuthController extends Controller
         // Email sudah terdaftar tapi belum verifikasi -> perbarui data & kirim kode baru
         $lama = $r->filled('email') ? User::where('email', strtolower(trim($r->email)))->first() : null;
         if ($lama && ! $lama->email_verified_at) {
+            if ((int) ($lama->daftar_coba ?? 1) >= 3) {
+                return redirect('/login')->withErrors(['email' => 'Batas percobaan pendaftaran email ini sudah habis (3x). Silakan login atau hubungi admin.']);
+            }
             $r->validate([
                 'name' => 'required|max:50', 'password' => 'required|min:8',
                 'role' => 'required|in:enduser,reseller',

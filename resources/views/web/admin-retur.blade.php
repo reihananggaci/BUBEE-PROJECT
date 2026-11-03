@@ -38,4 +38,7 @@
 @endforeach
 </div>
 @if($returs->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3">Belum ada pengajuan retur. 🎉</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-4">{{ $returs->links() }}</div>
 @endsection

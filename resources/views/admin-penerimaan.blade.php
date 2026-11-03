@@ -13,4 +13,7 @@
 </a>
 @endforeach
 @if($list->isEmpty())<div class="glass rounded-3xl p-6 text-center text-sm">Belum ada catatan kedatangan.</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-3">{{ $list->links() }}</div>
 @endsection

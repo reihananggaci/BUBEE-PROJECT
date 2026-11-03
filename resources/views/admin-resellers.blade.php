@@ -37,4 +37,7 @@
 </div>
 @endforeach
 @if($resellers->isEmpty())<div class="glass rounded-3xl p-6 text-center text-sm">Tidak ada di tab ini.</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-3">{{ $resellers->links() }}</div>
 @endsection

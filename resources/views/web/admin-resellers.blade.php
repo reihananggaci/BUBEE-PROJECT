@@ -2,7 +2,7 @@
 @section('title','Admin Reseller')
 @section('content')
 <h1 class="font-extrabold text-2xl">🏪 Approval Reseller</h1>
-<div class="text-xs text-slate-500 mb-3">{{ $resellers->count() }} pendaftar • setujui / tolak dari tabel</div>
+<div class="text-xs text-slate-500 mb-3">{{ $resellers->total() }} pendaftar • setujui / tolak dari tabel</div>
 <div class="flex gap-1.5 text-[12px] font-bold mb-3">
 @foreach(['pending'=>'Antre','approved'=>'Disetujui','rejected'=>'Ditolak','semua'=>'Semua'] as $k=>$l)
 <a href="/admin/reseller?status={{ $k }}" class="px-3 py-1.5 rounded-full whitespace-nowrap {{ ($status??'pending')===$k?'bg-purple-900 text-white':'bg-slate-100 text-slate-600' }}" style="text-decoration:none">{{ $l }}</a>
@@ -55,4 +55,7 @@
 @endforeach
 </div>
 @if($resellers->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3">Belum ada reseller daftar.</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-4">{{ $resellers->links() }}</div>
 @endsection

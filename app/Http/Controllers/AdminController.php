@@ -73,10 +73,16 @@ class AdminController extends Controller
             'q' => 'nullable|string|max:50',
             'filter' => 'nullable|in:semua,kritis,habis,nonaktif',
             'sort' => 'nullable|in:menipis,terlaris,nama,stok',
+            'view' => 'nullable|in:tabel,kartu',
         ]);
         $q = $r->get('q');
         $filter = $r->get('filter', 'semua');
         $sort = $r->get('sort', 'menipis');
+        $view = $r->get('view', 'tabel');
+        if (! in_array($view, ['tabel', 'kartu'])) {
+            $view = 'tabel';
+        }
+
         $products = Product::with(['variants', 'prices'])->latest()->get();
         $terjual = OrderItem::selectRaw('product_id, SUM(qty) t')
             ->whereHas('order', fn ($x) => $x->whereIn('status', ['diproses', 'dikirim', 'selesai'])->where('created_at', '>=', now()->subDays(30)))
@@ -105,9 +111,19 @@ class AdminController extends Controller
             'stok' => $tampil->sortByDesc('stok')->values(),
             default => $tampil->sortBy('stok')->values(),
         };
-        $products = $tampil;
 
-        return web_view('admin-products', compact('products', 'ringkas', 'q', 'filter', 'sort'));
+        $perPage = 10;
+        $page = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
+        $paginatedProducts = new \Illuminate\Pagination\LengthAwarePaginator(
+            $tampil->forPage($page, $perPage)->values(),
+            $tampil->count(),
+            $perPage,
+            $page,
+            ['path' => \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPath(), 'query' => $r->query()]
+        );
+        $products = $paginatedProducts;
+
+        return web_view('admin-products', compact('products', 'ringkas', 'q', 'filter', 'sort', 'view'));
     }
 
     public function productStore(Request $r)
@@ -274,11 +290,18 @@ class AdminController extends Controller
         return back()->with('ok', "$n barang diarsipkan (nonaktif) ✅");
     }
 
-    public function orders()
+    public function orders(Request $r)
     {
-        $orders = Order::with('user', 'items.product', 'items.variant')->latest()->get();
+        $q = $r->get('q');
+        $status = $r->get('status');
+        $orders = Order::with('user', 'items.product', 'items.variant')
+            ->when($q, fn ($query) => $query->where(fn ($w) => $w->where('kode', 'like', "%$q%")->orWhere('resi', 'like', "%$q%")->orWhereHas('user', fn ($u) => $u->where('name', 'like', "%$q%")->orWhere('phone', 'like', "%$q%"))))
+            ->when($status && $status !== 'semua', fn ($query) => $query->where('status', $status))
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
 
-        return web_view('admin-orders', compact('orders'));
+        return web_view('admin-orders', compact('orders', 'q', 'status'));
     }
 
     public function orderBersihkanKedaluwarsa(Request $r)
@@ -528,7 +551,9 @@ class AdminController extends Controller
         $status = $r->get('status', 'pending');
         $resellers = User::where('role', 'reseller')
             ->when($status !== 'semua', fn ($q) => $q->where('status_reseller', $status))
-            ->latest()->get();
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
 
         return web_view('admin-resellers', compact('resellers', 'status'));
     }
@@ -663,7 +688,9 @@ class AdminController extends Controller
         $orders = Order::with('user', 'items.product', 'items.variant')
             ->whereNotNull('bukti_bayar')
             ->where('status', 'diproses')
-            ->latest()->get();
+            ->latest()
+            ->paginate(15)
+            ->withQueryString();
         $menunggu = Order::where('status', 'menunggu_bayar')->count();
 
         return web_view('admin-verifikasi', compact('orders', 'menunggu'));

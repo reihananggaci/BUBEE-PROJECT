@@ -36,4 +36,7 @@
 @endforeach
 </div>
 @if($orders->isEmpty())<div class="bg-white rounded-3xl p-8 text-center text-sm mt-3">Tidak ada bukti menunggu verifikasi. 🎉</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-4">{{ $orders->links() }}</div>
 @endsection

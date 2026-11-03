@@ -15,7 +15,7 @@ class Turnstile
     {
         $host = strtolower(trim(explode(':', $host)[0]));
 
-        if (in_array($host, ['localhost', '127.0.0.1', '::1'], true) ||
+        if ((! app()->environment('testing') && in_array($host, ['localhost', '127.0.0.1', '::1'], true)) ||
             Str::startsWith($host, ['192.168.', '10.', '172.']) ||
             Str::endsWith($host, [
                 '.trycloudflare.com', '.ngrok.io', '.ngrok-free.app',

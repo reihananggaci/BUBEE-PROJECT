@@ -89,7 +89,7 @@ class ReturController extends Controller
     // ===== ADMIN =====
     public function index()
     {
-        $returs = Retur::with('order', 'user', 'items.orderItem.product')->latest()->get();
+        $returs = Retur::with('order', 'user', 'items.orderItem.product')->latest()->paginate(15)->withQueryString();
 
         return web_view('admin-retur', compact('returs'));
     }

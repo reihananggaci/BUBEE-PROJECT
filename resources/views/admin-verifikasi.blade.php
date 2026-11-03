@@ -17,4 +17,7 @@
 </div>
 @endforeach
 @if($orders->isEmpty())<div class="glass rounded-3xl p-8 text-center text-sm">Tidak ada bukti menunggu verifikasi. 🎉</div>@endif
+
+{{-- Navigasi Panah Samping (Pagination) --}}
+<div class="mt-3">{{ $orders->links() }}</div>
 @endsection
