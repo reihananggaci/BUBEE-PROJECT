@@ -6,15 +6,20 @@
 <div class="grid gap-4 mt-2 lg:grid-cols-2 lg:items-start">
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden">
 @php
-    $galleryImages = $product->semuaFoto();
-    $totalFoto = count($galleryImages);
+    $galleryList = $product->semuaFotoWithMeta();
+    $totalFoto = count($galleryList);
 @endphp
 {{-- Galeri Foto Desktop --}}
 <div class="relative overflow-hidden bg-slate-900 group" id="gallery-container-web">
     <div id="carousel-track-web" class="flex overflow-x-auto snap-x snap-mandatory scrollbar-none w-full h-80 sm:h-96 touch-pan-x select-none" style="scroll-behavior: smooth;">
-        @forelse($galleryImages as $idx => $img)
-            <div class="shrink-0 w-full h-full snap-center relative flex items-center justify-center bg-slate-950/20 overflow-hidden" data-index="{{ $idx }}">
-                <img src="/storage/{{ $img }}" alt="{{ $product->nama }} - Foto {{ $idx + 1 }}" class="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-300" loading="{{ $idx === 0 ? 'eager' : 'lazy' }}" onclick="openGalleryModalWeb('/storage/{{ $img }}')">
+        @forelse($galleryList as $idx => $item)
+            <div class="shrink-0 w-full h-full snap-center relative flex items-center justify-center bg-slate-950/20 overflow-hidden" data-index="{{ $idx }}" data-judul="{{ $item['judul'] }}">
+                <img src="/storage/{{ $item['foto'] }}" alt="{{ $product->nama }} - {{ $item['judul'] ?: 'Foto '.($idx + 1) }}" class="w-full h-full object-contain cursor-pointer hover:scale-105 transition duration-300" loading="{{ $idx === 0 ? 'eager' : 'lazy' }}" onclick="openGalleryModalWeb('/storage/{{ $item['foto'] }}')">
+                @if(!empty($item['judul']))
+                <span class="absolute top-3 left-3 text-[11px] font-bold bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full z-10 pointer-events-none">
+                    {{ $item['judul'] }}
+                </span>
+                @endif
             </div>
         @empty
             <div class="shrink-0 w-full h-full flex items-center justify-center text-8xl" style="background:linear-gradient(180deg,#0B2A6B,#1D4ED8)">
@@ -47,9 +52,14 @@
 @if($totalFoto > 1)
 {{-- Thumbnails bar Desktop --}}
 <div class="flex gap-2.5 p-3 overflow-x-auto bg-slate-50 border-b border-slate-100 scrollbar-none" id="carousel-thumbnails-web">
-    @foreach($galleryImages as $idx => $img)
-        <button type="button" onclick="goCarouselWebTo({{ $idx }})" class="thumb-item-web shrink-0 w-16 h-16 rounded-2xl overflow-hidden border-2 transition duration-200 cursor-pointer {{ $idx === 0 ? 'border-blue-600 ring-2 ring-blue-300 scale-105' : 'border-transparent opacity-60 hover:opacity-100' }}" data-idx="{{ $idx }}" aria-label="Pilih foto {{ $idx + 1 }}">
-            <img src="/storage/{{ $img }}" class="w-full h-full object-cover">
+    @foreach($galleryList as $idx => $item)
+        <button type="button" onclick="goCarouselWebTo({{ $idx }})" class="thumb-item-web relative shrink-0 w-16 h-16 rounded-2xl overflow-hidden border-2 transition duration-200 cursor-pointer {{ $idx === 0 ? 'border-blue-600 ring-2 ring-blue-300 scale-105' : 'border-transparent opacity-70 hover:opacity-100' }}" data-idx="{{ $idx }}" data-judul="{{ $item['judul'] }}" title="{{ $item['judul'] }}" aria-label="Pilih foto {{ $item['judul'] ?: ($idx + 1) }}">
+            <img src="/storage/{{ $item['foto'] }}" class="w-full h-full object-cover">
+            @if(!empty($item['judul']))
+            <span class="absolute inset-x-0 bottom-0 bg-black/75 text-[8px] text-white font-bold truncate px-0.5 text-center leading-tight py-0.5 pointer-events-none">
+                {{ $item['judul'] }}
+            </span>
+            @endif
         </button>
     @endforeach
 </div>
@@ -119,7 +129,7 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 <div class="grid grid-cols-2 gap-1.5" id="wadah-varian-kartu">
 @foreach($product->variants as $v)
 @php($hargaVarian = $product->hargaUntuk(auth()->user(), $v))
-<label data-stok="{{ $v->stok }}" data-label="{{ $v->label() }}" data-ukuran="{{ $v->ukuran }}" data-harga="{{ $hargaVarian }}" class="kartu-varian border-2 rounded-2xl px-3 py-2 text-center text-sm cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 {{ $v->stok<=0?'opacity-40':'' }}">
+<label data-stok="{{ $v->stok }}" data-label="{{ $v->label() }}" data-warna="{{ $v->warna }}" data-ukuran="{{ $v->ukuran }}" data-harga="{{ $hargaVarian }}" class="kartu-varian border-2 rounded-2xl px-3 py-2 text-center text-sm cursor-pointer transition has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 {{ $v->stok<=0?'opacity-40':'' }}">
 <input type="radio" name="variant_id" value="{{ $v->id }}" class="sr-only" {{ $varianTerpilih === $v->id ? 'checked' : '' }} {{ $v->stok<=0?'disabled':'' }}>
 <div class="font-bold">{{ $hasUkuran ? $v->warna : $v->label() }}</div>
 <div class="text-[11px] {{ $v->stok<=0?'text-red-500':'text-slate-500' }}">{{ $v->stok<=0?'Habis':'Sisa '.$v->stok }}</div>
@@ -217,6 +227,25 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 
         if (hargaEl && kartu.dataset.harga) {
             hargaEl.textContent = formatRupiah(kartu.dataset.harga);
+        }
+        if (kartu.dataset.warna) {
+            jumpToVariantColorPhoto(kartu.dataset.warna);
+        }
+    }
+
+    function jumpToVariantColorPhoto(warna) {
+        if (!warna) return;
+        var clean = warna.toLowerCase().replace(/\s*\([a-z0-9]+\)/gi, '').trim();
+        var full = warna.toLowerCase().trim();
+        var slides = document.querySelectorAll('#carousel-track-web [data-index]');
+        for (var i = 0; i < slides.length; i++) {
+            var j = (slides[i].dataset.judul || '').toLowerCase();
+            if (j && (j.includes(full) || (clean && j.includes(clean)))) {
+                if (typeof window.goCarouselWebTo === 'function') {
+                    window.goCarouselWebTo(i);
+                }
+                break;
+            }
         }
     }
 

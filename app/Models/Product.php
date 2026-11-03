@@ -80,22 +80,38 @@ class Product extends Model
         return $this->hasMany(ProductImage::class)->orderBy('urutan');
     }
 
-    public function semuaFoto(): array
+    public function semuaFotoWithMeta(): array
     {
         $list = [];
+        $seen = [];
+
+        $extraImages = $this->relationLoaded('images') ? $this->images : $this->images()->orderBy('urutan')->get();
+
         if ($this->foto) {
-            $list[] = $this->foto;
+            $imgModel = $extraImages->firstWhere('foto', $this->foto);
+            $list[] = [
+                'foto' => $this->foto,
+                'judul' => $imgModel?->judul ?? 'Foto Utama',
+            ];
+            $seen[] = $this->foto;
         }
 
-        // Ambil relasi images yang sudah dimuat atau query
-        $extraImages = $this->relationLoaded('images') ? $this->images : $this->images()->get();
         foreach ($extraImages as $img) {
-            if ($img->foto && ! in_array($img->foto, $list)) {
-                $list[] = $img->foto;
+            if ($img->foto && ! in_array($img->foto, $seen)) {
+                $list[] = [
+                    'foto' => $img->foto,
+                    'judul' => $img->judul ?? '',
+                ];
+                $seen[] = $img->foto;
             }
         }
 
         return $list;
+    }
+
+    public function semuaFoto(): array
+    {
+        return array_column($this->semuaFotoWithMeta(), 'foto');
     }
 
     public function reviews()

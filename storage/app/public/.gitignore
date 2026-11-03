@@ -1,5 +1,7 @@
 *
 !.gitignore
 !produk/
+!produk/gallery/
 !produk/*.jpg
 produk/gallery/*
+!produk/gallery/TYESO-TS-8827*.jpg

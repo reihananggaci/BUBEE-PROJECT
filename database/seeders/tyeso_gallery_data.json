@@ -984,70 +984,6 @@
     "drive_id": "1JoKmkEjqSx5G_D5tddjJ9ZpBi2c99zNW"
   },
   {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_28.jpg",
-    "judul": "Foto 1 - TYESO-TS-8827",
-    "urutan": 1,
-    "drive_id": "131vCfCV2ZWarFhvrglQnCAEo2u0PGmlo"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_29.jpg",
-    "judul": "Foto 2 - TYESO-TS-8827",
-    "urutan": 2,
-    "drive_id": "12ykXFEXEcbIIM8qbpcuaIElYN2Ae3GpM"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_36.jpg",
-    "judul": "Foto 3 - TYESO-TS-8827",
-    "urutan": 3,
-    "drive_id": "12P8fWrD4lNxFmEZtLa9GV7911vL9GrA8"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_30.jpg",
-    "judul": "Foto 4 - TYESO-TS-8827",
-    "urutan": 4,
-    "drive_id": "12uO_KSkP1tePdAJ8uIzFMSoff2pVQusB"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_32.jpg",
-    "judul": "Foto 5 - TYESO-TS-8827",
-    "urutan": 5,
-    "drive_id": "12i5tYkNKJIdX3Rn3aoLMjTXFoEf6xgfM"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_31.jpg",
-    "judul": "Foto 6 - TYESO-TS-8827",
-    "urutan": 6,
-    "drive_id": "12tkFwTHWhpJO51TAMm9xZrmjcMCdX9It"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_34.jpg",
-    "judul": "Foto 7 - TYESO-TS-8827",
-    "urutan": 7,
-    "drive_id": "12VQznlpUEJWBNdSORHQ3h_Y4EYk_gbSC"
-  },
-  {
-    "product_id": 28,
-    "sku": "TYESO-TS-8827",
-    "foto": "produk/gallery/TYESO-TS-8827_gal_13.jpg",
-    "judul": "Foto 8 - TYESO-TS-8827",
-    "urutan": 8,
-    "drive_id": "1GCMG_1qEqg4_5vanmofeewpuLZyby_aw"
-  },
-  {
     "product_id": 55,
     "sku": "TYESO-TS-8831",
     "foto": "produk/gallery/TYESO-TS-8831_gal_17.jpg",
@@ -1806,5 +1742,109 @@
     "judul": "Foto 8 - TYESO-TS-8878",
     "urutan": 8,
     "drive_id": "1bSd9uyvThjciyKddhUZgBynHNpCBzPV0"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_all_colors_group.jpg",
+    "judul": "Semua 8 Warna Tyeso Handle",
+    "urutan": 1,
+    "drive_id": "13mXYbZTXc2-DsWYLISmlA2Dkq8nPnXOB"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_A_putih.jpg",
+    "judul": "Putih (A)",
+    "urutan": 2,
+    "drive_id": "13qKKIgW0Xd70pg-AeLMLVPiI98ZrRQOb"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_B_orange.jpg",
+    "judul": "Orange (B)",
+    "urutan": 3,
+    "drive_id": "146uDrgRkzAglLm8zUld6le_SVRN3o2ut"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_C_biru_toska.jpg",
+    "judul": "Biru Toska (C)",
+    "urutan": 4,
+    "drive_id": "1442SRbuQenv_o0HagPiWdBp3gJSWE3EE"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_D_hitam.jpg",
+    "judul": "Hitam (D)",
+    "urutan": 5,
+    "drive_id": "143M2xXO8H2a7eb0ja5PxcOumFhKmInME"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_E_ungu_lilac.jpg",
+    "judul": "Ungu Lilac (E)",
+    "urutan": 6,
+    "drive_id": "14ICWg2qG8boa4aQEVfP2OXFCvjX_jMXU"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_F_hijau_sage.jpg",
+    "judul": "Hijau Sage (F)",
+    "urutan": 7,
+    "drive_id": "149KGvYKW6NSW1LvHS72iZkflcS6fHO_w"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_G_kuning.jpg",
+    "judul": "Kuning (G)",
+    "urutan": 8,
+    "drive_id": "1GUQ8Z0dqYE2KDJNfnSqC0KeBsw7UgJFt"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_warna_H_pink.jpg",
+    "judul": "Pink (H)",
+    "urutan": 9,
+    "drive_id": "1GXpc4ticQkEFZH1Z3_jgJv9F_8UI43FJ"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_lifestyle_sage_putih.jpg",
+    "judul": "Foto Real - Hijau Sage & Putih",
+    "urutan": 10,
+    "drive_id": "1GCMG_1qEqg4_5vanmofeewpuLZyby_aw"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_lineup_kapasitas.jpg",
+    "judul": "Lineup Ukuran & Warna",
+    "urutan": 11,
+    "drive_id": "1GHSPzTfq5ldChsfhVSDK9WpCZ6HN-YHH"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_detail_tutup.jpg",
+    "judul": "Detail Tutup Dual Function",
+    "urutan": 12,
+    "drive_id": "13h443AvxV8SKkCkMPlD8ChVVcVunzReE"
+  },
+  {
+    "product_id": 28,
+    "sku": "TYESO-TS-8827",
+    "foto": "produk/gallery/TYESO-TS-8827_lifestyle_yellow_pink.jpg",
+    "judul": "Foto Real - Kuning & Pink",
+    "urutan": 13,
+    "drive_id": "1GvuYQjCEhVHTXxvLwBFIeaiDhWihlEcx"
   }
 ]
