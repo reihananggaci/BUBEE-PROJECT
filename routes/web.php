@@ -83,6 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/produk', [AdminController::class, 'products']);
         Route::post('/produk', [AdminController::class, 'productStore']);
         Route::post('/produk/arsip-massal', [AdminController::class, 'productArsipMassal']);
+        Route::post('/produk/{product}/toggle', [AdminController::class, 'productToggleActive']);
         Route::put('/produk/{product}', [AdminController::class, 'productUpdate']);
         Route::delete('/produk/{product}', [AdminController::class, 'productDestroy']);
         Route::post('/produk/{product}/duplikat', [AdminController::class, 'productDuplicate']);

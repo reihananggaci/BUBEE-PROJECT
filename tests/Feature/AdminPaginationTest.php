@@ -56,6 +56,52 @@ class AdminPaginationTest extends TestCase
             ->assertSee('Sebelumnya');
     }
 
+    public function test_admin_dapat_on_off_produk_langsung_dari_status(): void
+    {
+        $admin = User::create(['name' => 'Admin', 'email' => 'adm_toggle@bubee.id', 'password' => 'password123', 'role' => 'admin', 'email_verified_at' => now()]);
+        $user = User::create(['name' => 'User', 'email' => 'user_toggle@bubee.id', 'password' => 'password123', 'role' => 'enduser', 'email_verified_at' => now()]);
+
+        $prod = Product::create([
+            'nama' => 'Tumbler Tes Toggle',
+            'kategori' => 'Tumbler',
+            'stok' => 50,
+            'harga_enduser' => 100000,
+            'harga_reseller' => 80000,
+            'berat_gram' => 300,
+            'is_active' => true,
+        ]);
+
+        // Pastikan tampilan tabel memiliki tombol toggle ON
+        $this->actingAs($admin)->get('/admin/produk?view=tabel')
+            ->assertOk()
+            ->assertSee('Tumbler Tes Toggle')
+            ->assertSee('/admin/produk/' . $prod->id . '/toggle')
+            ->assertSee('ON');
+
+        // Toggle dari ON -> OFF
+        $this->actingAs($admin)->post('/admin/produk/' . $prod->id . '/toggle')
+            ->assertRedirect()
+            ->assertSessionHas('ok');
+
+        $this->assertFalse($prod->fresh()->is_active);
+
+        // Setelah OFF, halaman menampilkan OFF
+        $this->actingAs($admin)->get('/admin/produk?view=tabel')
+            ->assertOk()
+            ->assertSee('OFF');
+
+        // Toggle dari OFF -> ON
+        $this->actingAs($admin)->post('/admin/produk/' . $prod->id . '/toggle')
+            ->assertRedirect()
+            ->assertSessionHas('ok');
+
+        $this->assertTrue($prod->fresh()->is_active);
+
+        // User biasa tidak bisa toggle
+        $this->actingAs($user)->post('/admin/produk/' . $prod->id . '/toggle')
+            ->assertRedirect('/');
+    }
+
     public function test_admin_order_reseller_retur_penerimaan_paginasi_panah(): void
     {
         $admin = User::create(['name' => 'Admin', 'email' => 'adm2@bubee.id', 'password' => 'password123', 'role' => 'admin', 'email_verified_at' => now()]);

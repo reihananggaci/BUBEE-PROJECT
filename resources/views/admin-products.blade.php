@@ -122,7 +122,15 @@
                         Rp {{ number_format($p->harga_reseller) }}
                     </td>
                     <td class="p-2 text-center whitespace-nowrap">
-                        <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'q' => $p->nama]) }}" class="px-2 py-1 bg-purple-50 text-purple-700 font-bold rounded-lg text-[10px]">✏️ Edit</a>
+                        <form method="POST" action="/admin/produk/{{ $p->id }}/toggle" class="inline">
+                            @csrf
+                            <button type="submit" 
+                                    title="{{ $p->is_active ? 'Klik untuk OFF' : 'Klik untuk ON' }}"
+                                    class="px-2 py-0.5 rounded-full text-[10px] font-black border transition active:scale-95 cursor-pointer {{ $p->is_active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-slate-200 text-slate-700 border-slate-300' }}">
+                                {{ $p->is_active ? 'ON' : 'OFF' }}
+                            </button>
+                        </form>
+                        <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'q' => $p->nama]) }}" class="px-2 py-1 bg-purple-50 text-purple-700 font-bold rounded-lg text-[10px] ml-1">✏️ Edit</a>
                     </td>
                 </tr>
                 @empty
@@ -159,7 +167,14 @@
                 </form>
             </div>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full {{ $p->stok<=0?'bg-red-500 text-white':($p->stok<=10?'bg-amber-300':'bg-emerald-300') }}">Σ {{ $p->stok }}</span>
-            @if(!$p->is_active)<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-400 text-white">OFF</span>@endif
+            <form method="POST" action="/admin/produk/{{ $p->id }}/toggle" class="inline">
+                @csrf
+                <button type="submit" 
+                        title="{{ $p->is_active ? 'Klik untuk OFF' : 'Klik untuk ON' }}"
+                        class="px-2 py-0.5 rounded-full text-[10px] font-black border transition active:scale-95 cursor-pointer {{ $p->is_active ? 'bg-emerald-100 text-emerald-800 border-emerald-300' : 'bg-slate-200 text-slate-700 border-slate-300' }}">
+                    {{ $p->is_active ? 'ON' : 'OFF' }}
+                </button>
+            </form>
         </div>
 
         <div class="text-[11px] mt-1.5">

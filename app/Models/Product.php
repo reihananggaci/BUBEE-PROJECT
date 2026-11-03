@@ -11,6 +11,10 @@ class Product extends Model
 
     protected $fillable = ['nama', 'deskripsi', 'kategori', 'foto', 'berat_gram', 'panjang_cm', 'lebar_cm', 'tinggi_cm', 'stok', 'harga_enduser', 'harga_reseller', 'min_reseller', 'is_active'];
 
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
     public function hargaUntuk($user, $variant = null): int
     {
         if ($variant && $variant instanceof ProductVariant) {

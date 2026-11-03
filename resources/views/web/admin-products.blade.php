@@ -136,10 +136,16 @@
                     </td>
                     <td class="px-4 py-2 text-right font-medium">Rp {{ number_format($p->harga_enduser) }}</td>
                     <td class="px-4 py-2 text-right font-bold text-slate-900">Rp {{ number_format($p->harga_reseller) }}</td>
-                    <td class="px-4 py-2 text-center">
-                        @if(!$p->is_active)<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-300 text-slate-700">OFF</span>
-                        @else<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">ON</span>
-                        @endif
+                    <td class="px-4 py-2 text-center whitespace-nowrap">
+                        <form method="POST" action="/admin/produk/{{ $p->id }}/toggle" class="inline">
+                            @csrf
+                            <button type="submit" 
+                                    title="{{ $p->is_active ? 'Status aktif: Klik untuk OFF-kan barang' : 'Status nonaktif: Klik untuk ON-kan barang' }}"
+                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-black transition-all shadow-sm active:scale-95 cursor-pointer border {{ $p->is_active ? 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border-emerald-300' : 'bg-slate-200 hover:bg-slate-300 text-slate-700 border-slate-300' }}">
+                                <span class="w-2 h-2 rounded-full {{ $p->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                                <span>{{ $p->is_active ? 'ON' : 'OFF' }}</span>
+                            </button>
+                        </form>
                     </td>
                     <td class="px-4 py-2 text-center whitespace-nowrap">
                         <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'q' => $p->nama]) }}" class="inline-flex items-center gap-1 px-3 py-1 bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold rounded-xl transition" style="text-decoration:none" title="Buka kartu untuk kelola varian, stok, tier, foto">
@@ -182,7 +188,15 @@
                     </form>
                 </div>
                 <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full {{ $p->stok<=0?'bg-red-500 text-white':($p->stok<=10?'bg-amber-300 text-amber-900':'bg-emerald-300 text-emerald-950') }}">Σ {{ $p->stok }}</span>
-                @if(!$p->is_active)<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-400 text-white">OFF</span>@endif
+                <form method="POST" action="/admin/produk/{{ $p->id }}/toggle" class="inline">
+                    @csrf
+                    <button type="submit" 
+                            title="{{ $p->is_active ? 'Status aktif: Klik untuk OFF-kan barang' : 'Status nonaktif: Klik untuk ON-kan barang' }}"
+                            class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black transition shadow-sm active:scale-95 cursor-pointer border {{ $p->is_active ? 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border-emerald-300' : 'bg-slate-200 hover:bg-slate-300 text-slate-700 border-slate-300' }}">
+                        <span class="w-1.5 h-1.5 rounded-full {{ $p->is_active ? 'bg-emerald-500' : 'bg-slate-400' }}"></span>
+                        <span>{{ $p->is_active ? 'ON' : 'OFF' }}</span>
+                    </button>
+                </form>
             </div>
 
             <div class="text-[11px] mt-1.5">

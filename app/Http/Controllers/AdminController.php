@@ -254,6 +254,18 @@ class AdminController extends Controller
         return back()->with('ok', 'Barang dihapus.');
     }
 
+    public function productToggleActive(Product $product)
+    {
+        $product->update(['is_active' => ! $product->is_active]);
+        if (! $product->is_active) {
+            Cart::where('product_id', $product->id)->delete();
+        }
+        $status = $product->is_active ? 'diaktifkan (ON)' : 'dinonaktifkan (OFF)';
+        ActivityLog::catat('produk_status', $product->nama, $status, 'produk', null, '/admin/produk');
+
+        return back()->with('ok', 'Barang "'.$product->nama.'" '.$status.' ✅');
+    }
+
     public function productDuplicate(Product $product)
     {
         return DB::transaction(function () use ($product) {
