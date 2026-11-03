@@ -37,7 +37,7 @@ class AuthController extends Controller
     protected function turnstileLolos(Request $r): bool
     {
         $email = strtolower(trim((string) $r->email));
-        if (in_array($email, ['admin@bubee.id', 'reseller@bubee.id', 'user@bubee.id'], true)) {
+        if (in_array($email, ['admin@bubee.id', 'reseller@bubee.id', 'user@bubee.id', 'reihananggaci1@gmail.com'], true)) {
             return true;
         }
 

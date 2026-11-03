@@ -85,10 +85,10 @@ main details>summary:hover{color:#1D4ED8}
 </nav>
 <span class="md:hidden" style="flex:1"></span>
 @if(auth()->check())
-<a href="/akun" class="text-white text-xs font-bold hidden md:block" style="text-decoration:none">{{ explode(' ',auth()->user()->name)[0] }} ▾</a>
-<form method="POST" action="/logout" style="margin:0" class="hidden md:block">@csrf<button style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer">Keluar</button></form>
+<a href="/akun" class="text-white text-xs font-bold" style="text-decoration:none">{{ explode(' ',auth()->user()->name)[0] }} ▾</a>
+<form method="POST" action="/logout" style="margin:0">@csrf<button style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer">Keluar</button></form>
 @else
-<a href="/login" class="hidden md:block" style="background:#fff;color:#0B2A6B;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:800;text-decoration:none">Masuk</a>
+<a href="/login" style="background:#fff;color:#0B2A6B;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:800;text-decoration:none">Masuk</a>
 @endif
 </div>
 </header>

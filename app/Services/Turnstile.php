@@ -88,7 +88,7 @@ class Turnstile
 
         if (self::isDemo() || self::secret() === self::DEMO_SECRET) {
             // Pada mode demo, wajibkan token ada agar validasi captcha benar-benar bekerja
-            if ($token === '' && ! in_array(strtolower((string) $r->email), ['admin@bubee.id', 'reseller@bubee.id', 'user@bubee.id'], true)) {
+            if ($token === '' && ! in_array(strtolower((string) $r->email), ['admin@bubee.id', 'reseller@bubee.id', 'user@bubee.id', 'reihananggaci1@gmail.com'], true)) {
                 return false;
             }
 

@@ -524,15 +524,15 @@
 
                         <!-- Quick Account Selection for Evaluator / Dosen -->
                         <div class="mt-4 pt-3 border-t border-white/10">
-                            <div class="text-[10px] text-cyan-300 font-bold mb-1.5">🧪 Klik Cepat Akun Demo (Untuk Dosen/Penguji):</div>
+                            <div class="text-[10px] text-cyan-300 font-bold mb-1.5">🧪 1-Klik Masuk Akun Demo (Untuk Dosen/Penguji):</div>
                             <div class="grid grid-cols-3 gap-1.5 text-[10px]">
-                                <button onclick="fillLogin('admin@bubee.id','password', 'admin')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                <button onclick="fillLogin('admin@bubee.id','password', 'admin', true)" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
                                     👑<br>Admin
                                 </button>
-                                <button onclick="fillLogin('reseller@bubee.id','password', 'reseller')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                <button onclick="fillLogin('reseller@bubee.id','password', 'reseller', true)" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
                                     🏪<br>Reseller
                                 </button>
-                                <button onclick="fillLogin('user@bubee.id','password', 'user')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                <button onclick="fillLogin('user@bubee.id','password', 'user', true)" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
                                     🙋<br>Reguler
                                 </button>
                             </div>
@@ -1097,26 +1097,55 @@
             }
         }
 
-        // Quick Account Login Filling
-        function fillLogin(email, pass, role) {
+        // Quick Account Login Filling & Instant Entry
+        function fillLogin(email, pass, role, autoLogin = false) {
             document.getElementById('input-login-email').value = email;
             document.getElementById('input-login-pass').value = pass;
             currentRole = role;
-            showToast('Akun ' + role.toUpperCase() + ' terisi!');
+
+            // Auto-verifikasi Turnstile agar tester langsung lolos tanpa rintangan
+            turnstilePassed = true;
+            const box = document.getElementById('turnstile-check-box');
+            const icon = document.getElementById('turnstile-icon');
+            const label = document.getElementById('turnstile-label');
+            if (box && icon && label) {
+                box.className = 'w-6 h-6 rounded-lg bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center';
+                icon.classList.remove('hidden');
+                label.textContent = 'Verifikasi Sukses (Mode Demo Always-Pass)';
+                label.className = 'text-xs font-bold text-emerald-700';
+            }
+
+            if (autoLogin) {
+                showToast('🚀 Masuk instan sebagai ' + role.toUpperCase() + '...');
+                setTimeout(() => {
+                    submitLoginMock();
+                }, 180);
+            } else {
+                showToast('Akun ' + role.toUpperCase() + ' terisi & terverifikasi!');
+            }
         }
 
         // Login Submit Simulation
         function submitLoginMock() {
             if (!turnstilePassed) {
-                alert('Silakan centang verifikasi Cloudflare Turnstile terlebih dahulu!');
-                return;
+                // Pada mode demo jangan blokir dengan alert, langsung auto-verifikasi
+                turnstilePassed = true;
+                const box = document.getElementById('turnstile-check-box');
+                const icon = document.getElementById('turnstile-icon');
+                const label = document.getElementById('turnstile-label');
+                if (box && icon && label) {
+                    box.className = 'w-6 h-6 rounded-lg bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center';
+                    icon.classList.remove('hidden');
+                    label.textContent = 'Verifikasi Sukses (Mode Demo Always-Pass)';
+                    label.className = 'text-xs font-bold text-emerald-700';
+                }
             }
-            showToast('Login berhasil sebagai ' + currentRole.toUpperCase() + '!');
+            showToast('✓ Login berhasil sebagai ' + currentRole.toUpperCase() + '!');
             setTimeout(() => {
                 if (currentRole === 'admin') setScreen('admin');
                 else if (currentRole === 'reseller') setScreen('reseller');
                 else setScreen('home');
-            }, 500);
+            }, 300);
         }
 
         // Checkout Success Simulation
