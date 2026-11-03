@@ -822,7 +822,7 @@ w.appendChild(b);
     }
 
     // Ubah tombol Masuk di header
-    const topLoginBtn = document.querySelector('.whdr a[href*="login"]');
+    const topLoginBtn = document.querySelector('.whdr a[onclick*="LoginModal"], .whdr a[href*="login"]');
     if (topLoginBtn) {
       topLoginBtn.innerText = 'Keluar (' + role.toUpperCase() + ')';
       topLoginBtn.onclick = function() { location.reload(); };
