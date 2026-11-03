@@ -57,7 +57,7 @@
 @php $st=$p->statusStok(); $harga=$p->hargaUntuk(auth()->user()); $disk=$p->harga_enduser>0?round(($p->harga_enduser-$p->harga_reseller)/$p->harga_enduser*100):0; $isRslr=auth()->check()&&auth()->user()->role==='reseller'&&auth()->user()->status_reseller==='approved'; @endphp
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:{{ min($loop->index*50,400) }}ms">
 <a href="/produk/{{ $p->id }}" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-@if($p->foto)<img src="/storage/{{ $p->foto }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ $p->nama }}">@else<span class="relative">👕</span>@endif
+@if($p->foto)<img src="/storage/{{ $p->foto }}" class="absolute inset-0 w-full h-full object-cover" alt="{{ $p->nama }}" loading="lazy" onerror="this.remove()"><span class="relative" style="display:none">👕</span>@else<span class="relative">👕</span>@endif
 @if($isRslr && $disk>0)<span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-{{ $disk }}% RSLR</span>@endif
 @if($st==='habis')<span class="absolute top-2 right-2 text-[10px] font-bold bg-slate-900 text-white px-2 py-0.5 rounded-full">HABIS</span>
 @elseif($st==='menipis')<span class="absolute top-2 right-2 text-[10px] font-bold bg-amber-400 px-2 py-0.5 rounded-full chip-live">SISA {{ $p->stok }}</span>
