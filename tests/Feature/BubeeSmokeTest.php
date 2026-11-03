@@ -658,6 +658,7 @@ class BubeeSmokeTest extends TestCase
     {
         ['user' => $user] = $this->seedShop();
         Setting::set('turnstile_wajib', '1');
+        Setting::set('turnstile_mode_demo', '0');
         Setting::set('turnstile_secret', 'kunci-palsu');
         // host tunnel: bebas tanpa token, widget pun disembunyikan
         $this->call('POST', '/login', ['email' => $user->email, 'password' => 'x'], [], [], ['HTTP_HOST' => 'demo.trycloudflare.com'])
@@ -665,6 +666,26 @@ class BubeeSmokeTest extends TestCase
         $this->assertAuthenticatedAs($user);
         $this->call('GET', '/login', [], [], [], ['HTTP_HOST' => 'demo.trycloudflare.com'])
             ->assertOk()->assertDontSee('cf-turnstile', false);
+    }
+
+    public function test_captcha_mode_demo_aktif_di_link_tunnel(): void
+    {
+        ['user' => $user] = $this->seedShop();
+        Setting::set('turnstile_wajib', '1');
+        Setting::set('turnstile_mode_demo', '1');
+
+        // widget muncul di link tunnel saat mode demo aktif
+        $this->call('GET', '/login', [], [], [], ['HTTP_HOST' => 'demo.trycloudflare.com'])
+            ->assertOk()->assertSee('cf-turnstile', false);
+
+        // tanpa token ditolak
+        $this->call('POST', '/login', ['email' => $user->email, 'password' => 'x'], [], [], ['HTTP_HOST' => 'demo.trycloudflare.com'])
+            ->assertSessionHasErrors('email');
+
+        // dengan token lolos
+        $this->call('POST', '/login', ['email' => $user->email, 'password' => 'x', 'cf-turnstile-response' => 'demo-token'], [], [], ['HTTP_HOST' => 'demo.trycloudflare.com'])
+            ->assertRedirect('/');
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test_toggle_jelaskan_disembunyikan(): void

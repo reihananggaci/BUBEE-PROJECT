@@ -1311,11 +1311,12 @@ class AdminController extends Controller
             'detail' => WaNotifier::isLive() ? 'Token terisi' : 'Isi token di Pengaturan (mode dummy aktif)',
         ];
         $captchaOn = Setting::get('turnstile_wajib', '0') === '1';
+        $captchaDemo = Setting::get('turnstile_mode_demo', '0') === '1';
         $captchaKey = (string) (Setting::get('turnstile_site_key', '') ?: env('TURNSTILE_SITE_KEY', ''));
         $captcha = [
             'nama' => 'Captcha Login (Turnstile)',
-            'live' => $captchaOn && $captchaKey !== '',
-            'detail' => ! $captchaOn ? 'Mati (aman untuk link tunnel)' : ($captchaKey !== '' ? 'Aktif — pastikan domain ini terdaftar di Cloudflare' : 'Saklar nyala tapi kunci kosong = tidak jalan'),
+            'live' => ($captchaOn && $captchaKey !== '') || ($captchaOn && $captchaDemo),
+            'detail' => ! $captchaOn ? 'Mati (aman untuk link tunnel)' : ($captchaDemo ? 'Aktif (Mode Demo Cloudflare — tampil di localhost & tunnel)' : ($captchaKey !== '' ? 'Aktif — pastikan domain ini terdaftar di Cloudflare' : 'Saklar nyala tapi kunci kosong = tidak jalan')),
         ];
 
         return web_view('admin-integrasi', compact('midtrans', 'raja', 'fonnte', 'captcha'));
@@ -1364,6 +1365,7 @@ class AdminController extends Controller
             'pengumuman' => Setting::get('pengumuman', ''),
             'fonnte_token' => Setting::get('fonnte_token', ''),
             'turnstile_wajib' => Setting::get('turnstile_wajib', '0'),
+            'turnstile_mode_demo' => Setting::get('turnstile_mode_demo', '0'),
             'turnstile_site_key' => Setting::get('turnstile_site_key', ''),
             'turnstile_secret' => Setting::get('turnstile_secret', ''),
             'rajaongkir_key' => Setting::get('rajaongkir_key', ''),
@@ -1386,6 +1388,7 @@ class AdminController extends Controller
         Setting::set('pengumuman', $r->pengumuman ?? '');
         Setting::set('fonnte_token', trim($r->fonnte_token ?? ''));
         Setting::set('turnstile_wajib', $r->has('turnstile_wajib') ? '1' : '0');
+        Setting::set('turnstile_mode_demo', $r->has('turnstile_mode_demo') ? '1' : '0');
         Setting::set('turnstile_site_key', trim($r->turnstile_site_key ?? ''));
         Setting::set('turnstile_secret', trim($r->turnstile_secret ?? ''));
         Setting::set('rajaongkir_key', trim($r->rajaongkir_key ?? ''));

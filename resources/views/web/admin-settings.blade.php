@@ -12,10 +12,11 @@
 <label class="block">Token Fonnte WA (kosongkan = mode dummy)<input name="fonnte_token" value="{{ $data['fonnte_token'] }}" placeholder="Isi untuk kirim WA beneran" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
 <div class="rounded-2xl border p-3 space-y-2" style="border-color:#e9d5ff;background:#faf5ff">
 <b class="text-sm">🛡️ Captcha Login (Turnstile)</b>
-<label class="flex items-center gap-2 text-xs"><input type="checkbox" name="turnstile_wajib" value="1" {{ ($data['turnstile_wajib'] ?? '0')==='1'?'checked':'' }}> Wajibkan captcha saat login</label>
-<div class="text-[11px]" style="color:#64748b">Matikan bila login via link tunnel (domain berubah-ubah). Nyalakan di domain production + daftarkan domainnya di dashboard Cloudflare.</div>
-<label class="block text-xs">Site Key<input name="turnstile_site_key" value="{{ $data['turnstile_site_key'] ?? '' }}" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
-<label class="block text-xs">Secret Key<input name="turnstile_secret" value="{{ $data['turnstile_secret'] ?? '' }}" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
+<label class="flex items-center gap-2 text-xs font-semibold"><input type="checkbox" name="turnstile_wajib" value="1" {{ ($data['turnstile_wajib'] ?? '0')==='1'?'checked':'' }}> Wajibkan captcha saat login</label>
+<label class="flex items-center gap-2 text-xs font-semibold text-purple-900 mt-1"><input type="checkbox" name="turnstile_mode_demo" value="1" {{ ($data['turnstile_mode_demo'] ?? '0')==='1'?'checked':'' }}> 🧪 Mode Demo (Aktifkan widget di localhost & link tunnel sementara)</label>
+<div class="text-[11px]" style="color:#64748b">Mode Demo menggunakan kunci uji resmi Cloudflare (Always-Pass) sehingga widget Turnstile tetap muncul dan bekerja di localhost / tunnel tanpa dicekal error domain mismatch 300030. Matikan mode demo dan isi Site/Secret Key di bawah saat website sudah tayang di domain resmi.</div>
+<label class="block text-xs">Site Key (Production)<input name="turnstile_site_key" value="{{ $data['turnstile_site_key'] ?? '' }}" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
+<label class="block text-xs">Secret Key (Production)<input name="turnstile_secret" value="{{ $data['turnstile_secret'] ?? '' }}" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
 </div>
 <label class="block">RajaOngkir API Key (Starter, kosongkan = dummy)<input name="rajaongkir_key" value="{{ $data['rajaongkir_key'] }}" placeholder="Isi untuk ongkir JNE real-time" class="w-full border rounded-2xl px-3 py-2.5 mt-1"></label>
 <div class="grid grid-cols-2 gap-2">
