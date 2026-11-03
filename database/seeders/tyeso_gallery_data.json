@@ -144,7 +144,7 @@
     "drive_id": "1s2Vm_gW4D9oHSrRhiax1OO-qgRz_L1Ck"
   },
   {
-    "product_id": 36,
+    "product_id": 35,
     "sku": "TYESO-01-01010",
     "foto": "produk/gallery/TYESO-01-01010_gal_3.jpg",
     "judul": "Foto 1 - TYESO-01-01010",
@@ -152,7 +152,7 @@
     "drive_id": "1GXemUAthKC9Cexw0zQ0_vIsIUeW-R3jJ"
   },
   {
-    "product_id": 36,
+    "product_id": 35,
     "sku": "TYESO-01-01010",
     "foto": "produk/gallery/TYESO-01-01010_gal_2.jpg",
     "judul": "Foto 2 - TYESO-01-01010",
@@ -160,7 +160,7 @@
     "drive_id": "1WYDe-lqoP48A9BEagM44nsxp9cFHEVhx"
   },
   {
-    "product_id": 36,
+    "product_id": 35,
     "sku": "TYESO-01-01010",
     "foto": "produk/gallery/TYESO-01-01010_gal_9.jpg",
     "judul": "Foto 3 - TYESO-01-01010",
@@ -168,108 +168,12 @@
     "drive_id": "1SjFZJsEm02HkjFIy068R4AIUkeBboEU2"
   },
   {
-    "product_id": 36,
-    "sku": "TYESO-01-01010",
-    "foto": "produk/gallery/TYESO-01-01010_gal_15.jpg",
-    "judul": "Foto 4 - TYESO-01-01010",
-    "urutan": 4,
-    "drive_id": "1RGL033Y9M4UBew6gsZhb6eXcaZumnsyO"
-  },
-  {
-    "product_id": 36,
-    "sku": "TYESO-01-01010",
-    "foto": "produk/gallery/TYESO-01-01010_gal_16.jpg",
-    "judul": "Foto 5 - TYESO-01-01010",
-    "urutan": 5,
-    "drive_id": "1hFAZevojyOo7KRRtbVoULu4shc0YS-Vy"
-  },
-  {
-    "product_id": 36,
+    "product_id": 35,
     "sku": "TYESO-01-01010",
     "foto": "produk/gallery/TYESO-01-01010_gal_5.jpg",
     "judul": "Foto 6 - TYESO-01-01010",
     "urutan": 6,
     "drive_id": "1ncRY2bGswCxS4lzipw04yawVqAnuXKIQ"
-  },
-  {
-    "product_id": 36,
-    "sku": "TYESO-01-01010",
-    "foto": "produk/gallery/TYESO-01-01010_gal_53.jpg",
-    "judul": "Foto 7 - TYESO-01-01010",
-    "urutan": 7,
-    "drive_id": "1h3yz6nQKS_U-WiHWlupsWpDtOp-XHRAG"
-  },
-  {
-    "product_id": 36,
-    "sku": "TYESO-01-01010",
-    "foto": "produk/gallery/TYESO-01-01010_gal_54.jpg",
-    "judul": "Foto 8 - TYESO-01-01010",
-    "urutan": 8,
-    "drive_id": "1ZQLflPmiDsFDA_KPg56W0L0RrQQvlTmJ"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_5.jpg",
-    "judul": "Foto 1 - TYESO-01-01012",
-    "urutan": 1,
-    "drive_id": "1RGL033Y9M4UBew6gsZhb6eXcaZumnsyO"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_6.jpg",
-    "judul": "Foto 2 - TYESO-01-01012",
-    "urutan": 2,
-    "drive_id": "1hFAZevojyOo7KRRtbVoULu4shc0YS-Vy"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_43.jpg",
-    "judul": "Foto 3 - TYESO-01-01012",
-    "urutan": 3,
-    "drive_id": "1h3yz6nQKS_U-WiHWlupsWpDtOp-XHRAG"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_44.jpg",
-    "judul": "Foto 4 - TYESO-01-01012",
-    "urutan": 4,
-    "drive_id": "1ZQLflPmiDsFDA_KPg56W0L0RrQQvlTmJ"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_42.jpg",
-    "judul": "Foto 5 - TYESO-01-01012",
-    "urutan": 5,
-    "drive_id": "1a_gDxb9qv8Rvuq9iralNnQrx0oJgi_2E"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_10.jpg",
-    "judul": "Foto 6 - TYESO-01-01012",
-    "urutan": 6,
-    "drive_id": "1KwLf91jhFtjcPFqQ4t2Yt0l1VStkcgz9"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_30.jpg",
-    "judul": "Foto 7 - TYESO-01-01012",
-    "urutan": 7,
-    "drive_id": "18s8KxstoW2DLgtg-0ryfyQUMarEUiKNo"
-  },
-  {
-    "product_id": 37,
-    "sku": "TYESO-01-01012",
-    "foto": "produk/gallery/TYESO-01-01012_gal_34.jpg",
-    "judul": "Foto 8 - TYESO-01-01012",
-    "urutan": 8,
-    "drive_id": "1s2Vm_gW4D9oHSrRhiax1OO-qgRz_L1Ck"
   },
   {
     "product_id": 39,
@@ -952,70 +856,6 @@
     "drive_id": "1aMsU6vau1I-gmwGuIaoakH6fNIH4IA3q"
   },
   {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_1.jpg",
-    "judul": "Foto 1 - TYESO-TS-8816",
-    "urutan": 1,
-    "drive_id": "1IbUNTZqAEGXS9ky9gzknmmX8Sk292kiJ"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_2.jpg",
-    "judul": "Foto 2 - TYESO-TS-8816",
-    "urutan": 2,
-    "drive_id": "1IeiJZI9RX8Q7xUebut87FbdQl9eYwhmc"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_3.jpg",
-    "judul": "Foto 3 - TYESO-TS-8816",
-    "urutan": 3,
-    "drive_id": "1ImEnqy7ymsRXzU62GILuagKubZSqZj3K"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_8.jpg",
-    "judul": "Foto 4 - TYESO-TS-8816",
-    "urutan": 4,
-    "drive_id": "1J7C3G7Lgrdwr76oeuos5bbjZ3uO5RLMx"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_29.jpg",
-    "judul": "Foto 5 - TYESO-TS-8816",
-    "urutan": 5,
-    "drive_id": "1_PKbt79ELwnekAv4UuTnQyj2gUAkUBGJ"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_42.jpg",
-    "judul": "Foto 6 - TYESO-TS-8816",
-    "urutan": 6,
-    "drive_id": "1ZYshUkIBq4G0DhbmepWkH3WNhRqy2_6K"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_44.jpg",
-    "judul": "Foto 7 - TYESO-TS-8816",
-    "urutan": 7,
-    "drive_id": "1ZVIHGuV1sFSwOTCglltuMOK567aQuTSt"
-  },
-  {
-    "product_id": 45,
-    "sku": "TYESO-TS-8816",
-    "foto": "produk/gallery/TYESO-TS-8816_gal_14.jpg",
-    "judul": "Foto 8 - TYESO-TS-8816",
-    "urutan": 8,
-    "drive_id": "1aMsU6vau1I-gmwGuIaoakH6fNIH4IA3q"
-  },
-  {
     "product_id": 60,
     "sku": "TYESO-TS-8817B",
     "foto": "produk/gallery/TYESO-TS-8817B_gal_21.jpg",
@@ -1208,134 +1048,6 @@
     "drive_id": "1GCMG_1qEqg4_5vanmofeewpuLZyby_aw"
   },
   {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_28.jpg",
-    "judul": "Foto 1 - TYESO-TS-8828",
-    "urutan": 1,
-    "drive_id": "131vCfCV2ZWarFhvrglQnCAEo2u0PGmlo"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_29.jpg",
-    "judul": "Foto 2 - TYESO-TS-8828",
-    "urutan": 2,
-    "drive_id": "12ykXFEXEcbIIM8qbpcuaIElYN2Ae3GpM"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_36.jpg",
-    "judul": "Foto 3 - TYESO-TS-8828",
-    "urutan": 3,
-    "drive_id": "12P8fWrD4lNxFmEZtLa9GV7911vL9GrA8"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_30.jpg",
-    "judul": "Foto 4 - TYESO-TS-8828",
-    "urutan": 4,
-    "drive_id": "12uO_KSkP1tePdAJ8uIzFMSoff2pVQusB"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_32.jpg",
-    "judul": "Foto 5 - TYESO-TS-8828",
-    "urutan": 5,
-    "drive_id": "12i5tYkNKJIdX3Rn3aoLMjTXFoEf6xgfM"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_31.jpg",
-    "judul": "Foto 6 - TYESO-TS-8828",
-    "urutan": 6,
-    "drive_id": "12tkFwTHWhpJO51TAMm9xZrmjcMCdX9It"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_34.jpg",
-    "judul": "Foto 7 - TYESO-TS-8828",
-    "urutan": 7,
-    "drive_id": "12VQznlpUEJWBNdSORHQ3h_Y4EYk_gbSC"
-  },
-  {
-    "product_id": 29,
-    "sku": "TYESO-TS-8828",
-    "foto": "produk/gallery/TYESO-TS-8828_gal_13.jpg",
-    "judul": "Foto 8 - TYESO-TS-8828",
-    "urutan": 8,
-    "drive_id": "1GCMG_1qEqg4_5vanmofeewpuLZyby_aw"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_28.jpg",
-    "judul": "Foto 1 - TYESO-TS-8830",
-    "urutan": 1,
-    "drive_id": "131vCfCV2ZWarFhvrglQnCAEo2u0PGmlo"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_29.jpg",
-    "judul": "Foto 2 - TYESO-TS-8830",
-    "urutan": 2,
-    "drive_id": "12ykXFEXEcbIIM8qbpcuaIElYN2Ae3GpM"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_36.jpg",
-    "judul": "Foto 3 - TYESO-TS-8830",
-    "urutan": 3,
-    "drive_id": "12P8fWrD4lNxFmEZtLa9GV7911vL9GrA8"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_30.jpg",
-    "judul": "Foto 4 - TYESO-TS-8830",
-    "urutan": 4,
-    "drive_id": "12uO_KSkP1tePdAJ8uIzFMSoff2pVQusB"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_32.jpg",
-    "judul": "Foto 5 - TYESO-TS-8830",
-    "urutan": 5,
-    "drive_id": "12i5tYkNKJIdX3Rn3aoLMjTXFoEf6xgfM"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_31.jpg",
-    "judul": "Foto 6 - TYESO-TS-8830",
-    "urutan": 6,
-    "drive_id": "12tkFwTHWhpJO51TAMm9xZrmjcMCdX9It"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_34.jpg",
-    "judul": "Foto 7 - TYESO-TS-8830",
-    "urutan": 7,
-    "drive_id": "12VQznlpUEJWBNdSORHQ3h_Y4EYk_gbSC"
-  },
-  {
-    "product_id": 30,
-    "sku": "TYESO-TS-8830",
-    "foto": "produk/gallery/TYESO-TS-8830_gal_13.jpg",
-    "judul": "Foto 8 - TYESO-TS-8830",
-    "urutan": 8,
-    "drive_id": "1GCMG_1qEqg4_5vanmofeewpuLZyby_aw"
-  },
-  {
     "product_id": 55,
     "sku": "TYESO-TS-8831",
     "foto": "produk/gallery/TYESO-TS-8831_gal_17.jpg",
@@ -1398,134 +1110,6 @@
     "judul": "Foto 8 - TYESO-TS-8831",
     "urutan": 8,
     "drive_id": "1aPGFjRvjqPK4587UeLGHjcQhNntGBwLm"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_1.jpg",
-    "judul": "Foto 1 - TYESO-TS-8832",
-    "urutan": 1,
-    "drive_id": "1IbUNTZqAEGXS9ky9gzknmmX8Sk292kiJ"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_2.jpg",
-    "judul": "Foto 2 - TYESO-TS-8832",
-    "urutan": 2,
-    "drive_id": "1IeiJZI9RX8Q7xUebut87FbdQl9eYwhmc"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_3.jpg",
-    "judul": "Foto 3 - TYESO-TS-8832",
-    "urutan": 3,
-    "drive_id": "1ImEnqy7ymsRXzU62GILuagKubZSqZj3K"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_8.jpg",
-    "judul": "Foto 4 - TYESO-TS-8832",
-    "urutan": 4,
-    "drive_id": "1J7C3G7Lgrdwr76oeuos5bbjZ3uO5RLMx"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_29.jpg",
-    "judul": "Foto 5 - TYESO-TS-8832",
-    "urutan": 5,
-    "drive_id": "1_PKbt79ELwnekAv4UuTnQyj2gUAkUBGJ"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_42.jpg",
-    "judul": "Foto 6 - TYESO-TS-8832",
-    "urutan": 6,
-    "drive_id": "1ZYshUkIBq4G0DhbmepWkH3WNhRqy2_6K"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_44.jpg",
-    "judul": "Foto 7 - TYESO-TS-8832",
-    "urutan": 7,
-    "drive_id": "1ZVIHGuV1sFSwOTCglltuMOK567aQuTSt"
-  },
-  {
-    "product_id": 46,
-    "sku": "TYESO-TS-8832",
-    "foto": "produk/gallery/TYESO-TS-8832_gal_14.jpg",
-    "judul": "Foto 8 - TYESO-TS-8832",
-    "urutan": 8,
-    "drive_id": "1aMsU6vau1I-gmwGuIaoakH6fNIH4IA3q"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_1.jpg",
-    "judul": "Foto 1 - TYESO-TS-8833",
-    "urutan": 1,
-    "drive_id": "1IbUNTZqAEGXS9ky9gzknmmX8Sk292kiJ"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_2.jpg",
-    "judul": "Foto 2 - TYESO-TS-8833",
-    "urutan": 2,
-    "drive_id": "1IeiJZI9RX8Q7xUebut87FbdQl9eYwhmc"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_3.jpg",
-    "judul": "Foto 3 - TYESO-TS-8833",
-    "urutan": 3,
-    "drive_id": "1ImEnqy7ymsRXzU62GILuagKubZSqZj3K"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_8.jpg",
-    "judul": "Foto 4 - TYESO-TS-8833",
-    "urutan": 4,
-    "drive_id": "1J7C3G7Lgrdwr76oeuos5bbjZ3uO5RLMx"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_29.jpg",
-    "judul": "Foto 5 - TYESO-TS-8833",
-    "urutan": 5,
-    "drive_id": "1_PKbt79ELwnekAv4UuTnQyj2gUAkUBGJ"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_42.jpg",
-    "judul": "Foto 6 - TYESO-TS-8833",
-    "urutan": 6,
-    "drive_id": "1ZYshUkIBq4G0DhbmepWkH3WNhRqy2_6K"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_44.jpg",
-    "judul": "Foto 7 - TYESO-TS-8833",
-    "urutan": 7,
-    "drive_id": "1ZVIHGuV1sFSwOTCglltuMOK567aQuTSt"
-  },
-  {
-    "product_id": 47,
-    "sku": "TYESO-TS-8833",
-    "foto": "produk/gallery/TYESO-TS-8833_gal_14.jpg",
-    "judul": "Foto 8 - TYESO-TS-8833",
-    "urutan": 8,
-    "drive_id": "1aMsU6vau1I-gmwGuIaoakH6fNIH4IA3q"
   },
   {
     "product_id": 57,
@@ -2029,78 +1613,6 @@
     "foto": "produk/gallery/TYESO-TS-8866_gal_30.jpg",
     "judul": "Foto 10 - TYESO-TS-8866",
     "urutan": 1,
-    "drive_id": "1vZwcEmgvuqtAP1mYBDOR1zz79jOEB6oL"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_1.jpg",
-    "judul": "Foto 1 - TYESO-TS-8868",
-    "urutan": 99,
-    "drive_id": "1woPjY-9Y-hmlQrh-5H1aa6JzdxZ73JGF"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_49.jpg",
-    "judul": "Foto 2 - TYESO-TS-8868",
-    "urutan": 2,
-    "drive_id": "1zeDnY1DG0Dmt8ws8AsM_KYmuIer_gR-C"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_48.jpg",
-    "judul": "Foto 3 - TYESO-TS-8868",
-    "urutan": 3,
-    "drive_id": "1zVLAz1h9P4YnQvkTtOJOycyU3p0dBuJT"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_47.jpg",
-    "judul": "Foto 4 - TYESO-TS-8868",
-    "urutan": 4,
-    "drive_id": "1zHp5PZpqYWppomWzwFWwOc-HnbvKu3AI"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_46.jpg",
-    "judul": "Foto 5 - TYESO-TS-8868",
-    "urutan": 5,
-    "drive_id": "1zIAz3EuIbR3PlAZ-Xt8Qkx0Yy5ABD05r"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_45.jpg",
-    "judul": "Foto 6 - TYESO-TS-8868",
-    "urutan": 6,
-    "drive_id": "1zEHoEZfCxKkm7ksILnO6l6D7iPL_MXNS"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_44.jpg",
-    "judul": "Foto 7 - TYESO-TS-8868",
-    "urutan": 7,
-    "drive_id": "1zBCgnSrK2dtyC1H4FZjgwzsI7jqHsMJV"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_43.jpg",
-    "judul": "Foto 8 - TYESO-TS-8868",
-    "urutan": 8,
-    "drive_id": "1z4m5CxfTsBJTQzUaGL_o9Crh2CgbXk_P"
-  },
-  {
-    "product_id": 62,
-    "sku": "TYESO-TS-8868",
-    "foto": "produk/gallery/TYESO-TS-8868_gal_30.jpg",
-    "judul": "Foto 9 - TYESO-TS-8868",
-    "urutan": 9,
     "drive_id": "1vZwcEmgvuqtAP1mYBDOR1zz79jOEB6oL"
   },
   {
