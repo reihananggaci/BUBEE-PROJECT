@@ -1,661 +1,1235 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bubee Web • Home</title>
-<link rel="manifest" href="./images/icon-192.png">
-<meta name="theme-color" content="#0B2A6B">
-<link rel="icon" href="/images/logo-bubee.png">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>tailwind.config={theme:{extend:{colors:{bubee:{50:'#EEF4FF',100:'#D8E6FF',600:'#1D4ED8',800:'#0B2A6B',900:'#0A357A'}},boxShadow:{card:'0 8px 24px rgba(15,23,42,.08)'}}}}</script>
-<style>
-:root{--bubee-900:#0A357A;--bubee-600:#1D4ED8;--line:#e8edf5}
-*{-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{background:radial-gradient(1200px 400px at 50% -120px,#dbe7ff 0%,#eef2f7 55%,#eef2f7 100%);font-family:'Plus Jakarta Sans',sans-serif;margin:0;min-height:100vh;color:#0f172a}
-::selection{background:#1D4ED8;color:#fff}
-a,button{transition:filter .15s ease,transform .15s ease,background .15s ease}
-a:active,button:active{filter:brightness(.96)}
-:focus-visible{outline:2px solid #1D4ED8;outline-offset:2px;border-radius:8px}
-/* Navbar */
-.webnav a{font-size:13px;font-weight:800;color:#dbe7ff;text-decoration:none;padding:9px 16px;border-radius:9999px;white-space:nowrap}
-.webnav a:hover{background:rgba(255,255,255,.16);color:#fff}
-.webnav a.active{background:#fff;color:#0B2A6B;box-shadow:0 2px 10px rgba(0,0,0,.25)}
-.whdr{box-shadow:0 4px 20px rgba(10,53,122,.35)}
-/* Kartu & tabel */
-main .shadow-card{box-shadow:0 8px 24px rgba(15,23,42,.08)}
-main table{border-collapse:separate;border-spacing:0;width:100%}
-main table thead th{position:sticky;top:0;background:#f4f7fd;z-index:1}
-main table tbody tr{transition:background .12s ease}
-main table tbody tr:hover{background:#f6f9ff}
-main table tbody tr:last-child td:first-child{border-bottom-left-radius:1.25rem}
-main table tbody tr:last-child td:last-child{border-bottom-right-radius:1.25rem}
-/* Form */
-main input:not([type=checkbox]):not([type=radio]):not([type=file]),main select,main textarea{transition:border-color .15s ease,box-shadow .15s ease;background:#fff}
-main input:not([type=checkbox]):not([type=radio]):not([type=file]):focus,main select:focus,main textarea:focus{border-color:#1D4ED8 !important;box-shadow:0 0 0 3px rgba(29,78,216,.15);outline:none}
-main input[type=file]{cursor:pointer}
-/* Details / summary */
-main details>summary{transition:color .15s ease}
-main details>summary:hover{color:#1D4ED8}
-/* Footer */
-.wfoot a:hover{color:#0B2A6B}
-/* Badge stok menipis berdenyut */
-@keyframes chipPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
-.chip-live{animation:chipPulse 1.6s ease-in-out infinite}
-/* Tombol harga + animasi masuk */
-.p-title{min-height:2.6em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.price-slot{min-height:54px;display:flex;flex-direction:column;justify-content:center}
-.price-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:42px;box-sizing:border-box;padding:10px 12px;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(90deg,#0B2A6B,#1D4ED8);border-radius:14px;text-decoration:none;margin:4px 0 8px}
-.lihat-btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:42px;box-sizing:border-box}
-.price-btn svg{width:14px;height:14px;flex:none}
-.price-btn:hover{filter:brightness(1.08)}
-.price-pill{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#0B2A6B;background:#D8E6FF;padding:4px 10px;border-radius:9999px;text-decoration:none}
-.price-pill svg{width:12px;height:12px;flex:none}
-/* Input sandi + tombol mata */
-.pw-wrap{position:relative}
-.pw-wrap>input[type=password],.pw-wrap>input[type=text]{padding-right:44px}
-.pw-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);border:none;background:transparent;cursor:pointer;padding:8px;color:#94a3b8;display:flex;align-items:center}
-.pw-eye:hover{color:#0B2A6B}
-.pw-eye svg{width:20px;height:20px}
-@keyframes bubeeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.anim-in{opacity:0;animation:bubeeIn .5s ease forwards;animation-delay:var(--d,0ms)}
-@media (prefers-reduced-motion:reduce){.anim-in{opacity:1;animation:none}}
-</style>
-</head>
-<body>
-<header class="whdr sticky top-0 z-40" style="background:linear-gradient(120deg,#0A357A,#1D4ED8 60%,#0ea5e9);border-bottom:1px solid rgba(255,255,255,.25)">
-<div class="max-w-7xl mx-auto flex items-center gap-3 px-5 py-3">
-<a href="javascript:void(0)" onclick="resetFilter()" class="flex items-center gap-2" style="text-decoration:none"><img src="./images/logo-bubee.png" alt="Bubee" style="width:40px;height:40px;border-radius:12px;background:#fff;padding:2px"><span style="font-weight:800;letter-spacing:.16em;color:#fff">BUBEE</span></a>
-<nav class="webnav hidden md:flex items-center gap-1 mx-auto" aria-label="Navigasi web">
-<a href="javascript:void(0)" onclick="resetFilter()" class="">Beranda</a>
-<a href="javascript:void(0)" onclick="showCartModal()" class="">Keranjang</a>
-<a href="javascript:void(0)" onclick="showOrdersModal()" class="">Pesanan</a>
-<a href="javascript:void(0)" onclick="openLoginModal()" class="">Akun</a>
-<a href="javascript:void(0)" onclick="showBantuanModal()" class="">Bantuan</a>
-</nav>
-<span class="md:hidden" style="flex:1"></span>
-<a href="javascript:void(0)" onclick="openLoginModal()" class="hidden md:block" style="background:#fff;color:#0B2A6B;border-radius:10px;padding:8px 16px;font-size:12px;font-weight:800;text-decoration:none">Masuk</a>
-</div>
-</header>
-<main class="max-w-7xl mx-auto px-5 py-6">
-
-<div class="rounded-3xl p-8 text-white shadow-card relative overflow-hidden anim-in" style="--d:0ms;background:linear-gradient(135deg,#050B2E,#0B2A6B 55%,#1D4ED8);border:1px solid rgba(255,255,255,.12)">
-<div class="absolute -right-10 -top-10 w-52 h-52 rounded-full bg-cyan-400/25 blur-3xl"></div>
-<div class="absolute -left-10 -bottom-14 w-52 h-52 rounded-full bg-indigo-500/25 blur-3xl"></div>
-<div class="relative grid gap-6 lg:grid-cols-2 lg:items-center">
-<div class="min-w-0">
-<div class="text-[11px] tracking-widest text-cyan-300 font-bold">● STOK REAL-TIME</div>
-<div class="font-extrabold text-3xl mt-1">Halo Kak 👋</div>
-<div class="text-sm opacity-70 mt-1">Lihat stok, cek harga, pesan sekarang. Semua dalam satu tempat.</div>
-<form method="GET" action="/" class="mt-4 flex gap-2 max-w-md">
-<input type="hidden" name="filter" value="semua"><input type="hidden" name="kategori" value="semua"><input type="hidden" name="sort" value="stok">
-<input name="q" value="" placeholder="🔍 Cari barang…" class="flex-1 rounded-2xl px-4 py-2.5 text-sm text-slate-900 outline-none">
-<button class="bg-cyan-300 text-slate-900 font-extrabold px-5 rounded-2xl text-sm">Cari</button>
-</form>
-</div>
-<div class="hidden lg:flex items-center justify-end gap-3 text-center">
-<div class="rounded-2xl px-6 py-4" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px)"><div class="font-extrabold text-2xl">21</div><div class="text-xs opacity-70">Produk aktif</div></div>
-<div class="rounded-2xl px-6 py-4" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(6px)"><div class="font-extrabold text-2xl">JNE J&T SPX</div><div class="text-xs opacity-70">Kurir didukung</div></div>
-<div class="text-6xl" style="filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))">🐝</div>
-</div>
-</div>
-</div>
-
-
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card p-4 mt-4 flex flex-wrap gap-1.5 text-[12px] font-bold items-center anim-in" style="--d:60ms">
-<a href="/?filter=semua&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-blue-900 text-white">Semua</a>
-<a href="/?filter=baru&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-slate-100 text-slate-600">🆕 Baru</a>
-<a href="/?filter=tersedia&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-slate-100 text-slate-600">Ready</a>
-<a href="/?filter=menipis&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-slate-100 text-slate-600">Menipis</a>
-<a href="/?filter=habis&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-slate-100 text-slate-600">Habis</a>
-<span class="mx-1 text-slate-200">|</span>
-<a href="/?filter=semua&q=&kategori=semua&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-amber-400 text-slate-900">Semua</a>
-<a href="/?filter=semua&q=&kategori=Tumbler&sort=stok" class="px-3 py-1.5 rounded-full whitespace-nowrap bg-slate-100 text-slate-600">Tumbler</a>
-<form method="GET" action="/" class="ml-auto">
-<input type="hidden" name="filter" value="semua"><input type="hidden" name="q" value=""><input type="hidden" name="kategori" value="semua">
-<select name="sort" onchange="this.form.submit()" class="rounded-full text-[12px] font-bold px-3 py-1.5 bg-slate-100 text-slate-700 outline-none">
-<option value="stok" selected>Stok terbanyak</option>
-<option value="murah" >Termurah</option>
-<option value="mahal" >Termahal</option>
-</select>
-</form>
-</div>
-
-
-
-<div class="grid grid-cols-2 gap-3 mt-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:0ms">
-<a href="javascript:void(0)" onclick="showProductDetail(8)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-002.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-002 Mug Anak Karakter"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(8)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-002 Mug Anak Karakter </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:50ms">
-<a href="javascript:void(0)" onclick="showProductDetail(10)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-006.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-006 Botol Sport ChiaTom Handle"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(10)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-006 Botol Sport ChiaTom Handle </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:100ms">
-<a href="javascript:void(0)" onclick="showProductDetail(11)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-012.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-012 Tumbler Cheer You Buah"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-25% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(11)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-012 Tumbler Cheer You Buah </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:150ms">
-<a href="javascript:void(0)" onclick="showProductDetail(12)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-014.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-014 Botol Mini Chicutom Tutup Cangkir"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(12)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-014 Botol Mini Chicutom Tutup Cangkir </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:200ms">
-<a href="javascript:void(0)" onclick="showProductDetail(13)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-021.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-021 Tumbler Es Fantasi 1000mL"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-19% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(13)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-021 Tumbler Es Fantasi 1000mL </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:250ms">
-<a href="javascript:void(0)" onclick="showProductDetail(14)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-031.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-031 Mug Sweet Karakter"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(14)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-031 Mug Sweet Karakter </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:300ms">
-<a href="javascript:void(0)" onclick="showProductDetail(15)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-034.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-034 Tumbler Isolasi Sedotan Gradasi 780mL"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(15)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-034 Tumbler Isolasi Sedotan Gradasi 780mL </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:350ms">
-<a href="javascript:void(0)" onclick="showProductDetail(16)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-035.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-035 Botol Mini Chicu Tom"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(16)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-035 Botol Mini Chicu Tom </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(17)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-039.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-039 Mug Chicu Tom Polos"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(17)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-039 Mug Chicu Tom Polos </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(19)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-051.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-051 Botol Happy Kids Manik"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(19)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-051 Botol Happy Kids Manik </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(20)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-056.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-056 Botol Boneka Salju Chicu Tom"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(20)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-056 Botol Boneka Salju Chicu Tom </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(23)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-091.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-091 Botol Apel Happy Puppy"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(23)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-091 Botol Apel Happy Puppy </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(25)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-096.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-096 Botol Mini Tali Kepang"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(25)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-096 Botol Mini Tali Kepang </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(26)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-097.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-097 Botol Minum IP Hewan 480mL"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(26)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-097 Botol Minum IP Hewan 480mL </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(27)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-098.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-098 Tumbler Hewan Gantungan"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 80</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(27)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-098 Tumbler Hewan Gantungan </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(7)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-001.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-001 Botol Chicutom Sedotan"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-23% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 79</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(7)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-001 Botol Chicutom Sedotan </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(9)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-004.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-004 Tumbler OZBOBO Gantungan"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 60</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(9)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-004 Tumbler OZBOBO Gantungan </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(18)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-039B.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-039B Mug Sayur Chicu Tom"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 60</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(18)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-039B Mug Sayur Chicu Tom </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(21)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-057.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-057 Tumbler Chicu Tom Gagang"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-22% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 40</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(21)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-057 Tumbler Chicu Tom Gagang </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(22)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-085.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-085 Mug Puff Hijau 500mL Keramik"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 20</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(22)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-085 Mug Puff Hijau 500mL Keramik </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-<div class="bg-white border border-slate-100 rounded-3xl shadow-card overflow-hidden flex flex-col h-full anim-in" style="--d:400ms">
-<a href="javascript:void(0)" onclick="showProductDetail(24)" class="flex-none flex items-center justify-center text-5xl relative overflow-hidden block" style="background:linear-gradient(180deg,#D8E6FF,#fff);aspect-ratio:4/3">
-<img src="./storage/produk/HQ-093.jpg" class="absolute inset-0 w-full h-full object-cover" alt="HQ-093 Tumbler Kantor Chicutom"><span class="absolute top-2 left-2 text-[10px] font-extrabold bg-pink-500 text-white px-2 py-0.5 rounded-full">-20% RSLR</span><span class="absolute top-2 right-2 text-[10px] font-bold bg-emerald-400 px-2 py-0.5 rounded-full">● 20</span></a>
-<div class="p-3 flex flex-col flex-1">
-<a href="javascript:void(0)" onclick="showProductDetail(24)" class="p-title font-bold text-[13px] leading-tight block text-slate-900 hover:text-blue-700" style="text-decoration:none">HQ-093 Tumbler Kantor Chicutom </a>
-<div class="text-[10px] mt-0.5 text-slate-500">Tumbler • Tanpa min. order</div>
-<div style="margin-top:auto">
-<a href="javascript:void(0)" onclick="openLoginModal()" class="price-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Login untuk lihat harga</a>
-</div>
-</div>
-</div>
-</div>
-</main>
-<footer class="wfoot max-w-7xl mx-auto px-5 pt-6 pb-10 text-center text-xs text-slate-400">
-<div class="flex items-center justify-center gap-2 font-extrabold tracking-widest text-slate-500"><img src="./images/logo-bubee.png" alt="" style="width:20px;height:20px;border-radius:6px">BUBEE</div>
-<div class="mt-1">Stok real-time • JNE J&T SPX • <a href="javascript:void(0)" onclick="showBantuanModal()" style="color:#1D4ED8;font-weight:800;text-decoration:none">Bantuan</a> • <a href="/tampilan/hp" style="margin-left:4px;color:#1D4ED8;font-weight:800;text-decoration:none">📱 Versi HP</a></div>
-</footer>
-<script>
-/* Toggle mata pada semua input sandi (login, daftar, pengaturan) */
-function togglePw(btn){
-var wrap=btn.closest('.pw-wrap');
-var inp=wrap?wrap.querySelector('input'):null;
-if(!inp)return;
-var show=inp.type==='password';
-inp.type=show?'text':'password';
-btn.setAttribute('aria-label',show?'Sembunyikan sandi':'Tampilkan sandi');
-btn.title=show?'Sembunyikan sandi':'Tampilkan sandi';
-var e=btn.querySelector('.ic-eye'),o=btn.querySelector('.ic-off');
-if(e&&o){e.style.display=show?'none':'';o.style.display=show?'':'none';}
-}
-(function(){
-var OPEN='<svg class="ic-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-var SHUT='<svg class="ic-off" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.9A9.7 9.7 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17.4 17.4 0 0 1-3.1 3.8M6.6 6.6A16.8 16.8 0 0 0 2.5 12S6 18.5 12 18.5c1.1 0 2.1-.2 3-.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
-document.querySelectorAll('input[type="password"]').forEach(function(inp){
-if(inp.closest('.pw-wrap'))return;
-var w=document.createElement('div');w.className='pw-wrap';
-inp.before(w);w.appendChild(inp);
-var b=document.createElement('button');
-b.type='button';b.className='pw-eye';b.setAttribute('aria-label','Tampilkan sandi');b.title='Tampilkan sandi';
-b.innerHTML=OPEN+SHUT;b.addEventListener('click',function(){togglePw(b);});
-w.appendChild(b);
-});
-})();
-</script>
-
-<!-- MODAL LOGIN RESMI BUBEE DENGAN 1-KLIK AKUN DEMO -->
-<div id="modal-login" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-4">
-    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-      <div class="flex items-center gap-2">
-        <img src="./images/logo-bubee.png" class="w-8 h-8 rounded-lg">
-        <div>
-          <h3 class="text-sm font-black text-slate-900">Masuk ke Bubee 🐝</h3>
-          <p class="text-[11px] text-slate-500">1 Aplikasi untuk 3 peran (Admin, Reseller, Reguler)</p>
-        </div>
-      </div>
-      <button onclick="closeLoginModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
-    </div>
-
-    <!-- 1-KLIK DEMO QUICK BUTTONS -->
-    <div class="p-3 bg-blue-50 border border-blue-200 rounded-2xl space-y-2">
-      <div class="text-[11px] font-black text-blue-900 flex items-center justify-between">
-        <span>🧪 1-KLIK MASUK AKUN DEMO:</span>
-        <span class="text-[9px] bg-blue-200 text-blue-800 px-1.5 py-0.5 rounded font-bold">Instan</span>
-      </div>
-      <div class="grid grid-cols-3 gap-1.5 text-center text-xs font-bold">
-        <button onclick="loginAs('admin')" class="p-2 rounded-xl bg-white border border-blue-300 text-blue-900 hover:bg-blue-600 hover:text-white transition shadow-sm">
-          👑 Admin
-        </button>
-        <button onclick="loginAs('reseller')" class="p-2 rounded-xl bg-amber-500 text-slate-950 hover:bg-amber-400 transition shadow-sm font-black">
-          🏪 Reseller
-        </button>
-        <button onclick="loginAs('reguler')" class="p-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-sm">
-          🙋 Reguler
-        </button>
-      </div>
-    </div>
-
-    <div class="space-y-2 text-xs">
-      <div>
-        <label class="font-bold text-slate-700">Email / No. HP</label>
-        <input type="text" id="login-email" value="user@bubee.id" class="w-full p-2 border border-slate-300 rounded-xl mt-1 text-slate-800 font-mono" readonly>
-      </div>
-      <div>
-        <label class="font-bold text-slate-700">Password</label>
-        <input type="password" value="••••••••" class="w-full p-2 border border-slate-300 rounded-xl mt-1 text-slate-800 font-mono" readonly>
-      </div>
-      <button onclick="loginAs('reguler')" class="w-full py-2.5 bg-gradient-to-r from-blue-900 to-blue-600 text-white font-black rounded-xl shadow mt-2">
-        MASUK SEKARANG ⚡
-      </button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL DETAIL PRODUK -->
-<div id="modal-detail" class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="bg-white rounded-3xl p-6 max-w-lg w-full shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] overflow-y-auto">
-    <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-      <h3 id="det-title" class="text-sm font-black text-slate-900">Detail Produk</h3>
-      <button onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
-    </div>
-    <div class="relative w-full h-56 bg-slate-100 rounded-2xl overflow-hidden flex items-center justify-center">
-      <img id="det-img" src="" class="w-full h-full object-cover">
-    </div>
-    <div class="space-y-2">
-      <div id="det-price-box" class="p-3 bg-blue-50 border border-blue-200 rounded-2xl">
-        <!-- Harga dinamis -->
-      </div>
-      <div class="text-xs text-slate-600 leading-relaxed" id="det-desc">
-        Material stainless SUS 304 Food Grade, tahan panas/dingin 12 jam.
-      </div>
-      <!-- Pilihan Varian -->
-      <div class="space-y-1 pt-1">
-        <label class="text-xs font-bold text-slate-700">Pilih Warna:</label>
-        <div class="grid grid-cols-4 gap-1.5 text-xs text-center">
-          <button class="p-1.5 rounded-xl border-2 border-blue-600 bg-blue-50 text-blue-900 font-bold">🌸 Pink</button>
-          <button class="p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold">🌊 Biru</button>
-          <button class="p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold">🍃 Toska</button>
-          <button class="p-1.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-700 font-bold">🖤 Hitam</button>
-        </div>
-      </div>
-      <div class="pt-2 flex gap-2">
-        <button onclick="addToCartLive()" class="flex-1 py-2.5 bg-gradient-to-r from-blue-900 to-blue-600 text-white font-black text-xs rounded-xl shadow">
-          + TAMBAH KE KERANJANG
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-  let currentAuth = null; // null = Tamu, 'reguler', 'reseller', 'admin'
-  let cartCount = 0;
-
-  function openLoginModal() {
-    document.getElementById('modal-login').classList.remove('hidden');
-  }
-  function closeLoginModal() {
-    document.getElementById('modal-login').classList.add('hidden');
-  }
-  function closeDetailModal() {
-    document.getElementById('modal-detail').classList.add('hidden');
-  }
-
-  function loginAs(role) {
-    currentAuth = role;
-    closeLoginModal();
-
-    // Ubah tulisan Halo Kak
-    const heroGreeting = document.querySelector('.font-extrabold.text-3xl.mt-1');
-    if (heroGreeting) {
-      if (role === 'reguler') heroGreeting.innerText = 'Halo Budi (Reguler) 👋';
-      if (role === 'reseller') heroGreeting.innerText = 'Halo Mitra Reseller ★ 👋';
-      if (role === 'admin') heroGreeting.innerText = 'Halo Administrator 👑 👋';
-    }
-
-    // Ubah tombol Masuk di header
-    const topLoginBtn = document.querySelector('.whdr a[href*="login"]');
-    if (topLoginBtn) {
-      topLoginBtn.innerText = 'Keluar (' + role.toUpperCase() + ')';
-      topLoginBtn.onclick = function() { location.reload(); };
-    }
-
-    // Tambahkan banner reseller jika role reseller
-    const existingBanner = document.getElementById('reseller-active-banner');
-    if (role === 'reseller') {
-      if (!existingBanner) {
-        const filterBox = document.querySelector('.bg-white.border.border-slate-100.rounded-3xl.shadow-card.p-4.mt-4');
-        if (filterBox) {
-          const banner = document.createElement('div');
-          banner.id = 'reseller-active-banner';
-          banner.className = 'rounded-2xl p-3 mt-3 text-xs font-bold text-white shadow';
-          banner.style.background = 'linear-gradient(90deg,#059669,#00E5FF)';
-          banner.innerText = '🎉 Harga reseller aktif! Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja).';
-          filterBox.parentNode.insertBefore(banner, filterBox.nextSibling);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUBEE™ Prototype - Interactive Design Showcase (Tugas Web Programming 3)</title>
+    <!-- Favicon & Fonts -->
+    <link rel="icon" type="image/png" href="/images/logo-bubee.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Auto Base URL Detection for GitHub Pages vs Local/Tunnel -->
+    <script>
+        if (window.location.hostname.includes('github.io') && !document.querySelector('base')) {
+            const b = document.createElement('base');
+            b.href = '/BUBEE-PROJECT/';
+            document.head.appendChild(b);
         }
-      }
-    } else if (existingBanner) {
-      existingBanner.remove();
-    }
+    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        bubee: {
+                            navy: '#050B2E',
+                            dark: '#0B2A6B',
+                            blue: '#1D4ED8',
+                            sky: '#0284C7',
+                            cyan: '#38E1FF',
+                            accent: '#F59E0B',
+                            card: '#FFFFFF',
+                            bg: '#F8FAFC'
+                        }
+                    },
+                    boxShadow: {
+                        'bubee': '0 10px 30px -5px rgba(11, 42, 107, 0.15)',
+                        'glow': '0 0 25px rgba(56, 225, 255, 0.45)',
+                        'phone': '0 25px 60px -15px rgba(5, 11, 46, 0.4)'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-    // Buka semua gembok harga di kartu produk
-    document.querySelectorAll('.price-slot, div[style*="margin-top:auto"]').forEach(slot => {
-      const parentCard = slot.closest('.bg-white.border');
-      if (!parentCard) return;
-      const titleEl = parentCard.querySelector('.p-title');
-      const title = titleEl ? titleEl.innerText.trim() : 'Botol Tumbler';
+        /* Phone Mockup Frame */
+        .phone-frame {
+            width: 390px;
+            height: 800px;
+            border-radius: 46px;
+            box-shadow: 0 0 0 12px #0f172a, 0 0 0 14px #334155, 0 30px 65px -10px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            background: #ffffff;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .phone-notch {
+            width: 140px;
+            height: 24px;
+            background: #0f172a;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            z-index: 50;
+        }
 
-      let hargaRetail = '129.000';
-      let hargaReseller = '99.000';
-      if (title.includes('HQ-002')) { hargaRetail = '99.000'; hargaReseller = '79.000'; }
-      if (title.includes('HQ-004')) { hargaRetail = '149.000'; hargaReseller = '119.000'; }
-      if (title.includes('HQ-006')) { hargaRetail = '139.000'; hargaReseller = '109.000'; }
-      if (title.includes('HQ-012')) { hargaRetail = '119.000'; hargaReseller = '89.000'; }
-      if (title.includes('HQ-014')) { hargaRetail = '89.000'; hargaReseller = '69.000'; }
-      if (title.includes('HQ-021')) { hargaRetail = '159.000'; hargaReseller = '129.000'; }
+        /* Desktop View Frame */
+        .desktop-frame {
+            width: 100%;
+            max-width: 1180px;
+            height: 800px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.25);
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-      if (role === 'reseller') {
-        slot.innerHTML = `
-          <div class="price-slot">
-            <div class="font-extrabold text-blue-900">Rp ${hargaReseller} <span class="text-[10px] font-bold text-emerald-600">GROSIR (1 PCS)</span></div>
-            <div class="text-[10px] text-slate-400 line-through">Retail Rp ${hargaRetail}</div>
-          </div>
-          <button onclick="quickAddToCart('${title}')" class="lihat-btn block text-center text-[12px] font-extrabold py-2 rounded-2xl text-slate-950 w-full mt-1" style="background:linear-gradient(90deg,#F59E0B,#FCD34D);">
-            + Beli Harga Modal 🛒
-          </button>
-        `;
-      } else {
-        // Reguler & Admin
-        slot.innerHTML = `
-          <div class="price-slot">
-            <div class="font-extrabold text-blue-900">Rp ${hargaRetail} <span class="text-[10px] font-bold text-slate-400">RETAIL</span></div>
-            <div class="text-[10px] text-emerald-600 font-bold">Harga Reseller Rp ${hargaReseller} (Mulai 1 pcs)</div>
-          </div>
-          <button onclick="quickAddToCart('${title}')" class="lihat-btn block text-center text-[12px] font-extrabold py-2 rounded-2xl text-white w-full mt-1" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);">
-            + Keranjang 🛒
-          </button>
-        `;
-      }
-    });
+        /* Screen Transitions */
+        .screen-container {
+            height: 100%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .screen-view {
+            display: none;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .screen-view.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    alert('Berhasil masuk sebagai ' + role.toUpperCase() + '! Seluruh gembok harga kini terbuka.');
-  }
+        /* Toast animation */
+        @keyframes toastSlide {
+            0% { transform: translate(-50%, 20px); opacity: 0; }
+            100% { transform: translate(-50%, 0); opacity: 1; }
+        }
+        .toast-active {
+            animation: toastSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-800 antialiased font-sans min-h-screen flex flex-col">
 
-  function showProductDetail(id) {
-    const card = event.target.closest('.bg-white.border');
-    if (!card) return;
-    const title = card.querySelector('.p-title').innerText.trim();
-    const img = card.querySelector('img').src;
+    <!-- Top Master Control Bar for Evaluator / Dosen -->
+    <header class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800 text-white sticky top-0 z-50 px-4 py-3 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+            <!-- Left: Logo & Assignment Title -->
+            <div class="flex items-center gap-3">
+                <a href="/prototype/" class="flex items-center gap-2 group">
+                    <img src="/images/logo-bubee.png" alt="Bubee" class="w-9 h-9 rounded-xl bg-white p-1 shadow-glow group-hover:scale-105 transition">
+                    <div>
+                        <div class="font-black text-sm tracking-wide flex items-center gap-1.5">
+                            BUBEE™ PROTOTYPE
+                            <span class="text-[10px] font-extrabold bg-blue-600/60 text-cyan-300 border border-cyan-400/30 px-2 py-0.5 rounded-full">v3.5 Final</span>
+                        </div>
+                        <div class="text-[11px] text-slate-400">Tugas Proyek Rekayasa Web / Web Programming 3 (WP3)</div>
+                    </div>
+                </a>
+            </div>
 
-    document.getElementById('det-title').innerText = title;
-    document.getElementById('det-img').src = img;
+            <!-- Center: Screen Flow Switcher -->
+            <div class="flex items-center gap-1 bg-slate-900 border border-slate-800 p-1 rounded-2xl overflow-x-auto max-w-full">
+                <button onclick="setScreen('home')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-blue-600 text-white" data-screen="home">
+                    <span>🏠</span> 1. Home / Katalog
+                </button>
+                <button onclick="setScreen('detail')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5" data-screen="detail">
+                    <span>🧴</span> 2. Multi-Kapasitas
+                </button>
+                <button onclick="setScreen('login')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5" data-screen="login">
+                    <span>🛡️</span> 3. Login & Captcha
+                </button>
+                <button onclick="setScreen('cart')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5" data-screen="cart">
+                    <span>🛒</span> 4. Checkout
+                </button>
+                <button onclick="setScreen('reseller')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5" data-screen="reseller">
+                    <span>🏪</span> 5. Reseller
+                </button>
+                <button onclick="setScreen('admin')" class="flow-tab px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition flex items-center gap-1.5" data-screen="admin">
+                    <span>👑</span> 6. Admin Gudang
+                </button>
+            </div>
 
-    const priceBox = document.getElementById('det-price-box');
-    if (!currentAuth) {
-      priceBox.innerHTML = `
-        <div class="text-xs font-bold text-slate-700">Harga Terkunci 🔒</div>
-        <button onclick="closeDetailModal(); openLoginModal();" class="mt-1 px-4 py-1.5 bg-blue-600 text-white font-extrabold text-xs rounded-xl shadow">
-          Login untuk Lihat Harga →
-        </button>
-      `;
-    } else if (currentAuth === 'reseller') {
-      priceBox.innerHTML = `
-        <div class="text-[10px] font-bold text-amber-800 uppercase">Khusus Mitra Reseller:</div>
-        <div class="text-base font-black text-emerald-700">Rp 99.000 <span class="text-xs font-normal text-slate-500">(Mulai 1 pcs / Tanpa Min. Belanja)</span></div>
-      `;
-    } else {
-      priceBox.innerHTML = `
-        <div class="text-[10px] font-bold text-slate-400 uppercase">Harga Resmi:</div>
-        <div class="text-base font-black text-blue-900">Rp 129.000 <span class="text-xs font-normal text-slate-500">RETAIL</span></div>
-      `;
-    }
+            <!-- Right: Viewport Mode & Docs -->
+            <div class="flex items-center gap-2">
+                <!-- Device Viewport Toggle -->
+                <div class="flex items-center bg-slate-900 border border-slate-800 p-1 rounded-xl">
+                    <button id="btn-mode-mobile" onclick="setDeviceMode('mobile')" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-blue-600 text-white flex items-center gap-1 transition" title="Tampilan HP / Mobile App">
+                        📱 <span class="hidden sm:inline">Mobile</span>
+                    </button>
+                    <button id="btn-mode-desktop" onclick="setDeviceMode('desktop')" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white flex items-center gap-1 transition" title="Tampilan Desktop / Web Monitor">
+                        💻 <span class="hidden sm:inline">Desktop</span>
+                    </button>
+                </div>
 
-    document.getElementById('modal-detail').classList.remove('hidden');
-  }
+                <!-- Docs Drawer Button -->
+                <button onclick="toggleModal('modal-docs')" class="px-3 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-glow transition flex items-center gap-1.5">
+                    📑 Spek Desain
+                </button>
 
-  function quickAddToCart(title) {
-    cartCount++;
-    const cartNav = document.querySelector('a[href*="keranjang"]');
-    if (cartNav) {
-      cartNav.innerText = 'Keranjang (' + cartCount + ')';
-      cartNav.classList.add('text-amber-300', 'font-black');
-    }
-    alert(title + ' berhasil dimasukkan ke keranjang belanja!');
-  }
+                <!-- Live App Link -->
+                <a href="/" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1" title="Buka aplikasi nyata di tab baru">
+                    🚀 Web Nyata <span class="text-[10px]">↗</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
-  function addToCartLive() {
-    closeDetailModal();
-    quickAddToCart(document.getElementById('det-title').innerText);
-  }
+    <!-- Main Prototype Canvas / Simulator Area -->
+    <main class="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 bg-radial from-slate-900 via-slate-950 to-black relative overflow-hidden">
+        
+        <!-- Subtle Ambient Background Glows -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-  function showCartModal() {
-    if (cartCount === 0) {
-      alert('Keranjang belanja Anda masih kosong. Silakan pilih produk terlebih dahulu.');
-    } else {
-      alert('Keranjang: ' + cartCount + ' produk dipilih. Total estimasi siap diproses ke checkout!');
-    }
-  }
+        <!-- Frame Container (Toggled between .phone-frame and .desktop-frame) -->
+        <div id="device-wrapper" class="phone-frame flex flex-col relative shadow-2xl">
+            
+            <!-- Mobile Notch & Status Bar (Only visible in mobile mode) -->
+            <div id="mobile-notch-bar" class="phone-notch"></div>
+            <div id="mobile-status-bar" class="h-8 bg-slate-950 text-white flex items-center justify-between px-7 text-[11px] font-bold z-40 select-none">
+                <span id="current-clock">09:41</span>
+                <div class="flex items-center gap-1.5 text-[10px]">
+                    <span>5G</span>
+                    <span>100% 🔋</span>
+                </div>
+            </div>
 
-  function showOrdersModal() {
-    alert('Status Pesanan: #ORD-88231 • Sedang dikirim oleh J&T Express (Resi: JT8829103).');
-  }
+            <!-- Desktop Browser Header (Only visible in desktop mode) -->
+            <div id="desktop-browser-bar" class="hidden bg-slate-100 border-b border-slate-200 px-4 py-2.5 items-center justify-between z-40">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+                </div>
+                <div class="flex-1 max-w-md mx-4 bg-white border border-slate-200 rounded-xl px-3 py-1 text-xs text-slate-500 flex items-center gap-2">
+                    <span class="text-emerald-500 font-bold">🔒</span>
+                    <span class="truncate font-mono">https://bubee.id/<span id="desktop-url-slug"></span></span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-400">
+                    <span>⭐</span>
+                    <span>👤</span>
+                </div>
+            </div>
 
-  function showBantuanModal() {
-    alert('Pusat Bantuan Bubee: Hubungi CS WhatsApp di 0812-3456-7890 untuk info kemitraan & pengiriman.');
-  }
+            <!-- SCREENS CONTAINER -->
+            <div class="screen-container flex-1 bg-slate-50">
 
-  // Live filter pencarian
-  document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.querySelector('input[name="q"]');
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        const q = e.target.value.toLowerCase();
-        document.querySelectorAll('.grid.grid-cols-2 > .bg-white.border').forEach(card => {
-          const text = card.innerText.toLowerCase();
-          if (text.includes(q)) {
-            card.style.display = '';
-          } else {
-            card.style.display = 'none';
-          }
-        });
-      });
-      const searchForm = searchInput.closest('form');
-      if (searchForm) {
-        searchForm.onsubmit = function(ev) { ev.preventDefault(); };
-      }
-    }
-  });
-</script>
+                <!-- ============================================== -->
+                <!-- SCREEN 1: HOME & KATALOG PRODUK                -->
+                <!-- ============================================== -->
+                <div id="screen-home" class="screen-view active p-4 space-y-4">
+                    <!-- Top Brand Bar -->
+                    <div class="flex items-center justify-between pt-1">
+                        <div class="flex items-center gap-2">
+                            <img src="/images/logo-bubee.png" class="w-9 h-9 rounded-xl bg-white shadow-sm p-1">
+                            <div>
+                                <h1 class="font-extrabold text-slate-900 text-base leading-tight">BUBEE DISTRIBUTOR</h1>
+                                <p class="text-[10px] text-slate-500 font-medium">Grosir Tumbler & Botol Minum</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="setScreen('cart')" class="w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center text-sm shadow-sm relative">
+                                🛒
+                                <span id="badge-cart-count" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-[9px] font-black flex items-center justify-center">1</span>
+                            </button>
+                            <button onclick="setScreen('login')" class="px-3 py-1.5 rounded-xl bg-blue-700 text-white text-xs font-extrabold shadow-sm hover:bg-blue-800 transition">
+                                Masuk →
+                            </button>
+                        </div>
+                    </div>
 
+                    <!-- Search Bar -->
+                    <div class="relative">
+                        <input type="text" placeholder="Cari tumbler, mug, termos, botol..." class="w-full bg-white border border-slate-200 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm">
+                        <span class="absolute left-3.5 top-3 text-slate-400 text-xs">🔍</span>
+                    </div>
+
+                    <!-- Promo Hero Banner -->
+                    <div class="rounded-3xl p-5 text-white relative overflow-hidden shadow-bubee" style="background: linear-gradient(135deg, #050B2E 0%, #1D4ED8 100%);">
+                        <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-cyan-400/20 rounded-full blur-2xl"></div>
+                        <span class="bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">Mitra Reseller 2026</span>
+                        <h2 class="font-black text-lg mt-2 leading-snug">Harga Grosir Termurah<br>Tanpa Minimal Order! 🚀</h2>
+                        <p class="text-[11px] text-slate-200 mt-1 opacity-90">Katalog Tyeso original, ready ribuan pcs & siap kirim ke seluruh Indonesia.</p>
+                        <div class="mt-3 flex gap-2">
+                            <button onclick="setScreen('reseller')" class="bg-white text-blue-900 font-extrabold text-[11px] px-3.5 py-1.5 rounded-xl shadow hover:bg-slate-100 transition">
+                                Pelajari Mitra →
+                            </button>
+                            <button onclick="setScreen('detail')" class="bg-blue-500/30 border border-white/20 text-white font-bold text-[11px] px-3.5 py-1.5 rounded-xl hover:bg-blue-500/40 transition">
+                                Lihat Produk Unggulan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Category Chips -->
+                    <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold select-none">
+                        <button class="bg-blue-600 text-white px-3 py-1.5 rounded-xl shrink-0 shadow-sm">✨ Semua</button>
+                        <button class="bg-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-xl shrink-0 hover:bg-slate-50">🧴 Tumbler Vacuum</button>
+                        <button class="bg-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-xl shrink-0 hover:bg-slate-50">☕ Mug Keramik</button>
+                        <button class="bg-white text-slate-700 border border-slate-200 px-3 py-1.5 rounded-xl shrink-0 hover:bg-slate-50">👶 Botol Anak</button>
+                    </div>
+
+                    <!-- Product Grid (Showcasing Multi-Capacity & Merged Items) -->
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="font-extrabold text-sm text-slate-900">Katalog Pilihan Mitra</h3>
+                            <span class="text-[11px] text-blue-600 font-bold cursor-pointer">Lihat Semua (50)</span>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <!-- Card 1: Multi Capacity Merged Item (Hero Product) -->
+                            <div onclick="setScreen('detail')" class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm hover:shadow-md hover:border-blue-300 transition cursor-pointer flex flex-col justify-between group">
+                                <div class="relative rounded-xl overflow-hidden bg-slate-100 aspect-square mb-2">
+                                    <img src="/storage/produk/TYESO-TS-8815.jpg" onerror="this.src='/images/logo-bubee.png'" alt="Ribbed Tumbler" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                    <span class="absolute top-1.5 left-1.5 bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md">BARU</span>
+                                    <span class="absolute bottom-1.5 left-1.5 bg-black/60 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded">4 Ukuran ML</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 font-bold uppercase">TYESO • 270 - 1000 mL</div>
+                                    <h4 class="font-bold text-xs text-slate-900 line-clamp-2 mt-0.5 group-hover:text-blue-700 transition">
+                                        TYESO TS-8815 / 8816 / 8832 Ribbed Bottle
+                                    </h4>
+                                    <div class="mt-2 flex items-baseline gap-1">
+                                        <span class="text-xs font-black text-blue-700">Rp 69.000 – 125.000</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-600 font-bold">Grosir Mitra (Sisa 480)</div>
+                                </div>
+                                <button class="w-full mt-2.5 bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white font-extrabold text-[11px] py-1.5 rounded-xl transition">
+                                    Pilih Varian →
+                                </button>
+                            </div>
+
+                            <!-- Card 2: Jumbo Quencher -->
+                            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between group">
+                                <div class="relative rounded-xl overflow-hidden bg-slate-100 aspect-square mb-2">
+                                    <img src="/storage/produk/TYESO-TS-8831.jpg" onerror="this.src='/images/logo-bubee.png'" alt="Straight Minimalist" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                    <span class="absolute top-1.5 left-1.5 bg-emerald-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md">BESTSELLER</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 font-bold uppercase">TYESO • 800 mL</div>
+                                    <h4 class="font-bold text-xs text-slate-900 line-clamp-2 mt-0.5">
+                                        TYESO TS-8831 Straight Minimalist Tumbler
+                                    </h4>
+                                    <div class="mt-2">
+                                        <span class="text-xs font-black text-blue-700">Rp 109.000</span>
+                                        <span class="text-[10px] text-slate-400 line-through">Rp 139.000</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-600 font-bold">Grosir Mitra (Sisa 80)</div>
+                                </div>
+                                <button onclick="setScreen('detail')" class="w-full mt-2.5 bg-slate-100 text-slate-700 hover:bg-blue-600 hover:text-white font-extrabold text-[11px] py-1.5 rounded-xl transition">
+                                    Lihat Detail →
+                                </button>
+                            </div>
+
+                            <!-- Card 3: Gradient Diamond -->
+                            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between group">
+                                <div class="relative rounded-xl overflow-hidden bg-slate-100 aspect-square mb-2">
+                                    <img src="/storage/produk/TYESO-TS-8848B.jpg" onerror="this.src='/images/logo-bubee.png'" alt="Diamond Gradasi" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 font-bold uppercase">TYESO • 600 mL</div>
+                                    <h4 class="font-bold text-xs text-slate-900 line-clamp-2 mt-0.5">
+                                        TYESO TS-8848B Diamond Gradasi Sedotan
+                                    </h4>
+                                    <div class="mt-2">
+                                        <span class="text-xs font-black text-blue-700">Rp 109.000</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-600 font-bold">Grosir Mitra (Sisa 100)</div>
+                                </div>
+                                <button onclick="setScreen('detail')" class="w-full mt-2.5 bg-slate-100 text-slate-700 hover:bg-blue-600 hover:text-white font-extrabold text-[11px] py-1.5 rounded-xl transition">
+                                    Lihat Detail →
+                                </button>
+                            </div>
+
+                            <!-- Card 4: Chicutom Sedotan -->
+                            <div class="bg-white rounded-2xl p-3 border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer flex flex-col justify-between group">
+                                <div class="relative rounded-xl overflow-hidden bg-slate-100 aspect-square mb-2">
+                                    <img src="/storage/produk/HQ-001.jpg" onerror="this.src='/images/logo-bubee.png'" alt="Botol Chicutom" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                    <span class="absolute top-1.5 left-1.5 bg-purple-600 text-white text-[9px] font-black px-2 py-0.5 rounded-md">ANAK</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] text-slate-400 font-bold uppercase">CHICUTOM • 500 mL</div>
+                                    <h4 class="font-bold text-xs text-slate-900 line-clamp-2 mt-0.5">
+                                        HQ-001 Botol Chicutom Sedotan Lucu
+                                    </h4>
+                                    <div class="mt-2">
+                                        <span class="text-xs font-black text-blue-700">Rp 99.000</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-600 font-bold">Grosir Mitra (Sisa 79)</div>
+                                </div>
+                                <button onclick="setScreen('detail')" class="w-full mt-2.5 bg-slate-100 text-slate-700 hover:bg-blue-600 hover:text-white font-extrabold text-[11px] py-1.5 rounded-xl transition">
+                                    Lihat Detail →
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav Bar (Simulated Mobile) -->
+                    <div class="sticky bottom-0 bg-white/95 backdrop-blur-md border-t border-slate-200 -mx-4 -mb-4 px-6 py-2.5 flex items-center justify-between text-[11px] font-bold text-slate-400 z-30">
+                        <button onclick="setScreen('home')" class="text-blue-700 flex flex-col items-center gap-0.5">
+                            <span>🏠</span> Beranda
+                        </button>
+                        <button onclick="setScreen('cart')" class="hover:text-blue-700 flex flex-col items-center gap-0.5">
+                            <span>🛒</span> Keranjang
+                        </button>
+                        <button onclick="setScreen('reseller')" class="hover:text-blue-700 flex flex-col items-center gap-0.5">
+                            <span>🏪</span> Reseller
+                        </button>
+                        <button onclick="setScreen('admin')" class="hover:text-blue-700 flex flex-col items-center gap-0.5">
+                            <span>👑</span> Admin
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SCREEN 2: DETAIL PRODUK MULTI-KAPASITAS (ML)   -->
+                <!-- ============================================== -->
+                <div id="screen-detail" class="screen-view p-4 space-y-4">
+                    <!-- Nav Back -->
+                    <div class="flex items-center justify-between">
+                        <button onclick="setScreen('home')" class="flex items-center gap-1.5 text-xs font-extrabold text-slate-600 hover:text-blue-700">
+                            ← Kembali ke Katalog
+                        </button>
+                        <button onclick="shareLink()" class="text-xs font-bold text-slate-500 bg-white border border-slate-200 px-3 py-1 rounded-xl">
+                            🔗 Bagikan
+                        </button>
+                    </div>
+
+                    <!-- Interactive Image Gallery Slider -->
+                    <div class="bg-white rounded-3xl p-3 border border-slate-200 shadow-sm space-y-3">
+                        <div class="relative rounded-2xl overflow-hidden aspect-square bg-slate-100 flex items-center justify-center">
+                            <img id="detail-main-img" src="/storage/produk/TYESO-TS-8815.jpg" onerror="this.src='/images/logo-bubee.png'" alt="Detail Tumbler" class="w-full h-full object-cover transition duration-300">
+                            
+                            <!-- Slider Arrows -->
+                            <button onclick="prevImage()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition text-sm">‹</button>
+                            <button onclick="nextImage()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center hover:bg-black/60 transition text-sm">›</button>
+
+                            <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                <span id="img-index">1</span> / 4
+                            </div>
+                        </div>
+
+                        <!-- Thumbnails -->
+                        <div class="flex gap-2 overflow-x-auto pb-1">
+                            <img onclick="setImage(0)" src="/storage/produk/TYESO-TS-8815.jpg" class="thumb-img w-14 h-14 rounded-xl object-cover border-2 border-blue-600 cursor-pointer">
+                            <img onclick="setImage(1)" src="/storage/produk/TYESO-TS-8816.jpg" class="thumb-img w-14 h-14 rounded-xl object-cover border-2 border-transparent cursor-pointer">
+                            <img onclick="setImage(2)" src="/storage/produk/TYESO-TS-8832.jpg" class="thumb-img w-14 h-14 rounded-xl object-cover border-2 border-transparent cursor-pointer">
+                            <img onclick="setImage(3)" src="/storage/produk/TYESO-TS-8848B.jpg" class="thumb-img w-14 h-14 rounded-xl object-cover border-2 border-transparent cursor-pointer">
+                        </div>
+                    </div>
+
+                    <!-- Product Title & Dynamic Price Box -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <div>
+                            <span class="bg-blue-100 text-blue-800 text-[10px] font-black px-2 py-0.5 rounded-md">PRODUK MULTI-UKURAN</span>
+                            <h2 class="font-extrabold text-base text-slate-900 mt-1 leading-snug">
+                                TYESO TS-8815 / 8816 / 8832 Ribbed Vacuum Bottle
+                            </h2>
+                            <p class="text-[11px] text-slate-500 mt-0.5">Isolasi double-wall 304 stainless steel. Dingin hingga 24 jam, panas hingga 12 jam.</p>
+                        </div>
+
+                        <!-- Dynamic Price Banner -->
+                        <div class="bg-blue-50/70 border border-blue-100 rounded-2xl p-3 flex items-center justify-between">
+                            <div>
+                                <div class="text-[10px] text-blue-600 font-extrabold uppercase tracking-wide">Harga Grosir Mitra:</div>
+                                <div id="detail-price" class="text-xl font-black text-blue-800">Rp 69.000</div>
+                                <div id="detail-sku-subtext" class="text-[10px] text-slate-500">Model Mini 270mL • SKU TS-8832</div>
+                            </div>
+                            <span class="bg-emerald-500 text-white font-extrabold text-[10px] px-2.5 py-1 rounded-full shadow-sm">
+                                Ready 120 pcs
+                            </span>
+                        </div>
+
+                        <!-- INNOVATION FEATURE: PILIH KAPASITAS (ML) BUTTONS -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label class="text-xs font-black text-slate-900">⚡ PILIH KAPASITAS / UKURAN (ML):</label>
+                                <span class="text-[10px] text-blue-600 font-bold">1 Halaman 4 Ukuran</span>
+                            </div>
+                            <div class="grid grid-cols-4 gap-1.5">
+                                <button onclick="selectCapacity('270mL', 69000, 'TS-8832 Mini', this)" class="cap-btn active py-2 rounded-xl text-xs font-black border-2 border-blue-600 bg-blue-50 text-blue-700 transition">
+                                    270mL
+                                </button>
+                                <button onclick="selectCapacity('360mL', 79000, 'TS-8833 Medium', this)" class="cap-btn py-2 rounded-xl text-xs font-black border border-slate-200 bg-white text-slate-700 hover:border-blue-300 transition">
+                                    360mL
+                                </button>
+                                <button onclick="selectCapacity('750mL', 109000, 'TS-8815 Regular', this)" class="cap-btn py-2 rounded-xl text-xs font-black border border-slate-200 bg-white text-slate-700 hover:border-blue-300 transition">
+                                    750mL
+                                </button>
+                                <button onclick="selectCapacity('1000mL', 125000, 'TS-8816 Jumbo', this)" class="cap-btn py-2 rounded-xl text-xs font-black border border-slate-200 bg-white text-slate-700 hover:border-blue-300 transition">
+                                    1000mL
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- PILIH WARNA VARIAN -->
+                        <div>
+                            <label class="text-xs font-bold text-slate-900 block mb-1.5">PILIH WARNA:</label>
+                            <div class="grid grid-cols-2 gap-2 text-xs">
+                                <button class="p-2 rounded-xl border-2 border-blue-600 bg-blue-50 font-bold text-left text-blue-900 flex items-center gap-2">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-slate-100 border border-slate-300"></span>
+                                    <span>White Pure</span>
+                                </button>
+                                <button class="p-2 rounded-xl border border-slate-200 bg-white font-bold text-left text-slate-700 flex items-center gap-2 hover:border-slate-300">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-pink-200 border border-pink-300"></span>
+                                    <span>Dusty Pink</span>
+                                </button>
+                                <button class="p-2 rounded-xl border border-slate-200 bg-white font-bold text-left text-slate-700 flex items-center gap-2 hover:border-slate-300">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-200 border border-emerald-300"></span>
+                                    <span>Sage Green</span>
+                                </button>
+                                <button class="p-2 rounded-xl border border-slate-200 bg-white font-bold text-left text-slate-700 flex items-center gap-2 hover:border-slate-300">
+                                    <span class="w-3.5 h-3.5 rounded-full bg-slate-800"></span>
+                                    <span>Matte Black</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quantity Stepper & Add to Cart -->
+                        <div class="pt-2 flex items-center gap-3">
+                            <div class="flex items-center border border-slate-200 rounded-2xl bg-slate-50 px-2 py-1">
+                                <button onclick="stepQty(-1)" class="w-7 h-7 font-black text-slate-600 text-sm hover:text-black">-</button>
+                                <span id="qty-val" class="w-8 text-center font-black text-sm">1</span>
+                                <button onclick="stepQty(1)" class="w-7 h-7 font-black text-slate-600 text-sm hover:text-black">+</button>
+                            </div>
+                            <button onclick="addToCartMock()" class="flex-1 bg-gradient-to-r from-blue-700 to-blue-600 hover:from-blue-800 hover:to-blue-700 text-white font-extrabold text-xs py-3 rounded-2xl shadow-md transition active:scale-95 flex items-center justify-center gap-1.5">
+                                <span>🛒</span> + KERANJANG
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SCREEN 3: LOGIN & CLOUDFLARE TURNSTILE CAPTCHA -->
+                <!-- ============================================== -->
+                <div id="screen-login" class="screen-view p-4 space-y-4">
+                    <div class="rounded-3xl p-6 text-white relative overflow-hidden shadow-bubee" style="background: linear-gradient(150deg, #050B2E 0%, #1D4ED8 100%);">
+                        <div class="absolute -right-8 -top-8 w-40 h-40 bg-cyan-400/30 rounded-full blur-3xl"></div>
+                        <div class="flex items-center gap-3">
+                            <img src="/images/logo-bubee.png" class="w-12 h-12 rounded-2xl bg-white p-1 shadow-glow">
+                            <span class="text-2xl">🐝</span>
+                        </div>
+                        <h2 class="font-black text-xl mt-3">Masuk ke Bubee 🤖</h2>
+                        <p class="text-xs text-cyan-200/90 mt-0.5">1 APK untuk 3 mode: Admin • Reseller • Reguler</p>
+
+                        <!-- Quick Account Selection for Evaluator / Dosen -->
+                        <div class="mt-4 pt-3 border-t border-white/10">
+                            <div class="text-[10px] text-cyan-300 font-bold mb-1.5">🧪 Klik Cepat Akun Demo (Untuk Dosen/Penguji):</div>
+                            <div class="grid grid-cols-3 gap-1.5 text-[10px]">
+                                <button onclick="fillLogin('admin@bubee.id','password', 'admin')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                    👑<br>Admin
+                                </button>
+                                <button onclick="fillLogin('reseller@bubee.id','password', 'reseller')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                    🏪<br>Reseller
+                                </button>
+                                <button onclick="fillLogin('user@bubee.id','password', 'user')" class="bg-white/15 hover:bg-white/25 active:scale-95 rounded-xl p-2 text-center border border-white/20 font-bold transition">
+                                    🙋<br>Reguler
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Login Form with Turnstile Captcha Simulation -->
+                    <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-3">
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-1">Email Akun</label>
+                            <input id="input-login-email" type="email" value="admin@bubee.id" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-1">Password</label>
+                            <input id="input-login-pass" type="password" value="password" class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3.5 py-2.5 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium">
+                        </div>
+
+                        <!-- LIVE TURNSTILE CAPTCHA INTERACTION (Always-Pass Testing Key) -->
+                        <div class="rounded-2xl border-2 border-slate-200 bg-slate-50/70 p-3 space-y-2">
+                            <div class="flex items-center justify-between text-[11px] text-slate-500">
+                                <span class="font-extrabold flex items-center gap-1 text-slate-800">
+                                    🛡️ Cloudflare Turnstile
+                                </span>
+                                <span class="text-[9px] bg-purple-100 text-purple-700 font-black px-2 py-0.5 rounded-full">Mode Demo Resmi</span>
+                            </div>
+
+                            <!-- Interactive Turnstile Widget Box -->
+                            <div onclick="toggleTurnstileCaptcha()" class="bg-white border border-slate-300 rounded-xl p-2.5 flex items-center justify-between cursor-pointer hover:border-blue-400 transition select-none shadow-sm">
+                                <div class="flex items-center gap-2.5">
+                                    <div id="turnstile-check-box" class="w-6 h-6 rounded-lg border-2 border-slate-400 flex items-center justify-center transition">
+                                        <span id="turnstile-icon" class="hidden text-white font-black text-xs">✓</span>
+                                    </div>
+                                    <span id="turnstile-label" class="text-xs font-bold text-slate-700">Verifikasi bahwa Anda manusia</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-[9px] font-black text-orange-500">CLOUDFLARE</span>
+                                    <span class="text-[8px] text-slate-400">Privasi • Syarat</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button onclick="submitLoginMock()" class="w-full bg-gradient-to-r from-blue-700 to-blue-600 hover:from-blue-800 hover:to-blue-700 text-white font-black text-xs py-3 rounded-2xl shadow-md transition active:scale-95">
+                            LOGIN ⚡
+                        </button>
+
+                        <div class="text-center pt-1">
+                            <a href="javascript:void(0)" class="text-xs text-slate-500 hover:text-blue-700">Lupa password? Hubungi Admin</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SCREEN 4: KERANJANG & CHECKOUT                 -->
+                <!-- ============================================== -->
+                <div id="screen-cart" class="screen-view p-4 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <button onclick="setScreen('home')" class="text-xs font-extrabold text-slate-600 hover:text-blue-700">
+                            ← Lanjut Belanja
+                        </button>
+                        <span class="text-xs font-extrabold text-slate-900">Checkout Pesanan</span>
+                    </div>
+
+                    <!-- Cart Item -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex gap-3 items-center">
+                            <img src="/storage/produk/TYESO-TS-8815.jpg" onerror="this.src='/images/logo-bubee.png'" class="w-16 h-16 rounded-2xl object-cover border border-slate-200">
+                            <div class="flex-1">
+                                <h4 class="font-extrabold text-xs text-slate-900">TYESO Ribbed Vacuum Bottle</h4>
+                                <div class="text-[10px] text-blue-600 font-bold mt-0.5">Varian: 750mL / White Pure</div>
+                                <div class="text-xs font-black text-slate-900 mt-1">Rp 109.000 × 2 pcs</div>
+                            </div>
+                            <span class="font-black text-xs text-blue-700">Rp 218.000</span>
+                        </div>
+                    </div>
+
+                    <!-- Kurir RajaOngkir Simulation -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-2.5">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-black text-slate-900">🚚 PENGIRIMAN (RAJAONGKIR REAL-TIME):</label>
+                            <span class="text-[10px] text-emerald-600 font-bold">Asal: Kota Bandung</span>
+                        </div>
+                        <select class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-3 py-2 text-xs font-medium text-slate-800">
+                            <option>JNE Regular (2-3 hari) — Rp 18.000</option>
+                            <option>JNE YES (1 hari kilat) — Rp 28.000</option>
+                            <option>SiCepat Regular — Rp 17.500</option>
+                        </select>
+                    </div>
+
+                    <!-- Pembayaran & Info Rekening Bank -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <label class="text-xs font-black text-slate-900 block">METODE PEMBAYARAN:</label>
+                        <div class="space-y-2 text-xs">
+                            <label class="flex items-center gap-2 p-2.5 rounded-2xl border-2 border-blue-600 bg-blue-50/50 cursor-pointer">
+                                <input type="radio" name="pay-method" checked class="text-blue-600">
+                                <div>
+                                    <div class="font-black text-blue-900">Transfer Manual Bank BCA</div>
+                                    <div class="text-[10px] text-slate-500">1234567890 a.n Toko Bubee Indonesia</div>
+                                </div>
+                            </label>
+                            <label class="flex items-center gap-2 p-2.5 rounded-2xl border border-slate-200 bg-white cursor-pointer hover:border-slate-300">
+                                <input type="radio" name="pay-method" class="text-blue-600">
+                                <div>
+                                    <div class="font-bold text-slate-800">QRIS / GoPay / ShopeePay (Midtrans)</div>
+                                    <div class="text-[10px] text-slate-400">Verifikasi instan otomatis 24 jam</div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Ringkasan Total -->
+                        <div class="pt-2 border-t border-slate-100 space-y-1 text-xs">
+                            <div class="flex justify-between text-slate-500">
+                                <span>Subtotal Produk:</span>
+                                <span>Rp 218.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-500">
+                                <span>Ongkir JNE:</span>
+                                <span>Rp 18.000</span>
+                            </div>
+                            <div class="flex justify-between text-emerald-600 font-bold">
+                                <span>Diskon Mitra Reseller:</span>
+                                <span>- Rp 20.000</span>
+                            </div>
+                            <div class="flex justify-between text-slate-900 font-black text-sm pt-1 border-t border-slate-100">
+                                <span>Total Bayar:</span>
+                                <span class="text-blue-700">Rp 216.000</span>
+                            </div>
+                        </div>
+
+                        <button onclick="checkoutSuccessMock()" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-black text-xs py-3 rounded-2xl shadow-md transition active:scale-95">
+                            BAYAR SEKARANG →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SCREEN 5: RESELLER CENTER PORTAL               -->
+                <!-- ============================================== -->
+                <div id="screen-reseller" class="screen-view p-4 space-y-4">
+                    <div class="rounded-3xl p-5 text-white relative overflow-hidden shadow-bubee" style="background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);">
+                        <span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase">Level: Gold Mitra</span>
+                        <h2 class="font-black text-lg mt-2">Pusat Mitra Reseller 🏪</h2>
+                        <p class="text-xs text-slate-300 mt-0.5">CV Mitra Jaya Tumbler • ID: RSL-8849</p>
+
+                        <!-- Reseller Stats Grid -->
+                        <div class="grid grid-cols-2 gap-2 mt-4 text-slate-900">
+                            <div class="bg-white rounded-2xl p-2.5">
+                                <div class="text-[10px] text-slate-400 font-bold">Omzet Bulan Ini</div>
+                                <div class="text-sm font-black text-blue-700 mt-0.5">Rp 14.850.000</div>
+                            </div>
+                            <div class="bg-white rounded-2xl p-2.5">
+                                <div class="text-[10px] text-slate-400 font-bold">Margin Keuntungan</div>
+                                <div class="text-sm font-black text-emerald-600 mt-0.5">Rp 3.267.000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reseller Privileges -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <h3 class="font-extrabold text-xs text-slate-900">Keuntungan Mitra Bubee:</h3>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-[10px]">✓</span>
+                                <div>
+                                    <div class="font-bold text-slate-800">Harga Khusus Grosir (Mulai 1 Pcs)</div>
+                                    <div class="text-[10px] text-slate-500">Bebas belanja eceran dengan harga grosir resmi tanpa modal besar.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-[10px]">✓</span>
+                                <div>
+                                    <div class="font-bold text-slate-800">Katalog Promosi & Foto HD Siap Pakai</div>
+                                    <div class="text-[10px] text-slate-500">Download foto tanpa watermark untuk posting status WhatsApp/Instagram.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-2.5">
+                                <span class="w-5 h-5 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center shrink-0 text-[10px]">✓</span>
+                                <div>
+                                    <div class="font-bold text-slate-800">Notifikasi WhatsApp Otomatis (Fonnte)</div>
+                                    <div class="text-[10px] text-slate-500">Resi & info pengiriman langsung diteruskan ke nomor WA Anda & pelanggan.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="alert('Katalog HD & Pricelist Reseller 2026 berhasil diunduh (Simulasi)!')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-2.5 rounded-2xl transition">
+                            📥 Download Pricelist Excel & Foto HD
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ============================================== -->
+                <!-- SCREEN 6: ADMIN GUDANG, TAB & LAPORAN PERIODE  -->
+                <!-- ============================================== -->
+                <div id="screen-admin" class="screen-view p-4 space-y-4">
+                    <!-- Admin Header Bar -->
+                    <div class="rounded-3xl p-4 text-white shadow-bubee" style="background: linear-gradient(135deg, #3B0764 0%, #1D4ED8 100%);">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl">👑</span>
+                                <div>
+                                    <h3 class="font-black text-sm">BUBEE ADMIN PANEL</h3>
+                                    <div class="text-[10px] text-purple-200">Mode Pengelola Gudang & Transaksi</div>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-emerald-400 text-slate-900 font-black px-2 py-0.5 rounded-full">SYSTEM ONLINE</span>
+                        </div>
+                    </div>
+
+                    <!-- FITUR BARU 1: FILTER LAPORAN PERIODE (HARIAN / MINGGUAN / BULANAN) -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-black text-slate-900">📊 LAPORAN OMZET MITRA:</label>
+                            
+                            <!-- Dropdown Periode Sesuai Revisian Mitra -->
+                            <select id="admin-laporan-select" onchange="changeLaporanPeriode(this.value)" class="bg-slate-50 border-2 border-purple-300 rounded-xl px-2.5 py-1 text-xs font-bold text-purple-900">
+                                <option value="harian">📅 Laporan Harian (Hari Ini)</option>
+                                <option value="mingguan">📅 Laporan Mingguan (7 Hari)</option>
+                                <option value="bulanan">📅 Laporan Bulanan (November)</option>
+                            </select>
+                        </div>
+
+                        <!-- Dynamic Stats based on Filter -->
+                        <div class="grid grid-cols-2 gap-2 text-xs">
+                            <div class="bg-purple-50/70 border border-purple-100 rounded-2xl p-2.5">
+                                <div id="laporan-label-omzet" class="text-[10px] text-purple-600 font-bold">Total Omzet Harian</div>
+                                <div id="laporan-val-omzet" class="text-base font-black text-purple-900 mt-0.5">Rp 2.450.000</div>
+                            </div>
+                            <div class="bg-blue-50/70 border border-blue-100 rounded-2xl p-2.5">
+                                <div id="laporan-label-order" class="text-[10px] text-blue-600 font-bold">Pesanan Selesai</div>
+                                <div id="laporan-val-order" class="text-base font-black text-blue-900 mt-0.5">18 Transaksi</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FITUR BARU 2: TABEL DENGAN TAB PEMISAH & SAKLAR ON/OFF LANGSUNG -->
+                    <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-black text-xs text-slate-900">📦 KELOLA STATUS STOK BARANG</h4>
+                            <span class="text-[10px] text-slate-400 font-bold">Total 50 Item</span>
+                        </div>
+
+                        <!-- Tab Selector Sesuai Revisian -->
+                        <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-100 rounded-2xl text-xs font-bold">
+                            <button id="btn-tab-tabel" onclick="switchAdminSubTab('tabel')" class="py-1.5 rounded-xl bg-white text-blue-700 shadow-sm transition">
+                                📊 Tabel Ringkasan
+                            </button>
+                            <button id="btn-tab-kartu" onclick="switchAdminSubTab('kartu')" class="py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition">
+                                🛠️ Kartu Kelola & Edit
+                            </button>
+                        </div>
+
+                        <!-- Sub-View 1: Tabel Ringkasan with One-Click ON/OFF -->
+                        <div id="admin-sub-tabel" class="space-y-2">
+                            <div class="text-[10px] text-slate-400 font-bold">Klik tombol status untuk ON / OFF produk:</div>
+                            
+                            <!-- Row 1 -->
+                            <div class="flex items-center justify-between p-2.5 rounded-2xl border border-slate-100 hover:bg-slate-50 transition text-xs">
+                                <div>
+                                    <div class="font-extrabold text-slate-900">TYESO Ribbed (4 Ukuran)</div>
+                                    <div class="text-[10px] text-slate-500">Stok: 480 pcs • Rp 69rb - 125rb</div>
+                                </div>
+                                <button onclick="toggleProductStatus(this, 'TYESO Ribbed')" class="btn-toggle-status px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500 text-white hover:brightness-110 shadow-sm transition">
+                                    ON 🟢
+                                </button>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="flex items-center justify-between p-2.5 rounded-2xl border border-slate-100 hover:bg-slate-50 transition text-xs">
+                                <div>
+                                    <div class="font-extrabold text-slate-900">TYESO TS-8831 Straight</div>
+                                    <div class="text-[10px] text-slate-500">Stok: 80 pcs • Rp 109.000</div>
+                                </div>
+                                <button onclick="toggleProductStatus(this, 'TS-8831 Straight')" class="btn-toggle-status px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500 text-white hover:brightness-110 shadow-sm transition">
+                                    ON 🟢
+                                </button>
+                            </div>
+
+                            <!-- Row 3 -->
+                            <div class="flex items-center justify-between p-2.5 rounded-2xl border border-slate-100 hover:bg-slate-50 transition text-xs">
+                                <div>
+                                    <div class="font-extrabold text-slate-900">HQ-085 Mug Puff Keramik</div>
+                                    <div class="text-[10px] text-slate-500">Stok: 20 pcs • Rp 95.000</div>
+                                </div>
+                                <button onclick="toggleProductStatus(this, 'HQ-085 Mug Puff')" class="btn-toggle-status px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500 text-white hover:brightness-110 shadow-sm transition">
+                                    ON 🟢
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Sub-View 2: Kartu Kelola & Edit -->
+                        <div id="admin-sub-kartu" class="hidden space-y-2 text-xs">
+                            <div class="p-3 rounded-2xl border border-slate-200 bg-slate-50/50 space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <b>TYESO Ribbed 270-1000mL</b>
+                                    <span class="text-[10px] text-blue-600 font-bold">Edit Foto / Varian</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1 text-[11px]">
+                                    <span class="bg-white p-1 rounded border">Varian 270mL: 120 pcs</span>
+                                    <span class="bg-white p-1 rounded border">Varian 360mL: 120 pcs</span>
+                                    <span class="bg-white p-1 rounded border">Varian 750mL: 120 pcs</span>
+                                    <span class="bg-white p-1 rounded border">Varian 1000mL: 120 pcs</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FITUR BARU 3: PAGINASI DENGAN PANAH KE SAMPING -->
+                        <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                            <button onclick="paginateMock(-1)" class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold flex items-center gap-1 transition">
+                                ‹ Sebelumnya
+                            </button>
+                            <span id="pagination-indicator" class="text-[11px] font-bold text-slate-500">
+                                Halaman <b class="text-blue-700">1</b> dari 5
+                            </span>
+                            <button onclick="paginateMock(1)" class="px-2.5 py-1 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 font-bold flex items-center gap-1 transition">
+                                Berikutnya ›
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div id="mock-toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-2.5 rounded-2xl text-xs font-bold shadow-2xl z-50 flex items-center gap-2 border border-slate-700">
+            <span id="toast-icon">✅</span>
+            <span id="toast-text">Tindakan berhasil!</span>
+        </div>
+
+    </main>
+
+    <!-- ============================================================== -->
+    <!-- MODAL DOKUMENTASI & SPESIFIKASI DESAIN (UNTUK PENGUMPULAN TUGAS) -->
+    <!-- ============================================================== -->
+    <div id="modal-docs" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl border border-slate-100 space-y-5">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <img src="/images/logo-bubee.png" class="w-10 h-10 rounded-xl bg-white p-1 border border-slate-200 shadow-sm">
+                    <div>
+                        <h3 class="font-black text-base text-slate-900">DOKUMENTASI DESAIN & PROTOTYPE</h3>
+                        <p class="text-xs text-slate-500">Proyek Web Programming 3 (WP3) - Bubee Distributor</p>
+                    </div>
+                </div>
+                <button onclick="toggleModal('modal-docs')" class="w-8 h-8 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 flex items-center justify-center font-bold text-sm">✕</button>
+            </div>
+
+            <!-- Identitas Tugas -->
+            <div class="bg-blue-50/70 border border-blue-100 rounded-2xl p-4 text-xs space-y-1.5">
+                <div class="font-black text-blue-900 text-sm mb-1">📋 Data Pengumpulan Proyek:</div>
+                <div class="grid sm:grid-cols-2 gap-2 text-slate-700">
+                    <div><b>Nama Aplikasi:</b> Bubee Tumbler Distributor</div>
+                    <div><b>Mata Kuliah:</b> Web Programming 3 (WP3)</div>
+                    <div><b>Tech Stack:</b> Laravel 11, Tailwind CSS, SQLite/MySQL</div>
+                    <div><b>Role Akses:</b> Admin Gudang, Mitra Reseller, User Reguler</div>
+                </div>
+            </div>
+
+            <!-- Inovasi & Fitur Prototipe -->
+            <div class="space-y-3 text-xs text-slate-700">
+                <h4 class="font-black text-sm text-slate-900">🎯 Fitur & Inovasi Desain yang Diimplementasikan:</h4>
+                <ul class="space-y-2 list-disc pl-4">
+                    <li>
+                        <b>Penggabungan Produk Multi-Kapasitas (270mL - 1000mL):</b>
+                        <p class="text-slate-500 text-[11px]">Mengurangi penumpukan katalog dengan menggabungkan varian ukuran botol yang sejenis ke dalam 1 produk dengan tombol pilihan kapasitas interaktif.</p>
+                    </li>
+                    <li>
+                        <b>Keamanan Cloudflare Turnstile Captcha:</b>
+                        <p class="text-slate-500 text-[11px]">Proteksi login tanpa membuat pengguna pusing dengan puzzle, didukung Mode Demo Always-Pass untuk lingkungan pengujian.</p>
+                    </li>
+                    <li>
+                        <b>Pemisahan Tab & Paginasi Panah ke Samping:</b>
+                        <p class="text-slate-500 text-[11px]">Daftar produk admin dibagi menjadi <i>Tabel Ringkasan</i> dan <i>Kartu Kelola</i>, serta paginasi panah samping `[← Sebelumnya] [Berikutnya →]` agar tidak memanjang ke bawah.</p>
+                    </li>
+                    <li>
+                        <b>Saklar Status ON / OFF Langsung:</b>
+                        <p class="text-slate-500 text-[11px]">Admin dapat menonaktifkan dan mengaktifkan barang secara instan tanpa perlu masuk ke form edit.</p>
+                    </li>
+                    <li>
+                        <b>Laporan Filter Fleksibel:</b>
+                        <p class="text-slate-500 text-[11px]">Mitra dan Admin dapat menyaring omzet secara Harian, Mingguan, dan Bulanan.</p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Design Tokens / Palette -->
+            <div class="space-y-2 text-xs">
+                <h4 class="font-black text-sm text-slate-900">🎨 Design System & Color Palette:</h4>
+                <div class="grid grid-cols-4 gap-2 text-center text-[10px] font-bold text-white">
+                    <div class="p-2.5 rounded-xl bg-[#050B2E]">Navy Deep<br>#050B2E</div>
+                    <div class="p-2.5 rounded-xl bg-[#1D4ED8]">Royal Blue<br>#1D4ED8</div>
+                    <div class="p-2.5 rounded-xl bg-[#0284C7]">Sky Cyan<br>#0284C7</div>
+                    <div class="p-2.5 rounded-xl bg-[#10B981]">Emerald<br>#10B981</div>
+                </div>
+            </div>
+
+            <!-- Close Button -->
+            <div class="pt-2">
+                <button onclick="toggleModal('modal-docs')" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-2.5 rounded-2xl transition">
+                    Tutup Dokumentasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC FOR INTERACTIVITY -->
+    <script>
+        // State
+        let currentScreen = 'home';
+        let currentImageIdx = 0;
+        let qtyCount = 1;
+        let turnstilePassed = false;
+        let currentRole = 'admin';
+        let currentPage = 1;
+
+        const galleryImages = [
+            '/storage/produk/TYESO-TS-8815.jpg',
+            '/storage/produk/TYESO-TS-8816.jpg',
+            '/storage/produk/TYESO-TS-8832.jpg',
+            '/storage/produk/TYESO-TS-8848B.jpg'
+        ];
+
+        // Screen Navigation
+        function setScreen(screenId) {
+            currentScreen = screenId;
+            document.querySelectorAll('.screen-view').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById('screen-' + screenId);
+            if (target) target.classList.add('active');
+
+            // Update Header Tab Highlight
+            document.querySelectorAll('.flow-tab').forEach(tab => {
+                if (tab.dataset.screen === screenId) {
+                    tab.classList.remove('text-slate-400');
+                    tab.classList.add('bg-blue-600', 'text-white');
+                } else {
+                    tab.classList.remove('bg-blue-600', 'text-white');
+                    tab.classList.add('text-slate-400');
+                }
+            });
+
+            // Update Desktop URL Slug
+            const slugEl = document.getElementById('desktop-url-slug');
+            if (slugEl) {
+                const slugs = {
+                    home: '',
+                    detail: 'produk/44-tyeso-ribbed',
+                    login: 'login',
+                    cart: 'keranjang',
+                    reseller: 'reseller/dashboard',
+                    admin: 'admin/produk'
+                };
+                slugEl.textContent = slugs[screenId] || screenId;
+            }
+
+            // Scroll container to top
+            document.querySelector('.screen-container').scrollTop = 0;
+        }
+
+        // Viewport Device Mode Toggle (Mobile / Desktop)
+        function setDeviceMode(mode) {
+            const wrapper = document.getElementById('device-wrapper');
+            const notch = document.getElementById('mobile-notch-bar');
+            const mobileStatus = document.getElementById('mobile-status-bar');
+            const desktopBar = document.getElementById('desktop-browser-bar');
+            const btnMob = document.getElementById('btn-mode-mobile');
+            const btnDesk = document.getElementById('btn-mode-desktop');
+
+            if (mode === 'desktop') {
+                wrapper.className = 'desktop-frame flex flex-col relative shadow-2xl';
+                notch.classList.add('hidden');
+                mobileStatus.classList.add('hidden');
+                desktopBar.classList.remove('hidden');
+                desktopBar.classList.add('flex');
+
+                btnDesk.classList.add('bg-blue-600', 'text-white');
+                btnDesk.classList.remove('text-slate-400');
+                btnMob.classList.remove('bg-blue-600', 'text-white');
+                btnMob.classList.add('text-slate-400');
+            } else {
+                wrapper.className = 'phone-frame flex flex-col relative shadow-2xl';
+                notch.classList.remove('hidden');
+                mobileStatus.classList.remove('hidden');
+                desktopBar.classList.add('hidden');
+                desktopBar.classList.remove('flex');
+
+                btnMob.classList.add('bg-blue-600', 'text-white');
+                btnMob.classList.remove('text-slate-400');
+                btnDesk.classList.remove('bg-blue-600', 'text-white');
+                btnDesk.classList.add('text-slate-400');
+            }
+        }
+
+        // Interactive Image Gallery
+        function setImage(idx) {
+            currentImageIdx = idx;
+            document.getElementById('detail-main-img').src = galleryImages[idx];
+            document.getElementById('img-index').textContent = idx + 1;
+            document.querySelectorAll('.thumb-img').forEach((img, i) => {
+                if (i === idx) img.className = 'thumb-img w-14 h-14 rounded-xl object-cover border-2 border-blue-600 cursor-pointer';
+                else img.className = 'thumb-img w-14 h-14 rounded-xl object-cover border-2 border-transparent cursor-pointer';
+            });
+        }
+        function nextImage() {
+            currentImageIdx = (currentImageIdx + 1) % galleryImages.length;
+            setImage(currentImageIdx);
+        }
+        function prevImage() {
+            currentImageIdx = (currentImageIdx - 1 + galleryImages.length) % galleryImages.length;
+            setImage(currentImageIdx);
+        }
+
+        // Interactive Capacity (ML) Selection
+        function selectCapacity(ml, price, subtext, btn) {
+            document.getElementById('detail-price').textContent = 'Rp ' + price.toLocaleString('id-ID');
+            document.getElementById('detail-sku-subtext').textContent = 'Model ' + ml + ' • SKU ' + subtext;
+
+            document.querySelectorAll('.cap-btn').forEach(b => {
+                b.className = 'cap-btn py-2 rounded-xl text-xs font-black border border-slate-200 bg-white text-slate-700 hover:border-blue-300 transition';
+            });
+            btn.className = 'cap-btn active py-2 rounded-xl text-xs font-black border-2 border-blue-600 bg-blue-50 text-blue-700 transition';
+
+            showToast('Kapasitas botol diubah ke ' + ml + ' (Rp ' + price.toLocaleString('id-ID') + ')');
+        }
+
+        // Quantity Stepper
+        function stepQty(n) {
+            qtyCount = Math.max(1, qtyCount + n);
+            document.getElementById('qty-val').textContent = qtyCount;
+        }
+
+        // Cart Mock
+        function addToCartMock() {
+            const countEl = document.getElementById('badge-cart-count');
+            countEl.textContent = parseInt(countEl.textContent) + qtyCount;
+            showToast('✅ Berhasil ditambahkan ke Keranjang!');
+        }
+
+        // Turnstile Mock Checkbox
+        function toggleTurnstileCaptcha() {
+            const box = document.getElementById('turnstile-check-box');
+            const icon = document.getElementById('turnstile-icon');
+            const label = document.getElementById('turnstile-label');
+
+            if (!turnstilePassed) {
+                label.textContent = 'Memverifikasi...';
+                box.className = 'w-6 h-6 rounded-lg border-2 border-blue-500 animate-spin';
+                setTimeout(() => {
+                    turnstilePassed = true;
+                    box.className = 'w-6 h-6 rounded-lg bg-emerald-500 border-2 border-emerald-500 flex items-center justify-center';
+                    icon.classList.remove('hidden');
+                    label.textContent = 'Verifikasi Sukses (Mode Demo Always-Pass)';
+                    label.className = 'text-xs font-bold text-emerald-700';
+                    showToast('🛡️ Cloudflare Turnstile Terverifikasi!');
+                }, 600);
+            } else {
+                turnstilePassed = false;
+                box.className = 'w-6 h-6 rounded-lg border-2 border-slate-400 flex items-center justify-center';
+                icon.classList.add('hidden');
+                label.textContent = 'Verifikasi bahwa Anda manusia';
+                label.className = 'text-xs font-bold text-slate-700';
+            }
+        }
+
+        // Quick Account Login Filling
+        function fillLogin(email, pass, role) {
+            document.getElementById('input-login-email').value = email;
+            document.getElementById('input-login-pass').value = pass;
+            currentRole = role;
+            showToast('Akun ' + role.toUpperCase() + ' terisi!');
+        }
+
+        // Login Submit Simulation
+        function submitLoginMock() {
+            if (!turnstilePassed) {
+                alert('Silakan centang verifikasi Cloudflare Turnstile terlebih dahulu!');
+                return;
+            }
+            showToast('Login berhasil sebagai ' + currentRole.toUpperCase() + '!');
+            setTimeout(() => {
+                if (currentRole === 'admin') setScreen('admin');
+                else if (currentRole === 'reseller') setScreen('reseller');
+                else setScreen('home');
+            }, 500);
+        }
+
+        // Checkout Success Simulation
+        function checkoutSuccessMock() {
+            alert('🎉 Pesanan Berhasil Dibuat!\n\nNo. Invoice: #BBE-20261103-098\nTotal Bayar: Rp 216.000 (Transfer BCA)\n\nNotifikasi WhatsApp konfirmasi telah terkirim via Fonnte Gateway.');
+            setScreen('home');
+        }
+
+        // Admin Laporan Periode Selector
+        function changeLaporanPeriode(val) {
+            const labelOmzet = document.getElementById('laporan-label-omzet');
+            const valOmzet = document.getElementById('laporan-val-omzet');
+            const labelOrder = document.getElementById('laporan-label-order');
+            const valOrder = document.getElementById('laporan-val-order');
+
+            if (val === 'harian') {
+                labelOmzet.textContent = 'Total Omzet Harian';
+                valOmzet.textContent = 'Rp 2.450.000';
+                labelOrder.textContent = 'Pesanan Hari Ini';
+                valOrder.textContent = '18 Transaksi';
+            } else if (val === 'mingguan') {
+                labelOmzet.textContent = 'Total Omzet Mingguan (7 Hari)';
+                valOmzet.textContent = 'Rp 18.320.000';
+                labelOrder.textContent = 'Pesanan Mingguan';
+                valOrder.textContent = '142 Transaksi';
+            } else if (val === 'bulanan') {
+                labelOmzet.textContent = 'Total Omzet Bulanan (November)';
+                valOmzet.textContent = 'Rp 74.890.000';
+                labelOrder.textContent = 'Pesanan Bulanan';
+                valOrder.textContent = '612 Transaksi';
+            }
+            showToast('Laporan diubah ke periode: ' + val.toUpperCase());
+        }
+
+        // Admin Sub-Tab Switcher
+        function switchAdminSubTab(tab) {
+            const btnTabel = document.getElementById('btn-tab-tabel');
+            const btnKartu = document.getElementById('btn-tab-kartu');
+            const viewTabel = document.getElementById('admin-sub-tabel');
+            const viewKartu = document.getElementById('admin-sub-kartu');
+
+            if (tab === 'tabel') {
+                btnTabel.className = 'py-1.5 rounded-xl bg-white text-blue-700 shadow-sm transition';
+                btnKartu.className = 'py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition';
+                viewTabel.classList.remove('hidden');
+                viewKartu.classList.add('hidden');
+            } else {
+                btnKartu.className = 'py-1.5 rounded-xl bg-white text-blue-700 shadow-sm transition';
+                btnTabel.className = 'py-1.5 rounded-xl text-slate-500 hover:text-slate-800 transition';
+                viewKartu.classList.remove('hidden');
+                viewTabel.classList.add('hidden');
+            }
+        }
+
+        // Product Status ON/OFF Toggle
+        function toggleProductStatus(btn, name) {
+            if (btn.textContent.includes('ON')) {
+                btn.textContent = 'OFF 🔴';
+                btn.className = 'btn-toggle-status px-3 py-1 rounded-full text-[10px] font-black bg-rose-500 text-white hover:brightness-110 shadow-sm transition';
+                showToast('Barang "' + name + '" diubah ke nonaktif (OFF)');
+            } else {
+                btn.textContent = 'ON 🟢';
+                btn.className = 'btn-toggle-status px-3 py-1 rounded-full text-[10px] font-black bg-emerald-500 text-white hover:brightness-110 shadow-sm transition';
+                showToast('Barang "' + name + '" diubah ke aktif (ON)');
+            }
+        }
+
+        // Side Arrow Pagination Simulation
+        function paginateMock(delta) {
+            currentPage = Math.min(5, Math.max(1, currentPage + delta));
+            document.getElementById('pagination-indicator').innerHTML = 'Halaman <b class="text-blue-700">' + currentPage + '</b> dari 5';
+            showToast('Beralih ke Halaman ' + currentPage);
+        }
+
+        // Toast Notification
+        function showToast(msg) {
+            const toast = document.getElementById('mock-toast');
+            document.getElementById('toast-text').textContent = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('toast-active');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('toast-active');
+            }, 2500);
+        }
+
+        // Modal Docs Toggle
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            if (modal.classList.contains('hidden')) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Share Link Mock
+        function shareLink() {
+            navigator.clipboard.writeText(window.location.href);
+            showToast('📋 Link prototipe disalin ke clipboard!');
+        }
+
+        // Live Clock in Mobile Status Bar
+        function updateClock() {
+            const now = new Date();
+            const h = String(now.getHours()).padStart(2, '0');
+            const m = String(now.getMinutes()).padStart(2, '0');
+            const el = document.getElementById('current-clock');
+            if (el) el.textContent = h + ':' + m;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 </body>
 </html>
 
