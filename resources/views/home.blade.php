@@ -4,23 +4,10 @@
 {{-- HERO --}}
 <div class="rounded-[1.75rem] p-5 text-white shadow-card relative overflow-hidden anim-in" style="--d:0ms;background:var(--hex),linear-gradient(135deg,#050B2E,#0B2A6B 55%,#1D4ED8)">
 <div class="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-cyan-400/30 blur-2xl"></div>
-<div class="relative flex items-start gap-3">
-<div class="flex-1 min-w-0">
+<div class="relative">
 <div class="text-[11px] tracking-widest text-cyan-300 font-bold">● STOK REAL-TIME</div>
-<div class="font-extrabold text-xl mt-1 flex items-center gap-1.5">
-    <span>Halo {{ auth()->check() ? explode(' ',auth()->user()->name)[0] : 'Kak' }}</span>
-    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300">
-        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M21.5 7.5c-.83 0-1.5.67-1.5 1.5v4.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-7c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v7c0 .28-.22.5-.5.5s-.5-.22-.5-.5V3.5c0-.83-.67-1.5-1.5-1.5S12.5 2.67 12.5 3.5v8.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V5.5c0-.83-.67-1.5-1.5-1.5S8.5 4.67 8.5 5.5v9.18l-1.92-2.02c-.59-.61-1.56-.62-2.16-.03-.61.59-.62 1.56-.03 2.16l4.63 4.86c2.32 2.44 5.54 3.85 8.98 3.85h.5c3.87 0 7-3.13 7-7v-7.5c0-.83-.67-1.5-1.5-1.5z"/></svg>
-    </span>
-</div>
+<div class="font-extrabold text-xl mt-1">Halo {{ auth()->check() ? explode(' ',auth()->user()->name)[0] : 'Kak' }}</div>
 <div class="text-xs opacity-70 mt-1">Lihat stok, cek harga, pesan sekarang. Semua dalam satu tempat.</div>
-</div>
-<div class="w-10 h-10 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center shadow shrink-0" title="Bubee">
-    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/>
-        <path d="M9 10h6M8 14h8"/>
-    </svg>
-</div>
 </div>
 <div class="relative">
 <form method="GET" action="/" class="mt-3 flex gap-2">

@@ -6,14 +6,9 @@
     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
     <span>COMMAND CENTER</span>
 </div>
-<div class="flex items-center gap-3 mt-1">
-<div class="flex-1 min-w-0">
+<div class="mt-1">
 <div class="font-extrabold text-xl">Halo Admin</div>
 <div class="text-xs opacity-80 mt-0.5">Omzet total: <b>Rp {{ number_format($omzet) }}</b> • Order baru: <b>{{ $orderBaru }}</b></div>
-</div>
-<div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 text-amber-300 flex items-center justify-center shrink-0">
-    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/><path d="M9 10h6M8 14h8"/></svg>
-</div>
 </div>
 <div class="grid grid-cols-3 gap-1.5 mt-3 text-center text-[11px] font-bold">
 <a href="/admin/verifikasi" class="rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1" style="background:#f0abfc;color:#0f0d2e">
