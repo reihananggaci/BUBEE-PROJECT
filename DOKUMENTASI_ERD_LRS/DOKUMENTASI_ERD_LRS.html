@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Dokumentasi ERD dan LRS - Project Bubee</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 18mm 16mm 18mm 16mm;
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+  @page landscape-section {
+    size: A4 landscape;
+    margin: 12mm 12mm 12mm 12mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #0F172A;
+    line-height: 1.5;
+    font-size: 11pt;
+    margin: 0;
+    padding: 0;
+  }
+  .page-break { page-break-after: always; }
+  .cover-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: #FFFFFF;
+    padding: 40px;
+    box-sizing: border-box;
+  }
+  .cover-badge {
+    background: #3B82F6;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: 11pt;
+    padding: 6px 16px;
+    border-radius: 99px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+  .cover-title {
+    font-size: 28pt;
+    font-weight: 900;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+  }
+  .cover-sub {
+    font-size: 14pt;
+    color: #94A3B8;
+    max-width: 650px;
+    margin: 0 0 40px 0;
+    line-height: 1.4;
+  }
+  .cover-meta {
+    border-top: 1px solid #334155;
+    padding-top: 24px;
+    width: 100%;
+    max-width: 500px;
+    font-size: 10.5pt;
+    color: #CBD5E1;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .meta-label { color: #94A3B8; }
+  .meta-val { font-weight: 700; color: #FFFFFF; }
+  
+  h1 { font-size: 18pt; font-weight: 800; color: #0F172A; border-bottom: 2px solid #0F172A; padding-bottom: 6px; margin-top: 24px; }
+  h2 { font-size: 14pt; font-weight: 800; color: #1E3A8A; margin-top: 20px; }
+  h3 { font-size: 12pt; font-weight: 700; color: #0F172A; margin-top: 16px; }
+  p, li { color: #334155; font-size: 10pt; }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px 0;
+    font-size: 9pt;
+  }
+  th {
+    background-color: #0F172A;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-align: left;
+    padding: 7px 10px;
+    border: 1px solid #0F172A;
+  }
+  td {
+    padding: 6px 10px;
+    border: 1px solid #CBD5E1;
+    color: #1E293B;
+  }
+  tr:nth-child(even) td {
+    background-color: #F8FAFC;
+  }
+  .badge-pk { background: #DBEAFE; color: #1E40AF; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 8pt; display: inline-block; }
+  .badge-fk { background: #FEE2E2; color: #991B1B; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 8pt; display: inline-block; }
+  .badge-uk { background: #FEF3C7; color: #92400E; padding: 2px 6px; border-radius: 4px; font-weight: 800; font-size: 8pt; display: inline-block; }
+  .badge-null { color: #64748B; font-size: 8pt; font-weight: 600; }
+  .code { font-family: Consolas, monospace; font-size: 8.5pt; color: #0F172A; }
+  .diagram-container {
+    width: 100%;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .diagram-img {
+    width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+    border: 1px solid #CBD5E1;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+</style>
+</head>
+<body>
+
+<div class="cover-page">
+    <div class="cover-badge">Laporan Resmi Pemodelan Basis Data</div>
+    <div class="cover-title">DOKUMENTASI LENGKAP<br/>ERD DAN LRS SISTEM BUBEE</div>
+    <div class="cover-sub">Analisis Faktual Struktur Basis Data Relasional, Kamus Data, dan Kardinalitas Platform E-Commerce & Reseller Tumbler</div>
+    
+    <div class="cover-meta">
+        <div class="meta-row"><span class="meta-label">Nama Proyek:</span><span class="meta-val">Project Bubee</span></div>
+        <div class="meta-row"><span class="meta-label">Database Terkoneksi:</span><span class="meta-val">bubee_db (MySQL/MariaDB)</span></div>
+        <div class="meta-row"><span class="meta-label">Framework Backend:</span><span class="meta-val">Laravel 11.x (PHP 8.2+)</span></div>
+        <div class="meta-row"><span class="meta-label">Total Entitas Bisnis:</span><span class="meta-val">22 Tabel Relasional</span></div>
+        <div class="meta-row"><span class="meta-label">Total Foreign Keys:</span><span class="meta-val">29 Hubungan Relasi</span></div>
+        <div class="meta-row"><span class="meta-label">Metode Normalisasi:</span><span class="meta-val">Third Normal Form (3NF)</span></div>
+        <div class="meta-row"><span class="meta-label">Status Validasi:</span><span class="meta-val" style="color: #4ADE80;">100% Sesuai Basis Data Nyata</span></div>
+    </div>
+</div>
+<div class="page-break"></div>
+
+<h1>1. Gambaran Umum & Metodologi Analisis Basis Data</h1>
+<p>Dokumentasi ini disusun secara komprehensif berdasarkan kode sumber implementasi nyata pada sistem <strong>Bubee</strong>. Sistem ini dirancang untuk memfasilitasi perdagangan retail tumbler, kemitraan reseller berjenjang, manajemen checkout & ekspedisi kurir, penanganan klaim retur barang cacat, serta audit logistik pergudangan.</p>
+
+<p>Dari hasil audit langsung pada skema MySQL database <code>bubee_db</code>, ditemukan total <strong>30 tabel</strong>, yang diklasifikasikan menjadi:</p>
+<ul>
+    <li><strong>22 Tabel Domain Bisnis</strong>: Seluruh tabel yang menyimpan logika dan transaksi operasional Bubee.</li>
+    <li><strong>8 Tabel Utilitas Framework</strong>: Tabel bawaan Laravel (<code>cache</code>, <code>sessions</code>, <code>jobs</code>, <code>migrations</code>, dll.) yang tidak berkaitan langsung dengan model bisnis e-commerce.</li>
+</ul>
+
+<h2>Arsitektur 5 Modul Bisnis Utama</h2>
+<table>
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Modul</th>
+            <th>Tabel Terlibat</th>
+            <th>Fungsi Operasional</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td><strong>Pengguna & Keamanan</strong></td>
+            <td><code>users</code>, <code>otps</code>, <code>activity_logs</code></td>
+            <td>Multi-role (Customer, Reseller, Admin, Gudang), verifikasi OTP 6 digit, audit trail aktivitas.</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td><strong>Katalog & Varian</strong></td>
+            <td><code>products</code>, <code>product_variants</code>, <code>product_images</code>, <code>product_prices</code></td>
+            <td>Master tumbler, multi-ukuran & warna, galeri foto, tiering harga reseller (Normalisasi 3NF).</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td><strong>Transaksi & Checkout</strong></td>
+            <td><code>carts</code>, <code>vouchers</code>, <code>orders</code>, <code>order_items</code>, <code>notification_logs</code></td>
+            <td>Keranjang belanja, kupon diskon, kalkulasi ongkir, payment snapshot, notifikasi WA.</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td><strong>Pasca Penjualan & Sistem</strong></td>
+            <td><code>returs</code>, <code>retur_items</code>, <code>reviews</code>, <code>faqs</code>, <code>settings</code></td>
+            <td>Klaim garansi barang rusak/cacat, ulasan rating bintang, FAQ, dan setelan parameter aplikasi.</td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td><strong>Gudang & Inventori</strong></td>
+            <td><code>stock_mutations</code>, <code>penerimaan</code>, <code>penerimaan_items</code>, <code>opname_sesi</code>, <code>opname_items</code></td>
+            <td>Buku besar mutasi stok, penerimaan barang supplier pabrik, dan sesi audit fisik stock opname rak.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h1>2. Entity Relationship Diagram (ERD)</h1>
+<p>Diagram ERD berikut memodelkan seluruh entitas, atribut lengkap, derajat kardinalitas (1:N), serta foreign key antar entitas pada platform Bubee.</p>
+
+<div class="diagram-container">
+    <img src="ERD.png" class="diagram-img" alt="Diagram ERD Bubee" />
+</div>
+<p style="text-align: center; font-size: 9pt; color: #64748B;"><em>Gambar 2.1: Entity Relationship Diagram (ERD) Sistem Bubee (22 Tabel Entitas)</em></p>
+
+<div class="page-break"></div>
+
+<h1>3. Logical Record Structure (LRS)</h1>
+<p>Diagram LRS berikut merupakan hasil transformasi relasional normalisasi basis data (3NF). Setiap tabel memuat penanda kunci utama (<code>* PK</code>) dan kunci tamu (<code>** FK</code>) dengan pointer relasi yang terhubung secara presisi.</p>
+
+<div class="diagram-container">
+    <img src="LRS.png" class="diagram-img" alt="Diagram LRS Bubee" />
+</div>
+<p style="text-align: center; font-size: 9pt; color: #64748B;"><em>Gambar 3.1: Logical Record Structure (LRS) Relasional Sistem Bubee</em></p>
+
+<div class="page-break"></div>
+<h1>4. Kamus Data Lengkap (Data Dictionary 22 Tabel)</h1>
+    <h3>Tabel: <code>activity_logs</code></h3>
+    <p><strong>Deskripsi</strong>: Mencatat audit trail rekam jejak aktivitas kritis dan keamanan yang dilakukan pengguna dalam sistem. | <strong>Jumlah Kolom</strong>: 11 | <strong>Data Riil</strong>: 78 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>actor_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>aksi</strong></span></td>
+                <td><span class="code">varchar(50)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kategori</strong></span></td>
+                <td><span class="code">varchar(20)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">sistem</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>level</strong></span></td>
+                <td><span class="code">varchar(10)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">info</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>subjek</strong></span></td>
+                <td><span class="code">varchar(100)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>keterangan</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ip</strong></span></td>
+                <td><span class="code">varchar(45)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tautan</strong></span></td>
+                <td><span class="code">varchar(200)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>carts</code></h3>
+    <p><strong>Deskripsi</strong>: Menampung sementara barang belanjaan yang dimasukkan pengguna ke keranjang sebelum melanjutkan ke transaksi checkout. | <strong>Jumlah Kolom</strong>: 7 | <strong>Data Riil</strong>: 4 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>variant_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; product_variants</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>faqs</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan artikel tanya jawab pusat bantuan aplikasi yang dikelompokkan berdasarkan topik. | <strong>Jumlah Kolom</strong>: 8 | <strong>Data Riil</strong>: 8 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>topik</strong></span></td>
+                <td><span class="code">varchar(30)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">Order</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>pertanyaan</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>jawaban</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>urutan</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>is_active</strong></span></td>
+                <td><span class="code">tinyint(1)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>notification_logs</code></h3>
+    <p><strong>Deskripsi</strong>: Mencatat log pengiriman notifikasi pesan otomatis (WhatsApp/SMS) terkait status transaksi pelanggan. | <strong>Jumlah Kolom</strong>: 9 | <strong>Data Riil</strong>: 4 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tipe</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tujuan</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>pesan</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">dummy</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>response</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>order_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; orders</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>opname_items</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan pencatatan saldo stok sistem versus hasil perhitungan fisik riil di rak gudang beserta bukti foto selisih. | <strong>Jumlah Kolom</strong>: 8 | <strong>Data Riil</strong>: 74 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>sesi_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; opname_sesi</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>variant_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; product_variants</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>snapshot</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>fisik</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>opname_sesi</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan dokumen sesi pemeriksaan stok fisik (stock opname) gudang yang dikelola staf persediaan. | <strong>Jumlah Kolom</strong>: 6 | <strong>Data Riil</strong>: 1 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>cakupan</strong></span></td>
+                <td><span class="code">varchar(50)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">semua</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status</strong></span></td>
+                <td><span class="code">varchar(20)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">jalan</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>order_items</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan rincian tiap unit produk dan varian yang dibeli dalam sebuah pesanan dengan harga satuan yang di-snapshot. | <strong>Jumlah Kolom</strong>: 10 | <strong>Data Riil</strong>: 2 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>order_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; orders</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>variant_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; product_variants</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>harga_satuan</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>subtotal</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tipe_harga</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">enduser</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>orders</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan data induk transaksi pesanan pelanggan, ekspedisi, ongkos kirim, status bayar, dan nomor resi pengiriman. | <strong>Jumlah Kolom</strong>: 24 | <strong>Data Riil</strong>: 2 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kode</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>total_produk</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ongkir</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ongkir_sumber</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">dummy</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>berat_tagih_gram</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>voucher_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; vouchers</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>diskon</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>total_bayar</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kurir</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">JNE</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>layanan</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">REG</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>resi</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>alasan_batal</strong></span></td>
+                <td><span class="code">varchar(100)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">menunggu_bayar</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>alamat</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kota_tujuan</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>city_id</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>nama_penerima</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>hp_penerima</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>bukti_bayar</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>snap_token</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>otps</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan kode OTP 6-digit terenkripsi untuk proses verifikasi nomor/email saat pendaftaran dan pemulihan kata sandi. | <strong>Jumlah Kolom</strong>: 8 | <strong>Data Riil</strong>: 1 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>email</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kode_hash</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>percobaan</strong></span></td>
+                <td><span class="code">tinyint(3) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kedaluwarsa_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">current_timestamp()</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>dipakai_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>penerimaan</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan dokumen surat jalan barang masuk pasokan supplier/pabrik ke gudang utama. | <strong>Jumlah Kolom</strong>: 7 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>no_surat_jalan</strong></span></td>
+                <td><span class="code">varchar(50)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>supplier</strong></span></td>
+                <td><span class="code">varchar(100)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status</strong></span></td>
+                <td><span class="code">varchar(20)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">dicatat</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>penerimaan_items</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan rincian hasil pemeriksaan kualitas (QC) barang masuk: kuantitas klaim, kuantitas lolos, dan kuantitas rusak. | <strong>Jumlah Kolom</strong>: 10 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>penerimaan_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; penerimaan</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>variant_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; product_variants</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty_klaim</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty_lolos</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty_rusak</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>catatan</strong></span></td>
+                <td><span class="code">varchar(200)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>product_images</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan galeri multi-foto untuk setiap produk tumbler beserta urutan penampilannya di carousel detail produk. | <strong>Jumlah Kolom</strong>: 7 | <strong>Data Riil</strong>: 278 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>judul</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>urutan</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>product_prices</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan konfigurasi tiering harga grosir khusus mitra reseller berdasarkan jumlah kuantitas pembelian. | <strong>Jumlah Kolom</strong>: 7 | <strong>Data Riil</strong>: 296 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>level</strong></span></td>
+                <td><span class="code">varchar(20)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>min_qty</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>price</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>product_variants</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan variasi spesifik dari produk tumbler (kombinasi ukuran dan warna) beserta stok fisik dan SKU tersendiri. | <strong>Jumlah Kolom</strong>: 11 | <strong>Data Riil</strong>: 292 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ukuran</strong></span></td>
+                <td><span class="code">varchar(20)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">All Size</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>warna</strong></span></td>
+                <td><span class="code">varchar(30)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">-</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>stok</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>harga_enduser</strong></span></td>
+                <td><span class="code">int(10) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>harga_reseller</strong></span></td>
+                <td><span class="code">int(10) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>berat_gram</strong></span></td>
+                <td><span class="code">int(10) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>sku</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>products</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan data master produk tumbler seperti nama, deskripsi, dimensi, foto utama, dan status keaktifan. | <strong>Jumlah Kolom</strong>: 17 | <strong>Data Riil</strong>: 58 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>nama</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>deskripsi</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kategori</strong></span></td>
+                <td><span class="code">varchar(50)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">Fashion</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>berat_gram</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">250</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>panjang_cm</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>lebar_cm</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tinggi_cm</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>stok</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>harga_enduser</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>harga_reseller</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>min_reseller</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">6</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>is_active</strong></span></td>
+                <td><span class="code">tinyint(1)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>deleted_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>retur_items</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan rincian kuantitas dan jenis barang pesanan yang diajukan dalam suatu berkas komplain retur. | <strong>Jumlah Kolom</strong>: 6 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>retur_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; returs</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>order_item_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; order_items</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>returs</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan pengajuan klaim garansi pengembalian barang dari pembeli untuk pesanan cacat atau rusak. | <strong>Jumlah Kolom</strong>: 10 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>order_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; orders</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>alasan</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kategori</strong></span></td>
+                <td><span class="code">varchar(30)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">retur</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">diajukan</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>catatan_admin</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>reviews</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan rating bintang (1-5) dan testimoni ulasan dari pelanggan terverifikasi yang telah menyelesaikan pesanan. | <strong>Jumlah Kolom</strong>: 9 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>user_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; users</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>order_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; orders</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>rating</strong></span></td>
+                <td><span class="code">tinyint(4)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">5</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ulasan</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>settings</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan konfigurasi global aplikasi seperti kontak WhatsApp admin, pengaturan sistem, dan parameter transaksi. | <strong>Jumlah Kolom</strong>: 5 | <strong>Data Riil</strong>: 16 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>key</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>value</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>stock_mutations</code></h3>
+    <p><strong>Deskripsi</strong>: Buku besar persediaan yang mencatat histori keluar, masuk, dan penyesuaian stok per varian barang. | <strong>Jumlah Kolom</strong>: 10 | <strong>Data Riil</strong>: 3 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>product_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; products</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>variant_id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-fk">FK &rarr; product_variants</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tipe</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>qty</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>stok_sebelum</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>stok_sesudah</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>keterangan</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>users</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan seluruh data identitas pengguna sistem mencakup peran Administrator, Staf Gudang, Mitra Reseller, dan Pelanggan Umum. | <strong>Jumlah Kolom</strong>: 17 | <strong>Data Riil</strong>: 4 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>name</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>email</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>role</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">enduser</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>status_reseller</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">none</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>hp</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>alamat</strong></span></td>
+                <td><span class="code">text</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>toko_nama</strong></span></td>
+                <td><span class="code">varchar(60)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>nik</strong></span></td>
+                <td><span class="code">varchar(25)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>notif_wa</strong></span></td>
+                <td><span class="code">tinyint(1)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>ktp_foto</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>email_verified_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>daftar_coba</strong></span></td>
+                <td><span class="code">tinyint(3) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>password</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>remember_token</strong></span></td>
+                <td><span class="code">varchar(100)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+    <h3>Tabel: <code>vouchers</code></h3>
+    <p><strong>Deskripsi</strong>: Menyimpan master data kupon diskon/potongan belanja yang dapat diklaim pembeli saat transaksi. | <strong>Jumlah Kolom</strong>: 14 | <strong>Data Riil</strong>: 0 baris</p>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 25%;">Nama Kolom</th>
+                <th style="width: 20%;">Tipe Data</th>
+                <th style="width: 12%;">Null</th>
+                <th style="width: 15%;">Default</th>
+                <th style="width: 28%;">Atribut Kunci & Relasi</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+            <tr>
+                <td><span class="code"><strong>id</strong></span></td>
+                <td><span class="code">bigint(20) unsigned</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-pk">PK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kode</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">NULL</span></td>
+                <td><span class="badge-uk">UK</span></td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>nama</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>tipe</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">persen</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>nilai</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">10</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>maks_diskon</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>min_belanja</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>kuota</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">100</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>terpakai</strong></span></td>
+                <td><span class="code">int(11)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">0</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>khusus</strong></span></td>
+                <td><span class="code">varchar(255)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">semua</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>is_active</strong></span></td>
+                <td><span class="code">tinyint(1)</span></td>
+                <td><strong>NO</strong></td>
+                <td><span class="code">1</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>berlaku_sampai</strong></span></td>
+                <td><span class="code">date</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>created_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        
+            <tr>
+                <td><span class="code"><strong>updated_at</strong></span></td>
+                <td><span class="code">timestamp</span></td>
+                <td><span class="badge-null">YES</span></td>
+                <td><span class="code">NULL</span></td>
+                <td>-</td>
+            </tr>
+        </tbody></table>
+<div class="page-break"></div>
+<h1>5. Analisis Kardinalitas dan Validasi Temuan</h1>
+
+<h2>Penjelasan Kardinalitas Relasi</h2>
+<ul>
+    <li><strong>USERS &rarr; ORDERS (1 : N)</strong>: Satu user dapat memiliki riwayat banyak pesanan; setiap pesanan wajib dimiliki oleh satu user tertentu.</li>
+    <li><strong>PRODUCTS &rarr; PRODUCT_VARIANTS (1 : N)</strong>: Satu produk menaungi banyak varian (ukuran & warna). Setiap varian memiliki stok dan SKU terpisah (3NF).</li>
+    <li><strong>ORDERS &rarr; ORDER_ITEMS (1 : N)</strong>: Faktur pesanan memuat banyak rincian barang. Di tabel <code>order_items</code>, harga produk di-*snapshot* (disimpan permanen) agar jika harga master berubah di masa depan, total historis transaksi tidak berubah.</li>
+    <li><strong>Relasi Many-to-Many (M : N)</strong>: Hubungan M:N ditransformasikan melalui tabel perantara:
+        <ul>
+            <li><code>ORDERS</code> dan <code>PRODUCTS</code> &rarr; dihubungkan oleh <code>order_items</code>.</li>
+            <li><code>PENERIMAAN</code> dan <code>PRODUCTS</code> &rarr; dihubungkan oleh <code>penerimaan_items</code>.</li>
+            <li><code>RETURS</code> dan <code>ORDER_ITEMS</code> &rarr; dihubungkan oleh <code>retur_items</code>.</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>Hasil Validasi & Temuan Khusus</h2>
+<ol>
+    <li><strong>Pemisahan Tabel Framework</strong>: Dari 30 tabel pada database, sebanyak 8 tabel utilitas framework Laravel tidak dimasukkan ke dalam ERD/LRS bisnis untuk menjaga integritas model konseptual e-commerce.</li>
+    <li><strong>Pengecualian FK Fisik pada OTP</strong>: Tabel <code>otps</code> tidak memiliki foreign key constraint ke <code>users.id</code> karena kode verifikasi dikirimkan sebelum akun pengguna berhasil didaftarkan.</li>
+    <li><strong>Integritas Audit Trail</strong>: Seluruh pergerakan stok dicatat dalam buku besar <code>stock_mutations</code>, dan seluruh aksi krusial dicatat dalam <code>activity_logs</code>.</li>
+</ol>
+</body>
+</html>

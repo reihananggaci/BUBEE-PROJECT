@@ -1,0 +1,1575 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3270 2008" width="3270" height="2008" style="background-color: #F8FAFC; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    <defs>
+        <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.2" fill="#E2E8F0" />
+        </pattern>
+        <filter id="card-shadow" x="-3%" y="-2%" width="106%" height="108%" filterUnits="userSpaceOnUse">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.07" />
+        </filter>
+        <marker id="arrow-lrs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#2563EB" />
+        </marker>
+        <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#059669" />
+        </marker>
+        <marker id="arrow-amber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#D97706" />
+        </marker>
+        <marker id="arrow-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#7C3AED" />
+        </marker>
+        <marker id="crowsfoot" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 6 L 12 6 M 0 1 L 12 6 L 0 11" stroke="#2563EB" stroke-width="1.6" fill="none" />
+        </marker>
+    </defs>
+    
+    <!-- Background Grid -->
+    <rect width="100%" height="100%" fill="url(#grid)" />
+    
+    <!-- Top Header Banner -->
+    <rect x="0" y="0" width="3270" height="86" fill="#0F172A" />
+    <text x="60" y="40" fill="#FFFFFF" font-size="22" font-weight="800" letter-spacing="0.5">BUBEE PROJECT - LOGICAL RECORD STRUCTURE (LRS)</text>
+    <text x="60" y="66" fill="#94A3B8" font-size="13" font-weight="500">Model Struktur Relasi Basis Data Relasional (*PK = Primary Key, **FK = Foreign Key) | 22 Tabel Aktual</text>
+    
+    <!-- Legend / Modules Summary Bar -->
+    <g transform="translate(2430, 28)">
+        <rect x="0" y="0" width="14" height="14" rx="3" fill="#1E40AF"/>
+        <text x="22" y="11" fill="#E2E8F0" font-size="12" font-weight="600">Pengguna (3)</text>
+        
+        <rect x="135" y="0" width="14" height="14" rx="3" fill="#065F46"/>
+        <text x="157" y="11" fill="#E2E8F0" font-size="12" font-weight="600">Katalog &amp; Varian (4)</text>
+        
+        <rect x="320" y="0" width="14" height="14" rx="3" fill="#4338CA"/>
+        <text x="342" y="11" fill="#E2E8F0" font-size="12" font-weight="600">Transaksi (5)</text>
+        
+        <rect x="450" y="0" width="14" height="14" rx="3" fill="#B45309"/>
+        <text x="472" y="11" fill="#E2E8F0" font-size="12" font-weight="600">Pasca Jual (5)</text>
+        
+        <rect x="585" y="0" width="14" height="14" rx="3" fill="#6D28D9"/>
+        <text x="607" y="11" fill="#E2E8F0" font-size="12" font-weight="600">Gudang &amp; Stok (5)</text>
+    </g>
+    <g class="relationship-lines" opacity="0.88"><path d="M 276.0 550.0 C 276.0 568.0, 276.0 820.0, 276.0 838.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="260.0" y="679.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="276.0" y="691.0" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 170.0 C 1275.0 170.0, 1275.0 165.0, 1320.0 165.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1259.0" y="152.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="1275.0" y="164.5" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 960.0 170.0, 960.0 165.0, 1320.0 165.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="944.0" y="152.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="960.0" y="164.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 628.0 C 1275.0 628.0, 1275.0 165.0, 1320.0 165.0" fill="none" stroke="#047857" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1259.0" y="381.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#047857" stroke-width="1.2"/><text x="1275.0" y="393.5" fill="#047857" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1536.0 1334.0 C 1536.0 1352.0, 1536.0 1648.0, 1536.0 1666.0" fill="none" stroke="#312E81" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1520.0" y="1485.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#312E81" stroke-width="1.2"/><text x="1536.0" y="1497.0" fill="#312E81" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 2796.0 1154.0 C 2796.0 1172.0, 2796.0 1164.0, 2796.0 1182.0" fill="none" stroke="#7C3AED" stroke-width="2.2" marker-end="url(#arrow-purple)" /><rect x="2780.0" y="1153.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="1.2"/><text x="2796.0" y="1165.0" fill="#7C3AED" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 628.0 C 1905.0 628.0, 1905.0 1227.0, 2580.0 1227.0" fill="none" stroke="#047857" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1889.0" y="912.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#047857" stroke-width="1.2"/><text x="1905.0" y="924.5" fill="#047857" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 1590.0 170.0, 1590.0 1011.0, 2580.0 1011.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1574.0" y="575.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="1590.0" y="587.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1536.0 1334.0 C 1536.0 1352.0, 1536.0 1344.0, 1536.0 1362.0" fill="none" stroke="#312E81" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1520.0" y="1333.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#312E81" stroke-width="1.2"/><text x="1536.0" y="1345.0" fill="#312E81" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 170.0 C 1275.0 170.0, 1275.0 1407.0, 1320.0 1407.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1259.0" y="773.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="1275.0" y="785.5" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 628.0 C 1275.0 628.0, 1275.0 1407.0, 1320.0 1407.0" fill="none" stroke="#047857" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1259.0" y="1002.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#047857" stroke-width="1.2"/><text x="1275.0" y="1014.5" fill="#047857" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 960.0 170.0, 960.0 795.0, 1320.0 795.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="944.0" y="467.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="960.0" y="479.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1536.0 722.0 C 1536.0 740.0, 1536.0 732.0, 1536.0 750.0" fill="none" stroke="#6366F1" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1520.0" y="721.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#6366F1" stroke-width="1.2"/><text x="1536.0" y="733.0" fill="#6366F1" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 1590.0 170.0, 1590.0 469.0, 2580.0 469.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1574.0" y="304.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="1590.0" y="316.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 2796.0 634.0 C 2796.0 652.0, 2796.0 644.0, 2796.0 662.0" fill="none" stroke="#7C3AED" stroke-width="2.2" marker-end="url(#arrow-purple)" /><rect x="2780.0" y="633.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#7C3AED" stroke-width="1.2"/><text x="2796.0" y="645.0" fill="#7C3AED" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 170.0 C 1905.0 170.0, 1905.0 707.0, 2580.0 707.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1889.0" y="423.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="1905.0" y="435.5" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 628.0 C 1905.0 628.0, 1905.0 707.0, 2580.0 707.0" fill="none" stroke="#047857" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1889.0" y="652.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#047857" stroke-width="1.2"/><text x="1905.0" y="664.5" fill="#047857" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 906.0 550.0 C 906.0 568.0, 906.0 886.0, 906.0 904.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="890.0" y="712.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="906.0" y="724.0" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 906.0 550.0 C 906.0 568.0, 906.0 1124.0, 906.0 1142.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="890.0" y="831.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="906.0" y="843.0" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 906.0 550.0 C 906.0 568.0, 906.0 560.0, 906.0 578.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="890.0" y="549.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="906.0" y="561.0" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1860.0 1412.0 C 1905.0 1412.0, 1905.0 469.0, 1950.0 469.0" fill="none" stroke="#4338CA" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1889.0" y="925.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#4338CA" stroke-width="1.2"/><text x="1905.0" y="937.5" fill="#4338CA" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 2166.0 396.0 C 2166.0 414.0, 2166.0 406.0, 2166.0 424.0" fill="none" stroke="#B45309" stroke-width="2.2" marker-end="url(#arrow-amber)" /><rect x="2150.0" y="395.0" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#B45309" stroke-width="1.2"/><text x="2166.0" y="407.0" fill="#B45309" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1860.0 800.0 C 1905.0 800.0, 1905.0 165.0, 1950.0 165.0" fill="none" stroke="#312E81" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1889.0" y="467.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#312E81" stroke-width="1.2"/><text x="1905.0" y="479.5" fill="#312E81" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 1275.0 170.0, 1275.0 165.0, 1950.0 165.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1259.0" y="152.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="1275.0" y="164.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1860.0 800.0 C 1905.0 800.0, 1905.0 685.0, 1950.0 685.0" fill="none" stroke="#312E81" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1889.0" y="727.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#312E81" stroke-width="1.2"/><text x="1905.0" y="739.5" fill="#312E81" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 170.0 C 1590.0 170.0, 1590.0 685.0, 1950.0 685.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1574.0" y="412.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="1590.0" y="424.5" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 600.0 170.0 C 1275.0 170.0, 1275.0 685.0, 1950.0 685.0" fill="none" stroke="#1E40AF" stroke-width="2.2" marker-end="url(#arrow-lrs)" /><rect x="1259.0" y="412.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#1E40AF" stroke-width="1.2"/><text x="1275.0" y="424.5" fill="#1E40AF" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 170.0 C 1905.0 170.0, 1905.0 165.0, 2580.0 165.0" fill="none" stroke="#065F46" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1889.0" y="152.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#065F46" stroke-width="1.2"/><text x="1905.0" y="164.5" fill="#065F46" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text><path d="M 1230.0 628.0 C 1905.0 628.0, 1905.0 165.0, 2580.0 165.0" fill="none" stroke="#047857" stroke-width="2.2" marker-end="url(#arrow-green)" /><rect x="1889.0" y="381.5" width="32" height="15" rx="4" fill="#FFFFFF" stroke="#047857" stroke-width="1.2"/><text x="1905.0" y="393.5" fill="#047857" font-size="9.5" font-weight="800" text-anchor="middle">1:N</text></g>
+        <g class="table-card" transform="translate(60, 120)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="430" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#1E3A8A" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">USERS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Pengguna &amp; Autentikasi | 17 Kolom | 4 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="79" r="2.5" fill="#94A3B8" />
+                <text x="36" y="83" fill="#1E293B" font-size="11.5" font-weight="500">name<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="105" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="105" fill="#92400E" font-size="11.5" font-weight="700">email<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">role<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">status_reseller<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="160" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="171" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="171" fill="#92400E" font-size="11.5" font-weight="700">hp<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">alamat<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">toko_nama<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(60) [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">nik<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(25) [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">notif_wa<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(1) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">ktp_foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="288" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="299" r="2.5" fill="#94A3B8" />
+                <text x="36" y="303" fill="#1E293B" font-size="11.5" font-weight="500">email_verified_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="303" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="310" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="321" r="2.5" fill="#94A3B8" />
+                <text x="36" y="325" fill="#1E293B" font-size="11.5" font-weight="500">daftar_coba<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="325" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(3) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="332" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="343" r="2.5" fill="#94A3B8" />
+                <text x="36" y="347" fill="#1E293B" font-size="11.5" font-weight="500">password<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="347" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="354" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="365" r="2.5" fill="#94A3B8" />
+                <text x="36" y="369" fill="#1E293B" font-size="11.5" font-weight="500">remember_token<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="369" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(100) [NULL]</text>
+            </g>
+            <rect x="1" y="376" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="387" r="2.5" fill="#94A3B8" />
+                <text x="36" y="391" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="391" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="398" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="409" r="2.5" fill="#94A3B8" />
+                <text x="36" y="413" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="413" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(60, 578)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="232" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#1E3A8A" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">OTPS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Pengguna &amp; Autentikasi | 8 Kolom | 1 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="79" r="2.5" fill="#94A3B8" />
+                <text x="36" y="83" fill="#1E293B" font-size="11.5" font-weight="500">email<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">kode_hash<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">percobaan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(3) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">kedaluwarsa_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">dipakai_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(60, 838)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="298" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#1E293B" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">ACTIVITY_LOGS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Audit Keamanan | 11 Kolom | 78 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** actor_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">aksi<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(50) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">kategori<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(20) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">level<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(10) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">subjek<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(100) [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">keterangan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">ip<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(45) [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">tautan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(200) [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(690, 120)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="430" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#064E3B" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PRODUCTS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Katalog Master | 17 Kolom | 58 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="79" r="2.5" fill="#94A3B8" />
+                <text x="36" y="83" fill="#1E293B" font-size="11.5" font-weight="500">nama<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">deskripsi<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">kategori<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(50) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">berat_gram<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">panjang_cm<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">lebar_cm<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">tinggi_cm<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">stok<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">harga_enduser<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="288" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="299" r="2.5" fill="#94A3B8" />
+                <text x="36" y="303" fill="#1E293B" font-size="11.5" font-weight="500">harga_reseller<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="303" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="310" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="321" r="2.5" fill="#94A3B8" />
+                <text x="36" y="325" fill="#1E293B" font-size="11.5" font-weight="500">min_reseller<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="325" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="332" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="343" r="2.5" fill="#94A3B8" />
+                <text x="36" y="347" fill="#1E293B" font-size="11.5" font-weight="500">is_active<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="347" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(1) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="354" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="365" r="2.5" fill="#94A3B8" />
+                <text x="36" y="369" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="369" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="376" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="387" r="2.5" fill="#94A3B8" />
+                <text x="36" y="391" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="391" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="398" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="409" r="2.5" fill="#94A3B8" />
+                <text x="36" y="413" fill="#1E293B" font-size="11.5" font-weight="500">deleted_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="413" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(690, 578)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="298" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#065F46" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PRODUCT_VARIANTS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Varian Ukuran &amp; Warna | 11 Kolom | 292 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">ukuran<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(20) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">warna<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(30) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">stok<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">harga_enduser<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(10) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">harga_reseller<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(10) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">berat_gram<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(10) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="226" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="237" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="237" fill="#92400E" font-size="11.5" font-weight="700">sku<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(690, 904)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="210" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#047857" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PRODUCT_IMAGES</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Galeri Media | 7 Kolom | 278 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">judul<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">urutan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(690, 1142)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="210" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#0F766E" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PRODUCT_PRICES</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Harga Tiering Reseller | 7 Kolom | 296 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">level<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(20) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">min_qty<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">price<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1320, 120)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="210" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#3730A3" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">CARTS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Keranjang Belanja | 7 Kolom | 4 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="116" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="127" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="127" fill="#991B1B" font-size="11.5" font-weight="700">** variant_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; product_variants.id</tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">qty<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1320, 358)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="364" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#4F46E5" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">VOUCHERS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Kupon &amp; Promosi | 14 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="83" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="83" fill="#92400E" font-size="11.5" font-weight="700">kode<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">nama<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">tipe<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">nilai<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">maks_diskon<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">min_belanja<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">kuota<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">terpakai<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">khusus<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">is_active<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(1) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="288" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="299" r="2.5" fill="#94A3B8" />
+                <text x="36" y="303" fill="#1E293B" font-size="11.5" font-weight="500">berlaku_sampai<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="303" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">date [NULL]</text>
+            </g>
+            <rect x="1" y="310" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="321" r="2.5" fill="#94A3B8" />
+                <text x="36" y="325" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="325" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="332" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="343" r="2.5" fill="#94A3B8" />
+                <text x="36" y="347" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="347" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1320, 750)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="584" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#1E1B4B" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">ORDERS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Faktur Transaksi | 24 Kolom | 2 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="105" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="105" fill="#92400E" font-size="11.5" font-weight="700">kode<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">total_produk<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">ongkir<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">ongkir_sumber<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">berat_tagih_gram<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="204" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="215" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="215" fill="#991B1B" font-size="11.5" font-weight="700">** voucher_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; vouchers.id</tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">diskon<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">total_bayar<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="266" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="277" r="2.5" fill="#94A3B8" />
+                <text x="36" y="281" fill="#1E293B" font-size="11.5" font-weight="500">kurir<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="281" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="288" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="299" r="2.5" fill="#94A3B8" />
+                <text x="36" y="303" fill="#1E293B" font-size="11.5" font-weight="500">layanan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="303" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="310" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="321" r="2.5" fill="#94A3B8" />
+                <text x="36" y="325" fill="#1E293B" font-size="11.5" font-weight="500">resi<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="325" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="332" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="343" r="2.5" fill="#94A3B8" />
+                <text x="36" y="347" fill="#1E293B" font-size="11.5" font-weight="500">alasan_batal<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="347" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(100) [NULL]</text>
+            </g>
+            <rect x="1" y="354" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="365" r="2.5" fill="#94A3B8" />
+                <text x="36" y="369" fill="#1E293B" font-size="11.5" font-weight="500">status<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="369" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="376" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="387" r="2.5" fill="#94A3B8" />
+                <text x="36" y="391" fill="#1E293B" font-size="11.5" font-weight="500">alamat<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="391" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="398" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="409" r="2.5" fill="#94A3B8" />
+                <text x="36" y="413" fill="#1E293B" font-size="11.5" font-weight="500">kota_tujuan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="413" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="420" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="431" r="2.5" fill="#94A3B8" />
+                <text x="36" y="435" fill="#1E293B" font-size="11.5" font-weight="500">city_id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="435" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="442" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="453" r="2.5" fill="#94A3B8" />
+                <text x="36" y="457" fill="#1E293B" font-size="11.5" font-weight="500">nama_penerima<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="457" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="464" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="475" r="2.5" fill="#94A3B8" />
+                <text x="36" y="479" fill="#1E293B" font-size="11.5" font-weight="500">hp_penerima<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="479" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="486" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="497" r="2.5" fill="#94A3B8" />
+                <text x="36" y="501" fill="#1E293B" font-size="11.5" font-weight="500">bukti_bayar<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="501" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="508" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="519" r="2.5" fill="#94A3B8" />
+                <text x="36" y="523" fill="#1E293B" font-size="11.5" font-weight="500">snap_token<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="523" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="530" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="541" r="2.5" fill="#94A3B8" />
+                <text x="36" y="545" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="545" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="552" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="563" r="2.5" fill="#94A3B8" />
+                <text x="36" y="567" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="567" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1320, 1362)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="276" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#3730A3" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">ORDER_ITEMS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Rincian Item Pembelian | 10 Kolom | 2 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** order_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; orders.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="116" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="127" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="127" fill="#991B1B" font-size="11.5" font-weight="700">** variant_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; product_variants.id</tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">qty<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">harga_satuan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">subtotal<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">tipe_harga<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1320, 1666)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="254" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#334155" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">NOTIFICATION_LOGS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Notifikasi Transaksi | 9 Kolom | 4 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="79" r="2.5" fill="#94A3B8" />
+                <text x="36" y="83" fill="#1E293B" font-size="11.5" font-weight="500">tipe<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">tujuan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">pesan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">status<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">response<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="182" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="193" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="193" fill="#991B1B" font-size="11.5" font-weight="700">** order_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; orders.id</tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1950, 120)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="276" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#92400E" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">RETURS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Layanan Purna Jual | 10 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** order_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; orders.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">alasan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">kategori<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(30) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">status<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">catatan_admin<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1950, 424)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="188" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#B45309" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">RETUR_ITEMS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Item Klaim Retur | 6 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** retur_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; returs.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** order_item_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; order_items.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">qty<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1950, 640)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="254" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#B45309" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">REVIEWS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Ulasan &amp; Rating | 9 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="116" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="127" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="127" fill="#991B1B" font-size="11.5" font-weight="700">** order_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; orders.id</tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">rating<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(4) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">ulasan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1950, 922)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="232" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#475569" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">FAQS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Pusat Bantuan | 8 Kolom | 8 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="79" r="2.5" fill="#94A3B8" />
+                <text x="36" y="83" fill="#1E293B" font-size="11.5" font-weight="500">topik<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(30) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">pertanyaan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">jawaban<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">urutan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">is_active<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">tinyint(1) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(1950, 1182)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="166" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#475569" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">SETTINGS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Konfigurasi Sistem | 5 Kolom | 16 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/><text x="28" y="83" fill="#92400E" font-size="9" font-weight="800" text-anchor="middle">UK</text>
+                <text x="54" y="83" fill="#92400E" font-size="11.5" font-weight="700">key<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">value<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">text [NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(2580, 120)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="276" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#5B21B6" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">STOCK_MUTATIONS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Buku Besar Stok | 10 Kolom | 3 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** variant_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; product_variants.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">tipe<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">qty<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">stok_sebelum<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">stok_sesudah<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">keterangan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(2580, 424)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="210" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#6D28D9" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PENERIMAAN</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Pasokan Masuk Pabrik | 7 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">no_surat_jalan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(50) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">supplier<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(100) [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">status<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(20) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(2580, 662)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="276" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#7C3AED" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">PENERIMAAN_ITEMS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Item Penerimaan | 10 Kolom | 0 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** penerimaan_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; penerimaan.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** product_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; products.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="116" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="127" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="127" fill="#991B1B" font-size="11.5" font-weight="700">** variant_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; product_variants.id</tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">qty_klaim<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">qty_lolos<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">qty_rusak<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">catatan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(200) [NULL]</text>
+            </g>
+            <rect x="1" y="222" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="233" r="2.5" fill="#94A3B8" />
+                <text x="36" y="237" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="237" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="244" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="255" r="2.5" fill="#94A3B8" />
+                <text x="36" y="259" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="259" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(2580, 966)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="188" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#6D28D9" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">OPNAME_SESI</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Audit Fisik Opname | 6 Kolom | 1 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** user_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; users.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="101" r="2.5" fill="#94A3B8" />
+                <text x="36" y="105" fill="#1E293B" font-size="11.5" font-weight="500">cakupan<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(50) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">status<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(20) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g>
+        <g class="table-card" transform="translate(2580, 1182)" filter="url(#card-shadow)">
+            <!-- Card Outer -->
+            <rect x="0" y="0" width="540" height="232" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" />
+            
+            <!-- Table Header -->
+            <path d="M 0 8 Q 0 0 8 0 L 532 0 Q 540 0 540 8 L 540 44 L 0 44 Z" fill="#7C3AED" />
+            <text x="16" y="24" fill="#FFFFFF" font-size="14" font-weight="800" letter-spacing="0.5">OPNAME_ITEMS</text>
+            <text x="16" y="37" fill="#E2E8F0" font-size="10.5" font-weight="500">Hasil Audit Rak Fisik | 8 Kolom | 74 Data</text>
+        <rect x="1" y="46" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="50" width="28" height="15" rx="3" fill="#DBEAFE" stroke="#3B82F6" stroke-width="1"/><text x="28" y="61" fill="#1E40AF" font-size="9" font-weight="800" text-anchor="middle">PK</text>
+                <text x="54" y="61" fill="#1E40AF" font-size="11.5" font-weight="700">* id<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="61" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="68" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <rect x="14" y="72" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="83" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="83" fill="#991B1B" font-size="11.5" font-weight="700">** sesi_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; opname_sesi.id</tspan></text>
+                <text x="526" y="83" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NOT NULL]</text>
+            </g>
+            <rect x="1" y="90" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <rect x="14" y="94" width="28" height="15" rx="3" fill="#FEE2E2" stroke="#EF4444" stroke-width="1"/><text x="28" y="105" fill="#991B1B" font-size="9" font-weight="800" text-anchor="middle">FK</text>
+                <text x="54" y="105" fill="#991B1B" font-size="11.5" font-weight="700">** variant_id<tspan fill="#64748B" font-size="9.5" font-weight="400"> -&gt; product_variants.id</tspan></text>
+                <text x="526" y="105" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">bigint(20) unsigned [NULL]</text>
+            </g>
+            <rect x="1" y="112" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="123" r="2.5" fill="#94A3B8" />
+                <text x="36" y="127" fill="#1E293B" font-size="11.5" font-weight="500">snapshot<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="127" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NOT NULL]</text>
+            </g>
+            <rect x="1" y="134" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="145" r="2.5" fill="#94A3B8" />
+                <text x="36" y="149" fill="#1E293B" font-size="11.5" font-weight="500">fisik<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="149" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">int(11) [NULL]</text>
+            </g>
+            <rect x="1" y="156" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="167" r="2.5" fill="#94A3B8" />
+                <text x="36" y="171" fill="#1E293B" font-size="11.5" font-weight="500">foto<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="171" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">varchar(255) [NULL]</text>
+            </g>
+            <rect x="1" y="178" width="538" height="22" fill="#FFFFFF" />
+            <g class="col-row">
+                <circle cx="19" cy="189" r="2.5" fill="#94A3B8" />
+                <text x="36" y="193" fill="#1E293B" font-size="11.5" font-weight="500">created_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="193" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            <rect x="1" y="200" width="538" height="22" fill="#F8FAFC" />
+            <g class="col-row">
+                <circle cx="19" cy="211" r="2.5" fill="#94A3B8" />
+                <text x="36" y="215" fill="#1E293B" font-size="11.5" font-weight="500">updated_at<tspan fill="#64748B" font-size="9.5" font-weight="400"></tspan></text>
+                <text x="526" y="215" fill="#64748B" font-size="10" text-anchor="end" font-family="'JetBrains Mono', Consolas, monospace">timestamp [NULL]</text>
+            </g>
+            </g></svg>
