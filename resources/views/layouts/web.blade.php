@@ -20,9 +20,12 @@ a,button{transition:filter .15s ease,transform .15s ease,background .15s ease}
 a:active,button:active{filter:brightness(.96)}
 :focus-visible{outline:2px solid #1D4ED8;outline-offset:2px;border-radius:8px}
 /* Navbar */
-.webnav a{font-size:13px;font-weight:800;color:#dbe7ff;text-decoration:none;padding:9px 16px;border-radius:9999px;white-space:nowrap}
+.webnav a{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:#dbe7ff;text-decoration:none;padding:8px 14px;border-radius:9999px;white-space:nowrap}
+.webnav a svg{width:16px;height:16px;flex-shrink:0;transition:transform .15s ease}
 .webnav a:hover{background:rgba(255,255,255,.16);color:#fff}
+.webnav a:hover svg{transform:scale(1.1)}
 .webnav a.active{background:#fff;color:#0B2A6B;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.webnav a.active svg{color:#0B2A6B}
 .whdr{box-shadow:0 4px 20px rgba(10,53,122,.35)}
 /* Kartu & tabel */
 main .shadow-card{box-shadow:0 8px 24px rgba(15,23,42,.08)}
@@ -70,18 +73,39 @@ main details>summary:hover{color:#1D4ED8}
 <a href="/" class="flex items-center gap-2" style="text-decoration:none"><img src="/images/logo-bubee.png" alt="Bubee" style="width:40px;height:40px;border-radius:12px;background:#fff;padding:2px"><span style="font-weight:800;letter-spacing:.16em;color:#fff">BUBEE</span></a>
 @php $dseg=request()->segment(1); @endphp
 <nav class="webnav hidden md:flex items-center gap-1 mx-auto" aria-label="Navigasi web">
-<a href="/" class="{{ $dseg===''?'active':'' }}">Beranda</a>
-<a href="/keranjang" class="{{ $dseg==='keranjang'?'active':'' }}">Keranjang</a>
-<a href="/pesanan" class="{{ $dseg==='pesanan'?'active':'' }}">Pesanan</a>
+<a href="/" class="{{ $dseg===''?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v11a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9"/></svg>
+    <span>Beranda</span>
+</a>
+<a href="/keranjang" class="{{ $dseg==='keranjang'?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2.5 3h3l2.4 12.3a1.5 1.5 0 0 0 1.5 1.2h9.8a1.5 1.5 0 0 0 1.5-1.2L22 7.5H6.2"/></svg>
+    <span>Keranjang</span>
+</a>
+<a href="/pesanan" class="{{ $dseg==='pesanan'?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3z"/><path d="M3.5 7.5 12 12l8.5-4.5"/><path d="M12 12v9"/></svg>
+    <span>Pesanan</span>
+</a>
 @if(auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved')
-<a href="/reseller" class="{{ $dseg==='reseller'?'active':'' }}">Reseller</a>
+<a href="/reseller" class="{{ $dseg==='reseller'?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 5h13L20 9.5"/><path d="M4 9.5h16V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/><path d="M9.5 20v-6h5v6"/></svg>
+    <span>Reseller</span>
+</a>
 @endif
 @if(auth()->check() && auth()->user()->role==='admin')
-<a href="/admin" class="{{ $dseg==='admin'?'active':'' }}">Admin</a>
+<a href="/admin" class="{{ $dseg==='admin'?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 2.8v5.4c0 4.6-3 7.6-7 9.3-4-1.7-7-4.7-7-9.3V5.8L12 3z"/><path d="M9.3 11.8l2 2 3.6-4"/></svg>
+    <span>Admin</span>
+</a>
 @else
-<a href="{{ auth()->check() ? '/akun' : '/login' }}" class="{{ in_array($dseg,['akun','login','register'])?'active':'' }}">Akun</a>
+<a href="{{ auth()->check() ? '/akun' : '/login' }}" class="{{ in_array($dseg,['akun','login','register'])?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.8 4.2-5.5 7.5-5.5s6.1 1.7 7.5 5.5"/></svg>
+    <span>Akun</span>
+</a>
 @endif
-<a href="/bantuan" class="{{ $dseg==='bantuan'?'active':'' }}">Bantuan</a>
+<a href="/bantuan" class="{{ $dseg==='bantuan'?'active':'' }}">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17.2" r=".5" fill="currentColor"/></svg>
+    <span>Bantuan</span>
+</a>
 </nav>
 <span class="md:hidden" style="flex:1"></span>
 @if(auth()->check())
