@@ -1,69 +1,219 @@
-# Dokumentasi ERD dan LRS - Project Bubee
+# Pemodelan Basis Data: ERD & LRS - Project Bubee
 
-Dokumen ini berisi pemodelan basis data sistem **Bubee** (Platform E-Commerce & Reseller Tumbler/Botol Minum) yang mencakup:
-1. **Interactive Visualizer & Editor (Bisa Digeser & Diedit)**:
-   - **Web Browser Interaktif**: Buka [`public/erd-lrs.html`](file:///c:/xampp/htdocs/project%20bubee/public/erd-lrs.html) di browser atau via URL `http://localhost:8000/erd-lrs.html`.
-   - **File Draw.io / Diagrams.net**: Buka file [`docs/BUBEE_ERD_LRS.drawio`](file:///c:/xampp/htdocs/project%20bubee/docs/BUBEE_ERD_LRS.drawio) di [app.diagrams.net](https://app.diagrams.net).
-2. **Entity Relationship Diagram (ERD)** — Model konseptual & relasi antar entitas beserta derajat kardinalitasnya.
-3. **Logical Record Structure (LRS)** — Transformasi struktur rekaman logis relasional hasil normalisasi basis data.
-4. **Spesifikasi Skema Relasi (Relational Schema)** — Notasi formal kunci utama (*PK) dan kunci tamu (**FK).
-5. **Kamus Data (Data Dictionary)** — Detail tipe data, atribut, nullability, dan fungsi setiap entitas.
-6. **Panduan Cara Menjelaskan ke Penguji / Klien** — Alur narasi 5 modul bisnis + contekan jawaban pertanyaan dosen/penguji.
+Dokumen ini memuat perancangan basis data **Project Bubee** (Platform E-Commerce & Reseller Tumbler/Botol Minum) secara mandiri dan lengkap di dalam file ini.
 
-File ini diletakkan terpisah di folder `docs/` agar tidak mengganggu maupun mengubah alur kode utama aplikasi.
+File ini memuat:
+1. **Diagram LRS (Logical Record Structure)** — Visual vektor langsung, diagram alur, dan struktur kunci (*PK & **FK).
+2. **Diagram ERD (Entity Relationship Diagram)** — Visual vektor langsung, model konseptual kardinalitas (1:N), dan atribut lengkap 22 entitas.
+3. **Diagram Modular & Naskah Presentasi (5 Modul)** — Diagram terpisah per tahapan bisnis + teks contekan untuk menjelaskan ke penguji/klien.
+4. **Spesifikasi Skema Relasi (Relational Schema)** — Format relasi formal database relasional.
+5. **Kamus Data (Data Dictionary)** — Detail tipe data, nullability, dan deskripsi seluruh field.
 
 ---
 
-## 🚀 Akses Cepat Alat Visualisasi & Editor (Interactive Canvas)
+## 1. Diagram Visual LRS (Logical Record Structure)
 
-| Alat | Cara Membuka | Fitur Utama |
-|---|---|---|
-| **Web Canvas Interaktif** | Buka `http://localhost:8000/erd-lrs.html` atau double-click `docs/erd-lrs.html` | ✅ Geser kotak tabel secara bebas (Drag & Drop)<br>✅ Garis konektor otomatis mengikuti posisi tabel<br>✅ Mode Switch ERD vs LRS<br>✅ Filter per modul bisnis<br>✅ Tambah/Edit tabel & kolom secara langsung |
-| **Draw.io / Diagrams.net** | Buka [app.diagrams.net](https://app.diagrams.net) -> Open Existing Diagram -> pilih `docs/BUBEE_ERD_LRS.drawio` | ✅ Page 1: ERD Konseptual<br>✅ Page 2: LRS Relasional<br>✅ Page 3: Diagram Alur Presentasi<br>✅ Siap diekspor ke PDF/PNG/SVG untuk laporan skripsi/dokumen teknis |
+**LRS (Logical Record Structure)** memodelkan struktur rekaman fisik-logis tabel basis data setelah normalisasi (3NF).
+- `*` menandakan **Primary Key (PK)**
+- `**` menandakan **Foreign Key (FK)**
+
+### 1.1 Bagan Visual Vektor LRS
+![Diagram LRS](lrs_diagram.svg)
+
+*(Jika membuka file markdown ini di VS Code, klik tombol **Open Preview to the Side** [Ctrl+Shift+V] untuk melihat bagan visual di atas secara langsung).*
 
 ---
 
-## 🎤 Panduan Cara Menjelaskan ERD & LRS ke Dosen / Penguji
+### 1.2 Diagram Alur Relasi LRS (Mermaid Flowchart)
 
-Agar tidak bingung menjelaskan 22 tabel sekaligus, jelaskan menggunakan **Metode 5 Modul Alur Bisnis (End-to-End Flow)** berikut:
+```mermaid
+flowchart LR
+    classDef pkStyle fill:#1E40AF,stroke:#1D4ED8,stroke-width:2px,color:#FFFFFF,font-weight:bold;
+    classDef fkStyle fill:#DC2626,stroke:#B91C1C,stroke-width:1.5px,color:#FFFFFF,font-weight:bold;
+    classDef tableStyle fill:#F8FAFC,stroke:#94A3B8,stroke-width:1.5px,color:#0F172A;
+    classDef transStyle fill:#EFF6FF,stroke:#3B82F6,stroke-width:1.5px,color:#0F172A;
 
+    subgraph USERS_BOX ["USERS (Tabel Pengguna)"]
+        direction TB
+        U_PK["* id [PK]"]:::pkStyle
+        U_COLS["name<br/>email (UK)<br/>role<br/>status_reseller<br/>hp (UK)<br/>alamat<br/>nik<br/>ktp_foto"]
+    end
+    USERS_BOX:::tableStyle
+
+    subgraph PRODUCTS_BOX ["PRODUCTS (Tabel Produk Induk)"]
+        direction TB
+        P_PK["* id [PK]"]:::pkStyle
+        P_COLS["nama<br/>sku<br/>kategori<br/>stok<br/>harga_enduser<br/>harga_reseller<br/>is_active"]
+    end
+    PRODUCTS_BOX:::tableStyle
+
+    subgraph VARIANTS_BOX ["PRODUCT_VARIANTS"]
+        direction TB
+        PV_PK["* id [PK]"]:::pkStyle
+        PV_FK["** product_id [FK]"]:::fkStyle
+        PV_COLS["ukuran<br/>warna<br/>stok<br/>harga_enduser<br/>harga_reseller<br/>sku"]
+    end
+    VARIANTS_BOX:::tableStyle
+
+    subgraph IMAGES_BOX ["PRODUCT_IMAGES"]
+        direction TB
+        PIMG_PK["* id [PK]"]:::pkStyle
+        PIMG_FK["** product_id [FK]"]:::fkStyle
+        PIMG_COLS["foto<br/>judul<br/>urutan"]
+    end
+    IMAGES_BOX:::tableStyle
+
+    subgraph PRICES_BOX ["PRODUCT_PRICES"]
+        direction TB
+        PP_PK["* id [PK]"]:::pkStyle
+        PP_FK["** product_id [FK]"]:::fkStyle
+        PP_COLS["level<br/>min_qty<br/>price"]
+    end
+    PRICES_BOX:::tableStyle
+
+    subgraph CARTS_BOX ["CARTS (Keranjang Belanja)"]
+        direction TB
+        C_PK["* id [PK]"]:::pkStyle
+        C_FK["** user_id [FK]<br/>** product_id [FK]<br/>** variant_id [FK]"]:::fkStyle
+        C_COLS["qty"]
+    end
+    CARTS_BOX:::transStyle
+
+    subgraph VOUCHERS_BOX ["VOUCHERS (Promo / Diskon)"]
+        direction TB
+        V_PK["* id [PK]"]:::pkStyle
+        V_COLS["kode (UK)<br/>tipe<br/>nilai<br/>maks_diskon<br/>min_belanja<br/>kuota<br/>terpakai"]
+    end
+    VOUCHERS_BOX:::tableStyle
+
+    subgraph ORDERS_BOX ["ORDERS (Faktur Pesanan)"]
+        direction TB
+        O_PK["* id [PK]"]:::pkStyle
+        O_FK["** user_id [FK]<br/>** voucher_id [FK]"]:::fkStyle
+        O_COLS["kode (UK)<br/>total_produk<br/>ongkir<br/>diskon<br/>total_bayar<br/>kurir<br/>resi<br/>status"]
+    end
+    ORDERS_BOX:::transStyle
+
+    subgraph ORDER_ITEMS_BOX ["ORDER_ITEMS (Rincian Item)"]
+        direction TB
+        OI_PK["* id [PK]"]:::pkStyle
+        OI_FK["** order_id [FK]<br/>** product_id [FK]<br/>** variant_id [FK]"]:::fkStyle
+        OI_COLS["qty<br/>harga_satuan (Snapshot)<br/>subtotal<br/>tipe_harga"]
+    end
+    ORDER_ITEMS_BOX:::transStyle
+
+    subgraph RETURS_BOX ["RETURS (Pengajuan Klaim)"]
+        direction TB
+        R_PK["* id [PK]"]:::pkStyle
+        R_FK["** order_id [FK]<br/>** user_id [FK]"]:::fkStyle
+        R_COLS["kategori<br/>alasan<br/>foto<br/>status<br/>catatan_admin"]
+    end
+    RETURS_BOX:::tableStyle
+
+    subgraph RETUR_ITEMS_BOX ["RETUR_ITEMS"]
+        direction TB
+        RI_PK["* id [PK]"]:::pkStyle
+        RI_FK["** retur_id [FK]<br/>** order_item_id [FK]"]:::fkStyle
+        RI_COLS["qty"]
+    end
+    RETUR_ITEMS_BOX:::tableStyle
+
+    subgraph REVIEWS_BOX ["REVIEWS (Ulasan Pembeli)"]
+        direction TB
+        REV_PK["* id [PK]"]:::pkStyle
+        REV_FK["** product_id [FK]<br/>** user_id [FK]<br/>** order_id [FK]"]:::fkStyle
+        REV_COLS["rating<br/>ulasan<br/>foto"]
+    end
+    REVIEWS_BOX:::tableStyle
+
+    subgraph STOCK_MUTATIONS_BOX ["STOCK_MUTATIONS (Buku Besar Stok)"]
+        direction TB
+        SM_PK["* id [PK]"]:::pkStyle
+        SM_FK["** product_id [FK]<br/>** variant_id [FK]"]:::fkStyle
+        SM_COLS["tipe<br/>qty<br/>stok_sebelum<br/>stok_sesudah<br/>keterangan"]
+    end
+    STOCK_MUTATIONS_BOX:::tableStyle
+
+    subgraph PENERIMAAN_BOX ["PENERIMAAN (Pabrik Masuk)"]
+        direction TB
+        PEN_PK["* id [PK]"]:::pkStyle
+        PEN_FK["** user_id [FK]"]:::fkStyle
+        PEN_COLS["no_surat_jalan<br/>supplier<br/>status"]
+    end
+    PENERIMAAN_BOX:::tableStyle
+
+    subgraph PENERIMAAN_ITEMS_BOX ["PENERIMAAN_ITEMS"]
+        direction TB
+        PENI_PK["* id [PK]"]:::pkStyle
+        PENI_FK["** penerimaan_id [FK]<br/>** product_id [FK]<br/>** variant_id [FK]"]:::fkStyle
+        PENI_COLS["qty_klaim<br/>qty_lolos<br/>qty_rusak"]
+    end
+    PENERIMAAN_ITEMS_BOX:::tableStyle
+
+    subgraph OPNAME_SESI_BOX ["OPNAME_SESI (Audit Stok Fisik)"]
+        direction TB
+        OPN_PK["* id [PK]"]:::pkStyle
+        OPN_FK["** user_id [FK]"]:::fkStyle
+        OPN_COLS["cakupan<br/>status"]
+    end
+    OPNAME_SESI_BOX:::tableStyle
+
+    subgraph OPNAME_ITEMS_BOX ["OPNAME_ITEMS"]
+        direction TB
+        OPNI_PK["* id [PK]"]:::pkStyle
+        OPNI_FK["** sesi_id [FK]<br/>** variant_id [FK]"]:::fkStyle
+        OPNI_COLS["snapshot<br/>fisik<br/>foto"]
+    end
+    OPNAME_ITEMS_BOX:::tableStyle
+
+    %% Relasi LRS (Foreign Key Pointer)
+    U_PK -->|1:N| O_FK
+    U_PK -->|1:N| C_FK
+    U_PK -->|1:N| R_FK
+    U_PK -->|1:N| REV_FK
+    U_PK -->|1:N| PEN_FK
+    U_PK -->|1:N| OPN_FK
+
+    P_PK -->|1:N| PV_FK
+    P_PK -->|1:N| PIMG_FK
+    P_PK -->|1:N| PP_FK
+    P_PK -->|1:N| C_FK
+    P_PK -->|1:N| OI_FK
+    P_PK -->|1:N| REV_FK
+    P_PK -->|1:N| SM_FK
+    P_PK -->|1:N| PENI_FK
+
+    PV_PK -->|1:N| C_FK
+    PV_PK -->|1:N| OI_FK
+    PV_PK -->|1:N| SM_FK
+    PV_PK -->|1:N| PENI_FK
+    PV_PK -->|1:N| OPNI_FK
+
+    V_PK -->|1:N| O_FK
+
+    O_PK -->|1:N| OI_FK
+    O_PK -->|1:N| R_FK
+    O_PK -->|1:N| REV_FK
+
+    OI_PK -->|1:N| RI_FK
+    R_PK -->|1:N| RI_FK
+
+    PEN_PK -->|1:N| PENI_FK
+    OPN_PK -->|1:N| OPNI_FK
 ```
-[1. PENGGUNA] ➔ [2. PRODUK & VARIAN] ➔ [3. TRANSAKSI] ➔ [4. PASCA JUAL] ➔ [5. GUDANG]
-```
-
-### Modul 1: Autentikasi & Multi-Role Pengguna (`users`, `otps`, `activity_logs`)
-- **Penjelasan**: "Sistem Bubee memiliki 4 peran (`customer`, `reseller`, `admin`, `gudang`). Untuk pendaftaran dan pemulihan password, sistem menggunakan verifikasi OTP 6 digit (`otps`) dengan batas kedaluwarsa 15 menit. Setiap aktivitas krusial pengguna dicatat di `activity_logs` demi audit trail keamanan."
-
-### Modul 2: Katalog Produk Dinamis (`products`, `product_variants`, `product_images`, `product_prices`)
-- **Penjelasan**: "Satu produk tumbler dapat memiliki banyak varian ukuran dan warna (`product_variants`), multi galeri foto (`product_images`), serta tier harga fleksibel (`product_prices`). Pemisahan ini menerapkan normalisasi Third Normal Form (3NF) sehingga atribut fisik dan harga tidak duplikasi."
-
-### Modul 3: Keranjang & Transaksi Penjualan (`carts`, `orders`, `order_items`, `vouchers`, `notification_logs`)
-- **Penjelasan**: "User menampung barang di `carts`. Saat checkout, sistem membuat `orders` dan menduplikasi data pesanan ke `order_items`. Di tabel `order_items`, harga satuan di-*snapshot* (disimpan permanen) sehingga jika admin mengubah harga produk di masa depan, total historis transaksi masa lalu tidak ikut berubah."
-
-### Modul 4: Pasca Penjualan / Layanan Purna Jual (`returs`, `retur_items`, `reviews`)
-- **Penjelasan**: "Pelanggan yang sudah menerima pesanan dapat mengajukan klaim garansi/retur barang cacat (`returs` & `retur_items`) dengan unggah bukti video. Pelanggan juga dapat memberikan rating bintang 1–5 serta ulasan (`reviews`)."
-
-### Modul 5: Logistik & Manajemen Pergudangan (`stock_mutations`, `penerimaan`, `penerimaan_items`, `opname_sesi`, `opname_items`)
-- **Penjelasan**: "Setiap perubahan stok (penjualan, retur, koreksi) dicatat dalam buku besar `stock_mutations`. Stok masuk dari supplier dicatat melalui `penerimaan`, dan verifikasi berkala stok fisik gudang dikelola lewat sesi stock opname (`opname_sesi` & `opname_items`) untuk mendeteksi selisih barang."
 
 ---
 
-### 💡 FAQ Pertanyaan Dosen / Penguji yang Sering Ditanyakan
+## 2. Diagram Visual ERD (Entity Relationship Diagram)
 
-1. **Tanya: Mengapa tabel `product_variants` dipisahkan dari `products`?**
-   - **Jawab**: "Karena satu produk tumbler (misal Tyeso TS-8827) memiliki kombinasi ukuran (750ml, 900ml) dan warna (Putih, Toska, Sage, Pink). Masing-masing varian memiliki SKU independen dan jumlah stok fisik sendiri. Jika digabung di satu tabel, terjadi redudansi data yang melanggar aturan normalisasi basis data."
-2. **Tanya: Mengapa di `order_items` ada kolom `harga_satuan`, padahal harga sudah ada di `products` / `product_prices`?**
-   - **Jawab**: "Ini adalah prinsip *Data Immobility / Price Snapshot* pada sistem e-commerce finansial. Harga produk di tabel master bersifat dinamis (bisa naik/turun karena promo/inflasi). Jika di `order_items` hanya merujuk ke tabel master, laporan omzet masa lalu akan rusak setiap kali harga produk berubah."
-3. **Tanya: Bagaimana sistem membedakan harga Retail vs Reseller?**
-   - **Jawab**: "Di tabel `users`, ada status `status_reseller` dan role. Sistem secara dinamis membaca `product_prices` atau tier diskon reseller saat pengguna menambahkan barang ke keranjang atau checkout."
+**ERD (Entity Relationship Diagram)** menyajikan pemodelan konseptual tingkat entitas, seluruh atribut penyusun, serta derajat kardinalitas antar hubungan.
+
+### 2.1 Bagan Visual Vektor ERD
+![Diagram ERD](erd_diagram.svg)
 
 ---
 
----
-
-## 1. Entity Relationship Diagram (ERD)
-
-Diagram ERD di bawah ini memodelkan seluruh entitas inti, atribut kunci, serta hubungan keterhubungan antarentitas pada platform Bubee.
+### 2.2 Diagram Konseptual ERD Lengkap (Mermaid ERD)
 
 ```mermaid
 erDiagram
@@ -182,7 +332,7 @@ erDiagram
     PRODUCT_PRICES {
         bigint id PK
         bigint product_id FK
-        string level
+        int level
         int min_qty
         int price
         timestamp created_at
@@ -394,214 +544,141 @@ erDiagram
 
 ---
 
-## 2. Derajat Kardinalitas ERD
+### 2.3 Tabel Derajat Kardinalitas Lengkap
 
-| Relasi Antar Entitas | Jenis Relasi | Keterangan Kardinalitas |
+| Relasi Antar Entitas | Jenis Relasi | Aturan Bisnis & Kardinalitas |
 | :--- | :---: | :--- |
-| **USERS - ORDERS** | **1 : N** | Satu user dapat memiliki nol atau banyak pesanan (*orders*). Setiap pesanan harus dimiliki tepat oleh satu user. |
-| **USERS - CARTS** | **1 : N** | Satu user dapat menyimpan nol atau banyak item di keranjang (*carts*). |
-| **USERS - REVIEWS** | **1 : N** | Satu user dapat memberikan banyak ulasan produk yang telah dibelinya. |
-| **USERS - RETURS** | **1 : N** | Satu user dapat mengajukan banyak permohonan retur dari pesanan miliknya. |
-| **USERS - ACTIVITY_LOGS** | **1 : N** | Satu user/aktor dapat memiliki banyak rekaman aktivitas sistem (*audit trail*). |
-| **USERS - PENERIMAAN** | **1 : N** | Satu user staf/admin dapat mencatat banyak dokumen penerimaan barang masuk. |
-| **USERS - OPNAME_SESI** | **1 : N** | Satu user staf/admin gudang dapat membuka banyak sesi stock opname. |
-| **PRODUCTS - PRODUCT_VARIANTS** | **1 : N** | Satu produk dapat memiliki banyak varian (kombinasi warna dan ukuran kapasitas). |
-| **PRODUCTS - PRODUCT_IMAGES** | **1 : N** | Satu produk dapat memiliki banyak foto galeri dan foto varian. |
-| **PRODUCTS - PRODUCT_PRICES** | **1 : N** | Satu produk dapat memiliki banyak tingkatan harga grosir (*tier pricing*). |
-| **PRODUCTS - CARTS** | **1 : N** | Satu produk dapat dimasukkan ke dalam banyak keranjang belanja. |
-| **PRODUCTS - ORDER_ITEMS** | **1 : N** | Satu produk dapat dipesan dalam banyak item transaksi pesanan. |
-| **PRODUCTS - REVIEWS** | **1 : N** | Satu produk dapat menerima banyak ulasan rating pembeli. |
-| **PRODUCTS - STOCK_MUTATIONS** | **1 : N** | Satu produk dapat memiliki banyak riwayat mutasi penyesuaian stok. |
-| **PRODUCT_VARIANTS - ORDER_ITEMS** | **1 : N** | Satu varian produk tertentu dapat dipesan pada banyak item pesanan. |
-| **PRODUCT_VARIANTS - STOCK_MUTATIONS** | **1 : N** | Satu varian produk mencatat riwayat mutasi stok spesifik per ukuran/warna. |
-| **PRODUCT_VARIANTS - OPNAME_ITEMS** | **1 : N** | Satu varian produk dicatat stok fisik dan snapshot-nya dalam sesi opname. |
-| **VOUCHERS - ORDERS** | **1 : N** | Satu kode voucher promosi dapat diaplikasikan ke banyak pesanan pembeli. |
-| **ORDERS - ORDER_ITEMS** | **1 : N** | Satu pesanan (*orders*) terdiri dari satu atau banyak rincian item pesanan. |
-| **ORDERS - RETURS** | **1 : N** | Satu pesanan dapat memiliki permohonan retur (misal retur barang cacat/salah kirim). |
-| **ORDERS - NOTIFICATION_LOGS** | **1 : N** | Satu pesanan dapat memicu banyak pengiriman notifikasi (WA status, resi, faktur). |
-| **RETURS - RETUR_ITEMS** | **1 : N** | Satu berkas retur dapat memuat satu atau lebih barang yang diretur. |
-| **ORDER_ITEMS - RETUR_ITEMS** | **1 : N** | Item pesanan tertentu menjadi rujukan barang pada retur item. |
-| **PENERIMAAN - PENERIMAAN_ITEMS** | **1 : N** | Satu surat jalan penerimaan barang memuat banyak baris item barang masuk. |
-| **OPNAME_SESI - OPNAME_ITEMS** | **1 : N** | Satu sesi opname fisik gudang memuat banyak baris pemeriksaan varian. |
+| **USERS - ORDERS** | **1 : N** | 1 Pengguna dapat membuat banyak pesanan; setiap pesanan wajib memiliki 1 pengguna. |
+| **USERS - CARTS** | **1 : N** | 1 Pengguna dapat menampung banyak barang di keranjang belanja. |
+| **USERS - REVIEWS** | **1 : N** | 1 Pengguna dapat menulis banyak ulasan terhadap barang yang telah dibeli. |
+| **USERS - RETURS** | **1 : N** | 1 Pengguna dapat mengajukan komplain/retur barang pesanan. |
+| **USERS - ACTIVITY_LOGS** | **1 : N** | 1 Pengguna memiliki banyak catatan histori aktivitas sistem (audit log). |
+| **USERS - PENERIMAAN** | **1 : N** | 1 Staf penerima dapat mencatat banyak dokumen penerimaan barang pabrik. |
+| **USERS - OPNAME_SESI** | **1 : N** | 1 Staf gudang dapat mengelola banyak sesi pemeriksaan fisik stok opname. |
+| **PRODUCTS - PRODUCT_VARIANTS** | **1 : N** | 1 Produk tumbler memiliki banyak varian kombinasi ukuran & warna. |
+| **PRODUCTS - PRODUCT_IMAGES** | **1 : N** | 1 Produk memiliki banyak foto slider galeri. |
+| **PRODUCTS - PRODUCT_PRICES** | **1 : N** | 1 Produk memiliki banyak tingkatan tier harga diskon reseller. |
+| **PRODUCTS - CARTS** | **1 : N** | 1 Produk dapat dimasukkan ke dalam banyak keranjang belanja pembeli. |
+| **PRODUCTS - ORDER_ITEMS** | **1 : N** | 1 Produk dapat tercatat pada banyak transaksi pembelian. |
+| **PRODUCTS - REVIEWS** | **1 : N** | 1 Produk dapat menerima banyak testimoni/ulasan pembeli. |
+| **PRODUCTS - STOCK_MUTATIONS** | **1 : N** | 1 Produk mencatat riwayat perubahan stok pada tabel mutasi. |
+| **PRODUCT_VARIANTS - ORDER_ITEMS** | **1 : N** | 1 Varian spesifik (misal 750ml Putih) dipesan pada banyak item pesanan. |
+| **PRODUCT_VARIANTS - STOCK_MUTATIONS** | **1 : N** | 1 Varian spesifik mengalami riwayat mutasi stok keluar/masuk. |
+| **PRODUCT_VARIANTS - OPNAME_ITEMS** | **1 : N** | 1 Varian spesifik dihitung stok riilnya pada formulir sesi opname. |
+| **VOUCHERS - ORDERS** | **1 : N** | 1 Kode voucher dapat digunakan pada banyak transaksi pesanan. |
+| **ORDERS - ORDER_ITEMS** | **1 : N** | 1 Faktur pesanan memuat satu atau lebih rincian item barang yang dibeli. |
+| **ORDERS - RETURS** | **1 : N** | 1 Pesanan dapat diajukan permohonan klaim barang rusak / garansi retur. |
+| **ORDERS - NOTIFICATION_LOGS** | **1 : N** | 1 Pesanan memicu beberapa pengiriman notifikasi pesan WhatsApp. |
+| **RETURS - RETUR_ITEMS** | **1 : N** | 1 Pengajuan retur memuat satu atau lebih barang yang dikomplain. |
+| **ORDER_ITEMS - RETUR_ITEMS** | **1 : N** | Baris rincian pesanan menjadi acuan barang yang diretur. |
+| **PENERIMAAN - PENERIMAAN_ITEMS** | **1 : N** | 1 Surat jalan penerimaan memuat banyak barang kiriman supplier. |
+| **OPNAME_SESI - OPNAME_ITEMS** | **1 : N** | 1 Sesi pemeriksaan opname memuat banyak baris pengecekan varian. |
 
 ---
 
-## 3. Logical Record Structure (LRS)
+## 3. Diagram Modular & Panduan Presentasi (5 Modul Bisnis)
 
-**LRS (Logical Record Structure)** merupakan representasi diagram blok struktur rekaman logis setelah proses pemetaan dan normalisasi dilakukan dari model ERD konseptual.
+> **Tips Saat Presentasi / Sidang Tugas Akhir**:
+> Jangan menjelaskan 22 tabel sekaligus karena akan membingungkan pendengar. Jelaskan basis data Bubee menggunakan **5 Alur Bisnis Berurutan** di bawah ini:
 
-### Aturan Transformasi ERD ke LRS:
-1. **Relasi 1 : N (One-to-Many):**
-   Primary Key (*PK) dari sisi "One" diduplikasi masuk ke dalam tabel sisi "Many" sebagai Foreign Key (**FK).
-   Contoh: `USERS.id` masuk ke `ORDERS` sebagai `user_id`. `PRODUCTS.id` masuk ke `PRODUCT_VARIANTS` sebagai `product_id`.
-2. **Relasi M : N (Many-to-Many):**
-   Didekomposisi menjadi entitas asosiatif/relasional perantara dengan menyatukan Foreign Key dari kedua belah pihak:
-   - Hubungan Banyak-ke-Banyak antara `ORDERS` dan `PRODUCTS`/`PRODUCT_VARIANTS` diwujudkan oleh tabel asosiatif **`ORDER_ITEMS`**.
-   - Hubungan Banyak-ke-Banyak antara `PENERIMAAN` dan `PRODUCTS` diwujudkan oleh tabel asosiatif **`PENERIMAAN_ITEMS`**.
-   - Hubungan Banyak-ke-Banyak antara `RETURS` dan `ORDER_ITEMS` diwujudkan oleh tabel asosiatif **`RETUR_ITEMS`**.
+```
+[1. PENGGUNA] ➔ [2. PRODUK & VARIAN] ➔ [3. TRANSAKSI] ➔ [4. PASCA JUAL] ➔ [5. GUDANG]
+```
 
-### Diagram Visual LRS
+---
+
+### 3.1 Modul 1: Pengguna & Hak Akses Multi-Peran
+**Tabel Terlibat:** `users`, `otps`, `activity_logs`
 
 ```mermaid
-flowchart LR
-    classDef pkStyle fill:#1E40AF,stroke:#1D4ED8,stroke-width:2px,color:#FFFFFF,font-weight:bold;
-    classDef tableStyle fill:#F8FAFC,stroke:#94A3B8,stroke-width:1.5px,color:#0F172A;
-    classDef transStyle fill:#EFF6FF,stroke:#3B82F6,stroke-width:1.5px,color:#0F172A;
-
-    subgraph USERS_BLOCK ["USERS"]
-        direction TB
-        U_PK["*id [PK]"]:::pkStyle
-        U_ATT["name<br/>email<br/>password<br/>role<br/>status_reseller<br/>hp<br/>nik<br/>alamat"]
-    end
-    USERS_BLOCK:::tableStyle
-
-    subgraph PRODUCTS_BLOCK ["PRODUCTS"]
-        direction TB
-        P_PK["*id [PK]"]:::pkStyle
-        P_ATT["nama<br/>sku<br/>kategori<br/>stok<br/>harga_enduser<br/>harga_reseller<br/>is_active"]
-    end
-    PRODUCTS_BLOCK:::tableStyle
-
-    subgraph VARIANTS_BLOCK ["PRODUCT_VARIANTS"]
-        direction TB
-        PV_PK["*id [PK]"]:::pkStyle
-        PV_FK["**product_id [FK]"]:::transStyle
-        PV_ATT["ukuran<br/>warna<br/>stok<br/>harga_enduser<br/>harga_reseller<br/>sku"]
-    end
-    VARIANTS_BLOCK:::tableStyle
-
-    subgraph IMAGES_BLOCK ["PRODUCT_IMAGES"]
-        direction TB
-        PIMG_PK["*id [PK]"]:::pkStyle
-        PIMG_FK["**product_id [FK]"]:::transStyle
-        PIMG_ATT["foto<br/>judul<br/>urutan"]
-    end
-    IMAGES_BLOCK:::tableStyle
-
-    subgraph VOUCHERS_BLOCK ["VOUCHERS"]
-        direction TB
-        V_PK["*id [PK]"]:::pkStyle
-        V_ATT["kode<br/>nama<br/>tipe<br/>nilai<br/>kuota<br/>terpakai"]
-    end
-    VOUCHERS_BLOCK:::tableStyle
-
-    subgraph ORDERS_BLOCK ["ORDERS"]
-        direction TB
-        O_PK["*id [PK]"]:::pkStyle
-        O_FK["**user_id [FK]<br/>**voucher_id [FK]"]:::transStyle
-        O_ATT["kode<br/>total_bayar<br/>status<br/>resi<br/>kurir<br/>alamat"]
-    end
-    ORDERS_BLOCK:::transStyle
-
-    subgraph ORDER_ITEMS_BLOCK ["ORDER_ITEMS"]
-        direction TB
-        OI_PK["*id [PK]"]:::pkStyle
-        OI_FK["**order_id [FK]<br/>**product_id [FK]<br/>**variant_id [FK]"]:::transStyle
-        OI_ATT["qty<br/>harga_satuan<br/>subtotal<br/>tipe_harga"]
-    end
-    ORDER_ITEMS_BLOCK:::transStyle
-
-    subgraph RETURS_BLOCK ["RETURS"]
-        direction TB
-        R_PK["*id [PK]"]:::pkStyle
-        R_FK["**order_id [FK]<br/>**user_id [FK]"]:::transStyle
-        R_ATT["kategori<br/>alasan<br/>status<br/>foto"]
-    end
-    RETURS_BLOCK:::tableStyle
-
-    subgraph RETUR_ITEMS_BLOCK ["RETUR_ITEMS"]
-        direction TB
-        RI_PK["*id [PK]"]:::pkStyle
-        RI_FK["**retur_id [FK]<br/>**order_item_id [FK]"]:::transStyle
-        RI_ATT["qty"]
-    end
-    RETUR_ITEMS_BLOCK:::tableStyle
-
-    subgraph REVIEWS_BLOCK ["REVIEWS"]
-        direction TB
-        REV_PK["*id [PK]"]:::pkStyle
-        REV_FK["**product_id [FK]<br/>**user_id [FK]<br/>**order_id [FK]"]:::transStyle
-        REV_ATT["rating<br/>ulasan<br/>foto"]
-    end
-    REVIEWS_BLOCK:::tableStyle
-
-    subgraph STOCK_MUTATIONS_BLOCK ["STOCK_MUTATIONS"]
-        direction TB
-        SM_PK["*id [PK]"]:::pkStyle
-        SM_FK["**product_id [FK]<br/>**variant_id [FK]"]:::transStyle
-        SM_ATT["tipe<br/>qty<br/>stok_sebelum<br/>stok_sesudah"]
-    end
-    STOCK_MUTATIONS_BLOCK:::tableStyle
-
-    subgraph PENERIMAAN_BLOCK ["PENERIMAAN"]
-        direction TB
-        PEN_PK["*id [PK]"]:::pkStyle
-        PEN_FK["**user_id [FK]"]:::transStyle
-        PEN_ATT["no_surat_jalan<br/>supplier<br/>status"]
-    end
-    PENERIMAAN_BLOCK:::tableStyle
-
-    subgraph PENERIMAAN_ITEMS_BLOCK ["PENERIMAAN_ITEMS"]
-        direction TB
-        PENI_PK["*id [PK]"]:::pkStyle
-        PENI_FK["**penerimaan_id [FK]<br/>**product_id [FK]<br/>**variant_id [FK]"]:::transStyle
-        PENI_ATT["qty_klaim<br/>qty_lolos<br/>qty_rusak"]
-    end
-    PENERIMAAN_ITEMS_BLOCK:::tableStyle
-
-    subgraph OPNAME_SESI_BLOCK ["OPNAME_SESI"]
-        direction TB
-        OPN_PK["*id [PK]"]:::pkStyle
-        OPN_FK["**user_id [FK]"]:::transStyle
-        OPN_ATT["cakupan<br/>status"]
-    end
-    OPNAME_SESI_BLOCK:::tableStyle
-
-    subgraph OPNAME_ITEMS_BLOCK ["OPNAME_ITEMS"]
-        direction TB
-        OPNI_PK["*id [PK]"]:::pkStyle
-        OPNI_FK["**sesi_id [FK]<br/>**variant_id [FK]"]:::transStyle
-        OPNI_ATT["snapshot<br/>fisik<br/>foto"]
-    end
-    OPNAME_ITEMS_BLOCK:::tableStyle
-
-    %% Relasi LRS (Foreign Key Pointer)
-    U_PK -->|1:N| O_FK
-    U_PK -->|1:N| R_FK
-    U_PK -->|1:N| PEN_FK
-    U_PK -->|1:N| OPN_FK
-    U_PK -->|1:N| REV_FK
-
-    P_PK -->|1:N| PV_FK
-    P_PK -->|1:N| PIMG_FK
-    P_PK -->|1:N| OI_FK
-    P_PK -->|1:N| REV_FK
-    P_PK -->|1:N| SM_FK
-    P_PK -->|1:N| PENI_FK
-
-    PV_PK -->|1:N| OI_FK
-    PV_PK -->|1:N| SM_FK
-    PV_PK -->|1:N| PENI_FK
-    PV_PK -->|1:N| OPNI_FK
-
-    V_PK -->|1:N| O_FK
-
-    O_PK -->|1:N| OI_FK
-    O_PK -->|1:N| R_FK
-    O_PK -->|1:N| REV_FK
-
-    OI_PK -->|1:N| RI_FK
-    R_PK -->|1:N| RI_FK
-
-    PEN_PK -->|1:N| PENI_FK
-    OPN_PK -->|1:N| OPNI_FK
+erDiagram
+    USERS ||--o{ OTPS : "verifikasi_akun"
+    USERS ||--o{ ACTIVITY_LOGS : "mencatat_aktivitas"
 ```
+
+* **Naskah Penjelasan**:
+  > *"Sistem Bubee mendukung 4 peran pengguna: Customer, Reseller, Admin, dan Gudang. Pendaftaran dan reset password dilindungi verifikasi OTP 6-digit terenkripsi (`otps`) berbatas waktu 15 menit. Setiap aksi penting pengguna dicatat di `activity_logs` untuk audit trail keamanan."*
+
+---
+
+### 3.2 Modul 2: Katalog Produk Dinamis & Normalisasi Varian
+**Tabel Terlibat:** `products`, `product_variants`, `product_images`, `product_prices`
+
+```mermaid
+erDiagram
+    PRODUCTS ||--o{ PRODUCT_VARIANTS : "memiliki_varian"
+    PRODUCTS ||--o{ PRODUCT_IMAGES : "memiliki_foto"
+    PRODUCTS ||--o{ PRODUCT_PRICES : "tier_harga_reseller"
+```
+
+* **Naskah Penjelasan**:
+  > *"Untuk produk tumbler, satu model memiliki banyak ukuran (750ml, 900ml) dan warna (Putih, Toska, Sage, Pink). Struktur ini menerapkan Third Normal Form (3NF) dengan memisahkan tabel `products` (informasi umum) dan `product_variants` (SKU dan stok fisik spesifik). Didukung multi galeri foto di `product_images` dan skema harga grosir di `product_prices`."*
+
+---
+
+### 3.3 Modul 3: Keranjang, Diskon & Transaksi Penjualan
+**Tabel Terlibat:** `carts`, `vouchers`, `orders`, `order_items`, `notification_logs`
+
+```mermaid
+erDiagram
+    USERS ||--o{ CARTS : "memiliki"
+    USERS ||--o{ ORDERS : "checkout"
+    VOUCHERS ||--o{ ORDERS : "diskon"
+    ORDERS ||--o{ ORDER_ITEMS : "memuat_item"
+    ORDERS ||--o{ NOTIFICATION_LOGS : "notifikasi_wa"
+```
+
+* **Naskah Penjelasan**:
+  > *"Pengguna memilih varian tumbler ke dalam keranjang belanja (`carts`). Ketika checkout, data pesanan dicatat ke tabel `orders` dan item barang dicatat ke `order_items`. Pada `order_items`, harga satuan di-*snapshot* (disimpan permanen) agar saat master harga produk diubah di masa depan, laporan keuangan historis pesanan lampau tidak berubah."*
+
+---
+
+### 3.4 Modul 4: Layanan Pasca Penjualan (Retur Garansi & Ulasan)
+**Tabel Terlibat:** `returs`, `retur_items`, `reviews`
+
+```mermaid
+erDiagram
+    ORDERS ||--o{ RETURS : "klaim_garansi"
+    RETURS ||--o{ RETUR_ITEMS : "daftar_barang_cacat"
+    ORDERS ||--o{ REVIEWS : "ulasan_pembeli"
+```
+
+* **Naskah Penjelasan**:
+  > *"Untuk menjamin kepuasan pelanggan, pesanan yang cacat pabrik atau rusak saat pengiriman dapat diajukan klaim melalui tabel `returs` dan `retur_items` dengan bukti video/foto unboxing. Selain itu, pembeli yang telah menyelesaikan pesanan dapat memberikan rating bintang 1–5 serta testimoni pada tabel `reviews`."*
+
+---
+
+### 3.5 Modul 5: Logistik, Inventori & Pergudangan
+**Tabel Terlibat:** `stock_mutations`, `penerimaan`, `penerimaan_items`, `opname_sesi`, `opname_items`
+
+```mermaid
+erDiagram
+    PRODUCTS ||--o{ STOCK_MUTATIONS : "audit_mutasi"
+    USERS ||--o{ PENERIMAAN : "menerima_pasokan"
+    PENERIMAAN ||--o{ PENERIMAAN_ITEMS : "rincian_kiriman"
+    USERS ||--o{ OPNAME_SESI : "audit_stok_rak"
+    OPNAME_SESI ||--o{ OPNAME_ITEMS : "selisih_stok"
+```
+
+* **Naskah Penjelasan**:
+  > *"Semua pergerakan keluar-masuk stok barang dicatat sebagai buku besar di `stock_mutations`. Pasokan barang baru dari pabrik diverifikasi melalui surat jalan `penerimaan` dan `penerimaan_items`. Untuk mencegah selisih antara pencatatan sistem dan fisik rak gudang, staf gudang melakukan stock opname berkala melalui `opname_sesi` dan `opname_items`."*
+
+---
+
+### 3.6 Contekan Jawaban Pertanyaan Dosen / Penguji (FAQ Sidang)
+
+1. **Pertanyaan: Mengapa tabel `product_variants` dipisahkan dari `products`?**
+   - **Jawaban**: *"Karena satu produk tumbler memiliki kombinasi ukuran dan warna yang masing-masing memiliki SKU dan stok fisik sendiri. Jika digabung dalam satu tabel, akan terjadi pengulangan data (anomali redundansi) nama tumbler dan deskripsi yang melanggar aturan normalisasi 3NF."*
+2. **Pertanyaan: Mengapa harga satuan dicatat ulang di `order_items` padahal sudah ada di tabel `products`?**
+   - **Jawaban**: *"Ini adalah prinsip Data Immutability / Price Snapshot dalam transaksi finansial. Harga produk di tabel master bersifat dinamis (dapat naik atau turun karena promo/inflasi). Jika `order_items` hanya merujuk ke tabel master, laporan omzet dan nota masa lalu akan otomatis berubah nilainya."*
+3. **Pertanyaan: Mengapa perlu tabel `stock_mutations` padahal tabel varian sudah memiliki kolom stok?**
+   - **Jawaban**: *"Tabel `stock_mutations` berfungsi sebagai jejak audit (audit trail) atau buku besar pembukuan persediaan. Tabel ini mencatat histori tanggal, alasan (penjualan, retur, koreksi opname), stok sebelum, dan stok sesudah, sehingga jika terjadi kehilangan atau selisih barang, riwayatnya dapat ditelusuri dengan tepat."*
 
 ---
 
 ## 4. Spesifikasi Skema Relasi (Relational Schema)
 
-Format formal skema basis data (*PK = Primary Key, **FK = Foreign Key):
+Berikut adalah notasi relasional formal (`*PK` = Primary Key, `**FK` = Foreign Key):
 
 1. **USERS** ( `*id`, `name`, `email`, `role`, `status_reseller`, `hp`, `alamat`, `toko_nama`, `nik`, `notif_wa`, `ktp_foto`, `email_verified_at`, `daftar_coba`, `password`, `remember_token`, `created_at`, `updated_at` )
 2. **OTPS** ( `*id`, `email`, `kode_hash`, `percobaan`, `kedaluwarsa_at`, `dipakai_at`, `created_at`, `updated_at` )
@@ -799,4 +876,3 @@ Format formal skema basis data (*PK = Primary Key, **FK = Foreign Key):
 | `opname_items.snapshot` | int(11) | NO | Stok tercatat di database saat sesi dibuka |
 | `opname_items.fisik` | int(11) | YES | Hasil hitungan riil barang di rak gudang |
 | `opname_items.foto` | varchar(255) | YES | Bukti foto jika terdapat selisih mencolok |
-
