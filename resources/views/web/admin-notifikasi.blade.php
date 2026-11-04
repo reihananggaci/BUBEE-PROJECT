@@ -1,14 +1,30 @@
 @extends('layouts.web-admin')
 @section('title','Notifikasi WA')
 @section('content')
-<h1 class="font-extrabold text-2xl">💬 Log Notifikasi WA</h1>
+<h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </span>
+    <span>Log Notifikasi WA</span>
+</h1>
 @if($live)
-<div class="rounded-2xl p-3 mt-2 text-xs font-bold bg-emerald-50 border border-emerald-200 text-emerald-700">🟢 Mode LIVE (Fonnte tersambung) — pesan benar-benar terkirim.</div>
+<div class="rounded-2xl p-3 mt-2 text-xs font-bold bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center gap-2">
+    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
+    <span>Mode LIVE (Fonnte tersambung) — pesan benar-benar terkirim.</span>
+</div>
 @else
-<div class="rounded-2xl p-3 mt-2 text-xs bg-amber-50 border border-amber-200 text-amber-800">🟡 Mode DUMMY — pesan hanya dicatat & pratinjau di sini, tidak ada pulsa/API keluar. Isi token Fonnte di <a href="/admin/pengaturan" class="font-bold underline">Pengaturan</a> untuk live.</div>
+<div class="rounded-2xl p-3 mt-2 text-xs bg-amber-50 border border-amber-200 text-amber-800 flex items-center gap-2">
+    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
+    <span>Mode DUMMY — pesan hanya dicatat & pratinjau di sini, tidak ada pulsa/API keluar. Isi token Fonnte di <a href="/admin/pengaturan" class="font-bold underline">Pengaturan</a> untuk live.</span>
+</div>
 @endif
 <form method="GET" action="/admin/notifikasi" class="flex gap-2 my-3 max-w-md">
-<input name="q" value="{{ $q ?? '' }}" placeholder="🔍 Cari pesan/nomor…" class="flex-1 border rounded-2xl px-4 py-2 text-sm">
+<div class="relative flex-1">
+    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </span>
+    <input name="q" value="{{ $q ?? '' }}" placeholder="Cari pesan atau nomor…" class="w-full border rounded-2xl pl-9 pr-3 py-2 text-sm">
+</div>
 <button class="bg-purple-900 text-white font-bold px-4 rounded-2xl text-sm">Cari</button>
 </form>
 <div class="hidden lg:block bg-white rounded-3xl shadow-card overflow-x-auto">
@@ -40,6 +56,6 @@
 </div>
 @endforeach
 </div>
-@if($logs->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3">Belum ada notifikasi. Buat order untuk memicu. 🐝</div>@endif
+@if($logs->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3 border border-slate-100 text-slate-500">Belum ada notifikasi. Buat order untuk memicu.</div>@endif
 <div class="mt-2">{{ $logs->links() }}</div>
 @endsection

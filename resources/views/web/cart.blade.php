@@ -25,7 +25,10 @@
 @endforeach
 </div>
 <div class="lg:sticky lg:top-20 self-start bg-white rounded-3xl p-5 text-sm shadow-card">
-<b>🧾 Ringkasan</b>
+<b class="flex items-center gap-1.5 text-slate-900">
+    <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12V21l-3-2-3 2-3-2-3 2v-17.5z"/><path d="M9 8.5h6M9 12h6"/></svg>
+    <span>Ringkasan</span>
+</b>
 <div class="mt-1">Subtotal: <b>Rp {{ number_format($total) }}</b></div>
 <div>Berat: <b>{{ number_format($berat) }} gr</b></div>
 <div class="text-[11px] text-slate-500">Ongkir dihitung di checkout.</div>

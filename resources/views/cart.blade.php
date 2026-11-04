@@ -3,7 +3,7 @@
 @section('back', '/')
 @section('content')
 <h1 class="font-extrabold text-lg">Keranjang <span class="text-xs font-normal text-slate-500">{{ $carts->count() }} item</span></h1>
-@if($carts->isEmpty())<div class="glass rounded-[2rem] p-8 text-center text-sm mt-2 shadow-card"><div class="hexbee mx-auto">🐝</div><div class="mt-2 font-bold">Sarang masih kosong.</div>Yuk isi dengan barang favoritmu!<br><a href="/" class="font-bold text-blue-700">Jelajahi katalog →</a></div>@else
+@if($carts->isEmpty())<div class="glass rounded-[2rem] p-8 text-center text-sm mt-2 shadow-card"><div class="hexbee mx-auto"><svg class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/><path d="M9 10h6M8 14h8"/></svg></div><div class="mt-2 font-bold">Sarang masih kosong.</div>Yuk isi dengan barang favoritmu!<br><a href="/" class="font-bold text-blue-700">Jelajahi katalog →</a></div>@else
 @php $total=0; $berat=0; @endphp
 @foreach($carts as $c)
 @php $h=$c->variant ? $c->variant->hargaUntuk(auth()->user()) : $c->product->hargaUntuk(auth()->user()); $total+=$h*$c->qty; $berat+=($c->variant ? $c->variant->beratGram() : $c->product->berat_gram)*$c->qty; @endphp

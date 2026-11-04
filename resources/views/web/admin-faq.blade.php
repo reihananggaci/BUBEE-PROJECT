@@ -1,11 +1,16 @@
 @extends('layouts.web-admin')
 @section('title','Kelola FAQ')
 @section('content')
-<h1 class="font-extrabold text-2xl">❓ Kelola FAQ Bantuan</h1>
-<div class="text-xs text-slate-500 mb-3">Tampil di popup beranda, panel bantuan & halaman /bantuan.</div>
+<h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+    </span>
+    <span>Kelola FAQ Bantuan</span>
+</h1>
+<div class="text-xs text-slate-500 mb-3 mt-0.5">Tampil di popup beranda, panel bantuan & halaman /bantuan.</div>
 <div class="grid gap-4 lg:grid-cols-3 lg:items-start">
 <details class="bg-white rounded-3xl shadow-card p-5 lg:sticky lg:top-20 self-start" open>
-<summary class="font-extrabold text-sm cursor-pointer">➕ FAQ Baru</summary>
+<summary class="font-extrabold text-sm cursor-pointer flex items-center gap-1.5"><svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg> <span>FAQ Baru</span></summary>
 <form method="POST" action="/admin/faq" class="space-y-1.5 mt-2 text-sm">@csrf
 <select name="topik" class="w-full border rounded-2xl px-3 py-2">@foreach(\App\Models\Faq::topiks() as $t)<option value="{{ $t }}">{{ $t }}</option>@endforeach</select>
 <input name="pertanyaan" placeholder="Pertanyaan *" maxlength="200" class="w-full border rounded-2xl px-3 py-2" required>

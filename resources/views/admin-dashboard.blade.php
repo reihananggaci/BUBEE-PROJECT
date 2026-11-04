@@ -11,7 +11,9 @@
 <div class="font-extrabold text-xl">Halo Admin</div>
 <div class="text-xs opacity-80 mt-0.5">Omzet total: <b>Rp {{ number_format($omzet) }}</b> • Order baru: <b>{{ $orderBaru }}</b></div>
 </div>
-<div class="hexbee">🐝</div>
+<div class="w-12 h-12 rounded-2xl bg-white/20 border border-white/30 text-amber-300 flex items-center justify-center shrink-0">
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/><path d="M9 10h6M8 14h8"/></svg>
+</div>
 </div>
 <div class="grid grid-cols-3 gap-1.5 mt-3 text-center text-[11px] font-bold">
 <a href="/admin/verifikasi" class="rounded-2xl p-2.5 flex flex-col items-center justify-center gap-1" style="background:#f0abfc;color:#0f0d2e">
@@ -108,7 +110,7 @@
     <svg class="w-5 h-5 shrink-0 text-amber-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
     <b>{{ $selisih }} barang totalnya selisih dari jumlah varian.</b>
 </div>
-<form method="POST" action="/admin/rekonsiliasi" class="mt-2" onsubmit="return confirm('Selaraskan semua total dengan jumlah varian?')">@csrf<button class="bg-white text-red-700 font-extrabold text-xs px-4 py-2 rounded-2xl">🔧 REKONSILIASI SEKARANG</button></form>
+<form method="POST" action="/admin/rekonsiliasi" class="mt-2" onsubmit="return confirm('Selaraskan semua total dengan jumlah varian?')">@csrf<button class="bg-white text-red-700 font-extrabold text-xs px-4 py-2 rounded-2xl inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>REKONSILIASI SEKARANG</span></button></form>
 </div>
 @endif
 @if($stokMenipis->count())

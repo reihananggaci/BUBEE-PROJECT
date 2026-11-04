@@ -2,20 +2,25 @@
 @section('title','Catat Kedatangan')
 @section('content')
 <a href="/admin/penerimaan" class="text-xs font-bold text-blue-700" style="text-decoration:none">← Barang Masuk</a>
-<h1 class="font-extrabold text-2xl mt-1">📝 Catat Kedatangan</h1>
-<div class="text-xs text-slate-500 mb-2">Langkah 1️⃣ isi surat jalan → 2️⃣ pilih barang lama / centang barang baru → 3️⃣ verifikasi QC di gudang (stok <b>belum</b> bertambah sekarang).</div>
+<h1 class="font-extrabold text-2xl text-slate-900 mt-2 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </span>
+    <span>Catat Kedatangan</span>
+</h1>
+<div class="text-xs text-slate-500 mb-2">Langkah 1: isi surat jalan → Langkah 2: pilih barang lama / centang barang baru → Langkah 3: verifikasi QC di gudang (stok <b>belum</b> bertambah sekarang).</div>
 <div class="flex gap-1.5 text-[11px] font-extrabold mb-3">
 <span class="px-3 py-1 rounded-full bg-purple-900 text-white">1 Catat</span>
 <span class="px-3 py-1 rounded-full bg-white shadow-card text-slate-500">2 Verifikasi QC</span>
 <span class="px-3 py-1 rounded-full bg-white shadow-card text-slate-500">3 Stok +</span>
 </div>
-<form method="POST" action="/admin/penerimaan" class="bg-white rounded-3xl shadow-card p-5 space-y-2 text-sm max-w-2xl">@csrf
+<form method="POST" action="/admin/penerimaan" class="bg-white rounded-3xl shadow-card p-5 space-y-2 text-sm max-w-2xl border border-slate-100">@csrf
 <input name="no_surat_jalan" placeholder="No. surat jalan supplier *" maxlength="50" class="w-full border rounded-2xl px-3 py-2.5" required value="{{ old('no_surat_jalan') }}">
 <input name="supplier" placeholder="Supplier (opsional, cth: Konveksi Bandung)" maxlength="100" class="w-full border rounded-2xl px-3 py-2.5" value="{{ old('supplier') }}">
 <div id="baris-wrap" class="space-y-2">
 <div class="baris border rounded-2xl p-2.5 space-y-1.5 bg-slate-50/50">
-<label class="flex items-center gap-2 text-xs font-bold text-purple-800"><input type="checkbox" name="items[0][is_baru]" value="1" class="is-baru w-4 h-4"> 🆕 Barang baru (belum dijual)</label>
-<input type="text" class="prod-cari w-full border rounded-xl px-2 py-2 text-xs" placeholder="🔍 Cari barang (nama / kode)…" autocomplete="off">
+<label class="flex items-center gap-2 text-xs font-bold text-purple-800"><input type="checkbox" name="items[0][is_baru]" value="1" class="is-baru w-4 h-4"> Barang baru (belum dijual)</label>
+<input type="text" class="prod-cari w-full border rounded-xl px-2 py-2 text-xs" placeholder="Cari barang (nama / kode)…" autocomplete="off">
 <select name="items[0][product_id]" class="prod-sel w-full border rounded-xl px-2 py-2 text-xs">
 <option value="">— Pilih barang yang sudah ada —</option>
 @foreach($products as $p)<option value="{{ $p->id }}">{{ $p->nama }} (stok {{ $p->stok }})</option>@endforeach

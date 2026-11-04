@@ -7,7 +7,6 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#0B2A6B">
 <link rel="icon" href="/images/logo-bubee.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐝</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={theme:{extend:{colors:{bubee:{50:'#EEF4FF',100:'#D8E6FF',600:'#1D4ED8',800:'#0B2A6B',900:'#0A357A'}},boxShadow:{card:'0 8px 24px rgba(15,23,42,.08)'}}}}</script>
@@ -111,7 +110,19 @@ body{background:#eef2f7;font-family:'Plus Jakarta Sans',sans-serif;min-height:10
 <a href="{{ auth()->check() ? '/akun' : '/login' }}" class="bnav {{ in_array($seg,['akun','login','register'])?'active':'' }}"><span class="pic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c1.4-3.8 4.2-5.5 7.5-5.5s6.1 1.7 7.5 5.5"/></svg></span>Akun</a>
 @endif
 </nav>
-<div class="text-center py-2" style="font-size:10px;color:#94a3b8">🐝 Bubee • <a href="/tampilan/{{ tampilan_aktif()==='web'?'hp':'web' }}" style="color:#1D4ED8;font-weight:800;text-decoration:none">{{ tampilan_aktif()==='web'?'📱 Versi HP':'🖥️ Versi Web' }}</a></div>
+<div class="text-center py-2 flex items-center justify-center gap-1.5" style="font-size:10px;color:#94a3b8">
+    <img src="/images/logo-bubee.png" alt="" class="w-3.5 h-3.5 rounded object-contain inline">
+    <span>Bubee • </span>
+    <a href="/tampilan/{{ tampilan_aktif()==='web'?'hp':'web' }}" class="inline-flex items-center gap-1 font-extrabold text-blue-700" style="text-decoration:none">
+        @if(tampilan_aktif()==='web')
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+            <span>Versi HP</span>
+        @else
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
+            <span>Versi Web</span>
+        @endif
+    </a>
+</div>
 </div>
 <script>setTimeout(()=>{document.querySelectorAll('.toast').forEach(t=>t.style.display='none')},4500);</script>
 @if(request()->is('/'))
@@ -120,27 +131,47 @@ body{background:#eef2f7;font-family:'Plus Jakarta Sans',sans-serif;min-height:10
 {{-- Panel bantuan --}}
 <div class="help-veil" id="helpPanel" style="display:none">
 <div class="help-card">
-<div class="flex justify-between items-center"><b>❓ Butuh bantuan?</b><button id="helpClose" style="border:none;background:#f1f5f9;border-radius:10px;width:32px;height:32px;font-weight:800">✕</button></div>
+<div class="flex justify-between items-center">
+    <b class="flex items-center gap-1.5 text-slate-900">
+        <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17.2" r=".5" fill="currentColor"/></svg>
+        <span>Butuh bantuan?</span>
+    </b>
+    <button id="helpClose" style="border:none;background:#f1f5f9;border-radius:10px;width:32px;height:32px;font-weight:800">✕</button>
+</div>
 <div class="text-xs mt-2" style="color:#64748b">Jawaban cepat + tombol admin di bawah.</div>
 <div id="helpList" class="mt-1"><div class="text-xs" style="color:#94a3b8">Memuat…</div></div>
 <a href="/bantuan" class="block text-center mt-2 text-sm font-bold" style="color:#1D4ED8">Lihat semua →</a>
 @php $waHelp = \App\Models\Setting::get('wa_admin','6281234567890'); @endphp
-<a href="https://wa.me/{{ $waHelp }}?text={{ urlencode('Halo Bubee, saya butuh bantuan') }}" target="_blank" class="block text-center mt-2 text-white font-extrabold py-3 rounded-2xl text-sm" style="background:linear-gradient(90deg,#059669,#00E5FF)">💬 Chat Admin via WA</a>
+<a href="https://wa.me/{{ $waHelp }}?text={{ urlencode('Halo Bubee, saya butuh bantuan') }}" target="_blank" class="flex items-center justify-center gap-2 mt-2 text-white font-extrabold py-3 rounded-2xl text-sm" style="background:linear-gradient(90deg,#059669,#00E5FF);text-decoration:none">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <span>Chat Admin via WA</span>
+</a>
 </div>
 </div>
 {{-- Popup selamat datang (sekali saja) --}}
 <div class="help-veil" id="helpWelcome" style="display:none;align-items:center">
 <div class="help-welcome text-center">
-<div class="hexbee mx-auto">🐝</div>
+<div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto shadow-sm">
+    <img src="/images/logo-bubee.png" alt="" class="w-8 h-8 rounded-lg object-contain">
+</div>
 <div class="font-extrabold text-lg mt-2">Halo, selamat datang di Bubee!</div>
 <div class="text-xs mt-1" style="color:#64748b">Belanja tanpa tanya stok. Mulai dari sini:</div>
 <div class="grid grid-cols-3 gap-2 mt-3 text-[11px] font-bold">
-<a href="/bantuan?topik=Order" class="rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">🛒<br>Cara order</a>
-<a href="/pesanan" class="rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">📦<br>Lacak pesanan</a>
-<a href="https://wa.me/{{ \App\Models\Setting::get('wa_admin','6281234567890') }}?text={{ urlencode('Halo Bubee, saya butuh bantuan') }}" target="_blank" class="rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">💬<br>Chat admin</a>
+<a href="/bantuan?topik=Order" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">
+    <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+    <span>Cara order</span>
+</a>
+<a href="/pesanan" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">
+    <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3z"/><path d="M3.5 7.5 12 12l8.5-4.5"/><path d="M12 12v9"/></svg>
+    <span>Lacak pesanan</span>
+</a>
+<a href="https://wa.me/{{ \App\Models\Setting::get('wa_admin','6281234567890') }}?text={{ urlencode('Halo Bubee, saya butuh bantuan') }}" target="_blank" class="flex flex-col items-center justify-center gap-1.5 rounded-2xl p-3" style="background:#EEF4FF;color:#0B2A6B;text-decoration:none">
+    <svg class="w-5 h-5 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <span>Chat admin</span>
+</a>
 </div>
 <label class="flex items-center justify-center gap-2 text-[11px] mt-3" style="color:#64748b"><input type="checkbox" id="helpNoMore" checked> Jangan tampilkan lagi</label>
-<button id="helpWelcomeOk" class="w-full text-white font-extrabold py-3 rounded-2xl mt-2 text-sm" style="background:linear-gradient(90deg,#0B2A6B,#00B8D4)">MULAI BELANJA 🚀</button>
+<button id="helpWelcomeOk" class="w-full text-white font-extrabold py-3 rounded-2xl mt-2 text-sm" style="background:linear-gradient(90deg,#0B2A6B,#00B8D4)">Mulai Belanja</button>
 </div>
 </div>
 <script>

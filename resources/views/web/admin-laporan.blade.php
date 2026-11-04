@@ -8,32 +8,32 @@ $formatStatus = function($st) {
     return match($st) {
         'selesai' => [
             'label' => 'Pesanan Selesai / Diterima',
-            'icon' => '✅',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
             'badge' => 'bg-emerald-100 text-emerald-800 border border-emerald-200'
         ],
         'dikirim' => [
             'label' => 'Dalam Pengiriman (Kurir)',
-            'icon' => '🚚',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/></svg>',
             'badge' => 'bg-blue-100 text-blue-800 border border-blue-200'
         ],
         'diproses' => [
             'label' => 'Sedang Dikemas / Diproses',
-            'icon' => '📦',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>',
             'badge' => 'bg-amber-100 text-amber-800 border border-amber-200'
         ],
         'menunggu_bayar' => [
             'label' => 'Menunggu Pembayaran Pembeli',
-            'icon' => '⏳',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
             'badge' => 'bg-orange-100 text-orange-800 border border-orange-200'
         ],
         'batal' => [
             'label' => 'Pesanan Dibatalkan',
-            'icon' => '❌',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 6-12 12M6 6l12 12"/></svg>',
             'badge' => 'bg-red-100 text-red-800 border border-red-200'
         ],
         default => [
             'label' => ucfirst(str_replace('_', ' ', (string) $st)),
-            'icon' => '📄',
+            'icon' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
             'badge' => 'bg-slate-100 text-slate-700 border border-slate-200'
         ]
     };
@@ -54,7 +54,12 @@ $formatMutasi = function($tipe) {
 {{-- ==================== HEADER HALAMAN & PILIHAN PERIODE ==================== --}}
 <div class="flex justify-between items-center flex-wrap gap-3">
     <div>
-        <h1 class="font-extrabold text-2xl text-slate-900">📊 Laporan & Keuangan Bubee</h1>
+        <h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+            </span>
+            <span>Laporan & Keuangan Bubee</span>
+        </h1>
         <div class="text-xs text-slate-500 mt-0.5">
             <b>{{ $labelPeriode }}</b> • Diperbarui {{ $generatedAt->format('d M H:i:s') }} • 
             <a href="/admin/laporan?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="font-bold text-blue-700 hover:underline" style="text-decoration:none">↻ Segarkan Data</a>
@@ -65,10 +70,10 @@ $formatMutasi = function($tipe) {
     <div class="flex items-center flex-wrap gap-2">
         <div class="relative inline-flex items-center">
             <select id="pilih-periode" onchange="pilihPeriode(this.value)" class="appearance-none bg-white border-2 border-purple-800 text-purple-950 font-black text-sm rounded-2xl pl-3.5 pr-9 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 cursor-pointer">
-                <option value="harian" {{ $periode==='harian'?'selected':'' }}>📅 Laporan Harian</option>
-                <option value="mingguan" {{ $periode==='mingguan'?'selected':'' }}>📆 Laporan Mingguan</option>
-                <option value="bulanan" {{ $periode==='bulanan'?'selected':'' }}>📊 Laporan Bulanan</option>
-                <option value="kustom" {{ $periode==='kustom'?'selected':'' }}>🗓️ Kustom Tanggal</option>
+                <option value="harian" {{ $periode==='harian'?'selected':'' }}>Laporan Harian</option>
+                <option value="mingguan" {{ $periode==='mingguan'?'selected':'' }}>Laporan Mingguan</option>
+                <option value="bulanan" {{ $periode==='bulanan'?'selected':'' }}>Laporan Bulanan</option>
+                <option value="kustom" {{ $periode==='kustom'?'selected':'' }}>Kustom Tanggal</option>
             </select>
             <div class="pointer-events-none absolute right-3 flex items-center text-purple-800">
                 <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
@@ -112,8 +117,14 @@ $formatMutasi = function($tipe) {
 
         {{-- TOMBOL CETAK & EXPORT --}}
         <div class="flex items-center gap-1.5">
-            <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-1.5 px-3.5 rounded-2xl text-xs shadow-sm transition">🖨️ Cetak</button>
-            <a href="/admin/laporan/export?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-1.5 px-3.5 rounded-2xl text-xs border border-emerald-200 transition" style="text-decoration:none">📊 Export CSV</a>
+            <button onclick="window.print()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-1.5 px-3.5 rounded-2xl text-xs shadow-sm transition inline-flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>Cetak</span>
+            </button>
+            <a href="/admin/laporan/export?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold py-1.5 px-3.5 rounded-2xl text-xs border border-emerald-200 transition inline-flex items-center gap-1.5" style="text-decoration:none">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                <span>Export CSV</span>
+            </a>
         </div>
     </div>
 </div>
@@ -124,9 +135,18 @@ $formatMutasi = function($tipe) {
         <div class="text-xs opacity-80 font-bold uppercase tracking-wider">Total Pendapatan • {{ $labelPeriode }}</div>
         <div class="font-black text-3xl lg:text-4xl mt-1 tracking-tight">Rp {{ number_format($ringkas['omzet']) }}</div>
         <div class="text-xs opacity-90 mt-2 font-medium flex items-center gap-2 flex-wrap">
-            <span class="bg-white/20 px-2.5 py-0.5 rounded-full">📦 {{ $ringkas['jml_order'] }} Pesanan Berhasil</span>
-            <span class="bg-white/20 px-2.5 py-0.5 rounded-full">🍶 {{ $ringkas['pcs'] }} Botol Terjual</span>
-            <span class="bg-white/20 px-2.5 py-0.5 rounded-full">🎯 Rata-rata Rp {{ number_format($ringkas['aov']) }} / Pesanan</span>
+            <span class="bg-white/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+                <span>{{ $ringkas['jml_order'] }} Pesanan Berhasil</span>
+            </span>
+            <span class="bg-white/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h10l-1 5H8L7 2zM6 7h12v12a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V7z"/></svg>
+                <span>{{ $ringkas['pcs'] }} Botol Terjual</span>
+            </span>
+            <span class="bg-white/20 px-2.5 py-0.5 rounded-full inline-flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                <span>Rata-rata Rp {{ number_format($ringkas['aov']) }} / Pesanan</span>
+            </span>
         </div>
     </div>
     
@@ -167,19 +187,19 @@ $formatMutasi = function($tipe) {
     {{-- Tombol Tab Pilihan --}}
     <div class="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none" id="laporanTabList">
         <button type="button" onclick="pilihSlide(1)" id="tab-btn-1" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-black transition flex items-center gap-2 bg-purple-900 text-white shadow-md">
-            <span>📊</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
             <span>1. Status & Ekspedisi Kurir</span>
         </button>
         <button type="button" onclick="pilihSlide(2)" id="tab-btn-2" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <span>🔥</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
             <span>2. Produk Terlaris & Pelanggan</span>
         </button>
         <button type="button" onclick="pilihSlide(3)" id="tab-btn-3" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <span>📅</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
             <span>3. Rincian Penjualan Harian</span>
         </button>
         <button type="button" onclick="pilihSlide(4)" id="tab-btn-4" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <span>📋</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
             <span>4. Daftar Pesanan & Stok</span>
         </button>
     </div>
@@ -205,9 +225,14 @@ $formatMutasi = function($tipe) {
         {{-- KARTU 1: PER STATUS PESANAN --}}
         <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
             <div class="flex items-center justify-between">
-                <div>
-                    <b class="text-base text-slate-900">🧾 Status Pesanan Pelanggan <span class="text-xs text-slate-400 font-normal">(Rincian Per Status)</span></b>
-                    <div class="text-[11px] text-slate-500 mt-0.5">Ringkasan kondisi seluruh pesanan yang tercatat pada periode ini</div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8M16 12H8M12 16H8"/></svg>
+                    </span>
+                    <div>
+                        <b class="text-base text-slate-900">Status Pesanan Pelanggan <span class="text-xs text-slate-400 font-normal">(Per Status)</span></b>
+                        <div class="text-[11px] text-slate-500 mt-0.5">Ringkasan kondisi seluruh pesanan yang tercatat pada periode ini</div>
+                    </div>
                 </div>
                 <span class="text-xs font-extrabold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-xl">Total: {{ $perStatus->sum('jml') }} Pesanan</span>
             </div>
@@ -227,7 +252,7 @@ $formatMutasi = function($tipe) {
                         <tr class="hover:bg-slate-50/70 transition">
                             <td class="py-2.5 px-1">
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold {{ $stInfo['badge'] }}">
-                                    <span>{{ $stInfo['icon'] }}</span>
+                                    <span>{!! $stInfo['icon'] !!}</span>
                                     <span>{{ $stInfo['label'] }}</span>
                                 </span>
                             </td>
@@ -246,9 +271,14 @@ $formatMutasi = function($tipe) {
         {{-- KARTU 2: PER KURIR EKSPEDISI --}}
         <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
             <div class="flex items-center justify-between">
-                <div>
-                    <b class="text-base text-slate-900">🚚 Jasa Ekspedisi Pengiriman <span class="text-xs text-slate-400 font-normal">(Rincian Per Kurir - Lunas)</span></b>
-                    <div class="text-[11px] text-slate-500 mt-0.5">Distribusi pilihan kurir ekspedisi dari pesanan yang telah lunas dibayar</div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/></svg>
+                    </span>
+                    <div>
+                        <b class="text-base text-slate-900">Jasa Ekspedisi Pengiriman <span class="text-xs text-slate-400 font-normal">(Per Kurir - Lunas)</span></b>
+                        <div class="text-[11px] text-slate-500 mt-0.5">Distribusi pilihan kurir ekspedisi dari pesanan yang telah lunas dibayar</div>
+                    </div>
                 </div>
                 <span class="text-xs font-bold text-slate-400">{{ $dari }} → {{ $sampai }}</span>
             </div>
@@ -268,8 +298,10 @@ $formatMutasi = function($tipe) {
                         @foreach($perKurir as $k)
                         @php $persen = round($k->total / $totKurir * 100); @endphp
                         <tr class="hover:bg-slate-50/70 transition">
-                            <td class="py-2.5 px-1 font-black text-slate-900 flex items-center gap-1.5">
-                                <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center text-xs font-bold">📦</span>
+                            <td class="py-2.5 px-1 font-black text-slate-900 flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center shrink-0">
+                                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+                                </span>
                                 <span>{{ $k->kurir ?: 'Standar' }}</span>
                             </td>
                             <td class="py-2.5 px-2 text-center font-bold text-slate-700">{{ $k->jml }} Paket</td>
@@ -300,9 +332,14 @@ $formatMutasi = function($tipe) {
         {{-- PRODUK TERLARIS --}}
         <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
             <div class="flex items-center justify-between">
-                <div>
-                    <b class="text-base text-slate-900">🔥 10 Produk Paling Laris & Diminati <span class="text-xs text-slate-400 font-normal">(Terlaris Top 10)</span></b>
-                    <div class="text-[11px] text-slate-500 mt-0.5">Produk tumbler dengan kuantitas pembelian tertinggi pada periode ini</div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+                    </span>
+                    <div>
+                        <b class="text-base text-slate-900">10 Produk Paling Laris & Diminati <span class="text-xs text-slate-400 font-normal">(Top 10)</span></b>
+                        <div class="text-[11px] text-slate-500 mt-0.5">Produk tumbler dengan kuantitas pembelian tertinggi pada periode ini</div>
+                    </div>
                 </div>
             </div>
             
@@ -323,7 +360,9 @@ $formatMutasi = function($tipe) {
                                     @if($t->product?->foto)
                                         <img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-9 h-9 rounded-xl object-cover shrink-0 border border-slate-200 bg-slate-100" loading="lazy">
                                     @else
-                                        <span class="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-sm shrink-0">🍶</span>
+                                        <span class="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center shrink-0">
+                                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2h10l-1 5H8L7 2zM6 7h12v12a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V7z"/></svg>
+                                        </span>
                                     @endif
                                     <div>
                                         <div class="font-bold text-slate-900 text-xs leading-tight">{{ $t->product->nama ?? 'Produk Tidak Ditemukan' }}</div>
@@ -348,9 +387,14 @@ $formatMutasi = function($tipe) {
             {{-- TOP PEMBELI --}}
             <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-3">
-                    <div>
-                        <b class="text-base text-slate-900">👑 Pelanggan Paling Sering Belanja <span class="text-xs text-slate-400 font-normal">(Top Pembeli)</span></b>
-                        <div class="text-[11px] text-slate-500">Mitra reseller dan pembeli dengan nilai transaksi terbesar</div>
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 4 3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"/></svg>
+                        </span>
+                        <div>
+                            <b class="text-base text-slate-900">Pelanggan Paling Sering Belanja <span class="text-xs text-slate-400 font-normal">(Top Pembeli)</span></b>
+                            <div class="text-[11px] text-slate-500">Mitra reseller dan pembeli dengan nilai transaksi terbesar</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -376,9 +420,14 @@ $formatMutasi = function($tipe) {
             {{-- VOUCHER TERPAKAI --}}
             <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
                 <div class="flex items-center justify-between mb-3">
-                    <div>
-                        <b class="text-base text-slate-900">🎟️ Kupon Diskon yang Digunakan <span class="text-xs text-slate-400 font-normal">(Voucher Terpakai)</span></b>
-                        <div class="text-[11px] text-slate-500">Kupon promosi belanja yang berhasil dimanfaatkan pelanggan</div>
+                    <div class="flex items-center gap-2.5">
+                        <span class="w-8 h-8 rounded-xl bg-pink-100 text-pink-700 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>
+                        </span>
+                        <div>
+                            <b class="text-base text-slate-900">Kupon Diskon yang Digunakan <span class="text-xs text-slate-400 font-normal">(Voucher Terpakai)</span></b>
+                            <div class="text-[11px] text-slate-500">Kupon promosi belanja yang berhasil dimanfaatkan pelanggan</div>
+                        </div>
                     </div>
                 </div>
                 
@@ -407,9 +456,14 @@ $formatMutasi = function($tipe) {
 <div id="slide-panel-3" class="slide-panel-item mt-4 hidden">
     <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
         <div class="flex items-center justify-between flex-wrap gap-2 mb-4">
-            <div>
-                <b class="text-base text-slate-900">📅 Grafik & Rincian Penjualan Harian <span class="text-xs text-slate-400 font-normal">(Laporan Harian)</span></b>
-                <div class="text-[11px] text-slate-500 mt-0.5">Pergerakan total penjualan dan botol terjual dari hari ke hari dalam periode ini</div>
+            <div class="flex items-center gap-2.5">
+                <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </span>
+                <div>
+                    <b class="text-base text-slate-900">Grafik & Rincian Penjualan Harian <span class="text-xs text-slate-400 font-normal">(Laporan Harian)</span></b>
+                    <div class="text-[11px] text-slate-500 mt-0.5">Pergerakan total penjualan dan botol terjual dari hari ke hari dalam periode ini</div>
+                </div>
             </div>
             <span class="text-xs font-bold text-slate-400">{{ count($harian) }} Hari Tercatat</span>
         </div>
@@ -466,9 +520,14 @@ $formatMutasi = function($tipe) {
         {{-- DAFTAR PESANAN --}}
         <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
             <div class="flex justify-between items-center mb-3 flex-wrap gap-2">
-                <div>
-                    <b class="text-base text-slate-900">📋 Daftar Rincian Pesanan Masuk ({{ $rekOrders->count() }} Pesanan)</b>
-                    <div class="text-[11px] text-slate-500">Histori faktur pemesanan produk dalam rentang periode ini</div>
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center shrink-0">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+                    </span>
+                    <div>
+                        <b class="text-base text-slate-900">Daftar Rincian Pesanan Masuk ({{ $rekOrders->count() }} Pesanan)</b>
+                        <div class="text-[11px] text-slate-500">Histori faktur pemesanan produk dalam rentang periode ini</div>
+                    </div>
                 </div>
             </div>
             
@@ -498,7 +557,7 @@ $formatMutasi = function($tipe) {
                             <td class="py-2.5 px-3 text-right font-black text-slate-900 whitespace-nowrap">Rp {{ number_format($o->total_bayar) }}</td>
                             <td class="py-2.5 px-3 text-center whitespace-nowrap">
                                 <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-1 rounded-xl {{ $stO['badge'] }}">
-                                    <span>{{ $stO['icon'] }}</span>
+                                    <span>{!! $stO['icon'] !!}</span>
                                     <span>{{ $stO['label'] }}</span>
                                 </span>
                             </td>
@@ -517,9 +576,14 @@ $formatMutasi = function($tipe) {
 
         {{-- MUTASI STOK --}}
         <div class="bg-white rounded-3xl shadow-card p-6 border border-slate-100">
-            <div class="mb-3">
-                <b class="text-base text-slate-900">📦 Riwayat Pergerakan Stok Barang <span class="text-xs text-slate-400 font-normal">(Mutasi Stok Terakhir)</span></b>
-                <div class="text-[11px] text-slate-500">Log audit keluar-masuk stok barang tumbler di gudang</div>
+            <div class="flex items-center gap-2.5 mb-3">
+                <span class="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+                </span>
+                <div>
+                    <b class="text-base text-slate-900">Riwayat Pergerakan Stok Barang <span class="text-xs text-slate-400 font-normal">(Mutasi Stok Terakhir)</span></b>
+                    <div class="text-[11px] text-slate-500">Log audit keluar-masuk stok barang tumbler di gudang</div>
+                </div>
             </div>
             
             <div class="divide-y divide-slate-100">

@@ -3,7 +3,12 @@
 @section('back', '/admin')
 @section('content')
 <div class="flex justify-between items-center">
-    <h1 class="font-extrabold text-lg">📊 Laporan Bubee</h1>
+    <h1 class="font-extrabold text-lg flex items-center gap-2">
+        <span class="w-6 h-6 rounded-lg bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        </span>
+        <span>Laporan Bubee</span>
+    </h1>
     <a href="/admin/laporan?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="text-[11px] font-bold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-xl" style="text-decoration:none">↻ Muat ulang</a>
 </div>
 <div class="text-[11px] text-slate-400 mt-0.5">Diperbarui {{ $generatedAt->format('d M H:i:s') }}</div>
@@ -16,10 +21,10 @@
     </div>
     <div class="relative">
         <select id="select-periode" onchange="pilihPeriode(this.value)" class="w-full appearance-none bg-white border-2 border-purple-800 text-purple-950 font-black text-xs rounded-2xl px-3.5 py-2.5 pr-9 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer">
-            <option value="harian" {{ $periode==='harian'?'selected':'' }}>📅 Laporan Harian (Per Tanggal)</option>
-            <option value="mingguan" {{ $periode==='mingguan'?'selected':'' }}>📆 Laporan Mingguan (7 Hari)</option>
-            <option value="bulanan" {{ $periode==='bulanan'?'selected':'' }}>📊 Laporan Bulanan (Per Bulan)</option>
-            <option value="kustom" {{ $periode==='kustom'?'selected':'' }}>🗓️ Kustom Tanggal (Rentang Bebas)</option>
+            <option value="harian" {{ $periode==='harian'?'selected':'' }}>Laporan Harian (Per Tanggal)</option>
+            <option value="mingguan" {{ $periode==='mingguan'?'selected':'' }}>Laporan Mingguan (7 Hari)</option>
+            <option value="bulanan" {{ $periode==='bulanan'?'selected':'' }}>Laporan Bulanan (Per Bulan)</option>
+            <option value="kustom" {{ $periode==='kustom'?'selected':'' }}>Kustom Tanggal (Rentang Bebas)</option>
         </select>
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-purple-800">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
@@ -63,8 +68,14 @@
 
     {{-- TOMBOL AKSI CETAK & EXPORT CSV --}}
     <div class="flex gap-2 mt-2.5">
-        <button onclick="window.print()" class="flex-1 bg-slate-900 text-white font-bold py-2 rounded-xl text-xs shadow-sm">🖨️ Cetak</button>
-        <a href="/admin/laporan/export?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="flex-1 text-center bg-emerald-50 text-emerald-700 font-bold py-2 rounded-xl text-xs border border-emerald-200" style="text-decoration:none">📊 Export CSV</a>
+        <button onclick="window.print()" class="flex-1 bg-slate-900 text-white font-bold py-2 rounded-xl text-xs shadow-sm inline-flex items-center justify-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>Cetak</span>
+        </button>
+        <a href="/admin/laporan/export?periode={{ $periode }}&tanggal={{ $tanggal }}&minggu={{ $minggu }}&bulan={{ $bulan }}&dari={{ $dari }}&sampai={{ $sampai }}" class="flex-1 text-center bg-emerald-50 text-emerald-700 font-bold py-2 rounded-xl text-xs border border-emerald-200 inline-flex items-center justify-center gap-1.5" style="text-decoration:none">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span>Export CSV</span>
+        </a>
     </div>
 </div>
 
@@ -86,14 +97,14 @@
 @if($periode === 'harian')
 {{-- TAMPILAN LAPORAN HARIAN --}}
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🧾 Per Status</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Per Status</b>
     @foreach($perStatus as $s)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $s->status }} ({{ $s->jml }})</span><b>Rp {{ number_format($s->total) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🚚 Per Kurir (lunas)</b>
+    <b class="flex items-center gap-1.5"><span class="text-blue-700">●</span> Per Kurir (lunas)</b>
     @php $totKurir = max(1, $perKurir->sum('total')); @endphp
     @foreach($perKurir as $k)
     <div class="py-1 border-b border-slate-100 text-xs">
@@ -105,11 +116,11 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🔥 Produk Terlaris Hari Ini</b>
+    <b class="flex items-center gap-1.5"><span class="text-amber-600">●</span> Produk Terlaris Hari Ini</b>
     @foreach($terlaris as $t)
     <div class="py-1 border-b border-slate-100 text-xs">
         <span class="inline-flex items-center gap-1.5 align-middle">
-            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="shrink-0">📦</span>@endif
+            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="w-5 h-5 rounded bg-purple-50 text-purple-700 inline-flex items-center justify-center text-[10px] shrink-0 font-bold">P</span>@endif
             <span>{{ $t->product->nama ?? '?' }}</span>
         </span> — <b>{{ $t->terjual }} pcs</b> • Rp {{ number_format($t->omzet) }}
     </div>
@@ -118,7 +129,7 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>📋 Daftar Order Hari Ini ({{ $rekOrders->count() }})</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Daftar Order Hari Ini ({{ $rekOrders->count() }})</b>
     @foreach($rekOrders as $o)
     <div class="text-xs py-2 border-b border-blue-50 flex justify-between items-center">
         <div>
@@ -137,7 +148,7 @@
 @elseif($periode === 'mingguan')
 {{-- TAMPILAN LAPORAN MINGGUAN --}}
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>📅 Grafik Harian Minggu Ini (7 Hari)</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Grafik Harian Minggu Ini (7 Hari)</b>
     <div class="text-[11px] text-slate-400 mb-2">Periode {{ $dari }} → {{ $sampai }}</div>
     @foreach($harian as $h)
     <div class="py-1.5 border-b border-slate-100">
@@ -152,14 +163,14 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🧾 Per Status</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Per Status</b>
     @foreach($perStatus as $s)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $s->status }} ({{ $s->jml }})</span><b>Rp {{ number_format($s->total) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🚚 Per Kurir (lunas)</b>
+    <b class="flex items-center gap-1.5"><span class="text-blue-700">●</span> Per Kurir (lunas)</b>
     @php $totKurir = max(1, $perKurir->sum('total')); @endphp
     @foreach($perKurir as $k)
     <div class="py-1 border-b border-slate-100 text-xs">
@@ -170,11 +181,11 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🔥 Terlaris Top 10 Minggu Ini</b>
+    <b class="flex items-center gap-1.5"><span class="text-amber-600">●</span> Terlaris Top 10 Minggu Ini</b>
     @foreach($terlaris as $t)
     <div class="py-1 border-b border-slate-100 text-xs">
         <span class="inline-flex items-center gap-1.5 align-middle">
-            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="shrink-0">📦</span>@endif
+            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="w-5 h-5 rounded bg-purple-50 text-purple-700 inline-flex items-center justify-center text-[10px] shrink-0 font-bold">P</span>@endif
             <span>{{ $t->product->nama ?? '?' }}</span>
         </span> — <b>{{ $t->terjual }} pcs</b> • Rp {{ number_format($t->omzet) }}
         <div class="progress-line mt-1"><div style="width:{{ min(100,$t->terjual*8) }}%"></div></div>
@@ -183,14 +194,14 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>👑 Top Pembeli</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Top Pembeli</b>
     @foreach($topPembeli as $t)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $t->user->name ?? '?' }} ({{ $t->jml }} order)</span><b>Rp {{ number_format($t->total) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>📋 Daftar Pesanan Minggu Ini ({{ $rekOrders->count() }})</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Daftar Pesanan Minggu Ini ({{ $rekOrders->count() }})</b>
     @foreach($rekOrders as $o)
     <div class="text-xs py-2 border-b border-blue-50 flex justify-between items-center">
         <div>
@@ -209,14 +220,14 @@
 @else
 {{-- TAMPILAN BULANAN & KUSTOM --}}
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🧾 Per Status</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Per Status</b>
     @foreach($perStatus as $s)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $s->status }} ({{ $s->jml }})</span><b>Rp {{ number_format($s->total) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🚚 Per Kurir (lunas)</b>
+    <b class="flex items-center gap-1.5"><span class="text-blue-700">●</span> Per Kurir (lunas)</b>
     <div class="text-[11px] text-slate-400">Periode {{ $dari }} → {{ $sampai }}</div>
     @php $totKurir = max(1, $perKurir->sum('total')); @endphp
     @foreach($perKurir as $k)
@@ -228,12 +239,12 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🔥 Terlaris Top 10</b>
+    <b class="flex items-center gap-1.5"><span class="text-amber-600">●</span> Terlaris Top 10</b>
     <div class="text-[11px] text-slate-400">Periode {{ $dari }} → {{ $sampai }}</div>
     @foreach($terlaris as $t)
     <div class="py-1 border-b border-slate-100 text-xs">
         <span class="inline-flex items-center gap-1.5 align-middle">
-            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="shrink-0">📦</span>@endif
+            @if($t->product?->foto)<img src="/storage/{{ $t->product->foto }}" alt="{{ $t->product->nama ?? 'Barang' }}" class="w-5 h-5 rounded object-cover shrink-0">@else<span class="w-5 h-5 rounded bg-purple-50 text-purple-700 inline-flex items-center justify-center text-[10px] shrink-0 font-bold">P</span>@endif
             <span>{{ $t->product->nama ?? '?' }}</span>
         </span> — <b>{{ $t->terjual }} pcs</b> • Rp {{ number_format($t->omzet) }}
         <div class="progress-line mt-1"><div style="width:{{ min(100,$t->terjual*8) }}%"></div></div>
@@ -242,21 +253,21 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>👑 Top Pembeli</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Top Pembeli</b>
     @foreach($topPembeli as $t)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $t->user->name ?? '?' }} ({{ $t->jml }} order)</span><b>Rp {{ number_format($t->total) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>🎟️ Voucher Terpakai</b>
+    <b class="flex items-center gap-1.5"><span class="text-pink-600">●</span> Voucher Terpakai</b>
     @foreach($topVoucher as $v)
     <div class="flex justify-between py-1 border-b border-slate-100 text-xs"><span>{{ $v->voucher->kode ?? '?' }} ({{ $v->dipakai }}x)</span><b>-Rp {{ number_format($v->hemat) }}</b></div>
     @endforeach
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>📅 Harian</b>
+    <b class="flex items-center gap-1.5"><span class="text-purple-700">●</span> Harian</b>
     @foreach($harian as $h)
     <div class="py-1 border-b border-slate-100 text-xs">
         <div class="flex justify-between">
@@ -270,7 +281,7 @@
 </div>
 
 <div class="glass rounded-3xl p-4 mt-2 text-sm shadow-card">
-    <b>📦 Mutasi Stok Terakhir</b>
+    <b class="flex items-center gap-1.5"><span class="text-emerald-700">●</span> Mutasi Stok Terakhir</b>
     @foreach($mutasi as $m)
     <div class="text-xs py-1 border-b border-slate-100">
         {{ $m->created_at->format('d/m H:i') }} • {{ $m->product->nama ?? '' }} • {{ $m->tipe }} {{ $m->qty }} ({{ $m->stok_sebelum }}→{{ $m->stok_sesudah }})<br>

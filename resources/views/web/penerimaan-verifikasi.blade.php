@@ -2,7 +2,12 @@
 @section('title','Verifikasi '.$penerimaan->no_surat_jalan)
 @section('content')
 <a href="/admin/penerimaan" class="text-xs font-bold text-blue-700" style="text-decoration:none">← Barang Masuk</a>
-<h1 class="font-extrabold text-2xl mt-1">🔍 Verifikasi Gudang</h1>
+<h1 class="font-extrabold text-2xl text-slate-900 mt-2 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </span>
+    <span>Verifikasi Gudang</span>
+</h1>
 <div class="text-xs text-slate-500">{{ $penerimaan->no_surat_jalan }} • {{ $penerimaan->supplier }} • Status <b>{{ strtoupper($penerimaan->status) }}</b></div>
 @if($penerimaan->status==='diverifikasi')
 <div class="bg-white rounded-3xl shadow-card p-5 mt-3 text-sm">
@@ -28,7 +33,10 @@
 <input name="hasil[{{ $it->id }}][catatan]" placeholder="Catatan QC (opsional)" maxlength="200" class="w-full border rounded-xl px-2 py-1.5 text-xs mt-1">
 </div>
 @endforeach
-<button class="w-full text-white font-extrabold py-3 rounded-2xl" style="background:linear-gradient(90deg,#059669,#00E5FF)">✅ SAHKAN QC</button>
+<button class="w-full text-white font-extrabold py-3 rounded-2xl flex items-center justify-center gap-2 shadow-sm hover:opacity-95 transition" style="background:linear-gradient(90deg,#059669,#00E5FF)">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    <span>Sahkan Hasil QC</span>
+</button>
 </form>
 <form method="POST" action="/admin/penerimaan/{{ $penerimaan->id }}" class="mt-2 max-w-2xl" onsubmit="return confirm('Batalkan catatan ini?')">@csrf @method('DELETE')<button class="w-full bg-red-50 text-red-600 font-bold py-2.5 rounded-2xl text-xs">Batalkan catatan</button></form>
 @endif

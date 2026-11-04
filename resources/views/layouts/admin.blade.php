@@ -7,7 +7,6 @@
 <meta name="theme-color" content="#4c1d95">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/images/logo-bubee.png">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐝</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>tailwind.config={theme:{extend:{boxShadow:{card:'0 8px 24px rgba(15,23,42,.08)'}}}}</script>

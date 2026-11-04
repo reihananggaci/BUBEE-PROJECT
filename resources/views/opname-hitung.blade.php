@@ -2,7 +2,12 @@
 @section('title','Hitung Sesi #'.$sesi->id)
 @section('back', '/admin/opname')
 @section('content')
-<h1 class="font-extrabold text-lg">🔢 Sesi #{{ $sesi->id }} ({{ $sesi->cakupan }})</h1>
+<div class="flex items-center gap-2 mb-1">
+    <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+    </div>
+    <h1 class="font-extrabold text-lg text-slate-900">Sesi #{{ $sesi->id }} ({{ $sesi->cakupan }})</h1>
+</div>
 <div class="text-xs text-slate-500">Terisi {{ $sesi->terisi() }}/{{ $sesi->total() }} varian • <a href="/admin/opname/{{ $sesi->id }}?belum=1" class="font-bold text-purple-700">yang belum saja →</a></div>
 <div class="flex gap-1.5 mt-2 text-[11px] font-bold overflow-x-auto pb-1">
 @foreach($products as $i => $p)

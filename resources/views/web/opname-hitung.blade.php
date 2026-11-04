@@ -2,13 +2,18 @@
 @section('title','Hitung Sesi #'.$sesi->id)
 @section('content')
 <a href="/admin/opname" class="text-xs font-bold text-blue-700" style="text-decoration:none">← Semua sesi</a>
-<h1 class="font-extrabold text-2xl mt-1">🔢 Sesi #{{ $sesi->id }} ({{ $sesi->cakupan }})</h1>
+<h1 class="font-extrabold text-2xl text-slate-900 mt-2 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect width="8" height="4" x="8" y="3" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
+    </span>
+    <span>Sesi #{{ $sesi->id }} ({{ $sesi->cakupan }})</span>
+</h1>
 <div class="text-xs text-slate-500">Terisi {{ $sesi->terisi() }}/{{ $sesi->total() }} varian</div>
 <div class="grid gap-4 mt-3 lg:grid-cols-3 lg:items-start">
-<div class="bg-white rounded-3xl shadow-card p-4 text-sm">
-<div class="font-extrabold mb-2">Daftar barang</div>
-<div class="mb-2">
-    <input type="text" id="cari-barang-sesi" placeholder="🔍 Cari nama barang..." class="w-full border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium">
+<div class="bg-white rounded-3xl shadow-card p-4 text-sm border border-slate-100">
+<div class="font-extrabold mb-2 text-slate-900">Daftar barang</div>
+<div class="mb-2 relative">
+    <input type="text" id="cari-barang-sesi" placeholder="Cari nama barang..." class="w-full border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium">
 </div>
 <div class="space-y-1 max-h-96 overflow-y-auto" id="list-barang-sesi">
 @foreach($products as $i => $p)<a href="/admin/opname/{{ $sesi->id }}?p={{ $i }}" class="item-barang-sesi block px-3 py-2 rounded-2xl text-xs font-bold {{ $i===$pos?'bg-purple-900 text-white':'bg-slate-100 text-slate-600' }}" data-nama="{{ strtolower($p->nama) }}" style="text-decoration:none">{{ $i+1 }}. {{ $p->nama }}</a>@endforeach

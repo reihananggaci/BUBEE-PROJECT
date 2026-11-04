@@ -12,7 +12,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}
 </style></head>
 <body>
 <div class="struk">
-<div class="center"><b>🐝 BUBEE</b><br>Stok Real-time • JNE/J&T/SPX<br>{{ $order->kode }}<br>{{ $order->created_at->format('d-m-Y H:i') }}</div>
+<div class="center"><b>BUBEE</b><br>Stok Real-time • JNE/J&T/SPX<br>{{ $order->kode }}<br>{{ $order->created_at->format('d-m-Y H:i') }}</div>
 <hr>
 @foreach($order->items as $it)
 <div>{{ $it->product->nama ?? '' }} ({{ $it->variant?->label() }})</div>
@@ -26,7 +26,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}
 <tr><td><b>TOTAL</b></td><td class="right"><b>{{ number_format($order->total_bayar) }}</b></td></tr>
 </table>
 <hr>
-<div class="center">Makasih sudah belanja!<br>Simpan struk ini ya 🐝</div>
+<div class="center">Makasih sudah belanja!<br>Simpan struk ini ya.</div>
 </div>
-<div class="noprint center" style="margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff">🖨️ CETAK</button></div>
+<div class="noprint center" style="margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff;cursor:pointer">CETAK STRUK</button></div>
 </body></html>

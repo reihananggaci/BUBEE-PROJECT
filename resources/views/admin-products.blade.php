@@ -2,7 +2,12 @@
 @section('title','Admin Stok')
 @section('back', '/admin')
 @section('content')
-<h1 class="font-extrabold text-lg">📦 Kelola Barang + Varian</h1>
+<div class="flex items-center gap-2 mb-1">
+    <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+    </div>
+    <h1 class="font-extrabold text-lg text-slate-900">Kelola Barang + Varian</h1>
+</div>
 <div class="text-xs text-slate-500 mb-2">Stok dicatat <b>per ukuran/warna</b>. Total = jumlah semua varian. Semua tercatat di mutasi.</div>
 
 <div class="grid grid-cols-4 gap-1.5 text-center">
@@ -13,7 +18,7 @@
 </div>
 
 <form method="GET" action="/admin/produk" class="flex gap-1.5 mt-2">
-<input name="q" value="{{ $q ?? '' }}" placeholder="🔍 Cari nama/SKU…" class="flex-1 border rounded-2xl px-3 py-2 text-xs">
+<input name="q" value="{{ $q ?? '' }}" placeholder="Cari nama/SKU…" class="flex-1 border rounded-2xl px-3 py-2 text-xs">
 <input type="hidden" name="filter" value="{{ $filter }}">
 <input type="hidden" name="view" value="{{ $view ?? 'tabel' }}">
 <button class="bg-purple-900 text-white font-bold px-3 rounded-2xl text-xs">Cari</button>
@@ -38,7 +43,7 @@
 
 {{-- FORM TAMBAH BARANG BARU --}}
 <details class="rounded-[1.75rem] p-5 text-white shadow-card mt-2 mb-3" style="background:linear-gradient(135deg,#050B2E,#1D4ED8)">
-<summary class="font-extrabold cursor-pointer">➕ Tambah Barang Baru</summary>
+<summary class="font-extrabold cursor-pointer inline-flex items-center gap-1.5"><svg class="w-4 h-4 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Tambah Barang Baru</summary>
 <form method="POST" action="/admin/produk" enctype="multipart/form-data" class="grid grid-cols-2 gap-2 mt-3 text-sm">@csrf
 <input name="nama" placeholder="Nama barang *" class="col-span-2 rounded-2xl px-3 py-2.5 text-slate-900" required>
 <textarea name="deskripsi" placeholder="Deskripsi barang (bahan, ukuran, warna…)" class="col-span-2 rounded-2xl px-3 py-2.5 text-slate-900" rows="2"></textarea>
@@ -57,23 +62,23 @@
 <input name="min_reseller" type="number" min="1" value="6" placeholder="Min reseller" class="rounded-2xl px-3 py-2.5 text-slate-900">
 <input name="keterangan" placeholder="Keterangan stok awal" class="rounded-2xl px-3 py-2.5 text-slate-900">
 <div class="col-span-2 bg-white/10 rounded-2xl p-2.5">
-<label class="text-xs">📷 Foto barang (opsional, max 2MB)</label>
+<label class="text-xs inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Foto barang (opsional, max 2MB)</label>
 <input type="file" name="foto" accept="image/*" class="w-full text-xs mt-1">
 <label class="text-xs flex items-center gap-1 mt-1"><input type="checkbox" name="is_active" value="1" checked> Tampilkan di katalog</label>
 </div>
-<button class="col-span-2 font-extrabold py-3 rounded-2xl text-slate-900" style="background:linear-gradient(90deg,#38E1FF,#fff)">SIMPAN BARANG 🚀</button>
+<button class="col-span-2 font-extrabold py-3 rounded-2xl text-slate-900 flex items-center justify-center gap-2" style="background:linear-gradient(90deg,#38E1FF,#fff)"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg><span>Simpan Barang</span></button>
 </form>
 </details>
 
 {{-- TAB PEMISAH: TABEL RINGKASAN VS KARTU KELOLA & EDIT --}}
 <div class="flex items-center p-1 bg-slate-100 rounded-2xl shadow-inner mb-3">
     <a href="{{ request()->fullUrlWithQuery(['view' => 'tabel', 'page' => 1]) }}" 
-       class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-center transition flex items-center justify-center gap-1 {{ ($view ?? 'tabel') === 'tabel' ? 'bg-white text-purple-900 shadow-sm' : 'text-slate-500' }}">
-        <span>📊</span> <span>Tabel Ringkasan</span> <span class="text-[10px] px-1.5 py-0.2 rounded-full {{ ($view ?? 'tabel') === 'tabel' ? 'bg-purple-100 text-purple-800' : 'bg-slate-200' }}">{{ $products->total() }}</span>
+       class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-center transition flex items-center justify-center gap-1.5 {{ ($view ?? 'tabel') === 'tabel' ? 'bg-white text-purple-900 shadow-sm' : 'text-slate-500' }}">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20v-7"/><path d="M11 20V5"/><path d="M17 20v-10"/><path d="M3 20h18"/></svg> <span>Tabel Ringkasan</span> <span class="text-[10px] px-1.5 py-0.2 rounded-full {{ ($view ?? 'tabel') === 'tabel' ? 'bg-purple-100 text-purple-800' : 'bg-slate-200' }}">{{ $products->total() }}</span>
     </a>
     <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'page' => 1]) }}" 
-       class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-center transition flex items-center justify-center gap-1 {{ ($view ?? 'tabel') === 'kartu' ? 'bg-white text-purple-900 shadow-sm' : 'text-slate-500' }}">
-        <span>🛠️</span> <span>Kartu Kelola & Edit</span> <span class="text-[10px] px-1.5 py-0.2 rounded-full {{ ($view ?? 'tabel') === 'kartu' ? 'bg-purple-100 text-purple-800' : 'bg-slate-200' }}">{{ $products->total() }}</span>
+       class="flex-1 py-2 px-2 rounded-xl text-xs font-extrabold text-center transition flex items-center justify-center gap-1.5 {{ ($view ?? 'tabel') === 'kartu' ? 'bg-white text-purple-900 shadow-sm' : 'text-slate-500' }}">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span>Kartu Kelola & Edit</span> <span class="text-[10px] px-1.5 py-0.2 rounded-full {{ ($view ?? 'tabel') === 'kartu' ? 'bg-purple-100 text-purple-800' : 'bg-slate-200' }}">{{ $products->total() }}</span>
     </a>
 </div>
 
@@ -82,7 +87,7 @@
 @if(($view ?? 'tabel') === 'tabel')
     {{-- BAGIAN 1: TABEL RINGKASAN MOBILE --}}
     <div class="flex justify-between items-center mb-2">
-        <button form="bulkarsip" class="bg-slate-100 text-slate-700 font-bold py-1.5 px-3 rounded-xl text-[11px]">📦 Arsipkan dipilih</button>
+        <button form="bulkarsip" class="bg-slate-100 text-slate-700 font-bold py-1.5 px-3 rounded-xl text-[11px] inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Arsipkan dipilih</span></button>
         <span class="text-[11px] text-slate-500 font-medium">Hal {{ $products->currentPage() }}/{{ $products->lastPage() }}</span>
     </div>
 
@@ -106,12 +111,12 @@
                     <td class="p-2">
                         <div class="font-bold text-slate-900 leading-tight">{{ $p->nama }}</div>
                         <div class="text-[10px] text-slate-400">{{ $p->kategori }} • {{ $p->variants->count() }} var</div>
-                        <div class="text-[10px] mt-0.5">
-                            @if($p->sinyal==='habis')<span class="text-red-600 font-bold">🔴 Habis — restock sekarang</span>
-                            @elseif($p->sinyal==='segera')<span class="text-amber-600 font-bold">🟡 ±{{ $p->hari_habis }} hari — restock segera</span>
-                            @elseif($p->sinyal==='kritis')<span class="text-amber-600 font-bold">🟡 Stok kritis</span>
-                            @elseif($p->sinyal==='diam')<span class="text-slate-400">⚪ Tidak laku 30 hari</span>
-                            @else<span class="text-emerald-600 font-bold">🟢 Aman • laku {{ $p->terjual30 }} pcs/30 hari</span>
+                        <div class="text-[10px] mt-0.5 flex items-center">
+                            @if($p->sinyal==='habis')<span class="text-red-600 font-bold inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Habis — restock sekarang</span>
+                            @elseif($p->sinyal==='segera')<span class="text-amber-600 font-bold inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>±{{ $p->hari_habis }} hari — restock segera</span>
+                            @elseif($p->sinyal==='kritis')<span class="text-amber-600 font-bold inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Stok kritis</span>
+                            @elseif($p->sinyal==='diam')<span class="text-slate-400 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Tidak laku 30 hari</span>
+                            @else<span class="text-emerald-600 font-bold inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aman • laku {{ $p->terjual30 }} pcs/30 hari</span>
                             @endif
                         </div>
                     </td>
@@ -130,7 +135,10 @@
                                 {{ $p->is_active ? 'ON' : 'OFF' }}
                             </button>
                         </form>
-                        <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'q' => $p->nama]) }}" class="px-2 py-1 bg-purple-50 text-purple-700 font-bold rounded-lg text-[10px] ml-1">✏️ Edit</a>
+                        <a href="{{ request()->fullUrlWithQuery(['view' => 'kartu', 'q' => $p->nama]) }}" class="px-2 py-1 bg-purple-50 text-purple-700 font-bold rounded-lg text-[10px] ml-1 inline-flex items-center gap-1">
+                            <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            <span>Edit</span>
+                        </a>
                     </td>
                 </tr>
                 @empty
@@ -146,7 +154,7 @@
 @else
     {{-- BAGIAN 2: KARTU KELOLA & EDIT MOBILE --}}
     <div class="mb-2">
-        <button form="bulkarsip" class="w-full bg-slate-100 text-slate-600 font-bold py-2.5 rounded-2xl text-xs">📦 Arsipkan yang dicentang</button>
+        <button form="bulkarsip" class="w-full bg-slate-100 text-slate-600 font-bold py-2.5 rounded-2xl text-xs inline-flex items-center justify-center gap-1.5"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>Arsipkan yang dicentang</span></button>
     </div>
 
     @forelse($products as $p)
@@ -178,18 +186,18 @@
         </div>
 
         <div class="text-[11px] mt-1.5">
-            @if($p->sinyal==='habis')<span class="font-bold text-red-600">🔴 Habis — restock sekarang</span>
-            @elseif($p->sinyal==='segera')<span class="font-bold text-amber-600">🟡 ±{{ $p->hari_habis }} hari habis — restock segera</span>
-            @elseif($p->sinyal==='kritis')<span class="font-bold text-amber-600">🟡 Stok kritis</span>
-            @elseif($p->sinyal==='diam')<span class="text-slate-400">⚪ Tidak laku 30 hari</span>
-            @else<span class="text-emerald-600 font-bold">🟢 Aman • laku {{ $p->terjual30 }} pcs/30 hari</span>
+            @if($p->sinyal==='habis')<span class="font-bold text-red-600 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>Habis — restock sekarang</span>
+            @elseif($p->sinyal==='segera')<span class="font-bold text-amber-600 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>±{{ $p->hari_habis }} hari habis — restock segera</span>
+            @elseif($p->sinyal==='kritis')<span class="font-bold text-amber-600 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>Stok kritis</span>
+            @elseif($p->sinyal==='diam')<span class="text-slate-400 inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>Tidak laku 30 hari</span>
+            @else<span class="text-emerald-600 font-bold inline-flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aman • laku {{ $p->terjual30 }} pcs/30 hari</span>
             @endif
             @if($p->terjual30>0 && $p->sinyal!=='aman')<span class="text-slate-400"> • laku {{ $p->terjual30 }} pcs/30 hari</span>@endif
         </div>
 
         {{-- VARIAN --}}
         <div class="mt-2 rounded-2xl bg-purple-50/70 border border-purple-100 p-2.5">
-            <div class="text-[11px] font-extrabold text-purple-900 mb-1.5">📐 VARIAN ({{ $p->variants->count() }})</div>
+            <div class="text-[11px] font-extrabold text-purple-900 mb-1.5 flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span>VARIAN ({{ $p->variants->count() }})</span></div>
             @foreach($p->variants as $v)
             <form method="POST" action="/admin/varian/{{ $v->id }}" class="flex items-center gap-1.5 py-1 border-b border-purple-100 last:border-0">
                 @csrf @method('PUT')
@@ -215,10 +223,10 @@
 
         {{-- TIER HARGA --}}
         <div class="mt-2 rounded-2xl bg-emerald-50/70 border border-emerald-100 p-2.5">
-            <div class="text-[11px] font-extrabold text-emerald-900 mb-1.5">💰 TIER HARGA (level + min qty)</div>
+            <div class="text-[11px] font-extrabold text-emerald-900 mb-1.5 flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-emerald-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 6v12M15 9.5a3.5 3.5 0 0 0-5 0c0 2 3 2.5 3 4.5 0 1.2-1 2-2.5 2"/></svg><span>TIER HARGA (level + min qty)</span></div>
             @foreach($p->prices as $t)
             <div class="flex items-center gap-1.5 py-1 border-b border-emerald-100 last:border-0 text-xs">
-                <span class="font-bold flex-1">{{ $t->level === 'reseller' ? '🏪 Reseller' : '🙋 Reguler' }} <span class="text-slate-400">min {{ $t->min_qty }} pcs</span></span>
+                <span class="font-bold flex-1">{{ $t->level === 'reseller' ? 'Reseller' : 'Reguler' }} <span class="text-slate-400">min {{ $t->min_qty }} pcs</span></span>
                 <span class="font-extrabold">Rp {{ number_format($t->price) }}</span>
                 <form method="POST" action="/admin/tier/{{ $t->id }}" onsubmit="return confirm('Hapus tier ini?')">
                     @csrf @method('DELETE')
@@ -239,7 +247,7 @@
         <form method="POST" action="/admin/produk/{{ $p->id }}" enctype="multipart/form-data" class="mt-2 space-y-1.5">
             @csrf @method('PUT')
             <details>
-                <summary class="text-xs font-bold text-purple-700 cursor-pointer select-none">✏️ Ubah info, harga & foto</summary>
+                <summary class="text-xs font-bold text-purple-700 cursor-pointer select-none inline-flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span>Ubah info, harga & foto</span></summary>
                 <div class="space-y-1.5 mt-1.5">
                     <input name="nama" value="{{ $p->nama }}" class="w-full border rounded-xl px-2 py-1.5 font-bold">
                     <div class="flex gap-1.5">

@@ -2,7 +2,12 @@
 @section('title','Barang Keluar')
 @section('back', '/admin/mutasi')
 @section('content')
-<h1 class="font-extrabold text-lg">📤 Barang Keluar Manual</h1>
+<h1 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+    <span class="w-7 h-7 rounded-lg bg-red-100 text-red-700 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>
+    </span>
+    <span>Barang Keluar Manual</span>
+</h1>
 <div class="text-xs text-slate-500 mb-2">Rusak, hilang, atau sample — stok berkurang + tercatat di mutasi.</div>
 <form method="POST" action="/admin/stok-keluar" class="glass rounded-3xl shadow-card p-4 mt-2 space-y-2 text-sm" onsubmit="return confirm('Keluarkan stok? Tidak bisa dibatalkan.')">@csrf
 <select name="variant_id" class="w-full border rounded-2xl px-3 py-2.5" required>

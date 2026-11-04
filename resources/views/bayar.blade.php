@@ -20,7 +20,10 @@
 <form method="POST" action="/bayar/{{ $order->id }}/simulasi" class="mt-2">@csrf<button class="w-full text-white font-extrabold py-3.5 rounded-3xl" style="background:linear-gradient(90deg,#059669,#00E5FF)">SAYA SUDAH BAYAR</button></form>
 @endif
 <details class="glass rounded-3xl p-3.5 mt-2 text-sm shadow-card" open>
-<summary class="font-bold cursor-pointer text-xs text-blue-900">🏦 Transfer Bank Manual & Upload Bukti</summary>
+<summary class="font-bold cursor-pointer text-xs text-blue-900 inline-flex items-center gap-1.5">
+    <svg class="w-4 h-4 text-blue-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M3 10h18M5 10v11M9 10v11M15 10v11M19 10v11M12 2l10 5H2l10-5z"/></svg>
+    <span>Transfer Bank Manual & Upload Bukti</span>
+</summary>
 <div class="mt-2.5 p-3 rounded-2xl bg-blue-50/60 border border-blue-100 text-xs space-y-1.5">
 <div class="flex justify-between items-center text-slate-500"><span>Bank Tujuan:</span><b class="text-slate-900 font-extrabold text-sm">{{ $bank['nama'] ?? 'BCA' }}</b></div>
 <div class="flex justify-between items-center text-slate-500"><span>No. Rekening:</span><span class="font-mono font-extrabold text-blue-900 text-sm select-all">{{ $bank['rekening'] ?? '1234567890' }}</span></div>

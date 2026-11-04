@@ -1,14 +1,19 @@
 @extends('layouts.web-admin')
 @section('title','Kelola Retur')
 @section('content')
-<h1 class="font-extrabold text-2xl">🔄 Kelola Retur & Komplain</h1>
-<div class="text-xs text-slate-500 mb-3">Setujui → barang dikirim balik. <b>Selesai</b> → stok varian bertambah otomatis.</div>
+<h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 4-4 4 4M7 5v11a4 4 0 0 0 4 4h9"/></svg>
+    </span>
+    <span>Kelola Retur & Komplain</span>
+</h1>
+<div class="text-xs text-slate-500 mb-3 mt-0.5">Setujui → barang dikirim balik. <b>Selesai</b> → stok varian bertambah otomatis.</div>
 <div class="hidden lg:block bg-white rounded-3xl shadow-card overflow-x-auto">
 <table class="w-full text-sm lg:table">
 <thead><tr class="text-left text-[11px] text-slate-400"><th class="px-4 py-2">Retur</th><th class="px-4 py-2">User</th><th class="px-4 py-2">Item</th><th class="px-4 py-2">Status</th><th class="px-4 py-2">Update</th></tr></thead>
 <tbody>
 @foreach($returs as $rt)<tr class="border-t border-slate-100">
-<td class="px-4 py-2 font-bold whitespace-nowrap">Retur #{{ $rt->id }} • {{ $rt->order->kode ?? '' }} <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">{{ strtoupper($rt->kategori ?? 'retur') }}</span><br><span class="font-normal text-[11px] text-slate-400">{{ $rt->created_at->format('d M H:i') }} • {{ $rt->alasan }}</span>@if($rt->foto)<br><a href="/storage/{{ $rt->foto }}" target="_blank" class="text-blue-700 font-bold text-xs">📎 Lihat foto</a>@endif</td>
+<td class="px-4 py-2 font-bold whitespace-nowrap">Retur #{{ $rt->id }} • {{ $rt->order->kode ?? '' }} <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">{{ strtoupper($rt->kategori ?? 'retur') }}</span><br><span class="font-normal text-[11px] text-slate-400">{{ $rt->created_at->format('d M H:i') }} • {{ $rt->alasan }}</span>@if($rt->foto)<br><a href="/storage/{{ $rt->foto }}" target="_blank" class="text-blue-700 font-bold text-xs inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> Lihat foto</a>@endif</td>
 <td class="px-4 py-2">{{ $rt->user->name ?? '' }}</td>
 <td class="px-4 py-2 text-xs">@foreach($rt->items as $ri)<div>- {{ $ri->orderItem->product->nama ?? '' }} ×{{ $ri->qty }}</div>@endforeach</td>
 <td class="px-4 py-2"><span class="text-[10px] font-extrabold px-2 py-1 rounded-full {{ $rt->status==='selesai'?'bg-emerald-300':($rt->status==='ditolak'?'bg-red-300':'bg-amber-200') }}">{{ strtoupper($rt->status) }}</span></td>
@@ -28,7 +33,7 @@
 <span class="text-[10px] font-extrabold px-2 py-1 rounded-full {{ $rt->status==='selesai'?'bg-emerald-300':($rt->status==='ditolak'?'bg-red-300':'bg-amber-200') }}">{{ strtoupper($rt->status) }}</span></div>
 <div class="text-xs text-slate-500">{{ $rt->user->name ?? '' }} • {{ $rt->created_at->format('d M H:i') }} • {{ $rt->alasan }}</div>
 @foreach($rt->items as $ri)<div class="text-xs">- {{ $ri->orderItem->product->nama ?? '' }} ×{{ $ri->qty }}</div>@endforeach
-@if($rt->foto)<div class="text-xs">📎 <a href="/storage/{{ $rt->foto }}" target="_blank" class="text-blue-700 font-bold">Lihat foto barang</a></div>@endif
+@if($rt->foto)<div class="text-xs"><a href="/storage/{{ $rt->foto }}" target="_blank" class="text-blue-700 font-bold inline-flex items-center gap-1"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg> Lihat foto barang</a></div>@endif
 <form method="POST" action="/admin/retur/{{ $rt->id }}" class="flex gap-1 mt-2">@csrf @method('PUT')
 <select name="status" class="border rounded-xl px-2 py-1.5 text-xs font-bold flex-1">@foreach(['diajukan','disetujui','ditolak','selesai'] as $s)<option value="{{ $s }}" {{ $rt->status===$s?'selected':'' }}>{{ $s }}</option>@endforeach</select>
 <input name="catatan_admin" value="{{ $rt->catatan_admin }}" placeholder="Catatan…" class="flex-[2] border rounded-xl px-2 py-1.5 text-xs">
@@ -37,7 +42,7 @@
 </div>
 @endforeach
 </div>
-@if($returs->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3">Belum ada pengajuan retur. 🎉</div>@endif
+@if($returs->isEmpty())<div class="bg-white rounded-3xl p-6 text-center text-sm mt-3 border border-slate-100 text-slate-500">Belum ada pengajuan retur.</div>@endif
 
 {{-- Navigasi Panah Samping (Pagination) --}}
 <div class="mt-4">{{ $returs->links() }}</div>

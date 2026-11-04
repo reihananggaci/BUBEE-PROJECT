@@ -5,14 +5,19 @@
 {{-- ==================== HEADER HALAMAN ==================== --}}
 <div class="flex justify-between items-center flex-wrap gap-3 mb-4">
     <div>
-        <h1 class="font-extrabold text-2xl text-slate-900">📦 Stok Opname (Audit Fisik Gudang)</h1>
+        <h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+            </span>
+            <span>Stok Opname (Audit Fisik Gudang)</span>
+        </h1>
         <div class="text-xs text-slate-500 mt-0.5">
             Hitung stok fisik barang di rak gudang, bandingkan dengan catatan sistem, dan sesuaikan selisih secara otomatis.
         </div>
     </div>
     <div>
         <a href="/admin/mutasi" class="bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold px-3.5 py-2 rounded-2xl text-xs border border-purple-200 transition inline-flex items-center gap-1.5" style="text-decoration:none">
-            <span>📋</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
             <span>Lihat Log Mutasi Stok →</span>
         </a>
     </div>
@@ -25,7 +30,10 @@
         @if($sesiJalan)
         <a href="/admin/opname/{{ $sesiJalan->id }}" class="block rounded-3xl p-5 text-white shadow-card transition hover:opacity-95" style="background:linear-gradient(135deg,#4c1d95,#ec4899);text-decoration:none">
             <div class="flex items-center justify-between">
-                <span class="font-black text-lg">▶️ Lanjutkan Sesi #{{ $sesiJalan->id }}</span>
+                <span class="font-black text-lg flex items-center gap-2">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+                    <span>Lanjutkan Sesi #{{ $sesiJalan->id }}</span>
+                </span>
                 <span class="bg-white/20 text-white font-extrabold px-3 py-1 rounded-full text-xs uppercase tracking-wide">{{ $sesiJalan->cakupan }}</span>
             </div>
             <div class="text-xs opacity-90 mt-2">
@@ -39,7 +47,10 @@
         <form method="POST" action="/admin/opname/mulai" class="bg-white rounded-3xl shadow-card p-5 text-sm space-y-3 border border-slate-100">
             @csrf
             <div>
-                <b class="text-slate-900 text-sm">🆕 Mulai Sesi Opname Terpandu</b>
+                <b class="text-slate-900 text-sm flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+                    <span>Mulai Sesi Opname Terpandu</span>
+                </b>
                 <div class="text-[11px] text-slate-500">Hitung satu per satu dengan konfirmasi foto bila ada selisih besar</div>
             </div>
             <div>
@@ -52,7 +63,7 @@
                 </select>
             </div>
             <button class="w-full text-white font-extrabold py-3 rounded-2xl text-xs transition shadow-sm hover:opacity-95" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">
-                MULAI HITUNG TERPANDU 🚀
+                MULAI HITUNG TERPANDU →
             </button>
         </form>
         @endif
@@ -61,7 +72,7 @@
         <form method="POST" action="/admin/rekonsiliasi" class="mt-3" onsubmit="return confirm('Selaraskan semua total stok produk induk dengan jumlah varian yang ada?')">
             @csrf
             <button class="w-full bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold py-2.5 rounded-2xl text-xs border border-purple-200/60 transition flex items-center justify-center gap-1.5">
-                <span>🔧</span>
+                <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                 <span>Rekonsiliasi Otomatis (Sinkronkan Stok Induk)</span>
             </button>
         </form>
@@ -70,7 +81,10 @@
     {{-- KARTU KANAN: RIWAYAT SESI OPNAME --}}
     <div class="bg-white rounded-3xl shadow-card p-5 text-sm border border-slate-100">
         <div class="flex items-center justify-between mb-2">
-            <b class="text-slate-900 text-sm">🕘 Riwayat Sesi Opname Selesai</b>
+            <b class="text-slate-900 text-sm flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Riwayat Sesi Opname Selesai</span>
+            </b>
             <span class="text-xs text-slate-400">{{ count($riwayat) }} Sesi Terakhir</span>
         </div>
         
@@ -125,7 +139,9 @@
 <details class="bg-white rounded-3xl shadow-card p-6 text-sm border border-slate-100" open>
     <summary class="font-extrabold cursor-pointer text-base text-slate-900 flex items-center justify-between flex-wrap gap-2 select-none">
         <div class="flex items-center gap-2">
-            <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center text-sm font-black">⚡</span>
+            <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </span>
             <div>
                 <span class="text-slate-900">Mode Cepat (Form Massal Stock Opname)</span>
                 <span class="block text-xs font-normal text-slate-400">Sesuaikan fisik banyak barang sekaligus pada satu halaman tanpa antre sesi</span>
@@ -164,8 +180,8 @@
             <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
                 {{-- Input Pencarian Real-time --}}
                 <div class="relative flex-1 w-full">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 text-sm">
-                        🔍
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                     </span>
                     <input type="text" id="opname-search-input" placeholder="Ketik nama tumbler, kode varian, atau warna untuk mencari..." class="w-full pl-10 pr-10 py-2.5 text-xs font-bold text-slate-800 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition shadow-xs" autocomplete="off">
                     <button type="button" id="opname-clear-search" class="absolute inset-y-0 right-0 pr-3 items-center text-slate-400 hover:text-slate-700 hidden text-sm font-bold" title="Hapus pencarian">
@@ -245,7 +261,9 @@
                         @if($p->foto)
                             <img src="/storage/{{ $p->foto }}" alt="{{ $p->nama }}" class="w-11 h-11 rounded-xl object-cover shrink-0 border border-slate-200 bg-white shadow-xs" loading="lazy">
                         @else
-                            <span class="w-11 h-11 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center text-lg shrink-0 border border-purple-200">🍶</span>
+                            <span class="w-11 h-11 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0 border border-purple-200">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3z"/><path d="M3.5 7.5 12 12l8.5-4.5"/><path d="M12 12v9"/></svg>
+                            </span>
                         @endif
                         <div>
                             <div class="font-extrabold text-sm text-slate-900 leading-snug">{{ $p->nama }}</div>
@@ -307,7 +325,9 @@
 
         {{-- PESAN KETIKA PENCARIAN KOSONG --}}
         <div id="opname-empty-search" class="py-12 text-center text-slate-400 bg-slate-50 rounded-2xl border border-dashed border-slate-200 hidden">
-            <div class="text-3xl mb-1">🔍</div>
+            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </div>
             <div class="font-bold text-sm text-slate-600">Tidak ada produk tumbler yang cocok</div>
             <div class="text-xs text-slate-400 mt-0.5">Silakan gunakan kata kunci nama lain atau klik tombol reset pencarian.</div>
         </div>
@@ -341,7 +361,7 @@
         {{-- TOMBOL SUBMIT MASSAL --}}
         <div class="mt-6 pt-4 border-t border-slate-200">
             <button type="submit" class="w-full text-white font-black py-3.5 px-6 rounded-2xl text-sm transition shadow-md hover:shadow-lg active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">
-                <span>💾</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
                 <span>SIMPAN HASIL OPNAME (SESUAIKAN STOK)</span>
             </button>
             <div class="text-[11px] text-center text-slate-400 mt-2">

@@ -16,7 +16,7 @@ th{background:#f1f5f9}
 </style></head>
 <body>
 <div class="sj">
-<h1>🐝 {{ strtoupper($toko['nama']) }} — SURAT JALAN</h1>
+<h1>{{ strtoupper($toko['nama']) }} — SURAT JALAN</h1>
 <div class="small">No: {{ $order->kode }} • Tgl: {{ $order->created_at->format('d M Y H:i') }} • Kurir: {{ $order->kurir }} {{ $order->layanan }}@if($order->resi) • Resi: <b>{{ $order->resi }}</b>@endif</div>
 <table>
 <tr><th style="width:50%">PENGIRIM</th><th>PENERIMA</th></tr>
@@ -30,5 +30,5 @@ th{background:#f1f5f9}
 <div class="small" style="margin-top:8px">Catatan: cek fisik paket saat terima. Komplain/retur via menu Retur di aplikasi maks. sertakan foto.</div>
 <div class="ttd"><div>Pengirim<br>{{ $toko['nama'] }}</div><div>Kurir<br>&nbsp;</div><div>Penerima<br>{{ $order->nama_penerima }}</div></div>
 </div>
-<div class="noprint" style="text-align:center;margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff">🖨️ CETAK</button></div>
+<div class="noprint" style="text-align:center;margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff;cursor:pointer">CETAK SURAT JALAN</button></div>
 </body></html>

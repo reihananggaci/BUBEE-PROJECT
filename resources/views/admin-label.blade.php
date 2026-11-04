@@ -12,7 +12,7 @@ h1{margin:0;font-size:22px;letter-spacing:2px}
 </style></head>
 <body>
 <div class="label">
-<h1>🐝 BUBEE</h1>
+<h1 style="display:flex;align-items:center;gap:8px"><img src="/images/logo-bubee.png" style="width:26px;height:26px;object-fit:contain" alt="Bubee"> BUBEE</h1>
 <div class="kurir">{{ $order->kurir }} {{ $order->layanan }}</div>
 <div><b>{{ $order->kode }}</b> • {{ $order->created_at->format('d M Y') }}</div>
 <div class="box"><b>KEPADA:</b><br><b>{{ $order->nama_penerima }}</b> ({{ $order->hp_penerima }})<br>{{ $order->alamat }}@if($order->kota_tujuan)<br>{{ $order->kota_tujuan }}@endif</div>
@@ -20,5 +20,5 @@ h1{margin:0;font-size:22px;letter-spacing:2px}
 @if($order->resi)<div class="box"><b>RESI: {{ $order->resi }}</b></div>@endif
 <div class="small" style="margin-top:6px">Dicetak {{ now()->format('d M Y H:i') }} • Tempel di paket.</div>
 </div>
-<div class="noprint" style="text-align:center;margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff">🖨️ CETAK</button></div>
+<div class="noprint" style="text-align:center;margin-top:12px"><button onclick="window.print()" style="padding:12px 32px;font-weight:800;border-radius:12px;border:none;background:#111;color:#fff;cursor:pointer">CETAK LABEL</button></div>
 </body></html>

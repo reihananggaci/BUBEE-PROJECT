@@ -123,7 +123,15 @@ main details>summary:hover{color:#1D4ED8}
 </main>
 <footer class="wfoot max-w-7xl mx-auto px-5 pt-6 pb-10 text-center text-xs text-slate-400">
 <div class="flex items-center justify-center gap-2 font-extrabold tracking-widest text-slate-500"><img src="/images/logo-bubee.png" alt="" style="width:20px;height:20px;border-radius:6px">BUBEE</div>
-<div class="mt-1">Stok real-time • JNE J&T SPX • <a href="/bantuan" style="color:#1D4ED8;font-weight:800;text-decoration:none">Bantuan</a> • <a href="/tampilan/hp" style="margin-left:4px;color:#1D4ED8;font-weight:800;text-decoration:none">📱 Versi HP</a></div>
+<div class="mt-1 flex items-center justify-center gap-1.5 flex-wrap">
+    <span>Stok real-time • JNE J&T SPX • </span>
+    <a href="/bantuan" style="color:#1D4ED8;font-weight:800;text-decoration:none">Bantuan</a>
+    <span>•</span>
+    <a href="/tampilan/hp" class="inline-flex items-center gap-1 font-extrabold text-blue-700 hover:underline" style="text-decoration:none">
+        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+        <span>Versi HP</span>
+    </a>
+</div>
 </footer>
 <script>
 /* Toggle mata pada semua input sandi (login, daftar, pengaturan) */

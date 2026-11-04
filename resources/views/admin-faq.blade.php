@@ -2,10 +2,18 @@
 @section('title','Kelola FAQ')
 @section('back', '/admin')
 @section('content')
-<h1 class="font-extrabold text-lg">❓ Kelola FAQ Bantuan</h1>
+<h1 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+    <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.3a2.6 2.6 0 0 1 5 .9c0 1.7-2.4 2-2.4 3.6"/><circle cx="12" cy="17.2" r=".5" fill="currentColor"/></svg>
+    </span>
+    <span>Kelola FAQ Bantuan</span>
+</h1>
 <div class="text-xs text-slate-500 mb-2">Tampil di popup beranda, panel bantuan & halaman /bantuan.</div>
 <details class="glass rounded-3xl shadow-card p-4">
-<summary class="font-extrabold text-sm cursor-pointer">➕ FAQ Baru</summary>
+<summary class="font-extrabold text-sm cursor-pointer flex items-center gap-1.5 text-slate-900">
+    <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span>FAQ Baru</span>
+</summary>
 <form method="POST" action="/admin/faq" class="space-y-1.5 mt-2 text-sm">@csrf
 <select name="topik" class="w-full border rounded-2xl px-3 py-2">@foreach(\App\Models\Faq::topiks() as $t)<option value="{{ $t }}">{{ $t }}</option>@endforeach</select>
 <input name="pertanyaan" placeholder="Pertanyaan *" maxlength="200" class="w-full border rounded-2xl px-3 py-2" required>

@@ -29,14 +29,16 @@
     </div>
 
     {{-- Stok Badge --}}
-    <span class="absolute bottom-3 left-3 text-[11px] font-bold bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full z-10 pointer-events-none">
-        📦 Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr
+    <span class="absolute bottom-3 left-3 text-[11px] font-bold bg-black/60 backdrop-blur-sm text-white px-3 py-1 rounded-full z-10 pointer-events-none inline-flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-cyan-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3z"/><path d="M3.5 7.5 12 12l8.5-4.5"/><path d="M12 12v9"/></svg>
+        <span>Total stok: {{ $product->stok }} • {{ $product->berat_gram }} gr</span>
     </span>
 
     @if($totalFoto > 1)
         {{-- Counter Badge (e.g. 1 / 5) --}}
-        <span id="carousel-counter-web" class="absolute bottom-3 right-3 text-[11px] font-extrabold bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-full z-10 pointer-events-none">
-            📷 1 / {{ $totalFoto }}
+        <span id="carousel-counter-web" class="absolute bottom-3 right-3 text-[11px] font-extrabold bg-black/60 backdrop-blur-sm text-white px-2.5 py-1 rounded-full z-10 pointer-events-none inline-flex items-center gap-1">
+            <svg class="w-3.5 h-3.5 text-white/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+            <span id="counter-num-web">1 / {{ $totalFoto }}</span>
         </span>
 
         {{-- Nav Buttons --}}
@@ -80,7 +82,10 @@ $shareText = auth()->check()
     : 'Lihat nih ' . $product->nama . ' di Bubee! ' . url('/produk/' . $product->id);
 $share = 'https://wa.me/?text=' . urlencode($shareText);
 @endphp
-<a href="{{ $share }}" target="_blank" class="block text-center bg-emerald-50 text-emerald-700 font-bold py-2.5 rounded-2xl text-sm" style="text-decoration:none">📤 Bagikan ke WA</a>
+<a href="{{ $share }}" target="_blank" class="flex items-center justify-center gap-2 bg-emerald-50 text-emerald-700 font-bold py-2.5 rounded-2xl text-sm hover:bg-emerald-100 transition" style="text-decoration:none">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+    <span>Bagikan ke WA</span>
+</a>
 @php
     $isRslrDetail = auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved';
     $hargaDetail = $product->hargaUntuk(auth()->user());
@@ -97,7 +102,7 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 @else
 <div class="mt-2 rounded-2xl p-3 text-sm bg-blue-50 border border-blue-100 flex items-center justify-between gap-3">
     <div>
-        <div class="font-extrabold text-blue-900 flex items-center gap-1.5"><svg class="w-4 h-4 text-blue-700 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Harga Terkunci 🔒</div>
+        <div class="font-extrabold text-blue-900 flex items-center gap-1.5"><svg class="w-4 h-4 text-blue-700 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Harga Terkunci</div>
         <div class="text-[11px] text-slate-500">Login untuk lihat harga</div>
     </div>
     <a href="/login" class="px-4 py-2 rounded-xl text-xs font-extrabold text-white shrink-0" style="background:linear-gradient(90deg,#0B2A6B,#1D4ED8);text-decoration:none">Login →</a>
@@ -108,7 +113,8 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 <div class="mt-3 mb-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
     <div class="flex items-center justify-between mb-2">
         <label class="text-xs font-extrabold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
-            <span>📏 Pilih Kapasitas / Ukuran:</span>
+            <svg class="w-3.5 h-3.5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="9" y2="9"/><line x1="4" x2="20" y1="15" y2="15"/><line x1="10" x2="8" y1="3" y2="21"/><line x1="16" x2="14" y1="3" y2="21"/></svg>
+            <span>Pilih Kapasitas / Ukuran:</span>
         </label>
         <span id="label-ukuran-aktif" class="text-xs font-black text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded-full"></span>
     </div>
@@ -272,15 +278,21 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 {{-- Ulasan + rekomendasi --}}
 <div class="grid gap-4 mt-4 lg:grid-cols-2 lg:items-start">
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card p-5">
-<div class="font-extrabold text-sm">⭐ Ulasan Pembeli ({{ $jml }})</div>
+<div class="font-extrabold text-sm flex items-center gap-1.5 text-slate-900">
+    <svg class="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span>Ulasan Pembeli ({{ $jml }})</span>
+</div>
 @if($bolehUlas)
 <details class="mt-2 text-sm bg-amber-50 border border-amber-100 rounded-2xl p-3">
-<summary class="font-bold cursor-pointer">✍️ Tulis ulasanmu</summary>
+<summary class="font-bold cursor-pointer flex items-center gap-1.5 text-amber-900">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+    <span>Tulis ulasanmu</span>
+</summary>
 <form method="POST" action="/produk/{{ $product->id }}/ulasan" enctype="multipart/form-data" class="mt-2 space-y-1.5">@csrf
-<select name="rating" class="w-full border rounded-2xl px-3 py-2"><option value="5">⭐⭐⭐⭐⭐ (5)</option><option value="4">⭐⭐⭐⭐ (4)</option><option value="3">⭐⭐⭐ (3)</option><option value="2">⭐⭐ (2)</option><option value="1">⭐ (1)</option></select>
+<select name="rating" class="w-full border rounded-2xl px-3 py-2"><option value="5">Bintang 5 (Sangat Puas)</option><option value="4">Bintang 4 (Puas)</option><option value="3">Bintang 3 (Cukup)</option><option value="2">Bintang 2 (Kurang)</option><option value="1">Bintang 1 (Kecewa)</option></select>
 <textarea name="ulasan" placeholder="Ceritakan pengalamanmu…" class="w-full border rounded-2xl px-3 py-2"></textarea>
 <input type="file" name="foto" accept="image/*" class="w-full text-xs">
-<button class="w-full bg-amber-400 font-extrabold py-2.5 rounded-2xl text-sm">KIRIM</button>
+<button class="w-full bg-amber-400 font-extrabold py-2.5 rounded-2xl text-sm">Kirim Ulasan</button>
 </form>
 </details>
 @endif
@@ -292,10 +304,13 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
 <div class="text-[10px] text-slate-400">{{ $u->created_at->format('d M Y') }}</div>
 </div>
 @endforeach
-@if($jml===0)<div class="text-xs text-slate-400 mt-1">Jadilah yang pertama mengulas setelah order selesai! 🐝</div>@endif
+@if($jml===0)<div class="text-xs text-slate-400 mt-1">Jadilah yang pertama mengulas setelah order selesai!</div>@endif
 </div>
 <div>
-<div class="font-extrabold text-sm mb-2">✨ Mungkin kamu suka</div>
+<div class="font-extrabold text-sm mb-2 flex items-center gap-1.5 text-slate-900">
+    <svg class="w-4 h-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+    <span>Mungkin kamu suka</span>
+</div>
 <div class="grid grid-cols-2 gap-2 lg:grid-cols-2">
 @foreach($lainnya as $l)<a href="/produk/{{ $l->id }}" class="bg-white border border-slate-100 rounded-3xl p-3 shadow-card flex flex-col h-full" style="text-decoration:none"><div class="text-3xl text-center">@if($l->foto)<img src="/storage/{{ $l->foto }}" alt="{{ $l->nama }}" class="w-full h-20 rounded-2xl object-cover">@else👕@endif</div><div class="text-[12px] font-bold mt-1 text-slate-900">{{ $l->nama }}</div>@if(auth()->check())<div class="text-[12px] text-blue-800 font-extrabold" style="margin-top:auto">Rp {{ number_format($l->hargaUntuk(auth()->user())) }}</div>@else<div style="margin-top:auto"><span class="price-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="9.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>Login untuk lihat harga</span></div>@endif</a>@endforeach
 </div>
@@ -318,7 +333,12 @@ $share = 'https://wa.me/?text=' . urlencode($shareText);
     function updateState(idx) {
         if (idx < 0) idx = 0;
         if (idx >= total) idx = total - 1;
-        if (counter) counter.textContent = '📷 ' + (idx + 1) + ' / ' + total;
+        var cNum = document.getElementById('counter-num-web');
+        if (cNum) {
+            cNum.textContent = (idx + 1) + ' / ' + total;
+        } else if (counter) {
+            counter.textContent = (idx + 1) + ' / ' + total;
+        }
         thumbs.forEach(function(btn, i) {
             if (i === idx) {
                 btn.classList.add('border-blue-600', 'ring-2', 'ring-blue-300', 'scale-105');

@@ -2,11 +2,19 @@
 @section('title','Voucher')
 @section('back', '/admin')
 @section('content')
-<h1 class="font-extrabold text-lg">🎟️ Kelola Voucher</h1>
+<h1 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+    <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/></svg>
+    </span>
+    <span>Kelola Voucher</span>
+</h1>
 <div class="text-xs text-slate-500 mb-2">Kode dipakai pembeli di checkout. Kedaluwarsa & kuota habis otomatis ditolak sistem.</div>
 
 <div class="glass rounded-[1.75rem] shadow-card p-4">
-<div class="font-extrabold text-sm">➕ Voucher Baru</div>
+<div class="font-extrabold text-sm flex items-center gap-1.5 text-slate-900">
+    <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+    <span>Voucher Baru</span>
+</div>
 <form method="POST" action="/admin/voucher" class="grid grid-cols-2 gap-1.5 mt-2 text-sm">@csrf
 <input name="kode" placeholder="KODE cth: HEMAT10 *" maxlength="20" class="rounded-2xl border px-3 py-2" required>
 <input name="nama" placeholder="Nama promo" maxlength="100" class="rounded-2xl border px-3 py-2">
@@ -18,7 +26,7 @@
 <select name="khusus" class="rounded-2xl border px-3 py-2"><option value="semua">Semua akun</option><option value="reseller">Reseller saja</option><option value="enduser">Reguler saja</option></select>
 <input name="berlaku_sampai" type="date" class="rounded-2xl border px-3 py-2 col-span-2">
 <label class="text-xs col-span-2 flex items-center gap-1"><input type="checkbox" name="is_active" value="1" checked> Aktif</label>
-<button class="col-span-2 text-white font-extrabold py-2.5 rounded-2xl" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">BUAT VOUCHER 🎟️</button>
+<button class="col-span-2 text-white font-extrabold py-2.5 rounded-2xl shadow-sm" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">Buat Voucher</button>
 </form>
 </div>
 
@@ -38,8 +46,14 @@
 <label class="text-[11px]">S/d<input name="berlaku_sampai" type="date" value="{{ $v->berlaku_sampai?->format('Y-m-d') }}" class="w-full border rounded-xl px-2 py-1.5"></label>
 </div>
 <input name="nama" value="{{ $v->nama }}" placeholder="Nama promo" class="w-full border rounded-xl px-2 py-1.5 text-xs mt-1.5">
-<button class="w-full mt-1.5 text-white font-bold py-2 rounded-2xl text-xs" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">💾 Simpan</button>
+<button class="w-full mt-1.5 text-white font-bold py-2 rounded-2xl text-xs flex items-center justify-center gap-1.5 shadow-sm" style="background:linear-gradient(90deg,#4c1d95,#ec4899)">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+    <span>Simpan Perubahan</span>
+</button>
 </form>
-<form method="POST" action="/admin/voucher/{{ $v->id }}" onsubmit="return confirm('Hapus {{ $v->kode }}?')">@csrf @method('DELETE')<button class="w-full mt-1 bg-red-50 text-red-600 font-bold py-2 rounded-2xl text-[11px]">🗑️ Hapus / Nonaktifkan</button></form>
+<form method="POST" action="/admin/voucher/{{ $v->id }}" onsubmit="return confirm('Hapus {{ $v->kode }}?')">@csrf @method('DELETE')<button class="w-full mt-1 bg-red-50 text-red-600 font-bold py-2 rounded-2xl text-[11px] flex items-center justify-center gap-1">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+    <span>Hapus / Nonaktifkan</span>
+</button></form>
 @endforeach
 @endsection

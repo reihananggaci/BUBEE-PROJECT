@@ -2,10 +2,21 @@
 @section('title','Admin Order')
 @section('back', '/admin')
 @section('content')
-<h1 class="font-extrabold text-lg">Kelola Order</h1>
-<div class="flex gap-2 mt-1 mb-2">
-<a href="/admin/order/export" class="flex-1 text-center bg-emerald-50 text-emerald-700 font-bold py-2.5 rounded-2xl text-xs">📊 Export CSV</a>
-<form method="POST" action="/admin/order/bersihkan-kedaluwarsa" class="flex-1" onsubmit="return confirm('Batalkan pesanan yang belum dibayar > 24 jam dan kembalikan stok?')">@csrf<button class="w-full bg-rose-50 text-rose-700 font-bold py-2.5 rounded-2xl text-xs">⏳ Auto-Batal 24 Jam</button></form>
+<h1 class="font-extrabold text-lg text-slate-900 flex items-center gap-2">
+    <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12V21l-3-2-3 2-3-2-3 2v-17.5z"/><path d="M9 8.5h6M9 12h6"/></svg>
+    </span>
+    <span>Kelola Order</span>
+</h1>
+<div class="flex gap-2 mt-2 mb-2">
+<a href="/admin/order/export" class="flex-1 flex items-center justify-center gap-1.5 bg-emerald-50 text-emerald-700 font-bold py-2.5 rounded-2xl text-xs border border-emerald-100 hover:bg-emerald-100 transition" style="text-decoration:none">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <span>Export CSV</span>
+</a>
+<form method="POST" action="/admin/order/bersihkan-kedaluwarsa" class="flex-1" onsubmit="return confirm('Batalkan pesanan yang belum dibayar > 24 jam dan kembalikan stok?')">@csrf<button class="w-full flex items-center justify-center gap-1.5 bg-rose-50 text-rose-700 font-bold py-2.5 rounded-2xl text-xs border border-rose-100 hover:bg-rose-100 transition">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>Auto-Batal 24 Jam</span>
+</button></form>
 </div>
 
 {{-- Filter Status Mobile --}}

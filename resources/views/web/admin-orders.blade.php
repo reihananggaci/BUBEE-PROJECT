@@ -3,22 +3,38 @@
 @section('content')
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
     <div>
-        <h1 class="font-extrabold text-2xl">Kelola Order</h1>
-        <div class="text-xs text-slate-500">{{ $orders->total() }} order • ubah status + isi resi langsung dari tabel</div>
+        <h1 class="font-extrabold text-2xl text-slate-900 flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M14 8H8M16 12H8M12 16H8"/></svg>
+            </span>
+            <span>Kelola Order</span>
+        </h1>
+        <div class="text-xs text-slate-500 mt-0.5">{{ $orders->total() }} order • ubah status + isi resi langsung dari tabel</div>
     </div>
     <div class="flex gap-2">
         <form method="POST" action="/admin/order/bersihkan-kedaluwarsa" onsubmit="return confirm('Batalkan pesanan yang belum dibayar > 24 jam dan kembalikan stok?')">
             @csrf
-            <button class="bg-rose-50 text-rose-700 font-bold py-2.5 px-4 rounded-2xl text-xs hover:bg-rose-100 transition">⏳ Auto-Batal 24 Jam</button>
+            <button class="bg-rose-50 text-rose-700 font-bold py-2.5 px-4 rounded-2xl text-xs hover:bg-rose-100 transition inline-flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Auto-Batal 24 Jam</span>
+            </button>
         </form>
-        <a href="/admin/order/export" class="bg-emerald-50 text-emerald-700 font-bold py-2.5 px-5 rounded-2xl text-xs hover:bg-emerald-100 transition" style="text-decoration:none">📊 Export CSV</a>
+        <a href="/admin/order/export" class="bg-emerald-50 text-emerald-700 font-bold py-2.5 px-5 rounded-2xl text-xs hover:bg-emerald-100 transition inline-flex items-center gap-1.5" style="text-decoration:none">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span>Export CSV</span>
+        </a>
     </div>
 </div>
 
 {{-- Filter & Pencarian Order --}}
 <div class="flex flex-col sm:flex-row gap-2 mb-3">
     <form method="GET" action="/admin/order" class="flex gap-1.5 flex-1 max-w-md">
-        <input name="q" value="{{ $q ?? '' }}" placeholder="🔍 Cari kode / resi / nama pembeli…" class="flex-1 border rounded-2xl px-3 py-2 text-xs">
+        <div class="relative flex-1">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </span>
+            <input name="q" value="{{ $q ?? '' }}" placeholder="Cari kode / resi / nama pembeli…" class="w-full border rounded-2xl pl-9 pr-3 py-2 text-xs">
+        </div>
         @if($status)<input type="hidden" name="status" value="{{ $status }}">@endif
         <button class="bg-purple-900 text-white font-bold px-3.5 rounded-2xl text-xs">Cari</button>
     </form>

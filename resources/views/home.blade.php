@@ -7,15 +7,30 @@
 <div class="relative flex items-start gap-3">
 <div class="flex-1 min-w-0">
 <div class="text-[11px] tracking-widest text-cyan-300 font-bold">● STOK REAL-TIME</div>
-<div class="font-extrabold text-xl mt-1">Halo {{ auth()->check() ? explode(' ',auth()->user()->name)[0] : 'Kak' }} 👋</div>
+<div class="font-extrabold text-xl mt-1 flex items-center gap-1.5">
+    <span>Halo {{ auth()->check() ? explode(' ',auth()->user()->name)[0] : 'Kak' }}</span>
+    <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-400/20 text-amber-300">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M21.5 7.5c-.83 0-1.5.67-1.5 1.5v4.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-7c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v7c0 .28-.22.5-.5.5s-.5-.22-.5-.5V3.5c0-.83-.67-1.5-1.5-1.5S12.5 2.67 12.5 3.5v8.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5V5.5c0-.83-.67-1.5-1.5-1.5S8.5 4.67 8.5 5.5v9.18l-1.92-2.02c-.59-.61-1.56-.62-2.16-.03-.61.59-.62 1.56-.03 2.16l4.63 4.86c2.32 2.44 5.54 3.85 8.98 3.85h.5c3.87 0 7-3.13 7-7v-7.5c0-.83-.67-1.5-1.5-1.5z"/></svg>
+    </span>
+</div>
 <div class="text-xs opacity-70 mt-1">Lihat stok, cek harga, pesan sekarang. Semua dalam satu tempat.</div>
 </div>
-<div class="hexbee" title="Bubee">🐝</div>
+<div class="w-10 h-10 rounded-2xl bg-amber-400 text-slate-900 flex items-center justify-center shadow shrink-0" title="Bubee">
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/>
+        <path d="M9 10h6M8 14h8"/>
+    </svg>
+</div>
 </div>
 <div class="relative">
 <form method="GET" action="/" class="mt-3 flex gap-2">
 <input type="hidden" name="filter" value="{{ $filter }}"><input type="hidden" name="kategori" value="{{ $kategori }}"><input type="hidden" name="sort" value="{{ $sort }}">
-<input name="q" value="{{ $q ?? '' }}" placeholder="🔍 Cari barang…" class="flex-1 rounded-2xl px-4 py-2.5 text-sm text-slate-900 outline-none">
+<div class="relative flex-1">
+    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </span>
+    <input name="q" value="{{ $q ?? '' }}" placeholder="Cari barang…" class="w-full rounded-2xl pl-9 pr-3 py-2 text-sm text-slate-900 outline-none">
+</div>
 <button class="bg-cyan-300 text-slate-900 font-extrabold px-4 rounded-2xl text-sm">Cari</button>
 </form>
 </div>
@@ -24,7 +39,7 @@
 {{-- FILTER RAPI --}}
 <div class="glass rounded-3xl shadow-card p-3 mt-3 anim-in" style="--d:60ms">
 <div class="flex gap-1.5 text-[11px] font-bold overflow-x-auto pb-1">
-@foreach(['semua'=>'Semua','baru'=>'🆕 Baru','tersedia'=>'Ready','menipis'=>'Menipis','habis'=>'Habis'] as $k=>$l)
+@foreach(['semua'=>'Semua','baru'=>'Baru','tersedia'=>'Ready','menipis'=>'Menipis','habis'=>'Habis'] as $k=>$l)
 <a href="/?filter={{ $k }}&q={{ $q }}&kategori={{ $kategori }}&sort={{ $sort }}" class="px-3 py-1.5 rounded-full whitespace-nowrap {{ ($filter??'semua')===$k?'bg-blue-900 text-white':'bg-slate-100 text-slate-600' }}">{{ $l }}</a>
 @endforeach
 </div>
@@ -46,10 +61,16 @@
 
 {{-- ROLE BANNER --}}
 @if(auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller!=='approved')
-<div class="rounded-2xl p-3 mt-3 text-xs bg-amber-50 border border-amber-200 text-amber-800">⏳ Menunggu approval admin. Cek status di <a href="/akun" class="font-bold underline">Akun</a>.</div>
+<div class="rounded-2xl p-3 mt-3 text-xs bg-amber-50 border border-amber-200 text-amber-800 flex items-center gap-2">
+    <svg class="w-4 h-4 text-amber-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span>Menunggu approval admin. Cek status di <a href="/akun" class="font-bold underline">Akun</a>.</span>
+</div>
 @endif
 @if(auth()->check() && auth()->user()->role==='reseller' && auth()->user()->status_reseller==='approved')
-<div class="rounded-2xl p-3 mt-3 text-xs font-bold text-white" style="background:linear-gradient(90deg,#059669,#00E5FF)">🎉 Harga reseller aktif! Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja).</div>
+<div class="rounded-2xl p-3 mt-3 text-xs font-bold text-white flex items-center gap-2" style="background:linear-gradient(90deg,#059669,#00E5FF)">
+    <svg class="w-4 h-4 text-emerald-100 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+    <span>Harga reseller aktif! Nikmati harga modal khusus mitra mulai 1 pcs (tanpa minimal belanja).</span>
+</div>
 @endif
 
 {{-- GRID --}}
@@ -84,5 +105,5 @@
 </div>
 @endforeach
 </div>
-@if($products->isEmpty())<div class="glass rounded-3xl p-8 text-center text-sm mt-3"><div class="hexbee mx-auto">🐝</div><div class="mt-2">Produk tidak ketemu di sarang…<br><a href="/" class="font-bold text-blue-700">Reset →</a></div></div>@endif
+@if($products->isEmpty())<div class="glass rounded-3xl p-8 text-center text-sm mt-3"><div class="hexbee mx-auto"><svg class="w-7 h-7 text-slate-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8 2 5 5 5 9c0 2.2 1 4.2 2.5 5.5L7 20l5-2 5 2-.5-5.5C18 13.2 19 11.2 19 9c0-4-3-7-7-7z"/><path d="M9 10h6M8 14h8"/></svg></div><div class="mt-2">Produk tidak ketemu di sarang…<br><a href="/" class="font-bold text-blue-700">Reset →</a></div></div>@endif
 @endsection

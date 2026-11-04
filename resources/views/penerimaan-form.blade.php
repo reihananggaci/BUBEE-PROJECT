@@ -2,15 +2,20 @@
 @section('title','Catat Kedatangan')
 @section('back', '/admin/penerimaan')
 @section('content')
-<h1 class="font-extrabold text-lg">📝 Catat Kedatangan</h1>
-<div class="text-xs text-slate-500 mb-2">1️⃣ isi surat jalan → 2️⃣ pilih barang lama / centang barang baru → 3️⃣ verifikasi QC (stok <b>belum</b> + sekarang).</div>
+<div class="flex items-center gap-2 mb-1">
+    <div class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    </div>
+    <h1 class="font-extrabold text-lg text-slate-900">Catat Kedatangan</h1>
+</div>
+<div class="text-xs text-slate-500 mb-2">Langkah: (1) Isi surat jalan → (2) Pilih barang lama / tandai barang baru → (3) Verifikasi QC fisik.</div>
 <form method="POST" action="/admin/penerimaan" class="glass rounded-3xl shadow-card p-4 mt-2 space-y-2 text-sm">@csrf
 <input name="no_surat_jalan" placeholder="No. surat jalan supplier *" maxlength="50" class="w-full border rounded-2xl px-3 py-2.5" required value="{{ old('no_surat_jalan') }}">
 <input name="supplier" placeholder="Supplier (opsional)" maxlength="100" class="w-full border rounded-2xl px-3 py-2.5" value="{{ old('supplier') }}">
 <div id="baris-wrap" class="space-y-2">
 <div class="baris border rounded-2xl p-2 space-y-1.5">
-<label class="flex items-center gap-2 text-xs font-bold text-purple-800"><input type="checkbox" name="items[0][is_baru]" value="1" class="is-baru w-4 h-4"> 🆕 Barang baru</label>
-<input type="text" class="prod-cari w-full border rounded-xl px-2 py-2 text-xs" placeholder="🔍 Cari barang (nama / kode)…" autocomplete="off">
+<label class="flex items-center gap-2 text-xs font-bold text-purple-800"><input type="checkbox" name="items[0][is_baru]" value="1" class="is-baru w-4 h-4"> Barang baru (belum ada di katalog)</label>
+<input type="text" class="prod-cari w-full border rounded-xl px-2 py-2 text-xs" placeholder="Cari barang (nama / kode)…" autocomplete="off">
 <select name="items[0][product_id]" class="prod-sel w-full border rounded-xl px-2 py-2 text-xs">
 <option value="">— Pilih barang yang sudah ada —</option>
 @foreach($products as $p)<option value="{{ $p->id }}">{{ $p->nama }} (stok {{ $p->stok }})</option>@endforeach

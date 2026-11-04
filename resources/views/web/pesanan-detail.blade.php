@@ -2,24 +2,32 @@
 @section('title','Tracking '.$order->kode)
 @section('content')
 <a href="/pesanan" class="text-xs font-bold text-blue-700" style="text-decoration:none">← Kembali ke Pesanan</a>
-<h1 class="font-extrabold text-2xl mt-1">Tracking 📍</h1>
+<h1 class="font-extrabold text-2xl text-slate-900 mt-2 flex items-center gap-2.5">
+    <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center shrink-0">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    </span>
+    <span>Tracking Pesanan</span>
+</h1>
 <div class="text-xs text-slate-500">{{ $order->kode }} • {{ $order->kurir }} {{ $order->layanan }}@if($order->kota_tujuan) → {{ $order->kota_tujuan }}@endif @if($order->resi)• Resi: <b>{{ $order->resi }}</b>@endif</div>
 <div class="grid gap-4 mt-3 lg:grid-cols-3 lg:items-start">
 <div class="lg:col-span-2 space-y-4">
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card p-5">
-@php $labels=['menunggu_bayar'=>'💳 Bayar','diproses'=>'📦 Diproses','dikirim'=>'🚚 Dikirim','selesai'=>'⭐ Selesai']; @endphp
-<div class="flex justify-between text-[10px] font-bold mb-2">@foreach($labels as $k=>$l)<span class="{{ $current>=($steps[$k]??99)?'text-blue-700':'text-slate-300' }}">{{ $l }}</span>@endforeach</div>
+@php $labels=['menunggu_bayar'=>'Bayar','diproses'=>'Diproses','dikirim'=>'Dikirim','selesai'=>'Selesai']; @endphp
+<div class="flex justify-between text-[11px] font-bold mb-2">@foreach($labels as $k=>$l)<span class="{{ $current>=($steps[$k]??99)?'text-blue-700':'text-slate-300' }}">{{ $l }}</span>@endforeach</div>
 <div class="h-1.5 rounded-full bg-slate-100 overflow-hidden"><div class="h-full bg-blue-700 rounded-full" style="width:{{ $order->status==='batal'?100:($current/4*100) }}%; {{ $order->status==='batal'?'background:#ef4444':'' }}"></div></div>
 <div class="text-sm mt-2">Status: <b>{{ strtoupper($order->status) }}</b> • Total: <b>Rp {{ number_format($order->total_bayar) }}</b></div>
 <div class="text-[11px] text-slate-400">produk Rp {{ number_format($order->total_produk) }} + ongkir Rp {{ number_format($order->ongkir) }}@if($order->diskon>0) − voucher Rp {{ number_format($order->diskon) }}@endif</div>
 @if($order->berat_tagih_gram>0)<div class="text-[11px] text-slate-400">Ditagih {{ number_format($order->berat_tagih_gram/1000,1) }} kg ({{ $order->kurir }})</div>@endif
 <div class="text-sm mt-1">{{ $order->nama_penerima }} ({{ $order->hp_penerima }})<br>{{ $order->alamat }}</div>
 @foreach($order->items as $it)<div class="text-xs text-slate-500">- {{ $it->product->nama ?? '' }} ({{ $it->variant?->label() }}) ×{{ $it->qty }} = Rp {{ number_format($it->subtotal) }}</div>@endforeach
-@if($order->bukti_bayar)<div class="text-xs mt-1">📎 Bukti: <a href="/storage/{{ $order->bukti_bayar }}" target="_blank" class="text-blue-700 font-bold">lihat gambar</a></div>@endif
+@if($order->bukti_bayar)<div class="text-xs mt-1 flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l7.88-7.88"/></svg><span>Bukti:</span> <a href="/storage/{{ $order->bukti_bayar }}" target="_blank" class="text-blue-700 font-bold">lihat gambar</a></div>@endif
 </div>
 @if($order->resi)
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card p-5 text-sm">
-<b>📍 Lacak Paket ({{ $order->kurir }} • {{ $order->resi }})</b>
+<b class="flex items-center gap-1.5 text-slate-900 mb-2">
+    <svg class="w-4 h-4 text-purple-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span>Lacak Paket ({{ $order->kurir }} • {{ $order->resi }})</span>
+</b>
 @if($lacak)
 <div class="mt-1">Status kurir: <b>{{ $lacak['status'] }}</b></div>
 @foreach($lacak['riwayat'] as $m)<div class="text-xs py-1 border-b border-blue-50">• {{ $m['manifest_description'] ?? '' }}<br><span class="text-slate-400">{{ $m['manifest_date'] ?? '' }} {{ $m['manifest_time'] ?? '' }} • {{ $m['city_name'] ?? '' }}</span></div>@endforeach
@@ -31,37 +39,43 @@
 @endif
 @if($order->status==='selesai')
 <div class="bg-white border border-slate-100 rounded-3xl shadow-card p-4 text-sm">
-<b>⭐ Bagaimana barangnya?</b>
+<b class="flex items-center gap-1.5 text-slate-900 mb-1">
+    <svg class="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+    <span>Bagaimana barangnya?</span>
+</b>
 @foreach($order->items as $it)<a href="/produk/{{ $it->product_id }}#ulasan" class="block text-xs text-blue-700 font-bold py-1">→ Ulas {{ $it->product->nama ?? '' }} ({{ $it->variant?->label() }})</a>@endforeach
 </div>
 @endif
 </div>
 <div class="lg:sticky lg:top-20 self-start bg-white border border-slate-100 rounded-3xl shadow-card p-5">
-<div class="font-extrabold text-sm">Aksi Order</div>
+<div class="font-extrabold text-sm text-slate-900">Aksi Order</div>
 <div class="flex flex-col gap-2 mt-2">
 @if(in_array($order->status,['menunggu_bayar','diproses']))
 <details>
-<summary class="block text-center w-full bg-red-500 text-white font-bold py-3 rounded-2xl text-sm cursor-pointer list-none">Batalkan</summary>
+<summary class="block text-center w-full bg-red-500 text-white font-bold py-3 rounded-2xl text-sm cursor-pointer list-none hover:bg-red-600 transition">Batalkan</summary>
 <form method="POST" action="/pesanan/{{ $order->id }}/batal" class="border border-slate-100 rounded-3xl p-3 mt-2 text-sm space-y-2">@csrf
-<label class="text-xs font-bold">Kenapa dibatalkan?
-<select name="alasan" class="w-full border rounded-2xl px-3 py-2 mt-1 font-normal" required>
+<label class="text-xs font-bold text-slate-700">Kenapa dibatalkan?
+<select name="alasan" class="w-full border border-slate-200 rounded-2xl px-3 py-2 mt-1 font-normal bg-white" required>
 <option value="">— Pilih alasan —</option>
 @foreach($alasanBatal as $a)<option value="{{ $a }}">{{ $a }}</option>@endforeach
 </select></label>
-<button class="w-full bg-red-600 text-white font-bold py-2.5 rounded-2xl text-sm" onclick="return confirm('Yakin batalkan order ini?')">Ya, Batalkan</button>
+<button class="w-full bg-red-600 text-white font-bold py-2.5 rounded-2xl text-sm hover:bg-red-700 transition" onclick="return confirm('Yakin batalkan order ini?')">Ya, Batalkan</button>
 </form>
 </details>
 @endif
-@if($order->status==='menunggu_bayar')<a href="/bayar/{{ $order->id }}" class="text-center text-white font-bold py-3 rounded-2xl text-sm" style="background:linear-gradient(90deg,#0B2A6B,#00B8D4);text-decoration:none">Bayar</a>@endif
+@if($order->status==='menunggu_bayar')<a href="/bayar/{{ $order->id }}" class="text-center text-white font-bold py-3 rounded-2xl text-sm shadow-sm" style="background:linear-gradient(90deg,#0B2A6B,#00B8D4);text-decoration:none">Bayar</a>@endif
 @if($order->status==='dikirim')
-<form method="POST" action="/pesanan/{{ $order->id }}/selesai">@csrf<button class="w-full bg-emerald-500 text-white font-bold py-3 rounded-2xl text-sm">Selesai ⭐</button></form>
+<form method="POST" action="/pesanan/{{ $order->id }}/selesai">@csrf<button class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-2xl text-sm transition">Konfirmasi Selesai</button></form>
 @endif
 @if($order->status==='selesai')
-<a href="/pesanan/{{ $order->id }}/retur" class="text-center bg-amber-100 text-amber-800 font-bold py-2.5 rounded-2xl text-sm" style="text-decoration:none">Ajukan Retur</a>
-<a href="/pesanan/{{ $order->id }}/invoice" class="text-center bg-blue-50 text-blue-800 font-bold py-2.5 rounded-2xl text-sm" style="text-decoration:none">Invoice PDF</a>
+<a href="/pesanan/{{ $order->id }}/retur" class="text-center bg-amber-100 hover:bg-amber-200 text-amber-800 font-bold py-2.5 rounded-2xl text-sm transition" style="text-decoration:none">Ajukan Retur</a>
+<a href="/pesanan/{{ $order->id }}/invoice" class="text-center bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold py-2.5 rounded-2xl text-sm transition" style="text-decoration:none">Invoice PDF</a>
 @endif
 @php $waAdmin = \App\Models\Setting::get('wa_admin','6281234567890'); @endphp
-<a href="https://wa.me/{{ $waAdmin }}?text={{ urlencode('Halo Bubee, order '.$order->kode) }}" target="_blank" class="block text-center text-sm font-bold text-emerald-700 border border-slate-100 rounded-2xl py-2.5" style="text-decoration:none">💬 Chat Admin</a>
+<a href="https://wa.me/{{ $waAdmin }}?text={{ urlencode('Halo Bubee, order '.$order->kode) }}" target="_blank" class="flex items-center justify-center gap-2 text-sm font-bold text-emerald-700 border border-emerald-200 bg-emerald-50/50 hover:bg-emerald-50 rounded-2xl py-2.5 transition" style="text-decoration:none">
+    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <span>Chat Admin</span>
+</a>
 </div>
 </div>
 </div>
