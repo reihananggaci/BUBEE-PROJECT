@@ -152,11 +152,17 @@ main details>summary:hover{color:#7c3aed}
 <div class="flex-1 min-w-0">
 <header class="wtopbar sticky top-0 z-40 px-5 py-3 flex items-center gap-3" style="background:linear-gradient(120deg,#2e1065,#7c3aed 60%,#c026d3);border-bottom:1px solid rgba(255,255,255,.2)">
 <span class="lg:hidden" style="font-weight:800;color:#fff">☰</span>
-<span style="font-weight:800;color:#fff">👑 MODE ADMIN</span>
+<span class="inline-flex items-center gap-1.5 font-extrabold text-white text-xs tracking-wider uppercase">
+    <svg class="w-4 h-4 text-amber-300" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14v2H5v-2z"/></svg>
+    <span>MODE ADMIN</span>
+</span>
 <span style="flex:1"></span>
 @php $notifGagal = \App\Models\NotificationLog::where('status','!=','terkirim')->where('created_at','>=',now()->subDays(7))->count(); @endphp
-<a href="/admin/notifikasi" title="Notifikasi" style="position:relative;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:7px 11px;font-size:14px;font-weight:800;text-decoration:none">🔔@if($notifGagal>0)<span style="position:absolute;top:-7px;right:-7px;background:#ef4444;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;line-height:18px;text-align:center;border-radius:9999px;padding:0 4px">{{ $notifGagal>99?'99+':$notifGagal }}</span>@endif</a>
-@if(auth()->check())<span style="color:#fff;font-size:12px">{{ auth()->user()->name }}</span>@endif
+<a href="/admin/notifikasi" title="Notifikasi" class="inline-flex items-center justify-center relative hover:bg-white/20 transition active:scale-95" style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:7px 11px;text-decoration:none">
+    <svg class="w-4.5 h-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+    @if($notifGagal>0)<span style="position:absolute;top:-7px;right:-7px;background:#ef4444;color:#fff;font-size:10px;font-weight:800;min-width:18px;height:18px;line-height:18px;text-align:center;border-radius:9999px;padding:0 4px">{{ $notifGagal>99?'99+':$notifGagal }}</span>@endif
+</a>
+@if(auth()->check())<span style="color:#fff;font-size:12px;font-weight:700">{{ auth()->user()->name }}</span>@endif
 <form method="POST" action="/logout" style="margin:0">@csrf<button style="background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:7px 12px;font-size:11px;font-weight:800;cursor:pointer">Keluar</button></form>
 </header>
 <main class="max-w-6xl mx-auto px-5 py-6">
