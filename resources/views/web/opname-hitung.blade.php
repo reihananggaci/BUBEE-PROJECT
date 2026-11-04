@@ -7,9 +7,20 @@
 <div class="grid gap-4 mt-3 lg:grid-cols-3 lg:items-start">
 <div class="bg-white rounded-3xl shadow-card p-4 text-sm">
 <div class="font-extrabold mb-2">Daftar barang</div>
-<div class="space-y-1 max-h-96 overflow-y-auto">
-@foreach($products as $i => $p)<a href="/admin/opname/{{ $sesi->id }}?p={{ $i }}" class="block px-3 py-2 rounded-2xl text-xs font-bold {{ $i===$pos?'bg-purple-900 text-white':'bg-slate-100 text-slate-600' }}" style="text-decoration:none">{{ $i+1 }}. {{ $p->nama }}</a>@endforeach
+<div class="mb-2">
+    <input type="text" id="cari-barang-sesi" placeholder="🔍 Cari nama barang..." class="w-full border border-slate-200 rounded-xl px-2.5 py-1.5 text-xs bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-purple-600 font-medium">
 </div>
+<div class="space-y-1 max-h-96 overflow-y-auto" id="list-barang-sesi">
+@foreach($products as $i => $p)<a href="/admin/opname/{{ $sesi->id }}?p={{ $i }}" class="item-barang-sesi block px-3 py-2 rounded-2xl text-xs font-bold {{ $i===$pos?'bg-purple-900 text-white':'bg-slate-100 text-slate-600' }}" data-nama="{{ strtolower($p->nama) }}" style="text-decoration:none">{{ $i+1 }}. {{ $p->nama }}</a>@endforeach
+</div>
+<script>
+document.getElementById('cari-barang-sesi')?.addEventListener('input', function() {
+    var q = this.value.toLowerCase().trim();
+    document.querySelectorAll('.item-barang-sesi').forEach(function(el) {
+        el.style.display = (!q || (el.dataset.nama || '').includes(q)) ? 'block' : 'none';
+    });
+});
+</script>
 <a href="/admin/opname/{{ $sesi->id }}?belum=1" class="block text-center mt-2 text-xs font-bold text-purple-700">yang belum saja →</a>
 </div>
 <div class="lg:col-span-2 bg-white rounded-3xl shadow-card p-5">
