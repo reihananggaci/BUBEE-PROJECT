@@ -1,12 +1,63 @@
 # Dokumentasi ERD dan LRS - Project Bubee
 
 Dokumen ini berisi pemodelan basis data sistem **Bubee** (Platform E-Commerce & Reseller Tumbler/Botol Minum) yang mencakup:
-1. **Entity Relationship Diagram (ERD)** — Model konseptual & relasi antar entitas beserta derajat kardinalitasnya.
-2. **Logical Record Structure (LRS)** — Transformasi struktur rekaman logis relasional hasil normalisasi basis data.
-3. **Spesifikasi Skema Relasi (Relational Schema)** — Notasi formal kunci utama (*PK) dan kunci tamu (**FK).
-4. **Kamus Data (Data Dictionary)** — Detail tipe data, atribut, nullability, dan fungsi setiap entitas.
+1. **Interactive Visualizer & Editor (Bisa Digeser & Diedit)**:
+   - **Web Browser Interaktif**: Buka [`public/erd-lrs.html`](file:///c:/xampp/htdocs/project%20bubee/public/erd-lrs.html) di browser atau via URL `http://localhost:8000/erd-lrs.html`.
+   - **File Draw.io / Diagrams.net**: Buka file [`docs/BUBEE_ERD_LRS.drawio`](file:///c:/xampp/htdocs/project%20bubee/docs/BUBEE_ERD_LRS.drawio) di [app.diagrams.net](https://app.diagrams.net).
+2. **Entity Relationship Diagram (ERD)** — Model konseptual & relasi antar entitas beserta derajat kardinalitasnya.
+3. **Logical Record Structure (LRS)** — Transformasi struktur rekaman logis relasional hasil normalisasi basis data.
+4. **Spesifikasi Skema Relasi (Relational Schema)** — Notasi formal kunci utama (*PK) dan kunci tamu (**FK).
+5. **Kamus Data (Data Dictionary)** — Detail tipe data, atribut, nullability, dan fungsi setiap entitas.
+6. **Panduan Cara Menjelaskan ke Penguji / Klien** — Alur narasi 5 modul bisnis + contekan jawaban pertanyaan dosen/penguji.
 
 File ini diletakkan terpisah di folder `docs/` agar tidak mengganggu maupun mengubah alur kode utama aplikasi.
+
+---
+
+## 🚀 Akses Cepat Alat Visualisasi & Editor (Interactive Canvas)
+
+| Alat | Cara Membuka | Fitur Utama |
+|---|---|---|
+| **Web Canvas Interaktif** | Buka `http://localhost:8000/erd-lrs.html` atau double-click `docs/erd-lrs.html` | ✅ Geser kotak tabel secara bebas (Drag & Drop)<br>✅ Garis konektor otomatis mengikuti posisi tabel<br>✅ Mode Switch ERD vs LRS<br>✅ Filter per modul bisnis<br>✅ Tambah/Edit tabel & kolom secara langsung |
+| **Draw.io / Diagrams.net** | Buka [app.diagrams.net](https://app.diagrams.net) -> Open Existing Diagram -> pilih `docs/BUBEE_ERD_LRS.drawio` | ✅ Page 1: ERD Konseptual<br>✅ Page 2: LRS Relasional<br>✅ Page 3: Diagram Alur Presentasi<br>✅ Siap diekspor ke PDF/PNG/SVG untuk laporan skripsi/dokumen teknis |
+
+---
+
+## 🎤 Panduan Cara Menjelaskan ERD & LRS ke Dosen / Penguji
+
+Agar tidak bingung menjelaskan 22 tabel sekaligus, jelaskan menggunakan **Metode 5 Modul Alur Bisnis (End-to-End Flow)** berikut:
+
+```
+[1. PENGGUNA] ➔ [2. PRODUK & VARIAN] ➔ [3. TRANSAKSI] ➔ [4. PASCA JUAL] ➔ [5. GUDANG]
+```
+
+### Modul 1: Autentikasi & Multi-Role Pengguna (`users`, `otps`, `activity_logs`)
+- **Penjelasan**: "Sistem Bubee memiliki 4 peran (`customer`, `reseller`, `admin`, `gudang`). Untuk pendaftaran dan pemulihan password, sistem menggunakan verifikasi OTP 6 digit (`otps`) dengan batas kedaluwarsa 15 menit. Setiap aktivitas krusial pengguna dicatat di `activity_logs` demi audit trail keamanan."
+
+### Modul 2: Katalog Produk Dinamis (`products`, `product_variants`, `product_images`, `product_prices`)
+- **Penjelasan**: "Satu produk tumbler dapat memiliki banyak varian ukuran dan warna (`product_variants`), multi galeri foto (`product_images`), serta tier harga fleksibel (`product_prices`). Pemisahan ini menerapkan normalisasi Third Normal Form (3NF) sehingga atribut fisik dan harga tidak duplikasi."
+
+### Modul 3: Keranjang & Transaksi Penjualan (`carts`, `orders`, `order_items`, `vouchers`, `notification_logs`)
+- **Penjelasan**: "User menampung barang di `carts`. Saat checkout, sistem membuat `orders` dan menduplikasi data pesanan ke `order_items`. Di tabel `order_items`, harga satuan di-*snapshot* (disimpan permanen) sehingga jika admin mengubah harga produk di masa depan, total historis transaksi masa lalu tidak ikut berubah."
+
+### Modul 4: Pasca Penjualan / Layanan Purna Jual (`returs`, `retur_items`, `reviews`)
+- **Penjelasan**: "Pelanggan yang sudah menerima pesanan dapat mengajukan klaim garansi/retur barang cacat (`returs` & `retur_items`) dengan unggah bukti video. Pelanggan juga dapat memberikan rating bintang 1–5 serta ulasan (`reviews`)."
+
+### Modul 5: Logistik & Manajemen Pergudangan (`stock_mutations`, `penerimaan`, `penerimaan_items`, `opname_sesi`, `opname_items`)
+- **Penjelasan**: "Setiap perubahan stok (penjualan, retur, koreksi) dicatat dalam buku besar `stock_mutations`. Stok masuk dari supplier dicatat melalui `penerimaan`, dan verifikasi berkala stok fisik gudang dikelola lewat sesi stock opname (`opname_sesi` & `opname_items`) untuk mendeteksi selisih barang."
+
+---
+
+### 💡 FAQ Pertanyaan Dosen / Penguji yang Sering Ditanyakan
+
+1. **Tanya: Mengapa tabel `product_variants` dipisahkan dari `products`?**
+   - **Jawab**: "Karena satu produk tumbler (misal Tyeso TS-8827) memiliki kombinasi ukuran (750ml, 900ml) dan warna (Putih, Toska, Sage, Pink). Masing-masing varian memiliki SKU independen dan jumlah stok fisik sendiri. Jika digabung di satu tabel, terjadi redudansi data yang melanggar aturan normalisasi basis data."
+2. **Tanya: Mengapa di `order_items` ada kolom `harga_satuan`, padahal harga sudah ada di `products` / `product_prices`?**
+   - **Jawab**: "Ini adalah prinsip *Data Immobility / Price Snapshot* pada sistem e-commerce finansial. Harga produk di tabel master bersifat dinamis (bisa naik/turun karena promo/inflasi). Jika di `order_items` hanya merujuk ke tabel master, laporan omzet masa lalu akan rusak setiap kali harga produk berubah."
+3. **Tanya: Bagaimana sistem membedakan harga Retail vs Reseller?**
+   - **Jawab**: "Di tabel `users`, ada status `status_reseller` dan role. Sistem secara dinamis membaca `product_prices` atau tier diskon reseller saat pengguna menambahkan barang ke keranjang atau checkout."
+
+---
 
 ---
 
@@ -748,3 +799,4 @@ Format formal skema basis data (*PK = Primary Key, **FK = Foreign Key):
 | `opname_items.snapshot` | int(11) | NO | Stok tercatat di database saat sesi dibuka |
 | `opname_items.fisik` | int(11) | YES | Hasil hitungan riil barang di rak gudang |
 | `opname_items.foto` | varchar(255) | YES | Bukti foto jika terdapat selisih mencolok |
+
