@@ -177,40 +177,24 @@ $formatMutasi = function($tipe) {
     </div>
 </div>
 
-{{-- ==================== NAVIGASI SLIDER TAB DENGAN PANAH KE SAMPING ==================== --}}
-<div class="mt-6 bg-white rounded-3xl p-3 shadow-card border border-slate-100 flex items-center justify-between flex-wrap gap-2 print:hidden">
-    {{-- Tombol Panah Kiri --}}
-    <button type="button" onclick="geserSlide(-1)" class="w-10 h-10 rounded-2xl bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-900 font-black text-lg flex items-center justify-center transition shadow-sm active:scale-95" title="Bagian Sebelumnya (Panah Kiri)">
-        ❮
+{{-- ==================== NAVIGASI TAB MENU LAPORAN ==================== --}}
+<div class="mt-6 bg-white rounded-3xl p-3 shadow-card border border-slate-100 flex items-center gap-2 overflow-x-auto print:hidden" id="laporanTabList">
+    <button type="button" onclick="pilihSlide(1)" id="tab-btn-1" class="tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-black transition flex items-center gap-2 bg-purple-900 text-white shadow-md whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <span>1. Status & Ekspedisi Kurir</span>
     </button>
-    
-    {{-- Tombol Tab Pilihan --}}
-    <div class="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none" id="laporanTabList">
-        <button type="button" onclick="pilihSlide(1)" id="tab-btn-1" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-black transition flex items-center gap-2 bg-purple-900 text-white shadow-md">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-            <span>1. Status & Ekspedisi Kurir</span>
-        </button>
-        <button type="button" onclick="pilihSlide(2)" id="tab-btn-2" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-            <span>2. Produk Terlaris & Pelanggan</span>
-        </button>
-        <button type="button" onclick="pilihSlide(3)" id="tab-btn-3" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            <span>3. Rincian Penjualan Harian</span>
-        </button>
-        <button type="button" onclick="pilihSlide(4)" id="tab-btn-4" class="tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
-            <span>4. Daftar Pesanan & Stok</span>
-        </button>
-    </div>
-
-    {{-- Info Posisi & Tombol Panah Kanan --}}
-    <div class="flex items-center gap-2">
-        <span id="slide-indicator" class="text-xs font-extrabold text-purple-900 bg-purple-50 px-3 py-1.5 rounded-xl border border-purple-200 hidden sm:inline-block">Bagian 1 dari 4</span>
-        <button type="button" onclick="geserSlide(1)" class="w-10 h-10 rounded-2xl bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-900 font-black text-lg flex items-center justify-center transition shadow-sm active:scale-95" title="Bagian Selanjutnya (Panah Kanan)">
-            ❯
-        </button>
-    </div>
+    <button type="button" onclick="pilihSlide(2)" id="tab-btn-2" class="tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+        <span>2. Produk Terlaris & Pelanggan</span>
+    </button>
+    <button type="button" onclick="pilihSlide(3)" id="tab-btn-3" class="tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        <span>3. Rincian Penjualan Harian</span>
+    </button>
+    <button type="button" onclick="pilihSlide(4)" id="tab-btn-4" class="tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60 whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+        <span>4. Daftar Pesanan & Stok</span>
+    </button>
 </div>
 
 <style>
@@ -668,9 +652,9 @@ function updateSlideDisplay() {
         }
         if (btn) {
             if (i === currentSlide) {
-                btn.className = "tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-black transition flex items-center gap-2 bg-purple-900 text-white shadow-md";
+                btn.className = "tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-black transition flex items-center gap-2 bg-purple-900 text-white shadow-md whitespace-nowrap";
             } else {
-                btn.className = "tab-laporan-btn px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60";
+                btn.className = "tab-laporan-btn px-4 py-2.5 rounded-2xl text-xs font-bold transition flex items-center gap-2 bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200/60 whitespace-nowrap";
             }
         }
     }
