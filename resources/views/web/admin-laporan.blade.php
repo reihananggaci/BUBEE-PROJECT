@@ -200,6 +200,8 @@ $formatMutasi = function($tipe) {
 <style>
 @media print {
     .slide-panel-item { display: block !important; margin-bottom: 24px; }
+    .harian-row { display: table-row !important; }
+    .harian-pagination-bar { display: none !important; }
 }
 </style>
 
@@ -452,6 +454,41 @@ $formatMutasi = function($tipe) {
             <span class="text-xs font-bold text-slate-400">{{ count($harian) }} Hari Tercatat</span>
         </div>
 
+        {{-- KONTROL PAGINASI PANAH ATAS --}}
+        <div class="harian-pagination-bar flex flex-col sm:flex-row items-center justify-between gap-3 mb-4 select-none print:hidden">
+            <div class="harian-pagination-info text-xs text-slate-500 font-medium text-center sm:text-left">
+                Memuat rincian harian...
+            </div>
+
+            <div class="inline-flex items-center gap-2 flex-wrap justify-center">
+                {{-- Pilihan Jumlah Per Halaman --}}
+                <div class="inline-flex items-center gap-1.5 text-xs text-slate-500 mr-2">
+                    <span class="text-[11px] font-bold text-slate-400">Tampil:</span>
+                    <select onchange="gantiHarianPerPage(this.value)" class="bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold rounded-xl px-2 py-1 focus:outline-none focus:ring-1 focus:ring-purple-600 cursor-pointer">
+                        <option value="7" selected>7 Hari (1 Minggu)</option>
+                        <option value="10">10 Hari</option>
+                        <option value="15">15 Hari</option>
+                        <option value="0">Semua Hari</option>
+                    </select>
+                </div>
+
+                {{-- Tombol Panah Kiri --}}
+                <button type="button" onclick="geserHarianPage(-1)" class="btn-harian-prev inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-purple-900 bg-white border border-slate-200 rounded-xl hover:bg-purple-50 transition shadow-xs cursor-pointer active:scale-95" title="Halaman Sebelumnya">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                    <span>Sebelumnya</span>
+                </button>
+
+                {{-- Nomor Halaman --}}
+                <div class="harian-page-numbers inline-flex items-center gap-1"></div>
+
+                {{-- Tombol Panah Kanan --}}
+                <button type="button" onclick="geserHarianPage(1)" class="btn-harian-next inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-purple-900 bg-white border border-slate-200 rounded-xl hover:bg-purple-50 transition shadow-xs cursor-pointer active:scale-95" title="Halaman Berikutnya">
+                    <span>Berikutnya</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+
         <div class="overflow-x-auto">
             <table class="w-full text-xs lg:table">
                 <thead>
@@ -463,9 +500,9 @@ $formatMutasi = function($tipe) {
                         <th class="py-2.5 px-3 text-right">Pendapatan Bersih (Omzet)</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @foreach($harian as $h)
-                    <tr class="hover:bg-slate-50/70 transition">
+                <tbody class="divide-y divide-slate-100" id="harian-table-body">
+                    @foreach($harian as $idx => $h)
+                    <tr class="harian-row hover:bg-slate-50/70 transition" data-index="{{ $idx }}">
                         <td class="py-2.5 px-3 font-bold text-slate-800">
                             <span class="text-purple-900 font-extrabold">{{ $h['hari'] }},</span> {{ $h['tgl'] }}
                         </td>
@@ -494,6 +531,30 @@ $formatMutasi = function($tipe) {
                     @endforeach
                 </tbody>
             </table>
+        </div>
+
+        {{-- KONTROL PAGINASI PANAH BAWAH --}}
+        <div class="harian-pagination-bar flex flex-col sm:flex-row items-center justify-between gap-3 mt-4 pt-4 border-t border-slate-100 select-none print:hidden">
+            <div class="harian-pagination-info text-xs text-slate-500 font-medium text-center sm:text-left">
+                Memuat rincian harian...
+            </div>
+
+            <div class="inline-flex items-center gap-1.5 flex-wrap justify-center">
+                {{-- Tombol Panah Kiri --}}
+                <button type="button" onclick="geserHarianPage(-1)" class="btn-harian-prev inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-purple-900 bg-white border border-slate-200 rounded-xl hover:bg-purple-50 transition shadow-xs cursor-pointer active:scale-95" title="Halaman Sebelumnya">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                    <span>Sebelumnya</span>
+                </button>
+
+                {{-- Nomor Halaman --}}
+                <div class="harian-page-numbers inline-flex items-center gap-1"></div>
+
+                {{-- Tombol Panah Kanan --}}
+                <button type="button" onclick="geserHarianPage(1)" class="btn-harian-next inline-flex items-center gap-1 px-3 py-1.5 text-xs font-bold text-purple-900 bg-white border border-slate-200 rounded-xl hover:bg-purple-50 transition shadow-xs cursor-pointer active:scale-95" title="Halaman Berikutnya">
+                    <span>Berikutnya</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -628,6 +689,9 @@ const totalSlides = 4;
 function pilihSlide(n) {
     currentSlide = n;
     updateSlideDisplay();
+    if (n === 3) {
+        renderHarianPagination();
+    }
 }
 
 function geserSlide(dir) {
@@ -635,6 +699,9 @@ function geserSlide(dir) {
     if (currentSlide < 1) currentSlide = totalSlides;
     if (currentSlide > totalSlides) currentSlide = 1;
     updateSlideDisplay();
+    if (currentSlide === 3) {
+        renderHarianPagination();
+    }
 }
 
 function updateSlideDisplay() {
@@ -663,6 +730,112 @@ function updateSlideDisplay() {
         indicator.innerText = 'Bagian ' + currentSlide + ' dari ' + totalSlides;
     }
 }
+
+// ==================== PAGINASI TABEL RINCIAN PENJUALAN HARIAN ====================
+let harianPage = 1;
+let harianPerPage = 7; // Default 7 hari agar ringkas dan tidak memanjang ke bawah
+
+function gantiHarianPerPage(val) {
+    harianPerPage = parseInt(val);
+    harianPage = 1;
+    renderHarianPagination();
+}
+
+function geserHarianPage(dir) {
+    const rows = document.querySelectorAll('.harian-row');
+    const totalItems = rows.length;
+    const totalPages = harianPerPage === 0 ? 1 : Math.ceil(totalItems / harianPerPage);
+
+    harianPage += dir;
+    if (harianPage < 1) harianPage = 1;
+    if (harianPage > totalPages) harianPage = totalPages;
+    renderHarianPagination();
+}
+
+function setHarianPage(n) {
+    harianPage = n;
+    renderHarianPagination();
+}
+
+function renderHarianPagination() {
+    const rows = document.querySelectorAll('.harian-row');
+    const totalItems = rows.length;
+    if (totalItems === 0) {
+        document.querySelectorAll('.harian-pagination-info').forEach(el => el.innerHTML = 'Tidak ada data tercatat');
+        return;
+    }
+
+    const totalPages = harianPerPage === 0 ? 1 : Math.ceil(totalItems / harianPerPage);
+    if (harianPage > totalPages) harianPage = totalPages;
+    if (harianPage < 1) harianPage = 1;
+
+    const startIndex = harianPerPage === 0 ? 0 : (harianPage - 1) * harianPerPage;
+    const endIndex = harianPerPage === 0 ? totalItems : Math.min(startIndex + harianPerPage, totalItems);
+
+    rows.forEach((row, idx) => {
+        if (idx >= startIndex && idx < endIndex) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+
+    const infoText = harianPerPage === 0
+        ? `Menampilkan seluruh <span class="font-extrabold text-slate-800">${totalItems}</span> hari tercatat`
+        : `Menampilkan <span class="font-extrabold text-slate-800">${startIndex + 1}</span>–<span class="font-extrabold text-slate-800">${endIndex}</span> dari <span class="font-extrabold text-slate-800">${totalItems}</span> hari (Halaman <span class="font-extrabold text-purple-900">${harianPage}</span> dari ${totalPages})`;
+
+    document.querySelectorAll('.harian-pagination-info').forEach(el => el.innerHTML = infoText);
+
+    document.querySelectorAll('.btn-harian-prev').forEach(btn => {
+        btn.disabled = (harianPage <= 1 || harianPerPage === 0);
+        if (harianPage <= 1 || harianPerPage === 0) {
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+            btn.classList.remove('hover:bg-purple-100', 'active:scale-95');
+        } else {
+            btn.classList.remove('opacity-40', 'cursor-not-allowed');
+            btn.classList.add('hover:bg-purple-100', 'active:scale-95');
+        }
+    });
+
+    document.querySelectorAll('.btn-harian-next').forEach(btn => {
+        btn.disabled = (harianPage >= totalPages || harianPerPage === 0);
+        if (harianPage >= totalPages || harianPerPage === 0) {
+            btn.classList.add('opacity-40', 'cursor-not-allowed');
+            btn.classList.remove('hover:bg-purple-100', 'active:scale-95');
+        } else {
+            btn.classList.remove('opacity-40', 'cursor-not-allowed');
+            btn.classList.add('hover:bg-purple-100', 'active:scale-95');
+        }
+    });
+
+    document.querySelectorAll('.harian-page-numbers').forEach(container => {
+        container.innerHTML = '';
+        if (totalPages <= 1 || harianPerPage === 0) return;
+
+        let startPage = Math.max(1, harianPage - 2);
+        let endPage = Math.min(totalPages, startPage + 4);
+        if (endPage - startPage < 4) {
+            startPage = Math.max(1, endPage - 4);
+        }
+
+        for (let p = startPage; p <= endPage; p++) {
+            const numBtn = document.createElement('button');
+            numBtn.type = 'button';
+            numBtn.innerText = p;
+            if (p === harianPage) {
+                numBtn.className = 'w-8 h-8 rounded-xl text-xs font-black bg-purple-900 text-white shadow-xs';
+            } else {
+                numBtn.className = 'w-8 h-8 rounded-xl text-xs font-bold bg-white text-slate-700 hover:bg-purple-50 border border-slate-200 transition cursor-pointer active:scale-95';
+                numBtn.onclick = () => setHarianPage(p);
+            }
+            container.appendChild(numBtn);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    renderHarianPagination();
+});
 </script>
 
 @endsection
